@@ -1,0 +1,18 @@
+﻿################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/.vs
+/StarmanLib/.vs/StarmanLib/v16
+/StarmanLib/CraftSystem/Debug
+/StarmanLib/CraftSystemTest/Debug
+/StarmanLib/Debug
+/StarmanLib/EnemyManager/Debug
+/StarmanLib/EnemyManagerTest/Debug
+*.user
+/StarmanLib/ItemManager/Debug
+/StarmanLib/ItemManagerTest/Debug
+/StarmanLib/MapManager/Debug
+/StarmanLib/MapManagerTest/Debug
+/StarmanLib/Status/Debug
+/StarmanLib/StatusTest/Debug
