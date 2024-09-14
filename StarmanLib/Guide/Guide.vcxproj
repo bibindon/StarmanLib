@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8e6aebbb-925c-4d0a-866e-708161e7eaf5}</ProjectGuid>
-    <RootNamespace>WeaponManager</RootNamespace>
+    <ProjectGuid>{ae17a9cf-b87e-42cc-be92-b10b983caed6}</ProjectGuid>
+    <RootNamespace>Guide</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,11 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="HeaderOnlyCsv.hpp" />
-    <ClInclude Include="WeaponManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="WeaponManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
