@@ -1,5 +1,8 @@
 #include "WeaponManager.h"
 #include "HeaderOnlyCsv.hpp"
+#include "CaesarCipher.h"
+
+#include <iomanip>
 
 
 void WeaponManager::Init(const std::string& csvfilename,
@@ -7,8 +10,17 @@ void WeaponManager::Init(const std::string& csvfilename,
 {
     // 武器データを読む
     {
-        // TODO 暗号化・復号化
-        std::vector<std::vector<std::string>> vss = csv::Read(csvfilename);
+        std::vector<std::vector<std::string>> vss;
+        // 暗号化されたファイルを復号化するか
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfilename);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfilename);
+            vss = csv::ReadFromString(work);
+        }
 
         // 先頭行は無視
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -37,7 +49,18 @@ void WeaponManager::Init(const std::string& csvfilename,
     }
     // 保存された武器の情報を読み込む
     {
-        std::vector<std::vector<std::string>> vss = csv::Read(savefilename);
+        std::vector<std::vector<std::string>> vss;
+        // 暗号化されたファイルを復号化するか
+        if (decrypt == false)
+        {
+            vss = csv::Read(savefilename);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(savefilename);
+            vss = csv::ReadFromString(work);
+        }
+
         // 先頭行は無視
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
@@ -55,7 +78,17 @@ void WeaponManager::Init(const std::string& csvfilename,
     }
     // 武器一つごとのセーブデータを読み込む
     {
-        std::vector<std::vector<std::string>> vss = csv::Read(subSavefilename);
+        std::vector<std::vector<std::string>> vss;
+        // 暗号化されたファイルを復号化するか
+        if (decrypt == false)
+        {
+            vss = csv::Read(subSavefilename);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(subSavefilename);
+            vss = csv::ReadFromString(work);
+        }
 
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
@@ -118,7 +151,28 @@ void WeaponManager::Save(
             vss.push_back(vs);
             vs.clear();
         }
-        csv::Write(savefilename, vss);
+
+        if (encrypt == false)
+        {
+            csv::Write(savefilename, vss);
+        }
+        else
+        {
+            std::stringstream ss;
+            for (std::size_t i = 0; i < vss.size(); ++i)
+            {
+                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+                {
+                    ss << vss.at(i).at(j);
+                    if (j != vss.at(i).size() - 1)
+                    {
+                        ss << ",";
+                    }
+                }
+                ss << "\n";
+            }
+            CaesarCipher::EncryptToFile(ss.str(), savefilename);
+        }
     }
 
     {
@@ -142,7 +196,11 @@ void WeaponManager::Save(
                 vs.push_back(itBegin->second.at(i).GetId());
                 vs.push_back(std::to_string(itBegin->second.at(i).GetIdSub()));
                 vs.push_back(std::to_string(itBegin->second.at(i).GetReinforce()));
-                vs.push_back(std::to_string(itBegin->second.at(i).GetAttackRate()));
+                // 小数は小数点以下1桁まで
+                std::ostringstream oss;
+                oss << std::fixed << std::setprecision(1) << itBegin->second.at(i).GetAttackRate();;
+                std::string stringNum = oss.str();
+                vs.push_back(oss.str());
                 vs.push_back(std::to_string(itBegin->second.at(i).GetFlightDistance()));
                 vs.push_back(std::to_string(itBegin->second.at(i).GetDurabilityMax()));
                 vs.push_back(std::to_string(itBegin->second.at(i).GetDurability()));
@@ -150,7 +208,28 @@ void WeaponManager::Save(
                 vs.clear();
             }
         }
-        csv::Write(subSavefilename, vss);
+
+        if (encrypt == false)
+        {
+            csv::Write(subSavefilename, vss);
+        }
+        else
+        {
+            std::stringstream ss;
+            for (std::size_t i = 0; i < vss.size(); ++i)
+            {
+                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+                {
+                    ss << vss.at(i).at(j);
+                    if (j != vss.at(i).size() - 1)
+                    {
+                        ss << ",";
+                    }
+                }
+                ss << "\n";
+            }
+            CaesarCipher::EncryptToFile(ss.str(), subSavefilename);
+        }
     }
 }
 
