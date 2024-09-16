@@ -2,10 +2,12 @@
 #include "HeaderOnlyCsv.hpp"
 
 
-void WeaponManager::Init(const std::string& csvfilename, const std::string& savefilename)
+void WeaponManager::Init(const std::string& csvfilename,
+    const std::string& savefilename, const std::string& subSavefilename, const bool decrypt)
 {
     // 武器データを読む
     {
+        // TODO 暗号化・復号化
         std::vector<std::vector<std::string>> vss = csv::Read(csvfilename);
 
         // 先頭行は無視
@@ -28,41 +30,44 @@ void WeaponManager::Init(const std::string& csvfilename, const std::string& save
             weaponType.SetStaminaDown(atof(vss.at(i).at(12).c_str()));
             weaponType.SetDurability(atoi(vss.at(i).at(13).c_str()));
             weaponType.SetDurabilityUp(atoi(vss.at(i).at(14).c_str()));
-            weaponType.SetOwnDamage(atof(vss.at(i).at(15).c_str()));
-            if (vss.at(i).at(16) == "true")
+            weaponType.SetOwnDamage(atoi(vss.at(i).at(15).c_str()));
+
+            m_weaponTypeMap[weaponType.GetId()] = weaponType;
+        }
+    }
+    // 保存された武器の情報を読み込む
+    {
+        std::vector<std::vector<std::string>> vss = csv::Read(savefilename);
+        // 先頭行は無視
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            std::string id = vss.at(i).at(0);
+            std::string isShow = vss.at(i).at(1);
+            if (isShow == "true")
             {
-                weaponType.SetOwnDamage(true);
+                m_weaponTypeMap[id].SetIsShow(true);
             }
             else
             {
-                weaponType.SetOwnDamage(false);
+                m_weaponTypeMap[id].SetIsShow(false);
             }
-
-            m_WeaponMap[weaponType.GetId()] = weaponType;
         }
     }
-    // TODO セーブデータを読み込む
+    // 武器一つごとのセーブデータを読み込む
     {
-        std::vector<std::vector<std::string>> vss = csv::Read(savefilename);
+        std::vector<std::vector<std::string>> vss = csv::Read(subSavefilename);
 
-        for (std::size_t i = 0; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vss.size(); ++i)
         {
-            for (std::size_t j = 0; j < m_vecWeapon.size(); ++j)
-            {
-                if (vss.at(i).at(0) == m_vecWeapon.at(j).GetId())
-                {
-                    int num = std::atoi(vss.at(i).at(1).c_str());
-                    m_vecWeapon.at(j).SetNum(num);
-                    if (vss.at(i).at(2) == "true")
-                    {
-                        m_vecWeapon.at(j).SetIsShow(true);
-                    }
-                    else
-                    {
-                        m_vecWeapon.at(j).SetIsShow(false);
-                    }
-                }
-            }
+            Weapon weapon;
+            weapon.SetId(vss.at(i).at(0));
+            weapon.SetIdSub(atoi(vss.at(i).at(1).c_str()));
+            weapon.SetReinforce(atoi(vss.at(i).at(2).c_str()));
+            weapon.SetAttackRate(atof(vss.at(i).at(3).c_str()));
+            weapon.SetFlightDistance(atoi(vss.at(i).at(4).c_str()));
+            weapon.SetDurabilityMax(atoi(vss.at(i).at(5).c_str()));
+            weapon.SetDurability(atoi(vss.at(i).at(6).c_str()));
+            m_weaponMap[vss.at(i).at(0)].push_back(weapon);
         }
     }
 }
@@ -72,63 +77,80 @@ std::unordered_map<std::string, WeaponType> WeaponManager::GetWeaponTypeMap()
     return m_weaponTypeMap;
 }
 
-void WeaponManager::Save(const std::string& savefilename)
+void WeaponManager::SetWeaponTypeMap(const std::unordered_map<std::string, WeaponType>& arg)
 {
-    // ID、アイテム数、表示・非表示を出力
-    std::vector<std::vector<std::string>> vss;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("サブID");
-    vs.push_back("強化値");
-    vs.push_back("攻撃力補正の上昇値");
-    vs.push_back("飛距離の上昇値");
-    vs.push_back("耐久値の初期値");
-    vs.push_back("現在の耐久値");
-    vss.push_back(vs);
-    vs.clear();
-    std::unordered_map<std::string, std::vector<Weapon>>::iterator itBegin = m_WeaponMap.begin();
-    std::unordered_map<std::string, std::vector<Weapon>>::iterator itEnd = m_WeaponMap.end();
-    for (;itBegin != itEnd; ++itBegin)
+    m_weaponTypeMap = arg;
+}
+
+std::unordered_map<std::string, std::vector<Weapon>> WeaponManager::GetWeaponMap()
+{
+    return m_weaponMap;
+}
+
+void WeaponManager::SetWeaponMap(const std::unordered_map<std::string, std::vector<Weapon>>& arg)
+{
+    m_weaponMap = arg;
+}
+
+void WeaponManager::Save(
+    const std::string& savefilename, const std::string& subSavefilename, const bool encrypt)
+{
     {
-        for (int i = 0; i < itBegin->second.size(); ++i)
-        {
-            vs.push_back(itBegin->second.at(i).GetId());
-            vs.push_back(std::to_string(itBegin->second.at(i).GetIdSub()));
-            vs.push_back(std::to_string(itBegin->second.at(i).GetReinforce()));
-            vs.push_back(std::to_string(itBegin->second.at(i).GetAttackRate()));
-            vs.push_back(std::to_string(itBegin->second.at(i).GetFlightDistance()));
-            vs.push_back(std::to_string(itBegin->second.at(i).GetDurabilityMax()));
-            vs.push_back(std::to_string(itBegin->second.at(i).GetDurability()));
-        }
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back("表示・非表示");
         vss.push_back(vs);
         vs.clear();
+        std::unordered_map<std::string, WeaponType>::iterator itBegin = m_weaponTypeMap.begin();
+        std::unordered_map<std::string, WeaponType>::iterator itEnd = m_weaponTypeMap.end();
+        for (;itBegin != itEnd; ++itBegin)
+        {
+            vs.push_back(itBegin->second.GetId());
+            if (itBegin->second.GetIsShow())
+            {
+                vs.push_back("true");
+            }
+            else
+            {
+                vs.push_back("false");
+            }
+            vss.push_back(vs);
+            vs.clear();
+        }
+        csv::Write(savefilename, vss);
     }
-    csv::Write(savefilename, vss);
-}
 
-Weapon WeaponManager::GetByName(const std::string& name)
-{
-    std::vector<Weapon>::iterator it = std::find_if( m_vecWeapon.begin(), m_vecWeapon.end(),
-        [&] (Weapon& weapon)
-        {
-            return weapon.GetName() == name;
-        }
-    );
-    return *it;
-}
-
-void WeaponManager::Update(const Weapon& weapon)
-{
-    for (std::size_t i = 0; i < m_vecWeapon.size(); ++i)
     {
-        if (weapon.GetId() == m_vecWeapon.at(i).GetId())
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back("サブID");
+        vs.push_back("強化値");
+        vs.push_back("攻撃力補正の上昇値");
+        vs.push_back("飛距離の上昇値");
+        vs.push_back("耐久値の初期値");
+        vs.push_back("現在の耐久値");
+        vss.push_back(vs);
+        vs.clear();
+        std::unordered_map<std::string, std::vector<Weapon>>::iterator itBegin = m_weaponMap.begin();
+        std::unordered_map<std::string, std::vector<Weapon>>::iterator itEnd = m_weaponMap.end();
+        for (;itBegin != itEnd; ++itBegin)
         {
-            m_vecWeapon.at(i).SetName(weapon.GetName());
-            m_vecWeapon.at(i).SetDetail(weapon.GetDetail());
-            m_vecWeapon.at(i).SetImageName(weapon.GetImageName());
-            m_vecWeapon.at(i).SetNum(weapon.GetNum());
-            m_vecWeapon.at(i).SetIsShow(weapon.IsShow());
+            for (std::size_t i = 0; i < itBegin->second.size(); ++i)
+            {
+                vs.push_back(itBegin->second.at(i).GetId());
+                vs.push_back(std::to_string(itBegin->second.at(i).GetIdSub()));
+                vs.push_back(std::to_string(itBegin->second.at(i).GetReinforce()));
+                vs.push_back(std::to_string(itBegin->second.at(i).GetAttackRate()));
+                vs.push_back(std::to_string(itBegin->second.at(i).GetFlightDistance()));
+                vs.push_back(std::to_string(itBegin->second.at(i).GetDurabilityMax()));
+                vs.push_back(std::to_string(itBegin->second.at(i).GetDurability()));
+                vss.push_back(vs);
+                vs.clear();
+            }
         }
+        csv::Write(subSavefilename, vss);
     }
 }
 
@@ -182,12 +204,12 @@ void WeaponType::SetImageName(const std::string& imageName)
     m_imageName = imageName;
 }
 
-float WeaponType::GetWeight() const
+double WeaponType::GetWeight() const
 {
     return m_weight;
 }
 
-void WeaponType::SetWeight(float weight)
+void WeaponType::SetWeight(double weight)
 {
     m_weight = weight;
 }
@@ -202,22 +224,22 @@ void WeaponType::SetVolume(int volume)
     m_volume = volume;
 }
 
-float WeaponType::GetAttackRate() const
+double WeaponType::GetAttackRate() const
 {
     return m_attackRate;
 }
 
-void WeaponType::SetAttackRate(float attackRate)
+void WeaponType::SetAttackRate(double attackRate)
 {
     m_attackRate = attackRate;
 }
 
-float WeaponType::GetAttackRateUp() const
+double WeaponType::GetAttackRateUp() const
 {
     return m_attackRateUp;
 }
 
-void WeaponType::SetAttackRateUp(float attackRateUp)
+void WeaponType::SetAttackRateUp(double attackRateUp)
 {
     m_attackRateUp = attackRateUp;
 }
@@ -232,32 +254,32 @@ void WeaponType::SetReinforceMax(int reinforceMax)
     m_reinforceMax = reinforceMax;
 }
 
-float WeaponType::GetFlightDistance() const
+double WeaponType::GetFlightDistance() const
 {
     return m_flightDistance;
 }
 
-void WeaponType::SetFlightDistance(float flightDistance)
+void WeaponType::SetFlightDistance(double flightDistance)
 {
     m_flightDistance = flightDistance;
 }
 
-float WeaponType::GetFlightDistanceUp() const
+double WeaponType::GetFlightDistanceUp() const
 {
     return m_flightDistanceUp;
 }
 
-void WeaponType::SetFlightDistanceUp(float flightDistanceUp)
+void WeaponType::SetFlightDistanceUp(double flightDistanceUp)
 {
     m_flightDistanceUp = flightDistanceUp;
 }
 
-float WeaponType::GetStaminaDown() const
+double WeaponType::GetStaminaDown() const
 {
     return m_staminaDown;
 }
 
-void WeaponType::SetStaminaDown(float staminaDown)
+void WeaponType::SetStaminaDown(double staminaDown)
 {
     m_staminaDown = staminaDown;
 }
@@ -282,12 +304,12 @@ void WeaponType::SetDurabilityUp(int durabilityUp)
     m_durabilityUp = durabilityUp;
 }
 
-float WeaponType::GetOwnDamage() const
+int WeaponType::GetOwnDamage() const
 {
     return m_ownDamage;
 }
 
-void WeaponType::SetOwnDamage(float ownDamage)
+void WeaponType::SetOwnDamage(int ownDamage)
 {
     m_ownDamage = ownDamage;
 }
@@ -332,22 +354,22 @@ void Weapon::SetReinforce(int reinforce)
     m_reinforce = reinforce;
 }
 
-float Weapon::GetAttackRate() const
+double Weapon::GetAttackRate() const
 {
     return m_attackRate;
 }
 
-void Weapon::SetAttackRate(float attackRate)
+void Weapon::SetAttackRate(double attackRate)
 {
     m_attackRate = attackRate;
 }
 
-float Weapon::GetFlightDistance() const
+int Weapon::GetFlightDistance() const
 {
     return m_flightDistance;
 }
 
-void Weapon::SetFlightDistance(float flightDistance)
+void Weapon::SetFlightDistance(int flightDistance)
 {
     m_flightDistance = flightDistance;
 }
