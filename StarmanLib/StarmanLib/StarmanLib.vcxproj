@@ -146,7 +146,7 @@
     <ClInclude Include="HeaderOnlyCsv.hpp" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="MapManager.h" />
+    <ClInclude Include="MapInfoManager.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="Storehouse.h" />
@@ -158,7 +158,7 @@
     <ClCompile Include="Guide.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="MapInfoManager.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="Storehouse.cpp" />
