@@ -7,3 +7,4 @@
 *.user
 Debug
 .vs
+*.csv#
