@@ -78,6 +78,12 @@ void MapInfoManager::Init(const std::string& csvfile)
     }
 }
 
+void MapInfoManager::Destroy()
+{
+    delete MapInfoManager::obj;
+    MapInfoManager::obj = nullptr;
+}
+
 std::vector<std::string> MapInfoManager::GetNameList()
 {
     std::vector<std::string> vs;
@@ -95,6 +101,15 @@ bool MapInfoManager::IsDiscovered(const std::string& name)
                            [&](MapInfo mi) { return mi.GetName() == name; });
 
     return it->IsDiscovered();
+}
+
+void MapInfoManager::SetDiscovered(const std::string& name)
+{
+    auto it = std::find_if(m_mapInfoList.begin(),
+                           m_mapInfoList.end(),
+                           [&](MapInfo mi) { return mi.GetName() == name; });
+
+    return it->SetDiscovered(true);
 }
 
 std::string MapInfoManager::GetDetail(const std::string& name)
@@ -129,7 +144,7 @@ void MapInfoManager::Save(const std::string& csvfile)
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
     {
-        vs.push_back(std::to_string(i));
+        vs.push_back(std::to_string(i+1));
         vs.push_back(m_mapInfoList.at(i).GetName());
         if (m_mapInfoList.at(i).IsDiscovered())
         {
@@ -148,4 +163,5 @@ void MapInfoManager::Save(const std::string& csvfile)
         vss.push_back(vs);
         vs.clear();
     }
+    csv::Write(csvfile, vss);
 }

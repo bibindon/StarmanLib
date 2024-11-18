@@ -35,8 +35,10 @@ class MapInfoManager
 public:
     static MapInfoManager* GetObj();
     void Init(const std::string& csvfile);
+    static void Destroy();
     std::vector<std::string> GetNameList();
     bool IsDiscovered(const std::string& name);
+    void SetDiscovered(const std::string& name);
     std::string GetDetail(const std::string& name);
     void GetPos(const std::string& name, int* x, int* y);
     void Save(const std::string& csvfile);

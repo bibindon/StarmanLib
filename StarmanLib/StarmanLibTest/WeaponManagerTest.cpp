@@ -14,7 +14,7 @@ using WeaponMap = std::unordered_map<std::string, std::vector<Weapon>>;
 namespace StarmanLibTest
 {
 
-    TEST_CLASS(StarmanLibTest)
+    TEST_CLASS(WeaponManagerTest)
     {
     public:
         TEST_METHOD(TestMethod01)
