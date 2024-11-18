@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+// TODO セーブデータの暗号化
+
 class MapInfo
 {
 public:
@@ -32,14 +34,16 @@ class MapInfoManager
 {
 public:
     static MapInfoManager* GetObj();
+    void Init(const std::string& csvfile);
     std::vector<std::string> GetNameList();
     bool IsDiscovered(const std::string& name);
     std::string GetDetail(const std::string& name);
     void GetPos(const std::string& name, int* x, int* y);
-    void Save();
+    void Save(const std::string& csvfile);
 
 private:
-    void Init(const std::string& csvfile);
 
+    static MapInfoManager* obj;
+    std::vector<MapInfo> m_mapInfoList;
 };
 
