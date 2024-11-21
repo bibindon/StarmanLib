@@ -125,6 +125,7 @@ private:
 
     // 肉体の修復度（現在値）
     // 損傷・疲労によって低下する
+    // 数値が大きいほど、損傷・疲労していない
     float m_muscleCurrent { 0.f };
 
     // 肉体の修復度（最大値）
@@ -195,6 +196,29 @@ private:
 class StatusManager
 {
 public:
+
+    enum class PlayerAction
+    {
+        // 立ち状態と歩き状態は同じくらい疲れるべき
+        // 立ち状態
+        STAND,
+
+        // 歩き状態
+        WALK,
+
+        // 座り状態
+        SIT,
+
+        // 寝そべり
+        LYING_DOWN,
+
+        // ジョギング
+        JOGGING,
+
+        // 全力疾走
+        SPRINTING,
+    };
+
     static StatusManager* GetObj();
 
     static void Destroy();
@@ -305,6 +329,9 @@ public:
 
     bool GetLackOfSleep() const;
     void SetLackOfSleep(bool mlackOfSleep);
+
+    void SetPlayerAction(const PlayerAction arg);
+
 private:
 
     // シングルトンオブジェクト
@@ -312,5 +339,6 @@ private:
 
     Status m_status;
 
+    PlayerAction m_playerAction { PlayerAction::STAND };
 };
 

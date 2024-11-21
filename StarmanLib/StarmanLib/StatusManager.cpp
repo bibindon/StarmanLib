@@ -1,4 +1,5 @@
 #include "StatusManager.h"
+#include "HeaderOnlyCsv.hpp"
 
 float Status::GetBodyStaminaCurrent() const
 {
@@ -309,14 +310,500 @@ void StatusManager::Destroy()
 
 void StatusManager::Init(const std::string& csvfile)
 {
+    std::vector<std::vector<std::string> > vss = csv::Read(csvfile);
+    for (std::size_t i = 1; i < vss.size(); ++i)
+    {
+        if (vss.at(i).at(1) == "体のスタミナ（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBodyStaminaCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "体のスタミナ（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBodyStaminaMax(value);
+        }
+        else if (vss.at(i).at(1) == "体のスタミナ（回復可能値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBodyStaminaMaxSub(value);
+        }
+        else if (vss.at(i).at(1) == "脳のスタミナ（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBrainStaminaCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "脳のスタミナ（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBrainStaminaMax(value);
+        }
+        else if (vss.at(i).at(1) == "脳のスタミナ（回復可能値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetBrainStaminaMaxSub(value);
+        }
+        else if (vss.at(i).at(1) == "瞬発力")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetExplosivePower(value);
+        }
+        else if (vss.at(i).at(1) == "肉体の修復度（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetMuscleCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "肉体の修復度（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetMuscleMax(value);
+        }
+        else if (vss.at(i).at(1) == "糖質（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetCarboCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "糖質（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetCarboMax(value);
+        }
+        else if (vss.at(i).at(1) == "タンパク質（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetProteinCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "タンパク質（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetProteinMax(value);
+        }
+        else if (vss.at(i).at(1) == "脂質（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetLipidCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "脂質（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetLipidMax(value);
+        }
+        else if (vss.at(i).at(1) == "ビタミン（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetVitaminCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "ビタミン（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetVitaminMax(value);
+        }
+        else if (vss.at(i).at(1) == "ミネラル（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetMineralCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "ミネラル（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetMineralMax(value);
+        }
+        else if (vss.at(i).at(1) == "水分（現在値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetWaterCurrent(value);
+        }
+        else if (vss.at(i).at(1) == "水分（最大値）")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetWaterMax(value);
+        }
+        else if (vss.at(i).at(1) == "腕骨折")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetFractureArm(true);
+            }
+            else
+            {
+                m_status.SetFractureArm(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "足骨折")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetFractureArm(true);
+            }
+            else
+            {
+                m_status.SetFractureArm(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "頭痛")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetHeadache(true);
+            }
+            else
+            {
+                m_status.SetHeadache(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "風邪")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetCold(true);
+            }
+            else
+            {
+                m_status.SetCold(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "腹痛")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetStomachache(true);
+            }
+            else
+            {
+                m_status.SetStomachache(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "睡眠")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetSleep(true);
+            }
+            else
+            {
+                m_status.SetSleep(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "脱水症状")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetDehydration(true);
+            }
+            else
+            {
+                m_status.SetDehydration(false);
+            }
+        }
+        else if (vss.at(i).at(1) == "睡眠不足")
+        {
+            if (vss.at(i).at(2) == "〇")
+            {
+                m_status.SetLackOfSleep(true);
+            }
+            else
+            {
+                m_status.SetLackOfSleep(false);
+            }
+        }
+    }
 }
 
 void StatusManager::Update()
 {
+    float bodyStaminaCurrent = m_status.GetBodyStaminaCurrent();
+    float bodyStaminaMaxSub = m_status.GetBodyStaminaMaxSub();
+
+    // TODO 回復量が徐々に低下するようにしたりしたい
+    if (m_playerAction == PlayerAction::STAND)
+    {
+        bodyStaminaCurrent -= 0.0001f;
+        bodyStaminaMaxSub -= 0.00002f;
+    }
+    else if (m_playerAction == PlayerAction::WALK)
+    {
+        bodyStaminaCurrent -= 0.0001f;
+        bodyStaminaMaxSub -= 0.00002f;
+    }
+    else if (m_playerAction == PlayerAction::SIT)
+    {
+        bodyStaminaCurrent += 0.001f;
+        bodyStaminaMaxSub -= 0.00002f;
+    }
+    else if (m_playerAction == PlayerAction::LYING_DOWN)
+    {
+        bodyStaminaCurrent += 0.002f;
+        bodyStaminaMaxSub += 0.00002f;
+    }
+
+    m_status.SetBodyStaminaCurrent(bodyStaminaCurrent);
+    m_status.SetBodyStaminaMaxSub(bodyStaminaMaxSub);
 }
 
 void StatusManager::Save(const std::string& csvfile)
 {
+    std::vector<std::vector<std::string> > vss;
+    std::vector<std::string> vs;
+    std::string work;
+
+    vs.clear();
+    vs.push_back("ID");
+    vs.push_back("ステータス名");
+    vs.push_back("値");
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("1");
+    vs.push_back("体のスタミナ（現在値）");
+    work = std::to_string(m_status.GetBodyStaminaCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("2");
+    vs.push_back("体のスタミナ（最大値）");
+    work = std::to_string(m_status.GetBodyStaminaMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("3");
+    vs.push_back("体のスタミナ（回復可能値）");
+    work = std::to_string(m_status.GetBodyStaminaMaxSub());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("4");
+    vs.push_back("脳のスタミナ（現在値）");
+    work = std::to_string(m_status.GetBrainStaminaCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("5");
+    vs.push_back("脳のスタミナ（最大値）");
+    work = std::to_string(m_status.GetBrainStaminaMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("6");
+    vs.push_back("脳のスタミナ（回復可能値）");
+    work = std::to_string(m_status.GetBrainStaminaMaxSub());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("7");
+    vs.push_back("瞬発力");
+    work = std::to_string(m_status.GetExplosivePower());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("8");
+    vs.push_back("肉体の修復度（現在値）");
+    work = std::to_string(m_status.GetMuscleCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("9");
+    vs.push_back("肉体の修復度（最大値）");
+    work = std::to_string(m_status.GetMuscleMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("10");
+    vs.push_back("糖質（現在値）");
+    work = std::to_string(m_status.GetCarboCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("11");
+    vs.push_back("糖質（最大値）");
+    work = std::to_string(m_status.GetCarboMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("12");
+    vs.push_back("タンパク質（現在値）");
+    work = std::to_string(m_status.GetProteinCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("13");
+    vs.push_back("タンパク質（最大値）");
+    work = std::to_string(m_status.GetProteinMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("14");
+    vs.push_back("脂質（現在値）");
+    work = std::to_string(m_status.GetLipidCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("15");
+    vs.push_back("脂質（最大値）");
+    work = std::to_string(m_status.GetLipidMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("16");
+    vs.push_back("ビタミン（現在値）");
+    work = std::to_string(m_status.GetVitaminCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("17");
+    vs.push_back("ビタミン（最大値）");
+    work = std::to_string(m_status.GetVitaminMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("18");
+    vs.push_back("ミネラル（現在値）");
+    work = std::to_string(m_status.GetMineralCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("19");
+    vs.push_back("ミネラル（最大値）");
+    work = std::to_string(m_status.GetMineralMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("20");
+    vs.push_back("水分（現在値）");
+    work = std::to_string(m_status.GetWaterCurrent());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("21");
+    vs.push_back("水分（最大値）");
+    work = std::to_string(m_status.GetWaterMax());
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("22");
+    vs.push_back("腕骨折");
+    if (m_status.GetFractureArm())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("23");
+    vs.push_back("足骨折");
+    if (m_status.GetFractureLeg())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("24");
+    vs.push_back("頭痛");
+    if (m_status.GetHeadache())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("25");
+    vs.push_back("風邪");
+    if (m_status.GetCold())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("26");
+    vs.push_back("腹痛");
+    if (m_status.GetStomachache())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("27");
+    vs.push_back("睡眠");
+    if (m_status.GetSleep())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("28");
+    vs.push_back("脱水症状");
+    if (m_status.GetDehydration())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("29");
+    vs.push_back("睡眠不足");
+    if (m_status.GetLackOfSleep())
+    {
+        vs.push_back("〇");
+    }
+    else
+    {
+        vs.push_back("");
+    }
+    vss.push_back(vs);
+
+    csv::Write(csvfile, vss);
 }
 
 // TODO
@@ -626,4 +1113,9 @@ bool StatusManager::GetLackOfSleep() const
 void StatusManager::SetLackOfSleep(bool arg)
 {
     m_status.SetLackOfSleep(arg);
+}
+
+void StatusManager::SetPlayerAction(const PlayerAction arg)
+{
+    m_playerAction = arg;
 }
