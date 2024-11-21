@@ -148,7 +148,7 @@
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MapInfoManager.h" />
     <ClInclude Include="SkillManager.h" />
-    <ClInclude Include="Status.h" />
+    <ClInclude Include="StatusManager.h" />
     <ClInclude Include="Storehouse.h" />
     <ClInclude Include="WeaponManager.h" />
   </ItemGroup>
@@ -160,7 +160,7 @@
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MapInfoManager.cpp" />
     <ClCompile Include="SkillManager.cpp" />
-    <ClCompile Include="Status.cpp" />
+    <ClCompile Include="StatusManager.cpp" />
     <ClCompile Include="Storehouse.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
   </ItemGroup>

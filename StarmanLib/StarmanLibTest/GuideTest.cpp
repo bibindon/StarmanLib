@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace StarmanLibTest
 {
 
-    TEST_CLASS(GuidTest)
+    TEST_CLASS(GuideTest)
     {
     public:
 
