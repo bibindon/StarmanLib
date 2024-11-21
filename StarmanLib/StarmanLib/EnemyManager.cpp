@@ -55,7 +55,7 @@ void EnemyManager::Init(const std::string& csvfile)
         work_i = std::stoi(vss.at(i).at(8));
         enemyInfo.SetHP(work_i);
 
-        if (vss.at(i).at(9) == "Z")
+        if (vss.at(i).at(9) == "›")
         {
             enemyInfo.SetDefeated(true);
         }
@@ -96,7 +96,7 @@ void EnemyManager::Save(const std::string& csvfile)
         vs.push_back(std::to_string(it->second.GetHP()));
         if (it->second.GetDefeated())
         {
-            vs.push_back("Z");
+            vs.push_back("›");
         }
         else
         {
