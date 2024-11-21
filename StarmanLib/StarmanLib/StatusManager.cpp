@@ -433,11 +433,11 @@ void StatusManager::Init(const std::string& csvfile)
         {
             if (vss.at(i).at(2) == "Z")
             {
-                m_status.SetFractureArm(true);
+                m_status.SetFractureLeg(true);
             }
             else
             {
-                m_status.SetFractureArm(false);
+                m_status.SetFractureLeg(false);
             }
         }
         else if (vss.at(i).at(1) == "“ª’É")
