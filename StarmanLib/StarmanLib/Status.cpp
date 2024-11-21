@@ -319,3 +319,22 @@ void Status::SetLackOfSleep(bool mlackOfSleep)
     m_lackOfSleep = mlackOfSleep;
 }
 
+// TODO
+float Status::GetWalkSpeed()
+{
+    // Inventoryクラスから現在の重量を取得して歩行速度を返す。
+    return 1.0f;
+}
+
+float Status::GetAttackPower()
+{
+    // TODO
+    return 1.0f;
+}
+
+float Status::GetDefensePower()
+{
+    // TODO
+    return 1.0f;
+}
+

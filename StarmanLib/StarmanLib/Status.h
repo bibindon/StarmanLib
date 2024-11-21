@@ -103,6 +103,15 @@ public:
     bool GetLackOfSleep() const;
     void SetLackOfSleep(bool mlackOfSleep);
 
+    // 歩行速度。重量や健康度、筋力などありとあらゆるパラメーターが影響する
+    float GetWalkSpeed();
+
+    // 攻撃力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
+    float GetAttackPower();
+
+    // 防御力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
+    float GetDefensePower();
+
 private:
 
     // シングルトンオブジェクト
