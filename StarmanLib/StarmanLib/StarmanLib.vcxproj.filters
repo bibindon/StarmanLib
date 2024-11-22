@@ -51,6 +51,9 @@
     <ClInclude Include="CaesarCipher.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Rynen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeaponManager.cpp">
@@ -81,6 +84,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CraftSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Rynen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -147,6 +147,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MapInfoManager.h" />
+    <ClInclude Include="Rynen.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="StatusManager.h" />
     <ClInclude Include="Storehouse.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MapInfoManager.cpp" />
+    <ClCompile Include="Rynen.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="StatusManager.cpp" />
     <ClCompile Include="Storehouse.cpp" />
