@@ -147,6 +147,7 @@ public:
     void Init(const std::string& csvfile);
 
     ItemInfo GetItemInfo(const std::string& key);
+    ItemInfo GetItemInfo(const int id);
 
 private:
 

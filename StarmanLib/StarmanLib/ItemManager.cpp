@@ -307,3 +307,17 @@ ItemInfo ItemManager::GetItemInfo(const std::string& key)
     return itemInfo;
 }
 
+ItemInfo ItemManager::GetItemInfo(const int id)
+{
+    ItemInfo itemInfo;
+    for (auto it = m_itemInfoMap.begin(); it != m_itemInfoMap.end(); ++it)
+    {
+        if (it->second.GetId() == id)
+        {
+            itemInfo = it->second;
+            break;
+        }
+    }
+    return itemInfo;
+}
+
