@@ -167,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RynenTest.cpp" />
+    <ClCompile Include="SkillManagerTest.cpp" />
     <ClCompile Include="StatusManagerTest.cpp" />
     <ClCompile Include="WeaponManagerTest.cpp" />
   </ItemGroup>

@@ -82,15 +82,15 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
 
             skillDefinition.SetRange(0, std::stof(vss.at(i).at(13)));
             skillDefinition.SetRange(1, std::stof(vss.at(i).at(14)));
-            skillDefinition.SetRange(2, std::stof(vss.at(i).at(16)));
-            skillDefinition.SetRange(3, std::stof(vss.at(i).at(17)));
-            skillDefinition.SetRange(4, std::stof(vss.at(i).at(18)));
-            skillDefinition.SetRange(5, std::stof(vss.at(i).at(19)));
-            skillDefinition.SetRange(6, std::stof(vss.at(i).at(20)));
-            skillDefinition.SetRange(7, std::stof(vss.at(i).at(21)));
-            skillDefinition.SetRange(8, std::stof(vss.at(i).at(22)));
-            skillDefinition.SetRange(9, std::stof(vss.at(i).at(23)));
-            skillDefinition.SetRange(10, std::stof(vss.at(i).at(24)));
+            skillDefinition.SetRange(2, std::stof(vss.at(i).at(15)));
+            skillDefinition.SetRange(3, std::stof(vss.at(i).at(16)));
+            skillDefinition.SetRange(4, std::stof(vss.at(i).at(17)));
+            skillDefinition.SetRange(5, std::stof(vss.at(i).at(18)));
+            skillDefinition.SetRange(6, std::stof(vss.at(i).at(19)));
+            skillDefinition.SetRange(7, std::stof(vss.at(i).at(20)));
+            skillDefinition.SetRange(8, std::stof(vss.at(i).at(21)));
+            skillDefinition.SetRange(9, std::stof(vss.at(i).at(22)));
+            skillDefinition.SetRange(10, std::stof(vss.at(i).at(23)));
             m_skillLevelMap[skillDefinition.GetName()] = skillDefinition;
         }
     }
@@ -99,14 +99,11 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
         vss = csv::Read(csvfilePlayer);
         int work = 0;
 
-        work = std::stoi(vss.at(0).at(1));
-        m_playerSkillLevelMap[vss.at(0).at(0)] = work;
-
-        work = std::stoi(vss.at(1).at(1));
-        m_playerSkillLevelMap[vss.at(1).at(0)] = work;
-
-        work = std::stoi(vss.at(2).at(1));
-        m_playerSkillLevelMap[vss.at(2).at(0)] = work;
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            work = std::stoi(vss.at(i).at(1));
+            m_playerSkillLevelMap[vss.at(i).at(0)] = work;
+        }
     }
 }
 
@@ -141,3 +138,20 @@ int SkillManager::GetSkillLevel(const std::string& skillName)
 {
     return m_playerSkillLevelMap[skillName];
 }
+
+std::string SkillManager::GetDetail(const std::string& key)
+{
+    return m_skillLevelMap[key].GetDetail();
+}
+
+float SkillManager::GetDamage(const std::string& key, const int level)
+{
+    return m_skillLevelMap[key].GetDamage(level);
+}
+
+float SkillManager::GetRange(const std::string& key, const int level)
+{
+    return m_skillLevelMap[key].GetRange(level);
+}
+
+

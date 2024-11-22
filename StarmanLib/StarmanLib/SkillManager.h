@@ -38,13 +38,16 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileDefinition,
-                            const std::string& csvfilePlayer);
+    void Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer);
 
     void Save(const std::string& csvfile);
 
     void SetSkillLevel(const std::string& skillName, const int skillLevel);
     int GetSkillLevel(const std::string& skillName);
+
+    std::string GetDetail(const std::string& key);
+    float GetDamage(const std::string& key, const int level);
+    float GetRange(const std::string& key, const int level);
 
 private:
 
