@@ -2,6 +2,8 @@
 
 #include <string>
 
+// TODO サンカクマン、ダイケイマン、ガイン、ネスも使えるようにする？
+
 class Status
 {
 public:

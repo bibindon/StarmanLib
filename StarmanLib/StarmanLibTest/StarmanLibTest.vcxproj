@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="EnemyManagerTest.cpp" />
     <ClCompile Include="GuideTest.cpp" />
+    <ClCompile Include="HumanInfoManagerTest.cpp" />
     <ClCompile Include="InventoryTest.cpp" />
     <ClCompile Include="ItemManagerTest.cpp" />
     <ClCompile Include="MapInfoManagerTest.cpp" />
