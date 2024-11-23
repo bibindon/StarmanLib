@@ -24,7 +24,11 @@
 class ActionManager
 {
 public:
-    void GetActionTime(const std::string actionName, int* day, int* hour, int* minute, int* second);
+    void GetActionTime(const std::string actionName,
+                       int* day,
+                       int* hour,
+                       int* minute,
+                       int* second);
 private:
 
 };
