@@ -2,7 +2,8 @@
 
 #include <string>
 
-// TODO サンカクマン、ダイケイマン、ガイン、ネスも使えるようにする？
+// PlayerのステータスとNPCのステータスは別のものとして用意する。
+// ここで扱うステータスはプレイヤーのStatus。
 
 class Status
 {

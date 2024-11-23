@@ -28,6 +28,18 @@ void Rynen::GetRevivePos(float* x, float* y, float* z)
     *z = m_z;
 }
 
+void Rynen::SetContractDate(const int month, const int day)
+{
+    m_month = month;
+    m_day = day;
+}
+
+void Rynen::GetContractDate(int* month, int* day)
+{
+    *month = m_month;
+    *day = m_day;
+}
+
 Rynen* Rynen::GetObj()
 {
     if (obj == nullptr)
@@ -75,6 +87,13 @@ void Rynen::Init(const std::string& csvfile)
 
     work_f = std::stof(vss.at(4).at(1));
     m_z = work_f;
+
+    int work_i = 0;
+    work_i = std::stoi(vss.at(5).at(1));
+    m_month = work_i;
+
+    work_i = std::stoi(vss.at(6).at(1));
+    m_day = work_i;
 }
 
 void Rynen::Save(const std::string& csvfile)
@@ -121,6 +140,18 @@ void Rynen::Save(const std::string& csvfile)
 
     vs.push_back("z");
     work = std::to_string(m_z);
+    vs.push_back(work);
+    vss.push_back(vs);
+    vs.clear();
+
+    vs.push_back("契約日（月）");
+    work = std::to_string(m_month);
+    vs.push_back(work);
+    vss.push_back(vs);
+    vs.clear();
+
+    vs.push_back("契約日（日）");
+    work = std::to_string(m_day);
     vs.push_back(work);
     vss.push_back(vs);
     vs.clear();

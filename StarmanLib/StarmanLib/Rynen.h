@@ -30,6 +30,9 @@ public:
     void SetRevivePos(const float x, const float y, const float z);
     void GetRevivePos(float* x, float* y, float* z);
 
+    void SetContractDate(const int month, const int day);
+    void GetContractDate(int* month, int* day);
+
 private:
 
     // シングルトンオブジェクト
@@ -38,7 +41,6 @@ private:
     // 契約済みフラグ
     bool m_contracted { false };
 
-
     // 復活可能フラグ
     bool m_reviveEnable { false };
 
@@ -46,5 +48,9 @@ private:
     float m_x { 0.f };
     float m_y { 0.f };
     float m_z { 0.f };
+
+    // 契約した日
+    int m_month { 0 };
+    int m_day { 0 };
 };
 

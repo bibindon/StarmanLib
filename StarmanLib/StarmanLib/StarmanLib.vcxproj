@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActionManager.h" />
     <ClInclude Include="CaesarCipher.h" />
     <ClInclude Include="CraftInfoManager.h" />
     <ClInclude Include="EnemyManager.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MapInfoManager.h" />
+    <ClInclude Include="NpcStatusManager.h" />
     <ClInclude Include="PowereggDateTime.h" />
     <ClInclude Include="Rynen.h" />
     <ClInclude Include="SkillManager.h" />
@@ -156,6 +158,7 @@
     <ClInclude Include="WeaponManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="CraftInfoManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Guide.cpp" />
@@ -163,6 +166,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MapInfoManager.cpp" />
+    <ClCompile Include="NpcStatusManager.cpp" />
     <ClCompile Include="PowereggDateTime.cpp" />
     <ClCompile Include="Rynen.cpp" />
     <ClCompile Include="SkillManager.cpp" />
