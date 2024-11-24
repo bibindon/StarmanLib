@@ -32,7 +32,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
 
             // u"v‹L†‚ª‚ ‚ê‚Îíœ
             std::string work = vss.at(i).at(2);
-            work.erase(std::remove(work.begin(), work.end(), "\""), work.end());
+            work.erase(std::remove(work.begin(), work.end(), '"'), work.end());
 
             humanInfo.SetDetail(work);
             humanInfo.SetImagePath(vss.at(i).at(3));
