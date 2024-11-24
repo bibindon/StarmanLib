@@ -63,7 +63,7 @@ void EnemyManager::Init(const std::string& csvfile)
         {
             enemyInfo.SetDefeated(false);
         }
-        m_enemyInfoMap[i] = enemyInfo;
+        m_enemyInfoMap[(int)i] = enemyInfo;
     }
 }
 

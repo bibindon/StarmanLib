@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CraftInfoManagerTest.cpp" />
     <ClCompile Include="EnemyManagerTest.cpp" />
     <ClCompile Include="GuideTest.cpp" />
     <ClCompile Include="HumanInfoManagerTest.cpp" />
@@ -169,6 +170,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PowereggDateTimeTest.cpp" />
     <ClCompile Include="RynenTest.cpp" />
     <ClCompile Include="SkillManagerTest.cpp" />
     <ClCompile Include="StatusManagerTest.cpp" />

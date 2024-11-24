@@ -289,7 +289,7 @@ void ItemManager::Init(const std::string& csvfile)
                 itemInfo.SetStomachache(false);
             }
         }
-        m_itemInfoMap[i] = itemInfo;
+        m_itemInfoMap[(int)i] = itemInfo;
     }
 }
 

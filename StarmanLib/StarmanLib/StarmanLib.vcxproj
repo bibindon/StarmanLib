@@ -150,6 +150,7 @@
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MapInfoManager.h" />
     <ClInclude Include="NpcStatusManager.h" />
+    <ClInclude Include="PatchTestManager.h" />
     <ClInclude Include="PowereggDateTime.h" />
     <ClInclude Include="Rynen.h" />
     <ClInclude Include="SkillManager.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MapInfoManager.cpp" />
     <ClCompile Include="NpcStatusManager.cpp" />
+    <ClCompile Include="PatchTestManager.cpp" />
     <ClCompile Include="PowereggDateTime.cpp" />
     <ClCompile Include="Rynen.cpp" />
     <ClCompile Include="SkillManager.cpp" />
