@@ -1,6 +1,8 @@
 #include "Guide.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 Guide* Guide::obj { nullptr };
 
 void GuideItem::SetCategory(const std::string& category)

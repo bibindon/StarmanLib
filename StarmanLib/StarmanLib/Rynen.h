@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace NSStarmanLib
+{
 // ライネンという契約を管理するクラス
 // 悪魔と契約すると魔法が使えるようになり、ワードブレスという小瓶で死んでも復活できるようになる。
 // ただし、1年後に死ぬ。
@@ -53,4 +55,5 @@ private:
     int m_month { 0 };
     int m_day { 0 };
 };
+}
 

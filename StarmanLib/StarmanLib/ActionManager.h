@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace NSStarmanLib
+{
 // 木を斧で切る、など
 // 木を倒そうとしたら「木を倒しますか？（６時間消費）」、のように表示される
 // ６時間というのはパワーエッグ星の時間。
@@ -32,4 +34,4 @@ public:
 private:
 
 };
-
+}

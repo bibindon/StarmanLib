@@ -1,6 +1,8 @@
 #include "CraftInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 CraftInfoManager* CraftInfoManager::obj { nullptr };
 
 CraftInfoManager* CraftInfoManager::GetObj()

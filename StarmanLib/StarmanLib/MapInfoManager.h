@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+namespace NSStarmanLib
+{
 // TODO セーブデータの暗号化
 
 class MapInfo
@@ -48,4 +50,5 @@ private:
     static MapInfoManager* obj;
     std::vector<MapInfo> m_mapInfoList;
 };
+}
 

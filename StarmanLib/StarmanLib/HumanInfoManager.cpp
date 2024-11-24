@@ -1,6 +1,8 @@
 #include "HumanInfoManager.h"
 #include "ItemManager.h"
 
+using namespace NSStarmanLib;
+
 HumanInfoManager* HumanInfoManager::obj { nullptr };
 
 HumanInfoManager* HumanInfoManager::GetObj()

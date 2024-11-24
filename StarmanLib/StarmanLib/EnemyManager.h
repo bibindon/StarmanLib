@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // 敵管理クラス。
 // CSVファイルに記載された敵の座標やHPなどを提供するのみである。
 // 敵の行動パターンだとか衝突判定、ジャンプの軌道など詳細なことはここではやらない。
@@ -88,4 +90,5 @@ private:
     std::unordered_map<int, EnemyInfo> m_enemyInfoMap;
 
 };
+}
 

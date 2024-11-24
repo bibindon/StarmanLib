@@ -7,6 +7,7 @@
 #include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace NSStarmanLib;
 
 using WeaponTypeMap = std::unordered_map<std::string, WeaponType>;
 using WeaponMap = std::unordered_map<std::string, std::vector<Weapon>>;

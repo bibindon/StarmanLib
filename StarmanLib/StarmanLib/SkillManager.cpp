@@ -1,5 +1,7 @@
 #include "SkillManager.h"
 
+using namespace NSStarmanLib;
+
 SkillManager* SkillManager::obj { nullptr };
 
 void SkillDefinition::SetName(const std::string& arg)

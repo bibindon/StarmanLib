@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // TODO 熟練度について
 // 筋肉の成長と同じ道をたどる。
 // 魔法を使って、疲れて、休憩して、改めて使うとレベルが上がる。
@@ -65,4 +67,5 @@ private:
     std::unordered_map<std::string, int> m_playerSkillLevelMap;
 
 };
+}
 

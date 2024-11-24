@@ -3,6 +3,8 @@
 #include <vector>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 class WeaponType
 {
 
@@ -141,4 +143,4 @@ private:
     std::unordered_map<std::string, WeaponType> m_weaponTypeMap;
     std::unordered_map<std::string, std::vector<Weapon>> m_weaponMap;
 };
-
+}

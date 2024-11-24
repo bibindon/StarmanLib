@@ -2,6 +2,8 @@
 #include <vector>
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 PowereggDateTime* PowereggDateTime::obj = nullptr;
 
 PowereggDateTime* PowereggDateTime::GetObj()

@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // プレイヤーの所持品を管理するクラス。
 // アイテムの定義はItemManagerが管理している。
 // 武器についてはWeaponManagerが所持数まで管理しているので
@@ -44,4 +46,5 @@ private:
     std::unordered_map<int, int> m_itemMap;
     
 };
+}
 

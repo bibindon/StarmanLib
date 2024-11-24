@@ -1,6 +1,8 @@
 #include "EnemyManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 EnemyManager* EnemyManager::obj { nullptr };
 
 EnemyManager* EnemyManager::GetObj()

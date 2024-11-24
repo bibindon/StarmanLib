@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace NSStarmanLib
+{
 // ゲーム内の日付・時刻
 // パワーエッグ星では24時間で一日が経過し、ゲーム内では2時間で24時間が経過する。
 
@@ -43,4 +45,5 @@ private:
     // DAY_OF_MONTH[0]は無効
     const int DAY_OF_MONTH[13] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 };
+}
 

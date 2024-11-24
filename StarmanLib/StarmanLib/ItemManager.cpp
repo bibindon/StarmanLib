@@ -2,6 +2,8 @@
 #include <vector>
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 ItemManager* ItemManager::obj { nullptr };
 
 int ItemInfo::GetId() const

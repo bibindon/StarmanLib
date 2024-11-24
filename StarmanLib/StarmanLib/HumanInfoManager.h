@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 class HumanInfo
 {
 public:
@@ -57,4 +59,5 @@ private:
     std::unordered_map<std::string, HumanInfo> m_humanInfoMap;
 
 };
+}
 

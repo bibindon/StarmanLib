@@ -2,6 +2,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // 糖質、タンパク質、脂質、ビタミン、ミネラルだけを状態に持つ
 // プレイヤーは五大栄養素がすべて0にならないようにする必要がある。
 // 糖質が0になったら餓死、それ以外が0になったら病死する。
@@ -90,4 +92,5 @@ private:
     std::unordered_map<std::string, NpcStatus> m_NpcStatusMap;
 
 };
+}
 

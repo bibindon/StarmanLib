@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // 倉庫クラス
 // 拠点に預けているアイテム
 // ストーリーの都合で拠点は途中で1度変わることに注意。
@@ -36,6 +38,7 @@ private:
     // 所持品リスト
     // 同じアイテムを複数所持できることに注意
     std::unordered_map<int, int> m_itemMap;
-    
+
 };
+}
 

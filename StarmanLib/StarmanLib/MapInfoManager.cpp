@@ -1,6 +1,8 @@
 #include "MapInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 MapInfoManager* MapInfoManager::obj { nullptr };
 
 void MapInfo::SetName(const std::string& name)

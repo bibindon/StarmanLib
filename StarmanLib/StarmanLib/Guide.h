@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+namespace NSStarmanLib
+{
 class GuideItem
 {
 public:
@@ -55,4 +57,5 @@ private:
     static Guide* obj;
     std::vector<GuideItem> m_guideList;
 };
+}
 

@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 // クラフト用の素材クラス
 class CraftMaterial
 {
@@ -100,4 +102,5 @@ private:
 
     std::vector<CraftInfo> m_craftInfoList;
 };
+}
 

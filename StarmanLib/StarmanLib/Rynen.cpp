@@ -2,6 +2,8 @@
 #include <vector>
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 Rynen* Rynen::obj { nullptr };
 
 void Rynen::SetReviveEnable(const bool arg)

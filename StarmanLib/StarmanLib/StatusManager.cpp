@@ -1,6 +1,8 @@
 #include "StatusManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 float Status::GetBodyStaminaCurrent() const
 {
     return m_bodyStaminaCurrent;

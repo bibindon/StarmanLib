@@ -1,6 +1,8 @@
 #include "NpcStatusManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+using namespace NSStarmanLib;
+
 NpcStatusManager* NpcStatusManager::obj { nullptr };
 
 void NpcStatus::SetName(const std::string& arg)

@@ -1,6 +1,8 @@
 #include "Storehouse.h"
 #include "ItemManager.h"
 
+using namespace NSStarmanLib;
+
 Storehouse* Storehouse::obj { nullptr };
 
 Storehouse* Storehouse::GetObj()

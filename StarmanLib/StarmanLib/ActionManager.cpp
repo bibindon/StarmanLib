@@ -1,5 +1,7 @@
 #include "ActionManager.h"
 
+using namespace NSStarmanLib;
+
 void ActionManager::GetActionTime(const std::string actionName, int* day, int* hour, int* minute, int* second)
 {
     if (actionName == "î∞çÃ")

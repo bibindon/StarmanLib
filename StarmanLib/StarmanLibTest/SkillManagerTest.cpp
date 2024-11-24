@@ -7,6 +7,7 @@
 #include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace NSStarmanLib;
 
 namespace StarmanLibTest
 {

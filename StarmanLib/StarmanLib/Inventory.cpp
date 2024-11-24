@@ -1,6 +1,8 @@
 #include "Inventory.h"
 #include "ItemManager.h"
 
+using namespace NSStarmanLib;
+
 Inventory* Inventory::obj { nullptr };
 
 Inventory* Inventory::GetObj()

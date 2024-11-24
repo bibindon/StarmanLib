@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace NSStarmanLib
+{
 class ItemInfo
 {
 public:
@@ -156,4 +158,5 @@ private:
 
     std::unordered_map<int, ItemInfo> m_itemInfoMap;
 };
+}
 

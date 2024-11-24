@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace NSStarmanLib
+{
 // PlayerのステータスとNPCのステータスは別のものとして用意する。
 // ここで扱うステータスはプレイヤーのStatus。
 
@@ -344,4 +346,5 @@ private:
 
     PlayerAction m_playerAction { PlayerAction::STAND };
 };
+}
 
