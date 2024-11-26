@@ -9,8 +9,8 @@
 namespace NSStarmanLib
 {
 
-// クラフト中のアイテムの情報クラス
-class CraftingItem
+// クラフト予約リストのアイテム
+class CraftRequest
 {
 public:
 
@@ -56,9 +56,14 @@ public:
     CraftInfo GetCraftInfo() const;
     void SetCraftInfo(const CraftInfo& arg);
 
+    bool GetCrafting() const;
+    void SetCrafting(const bool arg);
+
 private:
 
     std::string m_name;
+
+    bool m_crafting = false;
 
     int m_startYear { 0 };
     int m_startMonth { 0 };
@@ -76,6 +81,26 @@ private:
 
     CraftInfo m_craftInfo;
 
+};
+
+class CraftSkill
+{
+public:
+
+    void SetName(const std::string& arg);
+    std::string GetName() const;
+
+    void SetLevel(const int arg);
+    int GetLevel() const;
+
+    void SetEnable(const bool arg);
+    bool GetEnable() const;
+
+private:
+
+    std::string m_name;
+    int m_level;
+    bool m_enable;
 };
 
 // クラフトシステム用クラス
@@ -100,14 +125,14 @@ public:
     void Save(const std::string& csvfileSkill, const std::string& csvfileQueue);
 
     // 職人がクラフト可能であるか？のフラグをONにする
-    void SetCraftsmanSkill(const std::string& craftItem);
+    void SetCraftsmanSkill(const std::string& craftItem, const int level = -1);
 
-    bool GetCraftsmanSkill(const std::string& craftItem);
+    bool GetCraftsmanSkill(const std::string& craftItem, const int level = -1);
 
     // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
     // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる
     // 5個までキューイング出来る
-    bool CraftRequest(const std::string& craftItem);
+    bool QueueCraftRequest(const std::string& craftItem, const int level = -1);
 
     // 依頼をキャンセル
     bool CancelCraftStart(const int index);
@@ -119,10 +144,10 @@ private:
     // シングルトンオブジェクト
     static CraftSystem* obj;
 
-    std::unordered_map<std::string, bool> m_craftSkillMap;
+    std::vector<CraftSkill> m_craftSkillList;
 
     // 一度にクラフトできるアイテムは一つだけの想定
-    std::list<CraftingItem> m_craftingItemList;
+    std::list<CraftRequest> m_craftRequestList;
 
 };
 }

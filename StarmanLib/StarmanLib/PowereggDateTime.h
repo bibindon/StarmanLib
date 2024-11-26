@@ -28,6 +28,7 @@ public:
     int GetHour();
     int GetMinute();
     int GetSecond();
+    int DAY_OF_MONTH(const int arg);
 
 private:
 
@@ -35,15 +36,20 @@ private:
     static PowereggDateTime* obj;
 
     int m_year { 0 };
+
+    // 0Œ‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
     int m_month { 0 };
+
+    // 0“ú‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
     int m_day { 0 };
+
     int m_hour { 0 };
     int m_minute { 0 };
     int m_second { 0 };
 
     // DAY_OF_MONTH[1]‚ª1Œ‚Ì“ú”‚ğ•\‚·B
     // DAY_OF_MONTH[0]‚Í–³Œø
-    const int DAY_OF_MONTH[13] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    const int DAY_OF_MONTH_[13] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 };
 }
 

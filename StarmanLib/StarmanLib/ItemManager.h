@@ -77,6 +77,9 @@ public:
     bool GetStomachache() const;
     void SetStomachache(bool arg);
 
+    int GetLevel() const;
+    void SetLevel(int arg);
+
 private:
     // ID
     int m_id;
@@ -132,6 +135,9 @@ private:
 
     // デバフ（腹痛）
     bool m_stomachache;
+
+    // 強化値
+    int m_level = -1;
 };
 
 // アイテム情報を管理するクラス
@@ -148,7 +154,7 @@ public:
 
     void Init(const std::string& csvfile);
 
-    ItemInfo GetItemInfo(const std::string& key);
+    ItemInfo GetItemInfo(const std::string& key, const int level = -1);
     ItemInfo GetItemInfo(const int id);
 
 private:

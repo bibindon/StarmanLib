@@ -102,9 +102,9 @@ void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute
         m_day++;
     }
 
-    if (m_day >= DAY_OF_MONTH[m_month])
+    if (m_day >= DAY_OF_MONTH_[m_month])
     {
-        m_day -= DAY_OF_MONTH[m_month];
+        m_day -= DAY_OF_MONTH_[m_month];
         m_month++;
     }
 
@@ -143,4 +143,9 @@ int PowereggDateTime::GetMinute()
 int PowereggDateTime::GetSecond()
 {
     return m_second;
+}
+
+int NSStarmanLib::PowereggDateTime::DAY_OF_MONTH(const int arg)
+{
+    return DAY_OF_MONTH_[arg];
 }

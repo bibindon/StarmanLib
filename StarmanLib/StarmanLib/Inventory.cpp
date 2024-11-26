@@ -63,6 +63,14 @@ void Inventory::AddItem(const int id)
     m_weight = CalcWeight();
 }
 
+void NSStarmanLib::Inventory::AddItem(const std::string name, const int level)
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
+    int materialId = itemInfo.GetId();
+    AddItem(materialId);
+}
+
 void Inventory::RemoveItem(const int id)
 {
     if (m_itemMap[id] >= 1)
@@ -70,6 +78,14 @@ void Inventory::RemoveItem(const int id)
         m_itemMap[id] = m_itemMap[id] - 1;
         m_weight = CalcWeight();
     }
+}
+
+void NSStarmanLib::Inventory::RemoveItem(const std::string name, const int level)
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
+    int materialId = itemInfo.GetId();
+    RemoveItem(materialId);
 }
 
 int Inventory::CountItem(const int id)
@@ -85,12 +101,12 @@ float Inventory::GetWeight()
 float Inventory::CalcWeight()
 {
     float result = 0.f;
-    ItemManager* itemManger = ItemManager::GetObj();
+    ItemManager* itemManager = ItemManager::GetObj();
     for (auto it = m_itemMap.begin(); it != m_itemMap.end(); ++it)
     {
         int id = it->first;
         int count = it->second;
-        ItemInfo itemInfo = itemManger->GetItemInfo(id);
+        ItemInfo itemInfo = itemManager->GetItemInfo(id);
         if (itemInfo.GetId() == 0)
         {
             continue;

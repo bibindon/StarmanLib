@@ -186,6 +186,16 @@ void ItemInfo::SetStomachache(bool arg)
     m_stomachache = arg;
 }
 
+int ItemInfo::GetLevel() const
+{
+    return m_level;
+}
+
+void ItemInfo::SetLevel(const int arg)
+{
+    m_level = arg;
+}
+
 ItemManager* ItemManager::GetObj()
 {
     if (obj == nullptr)
@@ -290,17 +300,20 @@ void ItemManager::Init(const std::string& csvfile)
             {
                 itemInfo.SetStomachache(false);
             }
+
+            work_i = std::stoi(vss.at(i).at(18));
+            itemInfo.SetLevel(work_i);
         }
         m_itemInfoMap[(int)i] = itemInfo;
     }
 }
 
-ItemInfo ItemManager::GetItemInfo(const std::string& key)
+ItemInfo ItemManager::GetItemInfo(const std::string& key, const int level)
 {
     ItemInfo itemInfo;
     for (auto it = m_itemInfoMap.begin(); it != m_itemInfoMap.end(); ++it)
     {
-        if (it->second.GetName() == key)
+        if (it->second.GetName() == key && it->second.GetLevel() == level)
         {
             itemInfo = it->second;
             break;
