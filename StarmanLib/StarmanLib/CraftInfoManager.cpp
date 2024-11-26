@@ -194,3 +194,14 @@ CraftMaterial CraftInfo::GetCraftMaterial(const int index)
 {
     return m_materialList.at(index);
 }
+
+std::vector<CraftMaterial> NSStarmanLib::CraftInfo::GetCraftMaterial()
+{
+    std::vector<CraftMaterial> result;
+    
+    for (auto it = m_materialList.begin(); it != m_materialList.end(); ++it)
+    {
+        result.push_back(it->second);
+    }
+    return result;
+}

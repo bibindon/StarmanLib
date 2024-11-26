@@ -68,6 +68,7 @@ public:
 
     void SetCraftMaterial(const int index, const CraftMaterial& arg);
     CraftMaterial GetCraftMaterial(const int index);
+    std::vector<CraftMaterial> GetCraftMaterial();
 
 private:
 

@@ -1,0 +1,129 @@
+#pragma once
+
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include "CraftInfoManager.h"
+#include <deque>
+
+namespace NSStarmanLib
+{
+
+// クラフト中のアイテムの情報クラス
+class CraftingItem
+{
+public:
+
+    std::string GetName() const;
+    void SetName(std::string mname);
+
+    int GetStartYear() const;
+    void SetStartYear(int startYear);
+
+    int GetStartMonth() const;
+    void SetStartMonth(int startMonth);
+
+    int GetStartDay() const;
+    void SetStartDay(int startDay);
+
+    int GetStartHour() const;
+    void SetStartHour(int startHour);
+
+    int GetStartMinute() const;
+    void SetStartMinute(int startMinute);
+
+    int GetStartSecond() const;
+    void SetStartSecond(int startSecond);
+
+    int GetfinishYear() const;
+    void SetfinishYear(int mfinishYear);
+
+    int GetfinishMonth() const;
+    void SetfinishMonth(int mfinishMonth);
+
+    int GetfinishDay() const;
+    void SetfinishDay(int mfinishDay);
+
+    int GetfinishHour() const;
+    void SetfinishHour(int mfinishHour);
+
+    int GetfinishMinute() const;
+    void SetfinishMinute(int mfinishMinute);
+
+    int GetfinishSecond() const;
+    void SetfinishSecond(int mfinishSecond);
+
+    CraftInfo GetCraftInfo() const;
+    void SetCraftInfo(const CraftInfo& arg);
+
+private:
+
+    std::string m_name;
+
+    int m_startYear { 0 };
+    int m_startMonth { 0 };
+    int m_startDay { 0 };
+    int m_startHour { 0 };
+    int m_startMinute { 0 };
+    int m_startSecond { 0 };
+
+    int m_finishYear { 0 };
+    int m_finishMonth { 0 };
+    int m_finishDay { 0 };
+    int m_finishHour { 0 };
+    int m_finishMinute { 0 };
+    int m_finishSecond { 0 };
+
+    CraftInfo m_craftInfo;
+
+};
+
+// クラフトシステム用クラス
+// ・CraftInfoManagerを使用してInventoryクラスやStorehouseクラスを操作する。
+// ・職人の熟練度を管理する。
+// ・職人の熟練度、インベントリの状況からクラフト可能 OR クラフト不可能の情報を提供する。
+// ・PowereggDateTimeクラスを使用して24時間後に完成したアイテムを倉庫に配置する。 
+// ・一度にクラフトできるアイテムは一つだけの想定
+// ・クラフトをキャンセルできるが素材はなくなる
+// ・完成する前に次の依頼ができる。5個までキューイング出来る
+class CraftSystem
+{
+
+public:
+
+    static CraftSystem* GetObj();
+
+    static void Destroy();
+
+    void Init(const std::string& csvfileSkill, const std::string& csvfileQueue);
+
+    void Save(const std::string& csvfileSkill, const std::string& csvfileQueue);
+
+    // 職人がクラフト可能であるか？のフラグをONにする
+    void SetCraftsmanSkill(const std::string& craftItem);
+
+    bool GetCraftsmanSkill(const std::string& craftItem);
+
+    // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
+    // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる
+    // 5個までキューイング出来る
+    bool CraftRequest(const std::string& craftItem);
+
+    // 依頼をキャンセル
+    bool CancelCraftStart(const int index);
+
+    void UpdateCraftStatus();
+
+private:
+
+    // シングルトンオブジェクト
+    static CraftSystem* obj;
+
+    std::unordered_map<std::string, bool> m_craftSkillMap;
+
+    // 一度にクラフトできるアイテムは一つだけの想定
+    std::list<CraftingItem> m_craftingItemList;
+
+};
+}
+
