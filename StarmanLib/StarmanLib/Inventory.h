@@ -30,7 +30,9 @@ public:
 
     void RemoveItem(const int id);
     void RemoveItem(const std::string name, const int level = -1);
+
     int CountItem(const int id);
+    int CountItem(const std::string name, const int level = -1);
 
     float GetWeight();
 

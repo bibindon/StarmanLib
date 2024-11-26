@@ -35,23 +35,23 @@ public:
     int GetStartSecond() const;
     void SetStartSecond(int startSecond);
 
-    int GetfinishYear() const;
-    void SetfinishYear(int mfinishYear);
+    int GetFinishYear() const;
+    void SetFinishYear(int mfinishYear);
 
-    int GetfinishMonth() const;
-    void SetfinishMonth(int mfinishMonth);
+    int GetFinishMonth() const;
+    void SetFinishMonth(int mfinishMonth);
 
-    int GetfinishDay() const;
-    void SetfinishDay(int mfinishDay);
+    int GetFinishDay() const;
+    void SetFinishDay(int mfinishDay);
 
-    int GetfinishHour() const;
-    void SetfinishHour(int mfinishHour);
+    int GetFinishHour() const;
+    void SetFinishHour(int mfinishHour);
 
-    int GetfinishMinute() const;
-    void SetfinishMinute(int mfinishMinute);
+    int GetFinishMinute() const;
+    void SetFinishMinute(int mfinishMinute);
 
-    int GetfinishSecond() const;
-    void SetfinishSecond(int mfinishSecond);
+    int GetFinishSecond() const;
+    void SetFinishSecond(int mfinishSecond);
 
     CraftInfo GetCraftInfo() const;
     void SetCraftInfo(const CraftInfo& arg);

@@ -93,6 +93,14 @@ int Inventory::CountItem(const int id)
     return m_itemMap[id];
 }
 
+int NSStarmanLib::Inventory::CountItem(const std::string name, const int level)
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
+    int materialId = itemInfo.GetId();
+    return CountItem(materialId);
+}
+
 float Inventory::GetWeight()
 {
     return m_weight;

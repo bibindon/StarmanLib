@@ -51,7 +51,7 @@ private:
     // 完成品の名前
     std::string m_name;
     
-    // 完成品の必要数
+    // 完成品の出力数
     int m_number = 0;
     
     // 完成品の強化レベル
@@ -95,6 +95,7 @@ public:
     std::vector<CraftOutput> GetCraftItemList();
 
     CraftInfo GetCraftInfo(const CraftOutput& output);
+    CraftInfo GetCraftInfo(const std::string& name, const int num, const int level);
 
 private:
 

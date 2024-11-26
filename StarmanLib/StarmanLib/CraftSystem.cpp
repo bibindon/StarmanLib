@@ -25,26 +25,73 @@ void CraftSystem::Destroy()
 
 void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfileQueue)
 {
-    std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfileSkill);
-
-    for (std::size_t i = 1; i < vss.size(); ++i)
     {
-        CraftSkill craftSkill;
+        std::vector<std::vector<std::string> > vss;
+        vss = csv::Read(csvfileSkill);
 
-        std::string name = vss.at(i).at(0);
-        craftSkill.SetName(name);
-
-        int level = std::stoi(vss.at(i).at(1));
-        craftSkill.SetLevel(level);
-
-        if (vss.at(i).at(2) == "○")
+        for (std::size_t i = 1; i < vss.size(); ++i)
         {
-            craftSkill.SetEnable(true);
+            CraftSkill craftSkill;
+
+            std::string name = vss.at(i).at(0);
+            craftSkill.SetName(name);
+
+            int level = std::stoi(vss.at(i).at(1));
+            craftSkill.SetLevel(level);
+
+            if (vss.at(i).at(2) == "○")
+            {
+                craftSkill.SetEnable(true);
+            }
+            else
+            {
+                craftSkill.SetEnable(false);
+            }
         }
-        else
+    }
+    {
+        std::vector<std::vector<std::string> > vss;
+        vss = csv::Read(csvfileQueue);
+
+        for (std::size_t i = 1; i < vss.size(); ++i)
         {
-            craftSkill.SetEnable(false);
+            CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
+
+            std::string name = vss.at(i).at(0);
+            int level = std::stoi(vss.at(i).at(1));
+
+            // クラフト情報を取得
+            CraftInfo craftInfo = craftInfoManager->GetCraftInfo(name, 1, level);
+
+            // クラフト中のアイテム情報
+            CraftRequest craftRequest;
+
+            craftRequest.SetCraftInfo(craftInfo);
+
+            if (vss.at(i).at(2) == "○")
+            {
+                craftRequest.SetCrafting(true);
+            }
+            else
+            {
+                craftRequest.SetCrafting(false);
+            }
+
+            craftRequest.SetStartYear(std::stoi(vss.at(i).at(3)));
+            craftRequest.SetStartMonth(std::stoi(vss.at(i).at(4)));
+            craftRequest.SetStartDay(std::stoi(vss.at(i).at(5)));
+            craftRequest.SetStartHour(std::stoi(vss.at(i).at(6)));
+            craftRequest.SetStartMinute(std::stoi(vss.at(i).at(7)));
+            craftRequest.SetStartSecond(std::stoi(vss.at(i).at(8)));
+
+            craftRequest.SetFinishYear(std::stoi(vss.at(i).at(9)));
+            craftRequest.SetFinishMonth(std::stoi(vss.at(i).at(10)));
+            craftRequest.SetFinishDay(std::stoi(vss.at(i).at(11)));
+            craftRequest.SetFinishHour(std::stoi(vss.at(i).at(12)));
+            craftRequest.SetFinishMinute(std::stoi(vss.at(i).at(13)));
+            craftRequest.SetFinishSecond(std::stoi(vss.at(i).at(14)));
+
+            m_craftRequestList.push_back(craftRequest);
         }
     }
 }
@@ -52,39 +99,96 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
 void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
                                      const std::string& csvfileQueue)
 {
-    std::vector<std::vector<std::string>> vss;
-    std::vector<std::string> vs;
-
-    vs.push_back("クラフトアイテム");
-    vs.push_back("強化値");
-    vs.push_back("クラフト可能");
-    vss.push_back(vs);
-    vs.clear();
-
-    for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
     {
-        vs.push_back(it->GetName());
-        if (it->GetLevel() != -1)
-        {
-            vs.push_back(std::to_string(it->GetLevel()));
-        }
-        else
-        {
-            vs.push_back("");
-        }
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
 
-        if (it->GetEnable())
-        {
-            vs.push_back("○");
-        }
-        else
-        {
-            vs.push_back("");
-        }
+        vs.push_back("クラフトアイテム");
+        vs.push_back("強化値");
+        vs.push_back("クラフト可能");
         vss.push_back(vs);
         vs.clear();
+
+        for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
+        {
+            vs.push_back(it->GetName());
+            if (it->GetLevel() != -1)
+            {
+                vs.push_back(std::to_string(it->GetLevel()));
+            }
+            else
+            {
+                vs.push_back("");
+            }
+
+            if (it->GetEnable())
+            {
+                vs.push_back("○");
+            }
+            else
+            {
+                vs.push_back("");
+            }
+            vss.push_back(vs);
+            vs.clear();
+        }
+        csv::Write(csvfileSkill, vss);
     }
-    csv::Write(csvfileSkill, vss);
+    {
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
+
+        vs.push_back("クラフトアイテム");
+        vs.push_back("強化値");
+        vs.push_back("クラフト中");
+        vs.push_back("開始年");
+        vs.push_back("開始月");
+        vs.push_back("開始日");
+        vs.push_back("開始時");
+        vs.push_back("開始分");
+        vs.push_back("開始秒");
+        vs.push_back("完了年");
+        vs.push_back("完了月");
+        vs.push_back("完了日");
+        vs.push_back("完了時");
+        vs.push_back("完了分");
+        vs.push_back("完了秒");
+        vss.push_back(vs);
+        vs.clear();
+
+        for (auto it = m_craftRequestList.begin(); it != m_craftRequestList.end(); ++it)
+        {
+            vs.push_back(it->GetName());
+            vs.push_back(std::to_string(it->GetCraftInfo().GetOutput().GetLevel()));
+
+            if (it->GetCrafting())
+            {
+                vs.push_back("○");
+            }
+            else
+            {
+                vs.push_back("");
+            }
+
+            vs.push_back(std::to_string(it->GetStartYear()));
+            vs.push_back(std::to_string(it->GetStartMonth()));
+            vs.push_back(std::to_string(it->GetStartDay()));
+            vs.push_back(std::to_string(it->GetStartHour()));
+            vs.push_back(std::to_string(it->GetStartMinute()));
+            vs.push_back(std::to_string(it->GetStartSecond()));
+
+            vs.push_back(std::to_string(it->GetFinishYear()));
+            vs.push_back(std::to_string(it->GetFinishMonth()));
+            vs.push_back(std::to_string(it->GetFinishDay()));
+            vs.push_back(std::to_string(it->GetFinishHour()));
+            vs.push_back(std::to_string(it->GetFinishMinute()));
+            vs.push_back(std::to_string(it->GetFinishSecond()));
+
+            vss.push_back(vs);
+            vs.clear();
+        }
+        csv::Write(csvfileQueue, vss);
+    }
 }
 
 void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::string& craftItem, const int level)
@@ -120,16 +224,8 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, 
 
     CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
 
-    // クラフト情報を得るにはクラフト成果物を渡す必要があるため
-    // まずはクラフト成果物を用意する
-    CraftOutput craftOutput;
-
-    craftOutput.SetName(craftItem);
-    craftOutput.SetLevel(level);
-    craftOutput.SetNumber(1);
-
-    // 用意したクラフト成果物でクラフト情報を得る
-    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftOutput);
+    // クラフト情報
+    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, 1, level);
 
     // 素材を消費する
     // 素材が足りないときはfalseを返す
@@ -137,11 +233,38 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, 
     std::vector<CraftMaterial> craftMaterialList = craftInfo.GetCraftMaterial();
 
     Inventory* inventory = Inventory::GetObj();
+    bool materialShortage = false;
 
+    // インベントリ内に必要なだけの素材があるかのチェック
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
         std::string name;
-        int materialId = 0;
+        int materialNum = 0;
+        int materialLevel = 0;
+
+        name = craftMaterialList.at(i).GetName();
+        materialNum = craftMaterialList.at(i).GetNumber();
+        materialLevel = craftMaterialList.at(i).GetLevel();
+
+        int materialNumCurrent = inventory->CountItem(name, materialLevel);
+
+        // 素材が足りない
+        if (materialNumCurrent < materialNum)
+        {
+            materialShortage = true;
+            break;
+        }
+    }
+
+    if (materialShortage)
+    {
+        return false;
+    }
+
+    // インベントリ内の素材を削除
+    for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
+    {
+        std::string name;
         int materialNum = 0;
         int materialLevel = 0;
 
@@ -211,34 +334,34 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
         // 完了時刻をアイテムごとに変えるのは難しくないのでやっても良いような気がする
         // 1月32日や13月は存在しないので、その対応を行うために
         // 秒、分、時、というように細かいほうから設定していく
-        m_craftRequestList.front().SetfinishSecond(obj->GetSecond());
-        m_craftRequestList.front().SetfinishMinute(obj->GetMinute());
-        m_craftRequestList.front().SetfinishHour(obj->GetHour());
+        m_craftRequestList.front().SetFinishSecond(obj->GetSecond());
+        m_craftRequestList.front().SetFinishMinute(obj->GetMinute());
+        m_craftRequestList.front().SetFinishHour(obj->GetHour());
 
         // 1月31日とか2月28日のような月末でないならば日数に＋１する。
         if (obj->GetDay() < obj->DAY_OF_MONTH(obj->GetMonth()))
         {
-            m_craftRequestList.front().SetfinishDay(obj->GetDay() + 1);
-            m_craftRequestList.front().SetfinishMonth(obj->GetMonth());
-            m_craftRequestList.front().SetfinishYear(obj->GetYear());
+            m_craftRequestList.front().SetFinishDay(obj->GetDay() + 1);
+            m_craftRequestList.front().SetFinishMonth(obj->GetMonth());
+            m_craftRequestList.front().SetFinishYear(obj->GetYear());
         }
         // 月末ならば日数を1日にする
         else
         {
-            m_craftRequestList.front().SetfinishDay(1);
+            m_craftRequestList.front().SetFinishDay(1);
 
             // 月数を+1する
             // 13月にならないように注意する
             if (obj->GetMonth() != 12)
             {
-                m_craftRequestList.front().SetfinishMonth(obj->GetMonth() + 1);
-                m_craftRequestList.front().SetfinishYear(obj->GetYear());
+                m_craftRequestList.front().SetFinishMonth(obj->GetMonth() + 1);
+                m_craftRequestList.front().SetFinishYear(obj->GetYear());
             }
             // 12月ならば、完了日を翌年の1月にする
             else if (obj->GetMonth() == 12)
             {
-                m_craftRequestList.front().SetfinishMonth(1);
-                m_craftRequestList.front().SetfinishYear(obj->GetYear() + 1);
+                m_craftRequestList.front().SetFinishMonth(1);
+                m_craftRequestList.front().SetFinishYear(obj->GetYear() + 1);
             }
         }
 
@@ -315,62 +438,62 @@ void CraftRequest::SetStartSecond(int startSecond)
     m_startSecond = startSecond;
 }
 
-int CraftRequest::GetfinishYear() const
+int CraftRequest::GetFinishYear() const
 {
     return m_finishYear;
 }
 
-void CraftRequest::SetfinishYear(int mfinishYear)
+void CraftRequest::SetFinishYear(int mfinishYear)
 {
     m_finishYear = mfinishYear;
 }
 
-int CraftRequest::GetfinishMonth() const
+int CraftRequest::GetFinishMonth() const
 {
     return m_finishMonth;
 }
 
-void CraftRequest::SetfinishMonth(int mfinishMonth)
+void CraftRequest::SetFinishMonth(int mfinishMonth)
 {
     m_finishMonth = mfinishMonth;
 }
 
-int CraftRequest::GetfinishDay() const
+int CraftRequest::GetFinishDay() const
 {
     return m_finishDay;
 }
 
-void CraftRequest::SetfinishDay(int mfinishDay)
+void CraftRequest::SetFinishDay(int mfinishDay)
 {
     m_finishDay = mfinishDay;
 }
 
-int CraftRequest::GetfinishHour() const
+int CraftRequest::GetFinishHour() const
 {
     return m_finishHour;
 }
 
-void CraftRequest::SetfinishHour(int mfinishHour)
+void CraftRequest::SetFinishHour(int mfinishHour)
 {
     m_finishHour = mfinishHour;
 }
 
-int CraftRequest::GetfinishMinute() const
+int CraftRequest::GetFinishMinute() const
 {
     return m_finishMinute;
 }
 
-void CraftRequest::SetfinishMinute(int mfinishMinute)
+void CraftRequest::SetFinishMinute(int mfinishMinute)
 {
     m_finishMinute = mfinishMinute;
 }
 
-int CraftRequest::GetfinishSecond() const
+int CraftRequest::GetFinishSecond() const
 {
     return m_finishSecond;
 }
 
-void CraftRequest::SetfinishSecond(int mfinishSecond)
+void CraftRequest::SetFinishSecond(int mfinishSecond)
 {
     m_finishSecond = mfinishSecond;
 }

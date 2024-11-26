@@ -115,6 +115,32 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
     return m_craftInfoList.at(i);
 }
 
+CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::string& name,
+                                                       const int num,
+                                                       const int level)
+{
+    std::size_t i = 0;
+    for (; i < m_craftInfoList.size(); ++i)
+    {
+        if (m_craftInfoList.at(i).GetOutput().GetName() == name)
+        {
+            if (m_craftInfoList.at(i).GetOutput().GetNumber() == num)
+            {
+                if (m_craftInfoList.at(i).GetOutput().GetLevel() == level)
+                {
+                    break;
+                }
+                // Š®¬•i‚Ì‹­‰»’l‚ª–³‚µ‚È‚ç-1
+                else if (m_craftInfoList.at(i).GetOutput().GetLevel() == -1)
+                {
+                    break;
+                }
+            }
+        }
+    }
+    return m_craftInfoList.at(i);
+}
+
 void CraftMaterial::SetName(const std::string& arg)
 {
     m_name = arg;
