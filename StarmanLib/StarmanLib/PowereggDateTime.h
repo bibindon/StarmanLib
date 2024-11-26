@@ -30,6 +30,10 @@ public:
     int GetSecond();
     int DAY_OF_MONTH(const int arg);
 
+    // “ñ‚Â‚Ì“ú‚Ì‚¤‚¿Å‰‚Ì“ú‚É‚Ì•û‚ªŒÃ‚¢‚È‚çtrue
+    static bool FromPastToFuture(int year1, int month1, int day1, int hour1, int minute1, int second1,
+                                 int year2, int month2, int day2, int hour2, int minute2, int second2);
+
 private:
 
     // ƒVƒ“ƒOƒ‹ƒgƒ“

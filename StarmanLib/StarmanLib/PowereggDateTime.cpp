@@ -149,3 +149,30 @@ int NSStarmanLib::PowereggDateTime::DAY_OF_MONTH(const int arg)
 {
     return DAY_OF_MONTH_[arg];
 }
+
+// “ú•t“¯m‚Ì”äŠr
+// 1”N2Œ3“ú45•ª6•b‚Æ6”N5Œ4“ú32•ª1•b‚Ì‚Ç‚¿‚ç‚ª–¢—ˆE‰ß‹‚©‚ğ”»’è‚·‚é‚É‚Í
+// 010203040506 ‚Æ 060504030201 ‚Æ‚¢‚¤12Œ…‚Ì”’l‚ÆŒ©‚È‚µ‚Ä12Œ…‚Ì”’l“¯m‚Ì”äŠr‚ğs‚¦‚Î‚æ‚¢
+bool NSStarmanLib::PowereggDateTime::FromPastToFuture(int year1, int month1, int day1,
+                                                      int hour1, int minute1, int second1,
+                                                      int year2, int month2, int day2,
+                                                      int hour2, int minute2, int second2)
+{
+    long long leftDateTime = 0;
+    leftDateTime += (long long)year1   * 10000000000;
+    leftDateTime += (long long)month1  * 100000000;
+    leftDateTime += (long long)day1    * 1000000;
+    leftDateTime += (long long)hour1   * 10000;
+    leftDateTime += (long long)minute1 * 100;
+    leftDateTime += (long long)second1 * 1;
+
+    long long rightDateTime = 0;
+    rightDateTime += (long long)year2   * 10000000000;
+    rightDateTime += (long long)month2  * 100000000;
+    rightDateTime += (long long)day2    * 1000000;
+    rightDateTime += (long long)hour2   * 10000;
+    rightDateTime += (long long)minute2 * 100;
+    rightDateTime += (long long)second2 * 1;
+
+    return leftDateTime < rightDateTime;
+}

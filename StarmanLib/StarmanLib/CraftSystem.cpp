@@ -3,6 +3,7 @@
 #include "PowereggDateTime.h"
 #include "Inventory.h"
 #include "ItemManager.h"
+#include "Storehouse.h"
 
 using namespace NSStarmanLib;
 
@@ -364,7 +365,49 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 m_craftRequestList.front().SetFinishYear(obj->GetYear() + 1);
             }
         }
+    }
+    // クラフト中ならばクラフト完了でないか確認する
+    else if (m_craftRequestList.front().GetCrafting())
+    {
 
+        // 日付同士の比較
+        // 1年2月3日4時5分6秒と6年5月4日3時2分1秒のどちらが未来・過去かを判定するには
+        // 010203040506 と 060504030201 という12桁の数値と見なして12桁の数値同士の比較を行えばよい
+        int y1, M1, d1, h1, m1, s1;
+        int y2, M2, d2, h2, m2, s2;
+
+        y1 = m_craftRequestList.front().GetFinishYear();
+        M1 = m_craftRequestList.front().GetFinishMonth();
+        d1 = m_craftRequestList.front().GetFinishDay();
+        h1 = m_craftRequestList.front().GetFinishHour();
+        m1 = m_craftRequestList.front().GetFinishMinute();
+        s1 = m_craftRequestList.front().GetFinishSecond();
+
+        PowereggDateTime* obj = PowereggDateTime::GetObj();
+        y2 = obj->GetYear();
+        M2 = obj->GetMonth();
+        d2 = obj->GetDay();
+        h2 = obj->GetHour();
+        m2 = obj->GetMinute();
+        s2 = obj->GetSecond();
+
+        bool fromPastToFuture = PowereggDateTime::FromPastToFuture(y1, M1, d1, h1, m1, s1, 
+                                                                   y2, M2, d2, h2, m2, s2);
+
+        // 作業完了時刻よりも現在時刻新しい、ことは完成していることを意味する
+        if (fromPastToFuture)
+        {
+            // 完成したアイテムを倉庫に配置する
+            CraftOutput output = m_craftRequestList.front().GetCraftInfo().GetOutput();
+            Storehouse* storehouse = Storehouse::GetObj();
+            for (int i = 0; i < output.GetNumber(); ++i)
+            {
+                storehouse->AddItem(output.GetName(), output.GetLevel());
+            }
+
+            // 先頭の要素をリクエストのリストから削除
+            m_craftRequestList.pop_front();
+        }
     }
 }
 

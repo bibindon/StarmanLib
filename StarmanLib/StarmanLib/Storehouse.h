@@ -27,7 +27,9 @@ public:
 
     // ˆêŒÂ‚¸‚Â‚µ‚©‘‰ÁŒ¸o—ˆ‚È‚¢‘z’è
     void AddItem(const int id);
+    void AddItem(const std::string& name, const int level = -1);
     void RemoveItem(const int id);
+    void RemoveItem(const std::string& name, const int level = -1);
     int CountItem(const int id);
 
 private:
