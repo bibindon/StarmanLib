@@ -25,10 +25,9 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition)
     std::vector<std::vector<std::string> > vss;
     vss = csv::Read(csvfileDefinition);
 
-    CraftInfo craftInfo;
-
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
+        CraftInfo craftInfo;
         CraftOutput craftOutput;
         int work_i = 0;
 

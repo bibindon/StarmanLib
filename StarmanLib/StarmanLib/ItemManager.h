@@ -82,7 +82,7 @@ public:
 
 private:
     // ID
-    int m_id;
+    int m_id = 0;
 
     // –¼Ì
     std::string m_name;

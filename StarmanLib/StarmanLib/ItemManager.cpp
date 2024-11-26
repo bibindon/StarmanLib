@@ -341,6 +341,11 @@ ItemInfo ItemManager::GetItemInfo(const int id)
             break;
         }
     }
+    if (itemInfo.GetId() == 0)
+    {
+        // ‘¶İ‚µ‚È‚¢ID‚ğæ“¾‚µ‚æ‚¤‚Æ‚µ‚½B
+        abort();
+    }
     return itemInfo;
 }
 

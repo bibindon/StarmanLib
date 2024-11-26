@@ -89,4 +89,12 @@ int Storehouse::CountItem(const int id)
     return m_itemMap[id];
 }
 
+int NSStarmanLib::Storehouse::CountItem(const std::string& name, const int level)
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
+    int materialId = itemInfo.GetId();
+    return CountItem(materialId);
+}
+
 

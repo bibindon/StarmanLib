@@ -346,6 +346,9 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, 
     }
 
     // インベントリ内の素材を削除
+    // クラフト要求はキューイングされるため、一見、この時点で素材を削除する必要はないように思える。
+    // しかし、実際にクラフトが開始されたときにアイテムを削除する、というやり方にすると、
+    // 非常に難解なプログラムを書く必要がある。そのため、この時点で素材は削除することにする。
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
         std::string name;
@@ -390,12 +393,6 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 {
     // リクエストがないならやることなし
     if (m_craftRequestList.size() == 0)
-    {
-        return;
-    }
-
-    // クラフトリクエストの先頭がクラフト中ならばやることなし
-    if (m_craftRequestList.front().GetCrafting())
     {
         return;
     }
@@ -449,7 +446,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             }
         }
     }
-    // クラフト中ならばクラフト完了でないか確認する
+    // クラフトリクエストの先頭がクラフト中ならばクラフト完了でないか確認する
     else if (m_craftRequestList.front().GetCrafting())
     {
 
@@ -498,7 +495,7 @@ int NSStarmanLib::CraftSystem::GetProgress()
 {
     if (m_craftRequestList.front().GetCrafting() == false)
     {
-        return 0;
+        return -1;
     }
 
     // 24時間で完成なので1時間で4%上昇させる。分・秒は考えない。
@@ -518,6 +515,11 @@ int NSStarmanLib::CraftSystem::GetProgress()
         elapsedHour = (currentHour+24) - finishHour;
     }
     return elapsedHour * 100 / 24;
+}
+
+std::list<CraftRequest> NSStarmanLib::CraftSystem::GetCraftRequestList()
+{
+    return m_craftRequestList;
 }
 
 std::string CraftRequest::GetName() const

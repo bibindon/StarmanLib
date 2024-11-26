@@ -148,6 +148,8 @@ public:
 
     int GetProgress();
 
+    std::list<CraftRequest> GetCraftRequestList();
+
 private:
 
     // シングルトンオブジェクト

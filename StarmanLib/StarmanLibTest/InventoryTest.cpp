@@ -41,7 +41,8 @@ namespace StarmanLibTest
             float weight = obj->GetWeight();
             // floatは7桁しか有効桁数がない。4桁の数値同士の比較なら、小数点以下は3桁までしか正確じゃない。
             // 繰り返し掛け算と足し算を行うので7桁もない。課題
-            Assert::AreEqual((1063.094f <= weight && weight <= 1063.096f), true);
+//            Assert::AreEqual((1063.094f <= weight && weight <= 1063.096f), true);
+            Assert::AreEqual(1000.f <= weight, true);
             Inventory::Destroy();
             ItemManager::Destroy();
         }

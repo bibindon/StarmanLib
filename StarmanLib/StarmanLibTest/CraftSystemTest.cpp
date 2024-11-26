@@ -8,12 +8,40 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include "../StarmanLib/PowereggDateTime.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
 
 namespace StarmanLibTest
 {
+
+void Initialize()
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    itemManager->Init("item.csv");
+
+    Inventory* inventory = Inventory::GetObj();
+    inventory->Init("inventory.csv");
+
+    Storehouse* storehouse = Storehouse::GetObj();
+    storehouse->Init("storehouse.csv");
+
+    CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
+    craftInfoManager->Init("craftDef.csv");
+
+    PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+    powereggDateTime->Init("datetime.csv");
+}
+
+void Finalize()
+{
+    PowereggDateTime::Destroy();
+    CraftInfoManager::Destroy();
+    Storehouse::Destroy();
+    Inventory::Destroy();
+    ItemManager::Destroy();
+}
 
     TEST_CLASS(CraftSystemTest)
     {
@@ -111,35 +139,183 @@ namespace StarmanLibTest
 
         TEST_METHOD(TestMethod06)
         {
-            {
-                ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("item.csv");
-
-                Inventory* inventory = Inventory::GetObj();
-                inventory->Init("inventory.csv");
-
-                Storehouse* storehouse = Storehouse::GetObj();
-                storehouse->Init("storehouse.csv");
-
-                CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-                craftInfoManager->Init("craftDef.csv");
-            }
+            Initialize();
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("craftsmanSkill.csv", "craftsmanQueue.csv");
             obj->QueueCraftRequest("イカダ");
 
             CraftSystem::Destroy();
+
+            Finalize();
         }
-        // TODO キューイングしてスタート
-        // TODO キューイングしてスタートして素材がなくなる
-        // TODO キューイングしてスタートして完了する
-        // TODO キューイングしてスタートして完了して倉庫に完成品が現れる
-        // TODO 複数キューイングしてスタートして完了して倉庫に完成品が現れる
-        // TODO 進捗度が取得できる
-        // TODO 保存できる
-        // TODO キューイングしてキャンセル
-        // TODO 複数キューイングしてキャンセル
+
+        // クラフト用の素材がなくてキューイング失敗
+        TEST_METHOD(TestMethod07)
+        {
+            Initialize();
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("craftsmanSkill.csv", "craftsmanQueueEmpty.csv");
+            bool result = obj->QueueCraftRequest("イカダ");
+
+            Assert::AreEqual(result, false);
+
+            std::list<CraftRequest> craftRequestList;
+            craftRequestList = obj->GetCraftRequestList();
+
+            Assert::AreEqual((int)craftRequestList.size() == 0, true);
+
+            CraftSystem::Destroy();
+
+            Finalize();
+        }
+
+        // キューイングしてスタート
+        TEST_METHOD(TestMethod08)
+        {
+            Initialize();
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("craftsmanSkill.csv", "craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("アトラトル");
+
+            std::list<CraftRequest> craftRequestList;
+            craftRequestList = obj->GetCraftRequestList();
+
+            Assert::AreEqual((int)craftRequestList.size() == 1, true);
+            Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
+
+            obj->UpdateCraftStatus();
+
+            craftRequestList = obj->GetCraftRequestList();
+
+            Assert::AreEqual((int)craftRequestList.size() == 1, true);
+            Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
+
+            CraftSystem::Destroy();
+
+            Finalize();
+        }
+
+        // キューイングした時点でクラフト用素材がインベントリからなくなる
+        TEST_METHOD(TestMethod09)
+        {
+            Initialize();
+
+            Inventory* inventory = Inventory::GetObj();
+            int temp = 0;
+
+            temp = inventory->CountItem("細い木の幹");
+            Assert::AreEqual(temp, 15);
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("craftsmanSkill.csv", "craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍");
+
+            std::list<CraftRequest> craftRequestList;
+            craftRequestList = obj->GetCraftRequestList();
+
+            Assert::AreEqual((int)craftRequestList.size() == 1, true);
+            Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
+
+            temp = inventory->CountItem("細い木の幹");
+            Assert::AreEqual(temp, 14);
+
+            temp = inventory->CountItem("いい形の石（槍）");
+            Assert::AreEqual(temp, 1);
+
+            obj->UpdateCraftStatus();
+
+            craftRequestList = obj->GetCraftRequestList();
+
+            Assert::AreEqual((int)craftRequestList.size() == 1, true);
+            Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
+
+            temp = inventory->CountItem("細い木の幹");
+            Assert::AreEqual(temp, 14);
+
+            temp = inventory->CountItem("いい形の石（槍）");
+            Assert::AreEqual(temp, 1);
+
+            CraftSystem::Destroy();
+
+            Finalize();
+        }
+
+        // キューイングしてスタートして完了する
+        TEST_METHOD(TestMethod10)
+        {
+            Initialize();
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("craftsmanSkill.csv", "craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            std::list<CraftRequest> craftRequestList;
+            craftRequestList = obj->GetCraftRequestList();
+
+            // クラフト要求がなくなっていること
+            Assert::AreEqual((int)craftRequestList.size() == 0, true);
+
+            CraftSystem::Destroy();
+
+            Finalize();
+        }
+
+        // キューイングしてスタートして完了して倉庫に完成品が追加される
+        TEST_METHOD(TestMethod11)
+        {
+            Initialize();
+
+            Storehouse* storehouse = Storehouse::GetObj();
+            int work = 0;
+            work = storehouse->CountItem("石槍");
+
+            Assert::AreEqual(work, 0);
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("craftsmanSkill.csv", "craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            work = storehouse->CountItem("石槍");
+
+            Assert::AreEqual(work, 1);
+
+            CraftSystem::Destroy();
+
+            Finalize();
+        }
+
+        // 複数キューイングしてスタートして完了して倉庫に完成品が現れる
+
+        // 進捗度が取得できる
+
+        // 保存できる
+
+        // キューイングしてキャンセル
+
+        // 複数キューイングしてキャンセル
+
+        // 素材に武器がある場合。
 
     };
 }
