@@ -91,6 +91,7 @@ public:
     static void Destroy();
 
     void Init(const std::string& csvfileDefinition);
+    bool Inited();
 
     std::vector<CraftOutput> GetCraftItemList();
 
@@ -103,6 +104,7 @@ private:
     static CraftInfoManager* obj;
 
     std::vector<CraftInfo> m_craftInfoList;
+    bool m_init = false;;
 };
 }
 

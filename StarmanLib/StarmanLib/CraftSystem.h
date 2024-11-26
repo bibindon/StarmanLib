@@ -1,3 +1,6 @@
+//-------------------------------------------------------------
+// CraftSystemのInit関数より先に、CraftInfoManagerのInitが呼ばれている必要がある。
+//-------------------------------------------------------------
 #pragma once
 
 #include <vector>
@@ -16,6 +19,9 @@ public:
 
     std::string GetName() const;
     void SetName(std::string mname);
+
+    int GetLevel() const;
+    void SetLevel(const int arg);
 
     int GetStartYear() const;
     void SetStartYear(int startYear);
@@ -62,6 +68,7 @@ public:
 private:
 
     std::string m_name;
+    int m_level;
 
     bool m_crafting = false;
 
@@ -138,6 +145,8 @@ public:
     bool CancelCraftStart(const int index);
 
     void UpdateCraftStatus();
+
+    int GetProgress();
 
 private:
 

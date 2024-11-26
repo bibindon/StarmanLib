@@ -26,6 +26,15 @@ void CraftSystem::Destroy()
 
 void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfileQueue)
 {
+    // CraftSystemのInit関数より先に、CraftInfoManagerのInitが呼ばれている必要がある。
+    {
+        CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
+        if (craftInfoManager->Inited() == false)
+        {
+            abort();
+        }
+    }
+
     {
         std::vector<std::vector<std::string> > vss;
         vss = csv::Read(csvfileSkill);
@@ -37,7 +46,15 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
             std::string name = vss.at(i).at(0);
             craftSkill.SetName(name);
 
-            int level = std::stoi(vss.at(i).at(1));
+            int level = 0;
+            if (vss.at(i).at(1).empty())
+            {
+                level = -1;
+            }
+            else
+            {
+                level = std::stoi(vss.at(i).at(1));
+            }
             craftSkill.SetLevel(level);
 
             if (vss.at(i).at(2) == "○")
@@ -48,6 +65,7 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
             {
                 craftSkill.SetEnable(false);
             }
+            m_craftSkillList.push_back(craftSkill);
         }
     }
     {
@@ -59,13 +77,26 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
 
             std::string name = vss.at(i).at(0);
-            int level = std::stoi(vss.at(i).at(1));
+
+            int level = 0;
+
+            if (vss.at(i).at(1).empty())
+            {
+                level = -1;
+            }
+            else
+            {
+                level = std::stoi(vss.at(i).at(1));
+            }
 
             // クラフト情報を取得
             CraftInfo craftInfo = craftInfoManager->GetCraftInfo(name, 1, level);
 
             // クラフト中のアイテム情報
             CraftRequest craftRequest;
+
+            craftRequest.SetName(craftInfo.GetOutput().GetName());
+            craftRequest.SetLevel(craftInfo.GetOutput().GetLevel());
 
             craftRequest.SetCraftInfo(craftInfo);
 
@@ -78,19 +109,38 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
                 craftRequest.SetCrafting(false);
             }
 
-            craftRequest.SetStartYear(std::stoi(vss.at(i).at(3)));
-            craftRequest.SetStartMonth(std::stoi(vss.at(i).at(4)));
-            craftRequest.SetStartDay(std::stoi(vss.at(i).at(5)));
-            craftRequest.SetStartHour(std::stoi(vss.at(i).at(6)));
-            craftRequest.SetStartMinute(std::stoi(vss.at(i).at(7)));
-            craftRequest.SetStartSecond(std::stoi(vss.at(i).at(8)));
+            if (craftRequest.GetCrafting())
+            {
+                craftRequest.SetStartYear(std::stoi(vss.at(i).at(3)));
+                craftRequest.SetStartMonth(std::stoi(vss.at(i).at(4)));
+                craftRequest.SetStartDay(std::stoi(vss.at(i).at(5)));
+                craftRequest.SetStartHour(std::stoi(vss.at(i).at(6)));
+                craftRequest.SetStartMinute(std::stoi(vss.at(i).at(7)));
+                craftRequest.SetStartSecond(std::stoi(vss.at(i).at(8)));
 
-            craftRequest.SetFinishYear(std::stoi(vss.at(i).at(9)));
-            craftRequest.SetFinishMonth(std::stoi(vss.at(i).at(10)));
-            craftRequest.SetFinishDay(std::stoi(vss.at(i).at(11)));
-            craftRequest.SetFinishHour(std::stoi(vss.at(i).at(12)));
-            craftRequest.SetFinishMinute(std::stoi(vss.at(i).at(13)));
-            craftRequest.SetFinishSecond(std::stoi(vss.at(i).at(14)));
+                craftRequest.SetFinishYear(std::stoi(vss.at(i).at(9)));
+                craftRequest.SetFinishMonth(std::stoi(vss.at(i).at(10)));
+                craftRequest.SetFinishDay(std::stoi(vss.at(i).at(11)));
+                craftRequest.SetFinishHour(std::stoi(vss.at(i).at(12)));
+                craftRequest.SetFinishMinute(std::stoi(vss.at(i).at(13)));
+                craftRequest.SetFinishSecond(std::stoi(vss.at(i).at(14)));
+            }
+            else
+            {
+                craftRequest.SetStartYear(-1);
+                craftRequest.SetStartMonth(-1);
+                craftRequest.SetStartDay(-1);
+                craftRequest.SetStartHour(-1);
+                craftRequest.SetStartMinute(-1);
+                craftRequest.SetStartSecond(-1);
+
+                craftRequest.SetFinishYear(-1);
+                craftRequest.SetFinishMonth(-1);
+                craftRequest.SetFinishDay(-1);
+                craftRequest.SetFinishHour(-1);
+                craftRequest.SetFinishMinute(-1);
+                craftRequest.SetFinishSecond(-1);
+            }
 
             m_craftRequestList.push_back(craftRequest);
         }
@@ -160,7 +210,16 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
         for (auto it = m_craftRequestList.begin(); it != m_craftRequestList.end(); ++it)
         {
             vs.push_back(it->GetName());
-            vs.push_back(std::to_string(it->GetCraftInfo().GetOutput().GetLevel()));
+
+            int level = it->GetCraftInfo().GetOutput().GetLevel();
+            if (level != -1)
+            {
+                vs.push_back(std::to_string(level));
+            }
+            else
+            {
+                vs.push_back("");
+            }
 
             if (it->GetCrafting())
             {
@@ -171,19 +230,38 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
                 vs.push_back("");
             }
 
-            vs.push_back(std::to_string(it->GetStartYear()));
-            vs.push_back(std::to_string(it->GetStartMonth()));
-            vs.push_back(std::to_string(it->GetStartDay()));
-            vs.push_back(std::to_string(it->GetStartHour()));
-            vs.push_back(std::to_string(it->GetStartMinute()));
-            vs.push_back(std::to_string(it->GetStartSecond()));
+            if (it->GetCrafting())
+            {
+                vs.push_back(std::to_string(it->GetStartYear()));
+                vs.push_back(std::to_string(it->GetStartMonth()));
+                vs.push_back(std::to_string(it->GetStartDay()));
+                vs.push_back(std::to_string(it->GetStartHour()));
+                vs.push_back(std::to_string(it->GetStartMinute()));
+                vs.push_back(std::to_string(it->GetStartSecond()));
 
-            vs.push_back(std::to_string(it->GetFinishYear()));
-            vs.push_back(std::to_string(it->GetFinishMonth()));
-            vs.push_back(std::to_string(it->GetFinishDay()));
-            vs.push_back(std::to_string(it->GetFinishHour()));
-            vs.push_back(std::to_string(it->GetFinishMinute()));
-            vs.push_back(std::to_string(it->GetFinishSecond()));
+                vs.push_back(std::to_string(it->GetFinishYear()));
+                vs.push_back(std::to_string(it->GetFinishMonth()));
+                vs.push_back(std::to_string(it->GetFinishDay()));
+                vs.push_back(std::to_string(it->GetFinishHour()));
+                vs.push_back(std::to_string(it->GetFinishMinute()));
+                vs.push_back(std::to_string(it->GetFinishSecond()));
+            }
+            else
+            {
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+                vs.push_back("");
+            }
 
             vss.push_back(vs);
             vs.clear();
@@ -194,11 +272,16 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
 
 void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::string& craftItem, const int level)
 {
-    CraftSkill craftSkill;
-    craftSkill.SetName(craftItem);
-    craftSkill.SetLevel(level);
-    craftSkill.SetEnable(true);
-    m_craftSkillList.push_back(craftSkill);
+    auto it = std::find_if(m_craftSkillList.begin(), m_craftSkillList.end(),
+                           [&](CraftSkill& x)
+                           {
+                               return x.GetName() == craftItem && x.GetLevel() == level;
+                           });
+
+    if (it != m_craftSkillList.end())
+    {
+        it->SetEnable(true);
+    }
 }
 
 bool NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem, const int level)
@@ -411,6 +494,32 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
     }
 }
 
+int NSStarmanLib::CraftSystem::GetProgress()
+{
+    if (m_craftRequestList.front().GetCrafting() == false)
+    {
+        return 0;
+    }
+
+    // 24時間で完成なので1時間で4%上昇させる。分・秒は考えない。
+    // 経過時間
+    int elapsedHour = 0;
+
+    PowereggDateTime* obj = PowereggDateTime::GetObj();
+    int currentHour = obj->GetHour();
+    int finishHour = m_craftRequestList.front().GetFinishHour();
+    if (currentHour > finishHour)
+    {
+        elapsedHour = currentHour - finishHour;
+    }
+    // 現在時刻が0時を超えたら24を足してから引く
+    else
+    {
+        elapsedHour = (currentHour+24) - finishHour;
+    }
+    return elapsedHour * 100 / 24;
+}
+
 std::string CraftRequest::GetName() const
 {
     return m_name;
@@ -419,6 +528,16 @@ std::string CraftRequest::GetName() const
 void CraftRequest::SetName(std::string mname)
 {
     m_name = mname;
+}
+
+int NSStarmanLib::CraftRequest::GetLevel() const
+{
+    return m_level;
+}
+
+void NSStarmanLib::CraftRequest::SetLevel(const int arg)
+{
+    m_level = arg;
 }
 
 int CraftRequest::GetStartYear() const

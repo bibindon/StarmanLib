@@ -79,6 +79,12 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition)
         }
         m_craftInfoList.push_back(craftInfo);
     }
+    m_init = true;
+}
+
+bool NSStarmanLib::CraftInfoManager::Inited()
+{
+    return m_init;
 }
 
 std::vector<CraftOutput> CraftInfoManager::GetCraftItemList()
@@ -127,11 +133,6 @@ CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::string& name,
             if (m_craftInfoList.at(i).GetOutput().GetNumber() == num)
             {
                 if (m_craftInfoList.at(i).GetOutput().GetLevel() == level)
-                {
-                    break;
-                }
-                // äÆê¨ïiÇÃã≠âªílÇ™ñ≥ÇµÇ»ÇÁ-1
-                else if (m_craftInfoList.at(i).GetOutput().GetLevel() == -1)
                 {
                     break;
                 }
