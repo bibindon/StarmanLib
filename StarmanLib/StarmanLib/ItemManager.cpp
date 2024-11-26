@@ -301,7 +301,15 @@ void ItemManager::Init(const std::string& csvfile)
                 itemInfo.SetStomachache(false);
             }
 
-            work_i = std::stoi(vss.at(i).at(18));
+            if (vss.at(i).at(18).empty())
+            {
+                work_i = -1;
+            }
+            else
+            {
+                work_i = std::stoi(vss.at(i).at(18));
+            }
+
             itemInfo.SetLevel(work_i);
         }
         m_itemInfoMap[(int)i] = itemInfo;
