@@ -143,7 +143,6 @@ private:
 // アイテム情報を管理するクラス
 // 「主人公はアイテムをいくつ持っているか？」は
 // Inventoryクラスが担当するためこのクラスは関係ないことに注意。
-// TODO 武器とアイテムは違うのか？
 class ItemManager
 {
 public:
@@ -153,6 +152,7 @@ public:
     static void Destroy();
 
     void Init(const std::string& csvfile);
+    bool Inited();
 
     ItemInfo GetItemInfo(const std::string& key, const int level = -1);
     ItemInfo GetItemInfo(const int id);
@@ -163,6 +163,8 @@ private:
     static ItemManager* obj;
 
     std::unordered_map<int, ItemInfo> m_itemInfoMap;
+
+    bool m_inited = false;
 };
 }
 

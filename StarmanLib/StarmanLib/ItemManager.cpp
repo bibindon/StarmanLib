@@ -314,6 +314,12 @@ void ItemManager::Init(const std::string& csvfile)
         }
         m_itemInfoMap[(int)i] = itemInfo;
     }
+    m_inited = true;
+}
+
+bool NSStarmanLib::ItemManager::Inited()
+{
+    return m_inited;
 }
 
 ItemInfo ItemManager::GetItemInfo(const std::string& key, const int level)

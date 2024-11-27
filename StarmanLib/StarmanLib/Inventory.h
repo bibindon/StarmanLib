@@ -22,6 +22,7 @@ public:
     static void Destroy();
 
     void Init(const std::string& csvfile);
+    bool Inited();
     void Save(const std::string& csvfile);
 
     // 一個ずつしか増加減出来ない想定
@@ -50,6 +51,7 @@ private:
     // 同じアイテムを複数所持できることに注意
     std::unordered_map<int, int> m_itemMap;
     
+    bool m_inited = false;
 };
 }
 

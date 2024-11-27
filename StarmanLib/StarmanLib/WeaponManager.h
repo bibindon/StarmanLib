@@ -136,6 +136,8 @@ public:
               const bool encrypt = false);
 
 private:
+    // このゲームにはインベントリと倉庫がある。
+    // 
     std::unordered_map<std::string, WeaponType> m_weaponTypeMap;
     std::unordered_map<std::string, std::vector<Weapon>> m_weaponMap;
 };

@@ -2,6 +2,10 @@
 #include "HeaderOnlyCsv.hpp"
 #include "CaesarCipher.h"
 
+#include "ItemManager.h"
+#include "Inventory.h"
+#include "Storehouse.h"
+
 #include <iomanip>
 
 using namespace NSStarmanLib;
@@ -10,6 +14,24 @@ void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
                          const bool decrypt)
 {
+    // ItemManagerクラス、Inventoryクラス、StorehouseクラスのInit関数が先に呼ばれている必要がある
+    {
+        if (ItemManager::GetObj()->Inited() == false)
+        {
+            abort();
+        }
+
+        if (Inventory::GetObj()->Inited() == false)
+        {
+            abort();
+        }
+
+        if (Storehouse::GetObj()->Inited() == false)
+        {
+            abort();
+        }
+    }
+
     // 武器データを読む
     {
         std::vector<std::vector<std::string>> vss;
@@ -127,8 +149,9 @@ void WeaponManager::SetWeaponMap(const std::unordered_map<std::string, std::vect
     m_weaponMap = arg;
 }
 
-void WeaponManager::Save(
-    const std::string& savefilename, const std::string& subSavefilename, const bool encrypt)
+void WeaponManager::Save(const std::string& savefilename,
+                         const std::string& subSavefilename,
+                         const bool encrypt)
 {
     {
         std::vector<std::vector<std::string>> vss;

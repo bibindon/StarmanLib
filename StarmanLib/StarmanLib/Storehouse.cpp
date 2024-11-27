@@ -33,6 +33,12 @@ void Storehouse::Init(const std::string& csvfile)
         workCount = std::stoi(vss.at(i).at(1));
         m_itemMap[workId] = workCount;
     }
+    m_inited = true;
+}
+
+bool NSStarmanLib::Storehouse::Inited()
+{
+    return m_inited;
 }
 
 void Storehouse::Save(const std::string& csvfile)

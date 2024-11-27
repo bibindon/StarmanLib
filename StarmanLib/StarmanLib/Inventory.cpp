@@ -35,6 +35,12 @@ void Inventory::Init(const std::string& csvfile)
     }
 
     m_weight = CalcWeight();
+    m_inited = true;
+}
+
+bool NSStarmanLib::Inventory::Inited()
+{
+    return m_inited;
 }
 
 void Inventory::Save(const std::string& csvfile)
