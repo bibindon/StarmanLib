@@ -26,7 +26,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("craftDef.csv");
+            obj->Init("..\\StarmanLibTest\\craftDef.csv");
             Assert::AreEqual(obj != nullptr, true);
             CraftInfoManager::Destroy();
         }
@@ -34,7 +34,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("craftDef.csv");
+            obj->Init("..\\StarmanLibTest\\craftDef.csv");
             std::vector<CraftOutput> work = obj->GetCraftItemList();
             Assert::AreEqual(work.size() == 20, true);
             CraftInfoManager::Destroy();
@@ -43,7 +43,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("craftDef.csv");
+            obj->Init("..\\StarmanLibTest\\craftDef.csv");
             std::vector<CraftOutput> work = obj->GetCraftItemList();
 
             {
@@ -88,7 +88,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("craftDef.csv");
+            obj->Init("..\\StarmanLibTest\\craftDef.csv");
             std::vector<CraftOutput> work = obj->GetCraftItemList();
 
             {

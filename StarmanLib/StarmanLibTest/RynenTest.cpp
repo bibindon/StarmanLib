@@ -26,7 +26,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             Rynen* obj = Rynen::GetObj();
-            obj->Init("rynen.csv");
+            obj->Init("..\\StarmanLibTest\\rynen.csv");
             Assert::AreEqual(obj != nullptr, true);
             Rynen::Destroy();
         }
@@ -34,7 +34,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             Rynen* obj = Rynen::GetObj();
-            obj->Init("rynen.csv");
+            obj->Init("..\\StarmanLibTest\\rynen.csv");
             obj->SetContracted(true);
             obj->SetReviveEnable(true);
             obj->SetRevivePos(111.f, 222.f, 333.f);
@@ -54,16 +54,16 @@ namespace StarmanLibTest
         {
             {
                 Rynen* obj = Rynen::GetObj();
-                obj->Init("rynen.csv");
+                obj->Init("..\\StarmanLibTest\\rynen.csv");
                 obj->SetContracted(true);
                 obj->SetReviveEnable(true);
                 obj->SetRevivePos(444.f, 555.f, 666.f);
-                obj->Save("rynenSave.csv");
+                obj->Save("..\\StarmanLibTest\\rynenSave.csv");
                 Rynen::Destroy();
             }
             {
                 Rynen* obj = Rynen::GetObj();
-                obj->Init("rynenSave.csv");
+                obj->Init("..\\StarmanLibTest\\rynenSave.csv");
                 Assert::AreEqual(obj->GetContracted(), true);
                 Assert::AreEqual(obj->GetReviveEnable(), true);
                 float x = 0.f;

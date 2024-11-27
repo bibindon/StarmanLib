@@ -25,7 +25,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("mapInfoOrigin.csv");
+            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
             std::vector<std::string> vs = obj->GetNameList();
             Assert::AreEqual(vs.size() != 0, true);
         }
@@ -33,7 +33,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("mapInfoOrigin.csv");
+            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
             std::vector<std::string> vs = obj->GetNameList();
             Assert::AreEqual(vs.at(0) == "パワーエッグ星", true);
         }
@@ -41,7 +41,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("mapInfoOrigin.csv");
+            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
             bool bDiscovered = obj->IsDiscovered("プロリタン島");
             Assert::AreEqual(bDiscovered, true);
         }
@@ -51,14 +51,14 @@ namespace StarmanLibTest
         {
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
-                obj->Init("mapInfoOrigin.csv");
+                obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
                 obj->SetDiscovered("プレシジョン");
-                obj->Save("mapInfoSave.csv");
+                obj->Save("..\\StarmanLibTest\\mapInfoSave.csv");
                 MapInfoManager::Destroy();
             }
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
-                obj->Init("mapInfoSave.csv");
+                obj->Init("..\\StarmanLibTest\\mapInfoSave.csv");
                 bool bDiscovered = obj->IsDiscovered("プレシジョン");
                 Assert::AreEqual(bDiscovered, true);
             }

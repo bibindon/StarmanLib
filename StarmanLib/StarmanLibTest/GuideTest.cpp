@@ -24,13 +24,13 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             Guide* obj = Guide::GetObj();
-            obj->Init("guideOrigin.csv");
+            obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
             Assert::AreEqual((int)obj->GetCategoryList().size() != 0, true);
         }
         TEST_METHOD(TestMethod03)
         {
             Guide* obj = Guide::GetObj();
-            obj->Init("guideOrigin.csv");
+            obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
             std::string text = obj->GetText("ステータス", "ステータスについて");
             Assert::AreEqual(text.size() != 0, true);
             std::string text2 = "\"このゲームには以下の１０のステータスが存在する。\n\n";
@@ -44,14 +44,14 @@ namespace StarmanLibTest
         {
             {
                 Guide* obj = Guide::GetObj();
-                obj->Init("guideOrigin.csv");
+                obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
                 obj->SetVisible("ステータス", "「脳のスタミナ」について");
                 obj->Save("guideSave.csv");
                 Guide::Destroy();
             }
             {
                 Guide* obj = Guide::GetObj();
-                obj->Init("guideSave.csv");
+                obj->Init("..\\StarmanLibTest\\guideSave.csv");
                 bool result = obj->GetVisible("ステータス", "「脳のスタミナ」について");
                 Assert::AreEqual(result, true);
             }

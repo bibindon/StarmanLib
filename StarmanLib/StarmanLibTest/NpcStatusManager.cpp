@@ -26,7 +26,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             NpcStatusManager* obj = NpcStatusManager::GetObj();
-            obj->Init("npcStatus.csv");
+            obj->Init("..\\StarmanLibTest\\npcStatus.csv");
             Assert::AreEqual(obj != nullptr, true);
             NpcStatusManager::Destroy();
         }
@@ -34,7 +34,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             NpcStatusManager* obj = NpcStatusManager::GetObj();
-            obj->Init("npcStatus.csv");
+            obj->Init("..\\StarmanLibTest\\npcStatus.csv");
             NpcStatus npc = obj->GetNpcStatus("サンカクマン");
             float work = 0.f;
 
@@ -59,7 +59,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             NpcStatusManager* obj = NpcStatusManager::GetObj();
-            obj->Init("npcStatus.csv");
+            obj->Init("..\\StarmanLibTest\\npcStatus.csv");
             NpcStatus npc = obj->GetNpcStatus("シカクマン");
             bool work = false;
 
@@ -79,7 +79,7 @@ namespace StarmanLibTest
         {
             {
                 NpcStatusManager* obj = NpcStatusManager::GetObj();
-                obj->Init("npcStatus.csv");
+                obj->Init("..\\StarmanLibTest\\npcStatus.csv");
                 NpcStatus npc = obj->GetNpcStatus("ダイケイマン");
                 bool work = false;
 
@@ -92,12 +92,12 @@ namespace StarmanLibTest
                 npc.SetDrinkWordbress(true);
                 npc.SetDead();
                 obj->SetNpcStatus("ダイケイマン", npc);
-                obj->Save("npcStatusSave.csv");
+                obj->Save("..\\StarmanLibTest\\npcStatusSave.csv");
                 NpcStatusManager::Destroy();
             }
             {
                 NpcStatusManager* obj = NpcStatusManager::GetObj();
-                obj->Init("npcStatusSave.csv");
+                obj->Init("..\\StarmanLibTest\\npcStatusSave.csv");
                 NpcStatus npc = obj->GetNpcStatus("ダイケイマン");
                 bool work_b = false;
                 float work_f = 0.f;

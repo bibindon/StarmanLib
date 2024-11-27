@@ -26,14 +26,14 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("item.csv");
+            obj->Init("..\\StarmanLibTest\\item.csv");
             ItemManager::Destroy();
         }
 
         TEST_METHOD(TestMethod03)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("item.csv");
+            obj->Init("..\\StarmanLibTest\\item.csv");
             ItemInfo itemInfo = obj->GetItemInfo("ƒXƒ}ƒz");
             Assert::AreEqual(itemInfo.GetImagePath() == "sumaho.png", true);
             ItemManager::Destroy();
@@ -42,7 +42,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("item.csv");
+            obj->Init("..\\StarmanLibTest\\item.csv");
             ItemInfo itemInfo = obj->GetItemInfo("•‚¢ŠL");
             Assert::AreEqual(itemInfo.GetImagePath() == "mussels.png", true);
             ItemManager::Destroy();
@@ -51,7 +51,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("item.csv");
+            obj->Init("..\\StarmanLibTest\\item.csv");
             ItemInfo itemInfo = obj->GetItemInfo("•‚¢ŠL");
             Assert::AreEqual(itemInfo.GetType() == ItemInfo::ItemType::FOOD, true);
             ItemManager::Destroy();
@@ -60,7 +60,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("item.csv");
+            obj->Init("..\\StarmanLibTest\\item.csv");
             ItemInfo itemInfo = obj->GetItemInfo("•‚¢ŠL");
             Assert::AreEqual(itemInfo.GetWater(), 10.f);
             ItemManager::Destroy();

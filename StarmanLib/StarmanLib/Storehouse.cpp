@@ -86,7 +86,7 @@ void NSStarmanLib::Storehouse::RemoveItem(const std::string& name, const int lev
 
 int Storehouse::CountItem(const int id)
 {
-    return m_itemMap[id];
+    return m_itemMap.at(id);
 }
 
 int NSStarmanLib::Storehouse::CountItem(const std::string& name, const int level)

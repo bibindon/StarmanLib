@@ -400,51 +400,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
     // クラフトリクエストの先頭がクラフト中でないならば、クラフトを開始する
     if (m_craftRequestList.front().GetCrafting() == false)
     {
-        m_craftRequestList.front().SetCrafting(true);
-
-        // パワーエッグ星での現在時刻とクラフト完了時刻を設定する
-        PowereggDateTime* obj = PowereggDateTime::GetObj();
-        m_craftRequestList.front().SetStartYear(obj->GetYear());
-        m_craftRequestList.front().SetStartMonth(obj->GetMonth());
-        m_craftRequestList.front().SetStartDay(obj->GetDay());
-        m_craftRequestList.front().SetStartHour(obj->GetHour());
-        m_craftRequestList.front().SetStartMinute(obj->GetMinute());
-        m_craftRequestList.front().SetStartSecond(obj->GetSecond());
-
-        // 完了時刻は24時間後。
-        // 完了時刻をアイテムごとに変えるのは難しくないのでやっても良いような気がする
-        // 1月32日や13月は存在しないので、その対応を行うために
-        // 秒、分、時、というように細かいほうから設定していく
-        m_craftRequestList.front().SetFinishSecond(obj->GetSecond());
-        m_craftRequestList.front().SetFinishMinute(obj->GetMinute());
-        m_craftRequestList.front().SetFinishHour(obj->GetHour());
-
-        // 1月31日とか2月28日のような月末でないならば日数に＋１する。
-        if (obj->GetDay() < obj->DAY_OF_MONTH(obj->GetMonth()))
-        {
-            m_craftRequestList.front().SetFinishDay(obj->GetDay() + 1);
-            m_craftRequestList.front().SetFinishMonth(obj->GetMonth());
-            m_craftRequestList.front().SetFinishYear(obj->GetYear());
-        }
-        // 月末ならば日数を1日にする
-        else
-        {
-            m_craftRequestList.front().SetFinishDay(1);
-
-            // 月数を+1する
-            // 13月にならないように注意する
-            if (obj->GetMonth() != 12)
-            {
-                m_craftRequestList.front().SetFinishMonth(obj->GetMonth() + 1);
-                m_craftRequestList.front().SetFinishYear(obj->GetYear());
-            }
-            // 12月ならば、完了日を翌年の1月にする
-            else if (obj->GetMonth() == 12)
-            {
-                m_craftRequestList.front().SetFinishMonth(1);
-                m_craftRequestList.front().SetFinishYear(obj->GetYear() + 1);
-            }
-        }
+        StartCraft();
     }
     // クラフトリクエストの先頭がクラフト中ならばクラフト完了でないか確認する
     else if (m_craftRequestList.front().GetCrafting())
@@ -487,6 +443,61 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
             // 先頭の要素をリクエストのリストから削除
             m_craftRequestList.pop_front();
+
+            // 予約リストが０ではないなら、新たに戦闘の要素となったリクエストをクラフト開始
+            if (m_craftRequestList.size() >= 1)
+            {
+                StartCraft();
+            }
+        }
+    }
+}
+
+void NSStarmanLib::CraftSystem::StartCraft()
+{
+    m_craftRequestList.front().SetCrafting(true);
+
+    // パワーエッグ星での現在時刻とクラフト完了時刻を設定する
+    PowereggDateTime* obj = PowereggDateTime::GetObj();
+    m_craftRequestList.front().SetStartYear(obj->GetYear());
+    m_craftRequestList.front().SetStartMonth(obj->GetMonth());
+    m_craftRequestList.front().SetStartDay(obj->GetDay());
+    m_craftRequestList.front().SetStartHour(obj->GetHour());
+    m_craftRequestList.front().SetStartMinute(obj->GetMinute());
+    m_craftRequestList.front().SetStartSecond(obj->GetSecond());
+
+    // 完了時刻は24時間後。
+    // 完了時刻をアイテムごとに変えるのは難しくないのでやっても良いような気がする
+    // 1月32日や13月は存在しないので、その対応を行うために
+    // 秒、分、時、というように細かいほうから設定していく
+    m_craftRequestList.front().SetFinishSecond(obj->GetSecond());
+    m_craftRequestList.front().SetFinishMinute(obj->GetMinute());
+    m_craftRequestList.front().SetFinishHour(obj->GetHour());
+
+    // 1月31日とか2月28日のような月末でないならば日数に＋１する。
+    if (obj->GetDay() < obj->DAY_OF_MONTH(obj->GetMonth()))
+    {
+        m_craftRequestList.front().SetFinishDay(obj->GetDay() + 1);
+        m_craftRequestList.front().SetFinishMonth(obj->GetMonth());
+        m_craftRequestList.front().SetFinishYear(obj->GetYear());
+    }
+    // 月末ならば日数を1日にする
+    else
+    {
+        m_craftRequestList.front().SetFinishDay(1);
+
+        // 月数を+1する
+        // 13月にならないように注意する
+        if (obj->GetMonth() != 12)
+        {
+            m_craftRequestList.front().SetFinishMonth(obj->GetMonth() + 1);
+            m_craftRequestList.front().SetFinishYear(obj->GetYear());
+        }
+        // 12月ならば、完了日を翌年の1月にする
+        else if (obj->GetMonth() == 12)
+        {
+            m_craftRequestList.front().SetFinishMonth(1);
+            m_craftRequestList.front().SetFinishYear(obj->GetYear() + 1);
         }
     }
 }

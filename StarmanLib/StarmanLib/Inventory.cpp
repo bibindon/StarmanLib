@@ -90,7 +90,7 @@ void NSStarmanLib::Inventory::RemoveItem(const std::string name, const int level
 
 int Inventory::CountItem(const int id)
 {
-    return m_itemMap[id];
+    return m_itemMap.at(id);
 }
 
 int NSStarmanLib::Inventory::CountItem(const std::string name, const int level)

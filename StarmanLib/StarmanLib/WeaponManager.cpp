@@ -8,7 +8,6 @@ using namespace NSStarmanLib;
 
 void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
-                         const std::string& subSavefilename,
                          const bool decrypt)
 {
     // •Šíƒf[ƒ^‚ğ“Ç‚Ş

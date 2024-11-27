@@ -152,6 +152,8 @@ public:
 
 private:
 
+    void StartCraft();
+
     // シングルトンオブジェクト
     static CraftSystem* obj;
 

@@ -122,11 +122,9 @@ private:
 class WeaponManager
 {
 public:
-    void Init(
-        const std::string& csvfilename,
-        const std::string& savefilename,
-        const std::string& subSavefilename,
-        const bool decrypt = false);
+    void Init(const std::string& csvfilename,
+              const std::string& savefilename,
+              const bool decrypt = false);
 
     std::unordered_map<std::string, WeaponType> GetWeaponTypeMap();
     void SetWeaponTypeMap(const std::unordered_map<std::string, WeaponType>& arg);
@@ -134,10 +132,8 @@ public:
     std::unordered_map<std::string, std::vector<Weapon>> GetWeaponMap();
     void SetWeaponMap(const std::unordered_map<std::string, std::vector<Weapon>>& arg);
 
-    void Save(
-        const std::string& savefilename,
-        const std::string& subSavefilename,
-        const bool encrypt = false);
+    void Save(const std::string& savefilename,
+              const bool encrypt = false);
 
 private:
     std::unordered_map<std::string, WeaponType> m_weaponTypeMap;

@@ -27,17 +27,17 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             Inventory* obj = Inventory::GetObj();
-            obj->Init("inventory.csv");
+            obj->Init("..\\StarmanLibTest\\inventory.csv");
             Inventory::Destroy();
         }
 
         TEST_METHOD(TestMethod03)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv");
 
             Inventory* obj = Inventory::GetObj();
-            obj->Init("inventory.csv");
+            obj->Init("..\\StarmanLibTest\\inventory.csv");
             float weight = obj->GetWeight();
             // float‚Í7Œ…‚µ‚©—LŒøŒ…”‚ª‚È‚¢B4Œ…‚Ì”’l“¯Žm‚Ì”äŠr‚È‚çA¬”“_ˆÈ‰º‚Í3Œ…‚Ü‚Å‚µ‚©³Šm‚¶‚á‚È‚¢B
             // ŒJ‚è•Ô‚µŠ|‚¯ŽZ‚Æ‘«‚µŽZ‚ðs‚¤‚Ì‚Å7Œ…‚à‚È‚¢B‰Û‘è
@@ -50,10 +50,10 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv");
 
             Inventory* obj = Inventory::GetObj();
-            obj->Init("inventory.csv");
+            obj->Init("..\\StarmanLibTest\\inventory.csv");
             Assert::AreEqual(obj->CountItem(1), 1);
             Assert::AreEqual(obj->CountItem(37), 2);
             obj->AddItem(1);
@@ -72,24 +72,24 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv");
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("inventory.csv");
+                obj->Init("..\\StarmanLibTest\\inventory.csv");
                 obj->AddItem(1);
                 obj->AddItem(37);
                 Assert::AreEqual(obj->CountItem(1), 2);
                 Assert::AreEqual(obj->CountItem(37), 3);
-                obj->Save("inventorySave.csv");
+                obj->Save("..\\StarmanLibTest\\inventorySave.csv");
                 Inventory::Destroy();
                 ItemManager::Destroy();
             }
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv");
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("inventorySave.csv");
+                obj->Init("..\\StarmanLibTest\\inventorySave.csv");
                 Assert::AreEqual(obj->CountItem(1), 2);
                 Assert::AreEqual(obj->CountItem(37), 3);
                 Inventory::Destroy();

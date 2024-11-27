@@ -26,7 +26,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("skill.csv", "skillSub.csv");
+            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
             Assert::AreEqual(obj != nullptr, true);
             SkillManager::Destroy();
         }
@@ -34,7 +34,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("skill.csv", "skillSub.csv");
+            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
             int level = 0;
 
@@ -53,7 +53,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("skill.csv", "skillSub.csv");
+            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
             std::string temp;
 
@@ -66,7 +66,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("skill.csv", "skillSub.csv");
+            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
             float temp = obj->GetDamage("炎の魔法", 5);
             Assert::AreEqual(temp, 60.f);
@@ -77,7 +77,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("skill.csv", "skillSub.csv");
+            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
             float temp = obj->GetRange("闇の魔法", 5);
             Assert::AreEqual(temp, 60.f);
@@ -89,16 +89,16 @@ namespace StarmanLibTest
         {
             {
                 SkillManager* obj = SkillManager::GetObj();
-                obj->Init("skill.csv", "skillSub.csv");
+                obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
                 obj->SetSkillLevel("闇の魔法", 5);
-                obj->Save("skillSubSave.csv");
+                obj->Save("..\\StarmanLibTest\\skillSubSave.csv");
 
                 SkillManager::Destroy();
             }
             {
                 SkillManager* obj = SkillManager::GetObj();
-                obj->Init("skill.csv", "skillSubSave.csv");
+                obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSubSave.csv");
 
                 int level = obj->GetSkillLevel("闇の魔法");
                 Assert::AreEqual(level, 5);
