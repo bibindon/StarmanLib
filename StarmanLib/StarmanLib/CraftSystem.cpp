@@ -39,6 +39,11 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
         std::vector<std::vector<std::string> > vss;
         vss = csv::Read(csvfileSkill);
 
+        if (vss.empty())
+        {
+            throw std::exception();
+        }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             CraftSkill craftSkill;
@@ -72,6 +77,11 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
         std::vector<std::vector<std::string> > vss;
         vss = csv::Read(csvfileQueue);
 
+        if (vss.empty())
+        {
+            throw std::exception();
+        }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
@@ -94,9 +104,6 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
 
             // クラフト中のアイテム情報
             CraftRequest craftRequest;
-
-            craftRequest.SetName(craftInfo.GetOutput().GetName());
-            craftRequest.SetLevel(craftInfo.GetOutput().GetLevel());
 
             craftRequest.SetCraftInfo(craftInfo);
 
@@ -370,14 +377,14 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, 
     }
 
     // クラフト中のアイテム情報
-    CraftRequest craftingItem;
+    CraftRequest craftRequest;
 
     // 作りたいものをセット
     // クラフト開始時間とクラフト完了時間はここでは設定しない（クラフト要求はキューイング出来るため）
-    craftingItem.SetCraftInfo(craftInfo);
-    craftingItem.SetCrafting(false);
+    craftRequest.SetCraftInfo(craftInfo);
+    craftRequest.SetCrafting(false);
 
-    m_craftRequestList.push_back(craftingItem);
+    m_craftRequestList.push_back(craftRequest);
 
     return true;
 }
@@ -538,22 +545,12 @@ std::list<CraftRequest> NSStarmanLib::CraftSystem::GetCraftRequestList()
 
 std::string CraftRequest::GetName() const
 {
-    return m_name;
-}
-
-void CraftRequest::SetName(std::string mname)
-{
-    m_name = mname;
+    return m_craftInfo.GetOutput().GetName();
 }
 
 int NSStarmanLib::CraftRequest::GetLevel() const
 {
-    return m_level;
-}
-
-void NSStarmanLib::CraftRequest::SetLevel(const int arg)
-{
-    m_level = arg;
+    return m_craftInfo.GetOutput().GetLevel();
 }
 
 int CraftRequest::GetStartYear() const

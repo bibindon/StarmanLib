@@ -18,10 +18,8 @@ class CraftRequest
 public:
 
     std::string GetName() const;
-    void SetName(std::string mname);
 
     int GetLevel() const;
-    void SetLevel(const int arg);
 
     int GetStartYear() const;
     void SetStartYear(int startYear);

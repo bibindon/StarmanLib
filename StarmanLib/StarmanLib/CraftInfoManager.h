@@ -70,7 +70,7 @@ class CraftInfo
 public:
 
     void SetOutput(const CraftOutput& arg);
-    CraftOutput GetOutput();
+    CraftOutput GetOutput() const;
 
     void SetCraftMaterial(const int index, const CraftMaterial& arg);
     CraftMaterial GetCraftMaterial(const int index);

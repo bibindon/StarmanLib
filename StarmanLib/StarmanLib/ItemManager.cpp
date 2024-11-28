@@ -314,31 +314,31 @@ void ItemManager::Init(const std::string& csvfile)
             {
                 itemDef.SetStomachache(false);
             }
-
-            // 強化値
-            if (vss.at(i).at(18).empty())
-            {
-                work_i = -1;
-            }
-            else
-            {
-                work_i = std::stoi(vss.at(i).at(18));
-            }
-
-            itemDef.SetLevel(work_i);
-
-            // 耐久度の最大値（＝初期値）
-            if (vss.at(i).at(19).empty())
-            {
-                work_i = -1;
-            }
-            else
-            {
-                work_i = std::stoi(vss.at(i).at(19));
-            }
-
-            itemDef.SetDurabilityMax(work_i);
         }
+
+        // 強化値
+        if (vss.at(i).at(18).empty())
+        {
+            work_i = -1;
+        }
+        else
+        {
+            work_i = std::stoi(vss.at(i).at(18));
+        }
+
+        itemDef.SetLevel(work_i);
+
+        // 耐久度の最大値（＝初期値）
+        if (vss.at(i).at(19).empty())
+        {
+            work_i = -1;
+        }
+        else
+        {
+            work_i = std::stoi(vss.at(i).at(19));
+        }
+
+        itemDef.SetDurabilityMax(work_i);
         m_itemDefMap[(int)i] = itemDef;
     }
     m_inited = true;

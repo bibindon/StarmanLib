@@ -225,7 +225,7 @@ void CraftInfo::SetOutput(const CraftOutput& arg)
     m_output = arg;
 }
 
-CraftOutput CraftInfo::GetOutput()
+CraftOutput CraftInfo::GetOutput() const
 {
     return m_output;
 }
