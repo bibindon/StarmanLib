@@ -65,9 +65,6 @@ public:
 
 private:
 
-    std::string m_name;
-    int m_level;
-
     bool m_crafting = false;
 
     int m_startYear { 0 };
