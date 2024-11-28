@@ -6,194 +6,204 @@ using namespace NSStarmanLib;
 
 ItemManager* ItemManager::obj { nullptr };
 
-int ItemInfo::GetId() const
+int ItemDef::GetId() const
 {
     return m_id;
 }
 
-void ItemInfo::SetId(int arg)
+void ItemDef::SetId(int arg)
 {
     m_id = arg;
 }
 
-std::string ItemInfo::GetName() const
+std::string ItemDef::GetName() const
 {
     return m_name;
 }
 
-void ItemInfo::SetName(std::string arg)
+void ItemDef::SetName(std::string arg)
 {
     m_name = arg;
 }
 
-std::string ItemInfo::GetDetail() const
+std::string ItemDef::GetDetail() const
 {
     return m_detail;
 }
 
-void ItemInfo::SetDetail(std::string arg)
+void ItemDef::SetDetail(std::string arg)
 {
     m_detail = arg;
 }
 
-std::string ItemInfo::GetImagePath() const
+std::string ItemDef::GetImagePath() const
 {
     return m_imagePath;
 }
 
-void ItemInfo::SetImagePath(std::string arg)
+void ItemDef::SetImagePath(std::string arg)
 {
     m_imagePath = arg;
 }
 
-float ItemInfo::GetWeight() const
+float ItemDef::GetWeight() const
 {
     return m_weight;
 }
 
-void ItemInfo::SetWeight(float arg)
+void ItemDef::SetWeight(float arg)
 {
     m_weight = arg;
 }
 
-float ItemInfo::GetVolume() const
+float ItemDef::GetVolume() const
 {
     return m_volume;
 }
 
-void ItemInfo::SetVolume(float arg)
+void ItemDef::SetVolume(float arg)
 {
     m_volume = arg;
 }
 
-ItemInfo::ItemType ItemInfo::GetType() const
+ItemDef::ItemType ItemDef::GetType() const
 {
     return m_eType;
 }
 
-void ItemInfo::SetType(ItemType arg)
+void ItemDef::SetType(ItemType arg)
 {
     m_eType = arg;
 }
 
-float ItemInfo::GetCarbo() const
+float ItemDef::GetCarbo() const
 {
     return m_carbo;
 }
 
-void ItemInfo::SetCarbo(float arg)
+void ItemDef::SetCarbo(float arg)
 {
     m_carbo = arg;
 }
 
-float ItemInfo::GetProtein() const
+float ItemDef::GetProtein() const
 {
     return m_protein;
 }
 
-void ItemInfo::SetProtein(float arg)
+void ItemDef::SetProtein(float arg)
 {
     m_protein = arg;
 }
 
-float ItemInfo::GetLipid() const
+float ItemDef::GetLipid() const
 {
     return m_lipid;
 }
 
-void ItemInfo::SetLipid(float arg)
+void ItemDef::SetLipid(float arg)
 {
     m_lipid = arg;
 }
 
-float ItemInfo::GetVitamin() const
+float ItemDef::GetVitamin() const
 {
     return m_vitamin;
 }
 
-void ItemInfo::SetVitamin(float arg)
+void ItemDef::SetVitamin(float arg)
 {
     m_vitamin = arg;
 }
 
-float ItemInfo::GetMineral() const
+float ItemDef::GetMineral() const
 {
     return m_mineral;
 }
 
-void ItemInfo::SetMineral(float arg)
+void ItemDef::SetMineral(float arg)
 {
     m_mineral = arg;
 }
 
-float ItemInfo::GetWater() const
+float ItemDef::GetWater() const
 {
     return m_water;
 }
 
-void ItemInfo::SetWater(float arg)
+void ItemDef::SetWater(float arg)
 {
     m_water = arg;
 }
 
-float ItemInfo::GetBodyStaminaDebuff() const
+float ItemDef::GetBodyStaminaDebuff() const
 {
     return m_bodyStaminaDebuff;
 }
 
-void ItemInfo::SetBodyStaminaDebuff(float arg)
+void ItemDef::SetBodyStaminaDebuff(float arg)
 {
     m_bodyStaminaDebuff = arg;
 }
 
-float ItemInfo::GetBrainStaminaDebuff() const
+float ItemDef::GetBrainStaminaDebuff() const
 {
     return m_brainStaminaDebuff;
 }
 
-void ItemInfo::SetBrainStaminaDebuff(float arg)
+void ItemDef::SetBrainStaminaDebuff(float arg)
 {
     m_brainStaminaDebuff = arg;
 }
 
-float ItemInfo::GetMuscleDebuff() const
+float ItemDef::GetMuscleDebuff() const
 {
     return m_muscleDebuff;
 }
 
-void ItemInfo::SetMuscleDebuff(float arg)
+void ItemDef::SetMuscleDebuff(float arg)
 {
     m_muscleDebuff = arg;
 }
 
-bool ItemInfo::GetHeadache() const
+bool ItemDef::GetHeadache() const
 {
     return m_headache;
 }
 
-void ItemInfo::SetHeadache(bool arg)
+void ItemDef::SetHeadache(bool arg)
 {
     m_headache = arg;
 }
 
-bool ItemInfo::GetStomachache() const
+bool ItemDef::GetStomachache() const
 {
     return m_stomachache;
 }
 
-void ItemInfo::SetStomachache(bool arg)
+void ItemDef::SetStomachache(bool arg)
 {
     m_stomachache = arg;
 }
 
-int ItemInfo::GetLevel() const
+int ItemDef::GetLevel() const
 {
     return m_level;
 }
 
-void ItemInfo::SetLevel(const int arg)
+void ItemDef::SetLevel(const int arg)
 {
     m_level = arg;
+}
+
+int NSStarmanLib::ItemDef::GetDurabilityMax() const
+{
+    return m_durabilityMax;
+}
+
+void NSStarmanLib::ItemDef::SetDurabilityMax(int arg)
+{
+    m_durabilityMax = arg;
 }
 
 ItemManager* ItemManager::GetObj()
@@ -220,87 +230,92 @@ void ItemManager::Init(const std::string& csvfile)
         int work_i = 0;
         float work_f = 0.f;
 
-        ItemInfo itemInfo;
+        ItemDef itemDef;
 
         work_i = std::stoi(vss.at(i).at(0));
-        itemInfo.SetId(work_i);
+        itemDef.SetId(work_i);
 
-        itemInfo.SetName(vss.at(i).at(1));
+        itemDef.SetName(vss.at(i).at(1));
 
-        itemInfo.SetDetail(vss.at(i).at(2));
+        itemDef.SetDetail(vss.at(i).at(2));
 
-        itemInfo.SetImagePath(vss.at(i).at(3));
+        itemDef.SetImagePath(vss.at(i).at(3));
 
         work_f = std::stof(vss.at(i).at(4));
-        itemInfo.SetWeight(work_f);
+        itemDef.SetWeight(work_f);
 
         work_f = std::stof(vss.at(i).at(5));
-        itemInfo.SetVolume(work_f);
+        itemDef.SetVolume(work_f);
 
         if (vss.at(i).at(6) == "貴重品")
         {
-            itemInfo.SetType(ItemInfo::ItemType::VALUABLES);
+            itemDef.SetType(ItemDef::ItemType::VALUABLES);
         }
         else if (vss.at(i).at(6) == "素材")
         {
-            itemInfo.SetType(ItemInfo::ItemType::MATERIAL);
+            itemDef.SetType(ItemDef::ItemType::MATERIAL);
         }
         else if (vss.at(i).at(6) == "食材")
         {
-            itemInfo.SetType(ItemInfo::ItemType::FOOD);
+            itemDef.SetType(ItemDef::ItemType::FOOD);
+        }
+        else if (vss.at(i).at(6) == "武器")
+        {
+            itemDef.SetType(ItemDef::ItemType::WEAPON);
         }
         else if (vss.at(i).at(6) == "その他")
         {
-            itemInfo.SetType(ItemInfo::ItemType::OTHERS);
+            itemDef.SetType(ItemDef::ItemType::OTHERS);
         }
 
-        if (itemInfo.GetType() == ItemInfo::ItemType::FOOD)
+        if (itemDef.GetType() == ItemDef::ItemType::FOOD)
         {
             work_f = std::stof(vss.at(i).at(7));
-            itemInfo.SetCarbo(work_f);
+            itemDef.SetCarbo(work_f);
 
             work_f = std::stof(vss.at(i).at(8));
-            itemInfo.SetProtein(work_f);
+            itemDef.SetProtein(work_f);
 
             work_f = std::stof(vss.at(i).at(9));
-            itemInfo.SetLipid(work_f);
+            itemDef.SetLipid(work_f);
 
             work_f = std::stof(vss.at(i).at(10));
-            itemInfo.SetVitamin(work_f);
+            itemDef.SetVitamin(work_f);
 
             work_f = std::stof(vss.at(i).at(11));
-            itemInfo.SetMineral(work_f);
+            itemDef.SetMineral(work_f);
 
             work_f = std::stof(vss.at(i).at(12));
-            itemInfo.SetWater(work_f);
+            itemDef.SetWater(work_f);
 
             work_f = std::stof(vss.at(i).at(13));
-            itemInfo.SetBodyStaminaDebuff(work_f);
+            itemDef.SetBodyStaminaDebuff(work_f);
 
             work_f = std::stof(vss.at(i).at(14));
-            itemInfo.SetBrainStaminaDebuff(work_f);
+            itemDef.SetBrainStaminaDebuff(work_f);
 
             work_f = std::stof(vss.at(i).at(15));
-            itemInfo.SetMuscleDebuff(work_f);
+            itemDef.SetMuscleDebuff(work_f);
 
             if (vss.at(i).at(16) == "〇")
             {
-                itemInfo.SetHeadache(true);
+                itemDef.SetHeadache(true);
             }
             else
             {
-                itemInfo.SetHeadache(false);
+                itemDef.SetHeadache(false);
             }
 
             if (vss.at(i).at(17) == "〇")
             {
-                itemInfo.SetStomachache(true);
+                itemDef.SetStomachache(true);
             }
             else
             {
-                itemInfo.SetStomachache(false);
+                itemDef.SetStomachache(false);
             }
 
+            // 強化値
             if (vss.at(i).at(18).empty())
             {
                 work_i = -1;
@@ -310,9 +325,21 @@ void ItemManager::Init(const std::string& csvfile)
                 work_i = std::stoi(vss.at(i).at(18));
             }
 
-            itemInfo.SetLevel(work_i);
+            itemDef.SetLevel(work_i);
+
+            // 耐久度の最大値（＝初期値）
+            if (vss.at(i).at(19).empty())
+            {
+                work_i = -1;
+            }
+            else
+            {
+                work_i = std::stoi(vss.at(i).at(19));
+            }
+
+            itemDef.SetDurabilityMax(work_i);
         }
-        m_itemInfoMap[(int)i] = itemInfo;
+        m_itemDefMap[(int)i] = itemDef;
     }
     m_inited = true;
 }
@@ -322,36 +349,66 @@ bool NSStarmanLib::ItemManager::Inited()
     return m_inited;
 }
 
-ItemInfo ItemManager::GetItemInfo(const std::string& key, const int level)
+ItemDef ItemManager::GetItemDef(const std::string& key, const int level)
 {
-    ItemInfo itemInfo;
-    for (auto it = m_itemInfoMap.begin(); it != m_itemInfoMap.end(); ++it)
+    ItemDef itemDef;
+    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
     {
         if (it->second.GetName() == key && it->second.GetLevel() == level)
         {
-            itemInfo = it->second;
+            itemDef = it->second;
             break;
         }
     }
-    return itemInfo;
+    return itemDef;
 }
 
-ItemInfo ItemManager::GetItemInfo(const int id)
+ItemDef ItemManager::GetItemDef(const int id)
 {
-    ItemInfo itemInfo;
-    for (auto it = m_itemInfoMap.begin(); it != m_itemInfoMap.end(); ++it)
+    ItemDef itemDef;
+    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
     {
         if (it->second.GetId() == id)
         {
-            itemInfo = it->second;
+            itemDef = it->second;
             break;
         }
     }
-    if (itemInfo.GetId() == 0)
+    if (itemDef.GetId() == 0)
     {
         // 存在しないIDを取得しようとした。
-        abort();
+        throw std::exception();
     }
-    return itemInfo;
+    return itemDef;
+}
+
+void NSStarmanLib::ItemInfo::SetId(const int arg)
+{
+    m_id = arg;
+}
+
+int NSStarmanLib::ItemInfo::GetId() const
+{
+    return m_id;
+}
+
+void NSStarmanLib::ItemInfo::SetSubId(const int arg)
+{
+    m_subId;
+}
+
+int NSStarmanLib::ItemInfo::GetSubId() const
+{
+    return m_subId;
+}
+
+void NSStarmanLib::ItemInfo::SetDurabilityCurrent(const int arg)
+{
+    m_durabilityCurrent = arg;
+}
+
+int NSStarmanLib::ItemInfo::GetDurabilityCurrent() const
+{
+    return m_durabilityCurrent;
 }
 

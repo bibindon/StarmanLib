@@ -5,7 +5,37 @@
 
 namespace NSStarmanLib
 {
+
+// アイテムには耐久度があり、同じアイテムでも耐久度が異なることが可能。
+// 例えば、石斧を二つ所持しているが、片方は耐久度が100で、
+// もう片方は耐久度が50というのは可能である。
+// これを実現するためにItemInfoとItemDefというクラスに分ける。
+// ItemDefはアイテムの定義、ItemInfoは個々のアイテムの状態とする
+// ItemInfoはInventoryクラス（インベントリ）やStorehouseクラス（倉庫）で使われる。
+
 class ItemInfo
+{
+public:
+
+    void SetId(const int arg);
+    int GetId() const;
+
+    void SetSubId(const int arg);
+    int GetSubId() const;
+
+    void SetDurabilityCurrent(const int arg);
+    int GetDurabilityCurrent() const;
+
+private:
+
+    int m_id = 0;
+
+    int m_subId = 0;
+
+    int m_durabilityCurrent = 0;
+};
+
+class ItemDef
 {
 public:
     enum class ItemType
@@ -18,6 +48,9 @@ public:
 
         // 素材
         MATERIAL,
+
+        // 武器
+        WEAPON,
 
         // その他
         OTHERS,
@@ -80,6 +113,9 @@ public:
     int GetLevel() const;
     void SetLevel(int arg);
 
+    int GetDurabilityMax() const;
+    void SetDurabilityMax(int arg);
+
 private:
     // ID
     int m_id = 0;
@@ -138,6 +174,9 @@ private:
 
     // 強化値
     int m_level = -1;
+
+    // 耐久度
+    int m_durabilityMax = -1;
 };
 
 // アイテム情報を管理するクラス
@@ -154,15 +193,15 @@ public:
     void Init(const std::string& csvfile);
     bool Inited();
 
-    ItemInfo GetItemInfo(const std::string& key, const int level = -1);
-    ItemInfo GetItemInfo(const int id);
+    ItemDef GetItemDef(const std::string& key, const int level = -1);
+    ItemDef GetItemDef(const int id);
 
 private:
 
     // シングルトンオブジェクト
     static ItemManager* obj;
 
-    std::unordered_map<int, ItemInfo> m_itemInfoMap;
+    std::unordered_map<int, ItemDef> m_itemDefMap;
 
     bool m_inited = false;
 };

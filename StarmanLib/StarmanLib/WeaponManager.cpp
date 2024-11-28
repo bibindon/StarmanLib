@@ -12,23 +12,24 @@ using namespace NSStarmanLib;
 
 void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
+                         const std::string& subSavefilename,
                          const bool decrypt)
 {
     // ItemManagerクラス、Inventoryクラス、StorehouseクラスのInit関数が先に呼ばれている必要がある
     {
         if (ItemManager::GetObj()->Inited() == false)
         {
-            abort();
+            throw std::exception();
         }
 
         if (Inventory::GetObj()->Inited() == false)
         {
-            abort();
+            throw std::exception();
         }
 
         if (Storehouse::GetObj()->Inited() == false)
         {
-            abort();
+            throw std::exception();
         }
     }
 

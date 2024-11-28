@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HeaderOnlyCsv.hpp"
+#include "ItemManager.h"
 
 #include <string>
 #include <vector>
@@ -26,11 +27,15 @@ public:
     void Save(const std::string& csvfile);
 
     // 一個ずつしか増加減出来ない想定
-    void AddItem(const int id);
-    void AddItem(const std::string name, const int level = -1);
+    void AddItem(const int id, const int durability = -1);
+    void AddItem(const std::string name, const int level = -1, const int durability = -1);
 
-    void RemoveItem(const int id);
-    void RemoveItem(const std::string name, const int level = -1);
+    // subId・・・耐久値の50の石斧と耐久値が100の石斧を所持することができる
+    // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
+    void RemoveItem(const int id, const int subId);
+    void RemoveItem(const std::string name, const int subId, const int level = -1);
+
+    void SetItemDurability(const int id, const int subId, const int durability);
 
     int CountItem(const int id);
     int CountItem(const std::string name, const int level = -1);
@@ -41,6 +46,8 @@ private:
 
     float CalcWeight();
 
+    void Sort();
+
     // シングルトンオブジェクト
     static Inventory* obj;
 
@@ -49,7 +56,7 @@ private:
 
     // 所持品リスト
     // 同じアイテムを複数所持できることに注意
-    std::unordered_map<int, int> m_itemMap;
+    std::list<ItemInfo> m_itemInfoList;
     
     bool m_inited = false;
 };

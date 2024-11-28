@@ -69,8 +69,8 @@ void Storehouse::AddItem(const int id)
 void NSStarmanLib::Storehouse::AddItem(const std::string& name, const int level)
 {
     ItemManager* itemManager = ItemManager::GetObj();
-    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
-    int materialId = itemInfo.GetId();
+    ItemDef itemDef = itemManager->GetItemDef(name, level);
+    int materialId = itemDef.GetId();
     AddItem(materialId);
 }
 
@@ -85,8 +85,8 @@ void Storehouse::RemoveItem(const int id)
 void NSStarmanLib::Storehouse::RemoveItem(const std::string& name, const int level)
 {
     ItemManager* itemManager = ItemManager::GetObj();
-    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
-    int materialId = itemInfo.GetId();
+    ItemDef itemDef = itemManager->GetItemDef(name, level);
+    int materialId = itemDef.GetId();
     RemoveItem(materialId);
 }
 
@@ -98,8 +98,8 @@ int Storehouse::CountItem(const int id)
 int NSStarmanLib::Storehouse::CountItem(const std::string& name, const int level)
 {
     ItemManager* itemManager = ItemManager::GetObj();
-    ItemInfo itemInfo = itemManager->GetItemInfo(name, level);
-    int materialId = itemInfo.GetId();
+    ItemDef itemDef = itemManager->GetItemDef(name, level);
+    int materialId = itemDef.GetId();
     return CountItem(materialId);
 }
 

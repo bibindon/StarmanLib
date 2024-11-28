@@ -31,7 +31,7 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
         CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
         if (craftInfoManager->Inited() == false)
         {
-            abort();
+            throw std::exception();
         }
     }
 

@@ -25,19 +25,25 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
         }
         TEST_METHOD(TestMethod03)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wmap = wm.GetWeaponTypeMap();
             Assert::AreEqual((int)wmap.size(), 10);
         }
         TEST_METHOD(TestMethod04)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wmap = wm.GetWeaponTypeMap();
             Assert::AreEqual(wmap["1"].GetId().c_str(), "1");
             Assert::AreEqual(wmap["10"].GetId().c_str(), "10");
@@ -45,7 +51,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wmap = wm.GetWeaponTypeMap();
             Assert::AreEqual(wmap["1"].GetName().c_str(), "石");
             Assert::AreEqual(wmap["10"].GetName().c_str(), "アトラトルに使う槍");
@@ -64,7 +72,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponMap wmap = wm.GetWeaponMap();
             Assert::AreEqual((int)wmap["1"].size(), 4);
             Assert::AreEqual((int)wmap["10"].size(), 4);
@@ -72,7 +82,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod07)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponMap wmap = wm.GetWeaponMap();
             Assert::AreEqual(wmap["1"].at(0).GetId().c_str(), "1");
             Assert::AreEqual(wmap["1"].at(3).GetId().c_str(), "1");
@@ -82,7 +94,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod08)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponMap wmap = wm.GetWeaponMap();
             Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 0);
             Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 3);
@@ -118,7 +132,9 @@ namespace StarmanLibTest
         {
             // アイテム情報編集
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wtmap = wm.GetWeaponTypeMap();
             wtmap["1"].SetIsShow(false);
             wtmap["10"].SetIsShow(true);
@@ -140,8 +156,13 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod10)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
-            wm.Save("..\\StarmanLibTest\\weaponSave2.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
+
+            wm.Save("..\\StarmanLibTest\\weaponSave2.csv",
+                    "..\\StarmanLibTest\\subWeaponSave2.csv");
+
             std::ifstream ifs("..\\StarmanLibTest\\weaponSave2.csv");
             std::istreambuf_iterator<char> itBegin(ifs);
             std::istreambuf_iterator<char> itEnd;
@@ -157,11 +178,17 @@ namespace StarmanLibTest
         {
             {
                 WeaponManager wm;
-                wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
-                wm.Save("..\\StarmanLibTest\\weaponSave2.csv");
+                wm.Init("..\\StarmanLibTest\\weapon.csv",
+                        "..\\StarmanLibTest\\weaponSave.csv",
+                        "..\\StarmanLibTest\\subWeaponSave.csv");
+
+                wm.Save("..\\StarmanLibTest\\weaponSave2.csv",
+                        "..\\StarmanLibTest\\subWeaponSave2.csv");
             }
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave2.csv");
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave2.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
             
             WeaponTypeMap wtmap = wm.GetWeaponTypeMap();
             Assert::AreEqual(wtmap["1"].GetIsShow(), true);
@@ -205,6 +232,7 @@ namespace StarmanLibTest
             WeaponManager wm;
             wm.Init("..\\StarmanLibTest\\weapon.csv.enc",
                     "..\\StarmanLibTest\\weaponSave.csv.enc",
+                    "..\\StarmanLibTest\\subWeaponSave.csv.enc",
                     true);
 
             WeaponTypeMap wmap = wm.GetWeaponTypeMap();
@@ -226,8 +254,13 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod13)
         {
             WeaponManager wm;
-            wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
-            wm.Save("..\\StarmanLibTest\\weaponSave2.csv.enc", true);
+            wm.Init("..\\StarmanLibTest\\weapon.csv",
+                    "..\\StarmanLibTest\\weaponSave.csv",
+                    "..\\StarmanLibTest\\subWeaponSave.csv");
+
+            wm.Save("..\\StarmanLibTest\\weaponSave2.csv.enc",
+                    "..\\StarmanLibTest\\subWeaponSave2.csv.enc",
+                    true);
             {
                 std::ifstream ifs1("..\\StarmanLibTest\\weaponSave2.csv.enc");
                 std::ifstream ifs2("..\\StarmanLibTest\\weaponSave.csv.enc");
@@ -241,12 +274,20 @@ namespace StarmanLibTest
         {
             {
                 WeaponManager wm;
-                wm.Init("..\\StarmanLibTest\\weapon.csv", "..\\StarmanLibTest\\weaponSave.csv");
-                wm.Save("weaponSave3.csv.enc", true);
+                wm.Init("..\\StarmanLibTest\\weapon.csv",
+                        "..\\StarmanLibTest\\weaponSave.csv",
+                        "..\\StarmanLibTest\\subWeaponSave.csv");
+
+                wm.Save("..\\StarmanLibTest\\weaponSave3.csv.enc",
+                        "..\\StarmanLibTest\\subWeaponSave3.csv.enc",
+                        true);
             }
             {
                 WeaponManager wm;
-                wm.Init("..\\StarmanLibTest\\weapon.csv.enc", "..\\StarmanLibTest\\weaponSave3.csv.enc", true);
+                wm.Init("..\\StarmanLibTest\\weapon.csv.enc",
+                        "..\\StarmanLibTest\\weaponSave3.csv.enc",
+                        "..\\StarmanLibTest\\subWeaponSave3.csv.enc",
+                        true);
 
                 WeaponTypeMap wmap = wm.GetWeaponTypeMap();
                 Assert::AreEqual(wmap["1"].GetName().c_str(), "石");

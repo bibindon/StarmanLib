@@ -60,8 +60,8 @@ namespace StarmanLibTest
             obj->AddItem(37);
             Assert::AreEqual(obj->CountItem(1), 2);
             Assert::AreEqual(obj->CountItem(37), 3);
-            obj->RemoveItem(1);
-            obj->RemoveItem(37);
+            obj->RemoveItem(1, 1);
+            obj->RemoveItem(37, 1);
             Assert::AreEqual(obj->CountItem(1), 1);
             Assert::AreEqual(obj->CountItem(37), 2);
             Inventory::Destroy();
