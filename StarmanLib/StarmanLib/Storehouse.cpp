@@ -44,10 +44,10 @@ void Storehouse::Init(const std::string& csvfile)
         id = std::stoi(vss.at(i).at(0));
         itemInfo.SetId(id);
 
-        subId = std::stoi(vss.at(i).at(1));
+        subId = std::stoi(vss.at(i).at(2));
         itemInfo.SetSubId(subId);
 
-        durability = std::stoi(vss.at(i).at(2));
+        durability = std::stoi(vss.at(i).at(3));
         itemInfo.SetDurabilityCurrent(durability);
 
         m_itemInfoList.push_back(itemInfo);
@@ -67,14 +67,21 @@ void Storehouse::Save(const std::string& csvfile)
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
     vs.push_back("ID");
+    vs.push_back("アイテム名");
     vs.push_back("SubID");
     vs.push_back("耐久度");
     vss.push_back(vs);
     vs.clear();
 
+    ItemManager* itemManager = ItemManager::GetObj();
+
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
         vs.push_back(std::to_string(it->GetId()));
+
+        ItemDef itemDef = itemManager->GetItemDef(it->GetId());
+        vs.push_back(itemDef.GetName());
+
         vs.push_back(std::to_string(it->GetSubId()));
         vs.push_back(std::to_string(it->GetDurabilityCurrent()));
         vss.push_back(vs);
