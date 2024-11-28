@@ -210,7 +210,8 @@ void Finalize()
             Assert::AreEqual(temp, 15);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             obj->QueueCraftRequest("Î‘„");
 
             std::list<CraftRequest> craftRequestList;

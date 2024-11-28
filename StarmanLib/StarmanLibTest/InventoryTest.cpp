@@ -54,20 +54,21 @@ namespace StarmanLibTest
 
             Inventory* obj = Inventory::GetObj();
             obj->Init("..\\StarmanLibTest\\inventory.csv");
-            Assert::AreEqual(obj->CountItem(1), 1);
-            Assert::AreEqual(obj->CountItem(37), 2);
+            Assert::AreEqual(obj->CountItem(1), 10);
+            Assert::AreEqual(obj->CountItem(37), 10);
             obj->AddItem(1);
             obj->AddItem(37);
-            Assert::AreEqual(obj->CountItem(1), 2);
-            Assert::AreEqual(obj->CountItem(37), 3);
+            Assert::AreEqual(obj->CountItem(1), 11);
+            Assert::AreEqual(obj->CountItem(37), 11);
             obj->RemoveItem(1, 1);
             obj->RemoveItem(37, 1);
-            Assert::AreEqual(obj->CountItem(1), 1);
-            Assert::AreEqual(obj->CountItem(37), 2);
+            Assert::AreEqual(obj->CountItem(1), 10);
+            Assert::AreEqual(obj->CountItem(37), 10);
             Inventory::Destroy();
             ItemManager::Destroy();
         }
 
+        // セーブ機能の確認
         TEST_METHOD(TestMethod05)
         {
             {
@@ -78,8 +79,8 @@ namespace StarmanLibTest
                 obj->Init("..\\StarmanLibTest\\inventory.csv");
                 obj->AddItem(1);
                 obj->AddItem(37);
-                Assert::AreEqual(obj->CountItem(1), 2);
-                Assert::AreEqual(obj->CountItem(37), 3);
+                Assert::AreEqual(obj->CountItem(1), 11);
+                Assert::AreEqual(obj->CountItem(37), 11);
                 obj->Save("..\\StarmanLibTest\\inventorySave.csv");
                 Inventory::Destroy();
                 ItemManager::Destroy();
@@ -90,10 +91,46 @@ namespace StarmanLibTest
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init("..\\StarmanLibTest\\inventorySave.csv");
-                Assert::AreEqual(obj->CountItem(1), 2);
-                Assert::AreEqual(obj->CountItem(37), 3);
+                Assert::AreEqual(obj->CountItem(1), 11);
+                Assert::AreEqual(obj->CountItem(37), 11);
                 Inventory::Destroy();
                 ItemManager::Destroy();
+            }
+        }
+
+        // SubIDの採番の確認
+        // 同じ種類のアイテムを複数持てるのでそれぞれのアイテムにSubIDが割り振られている
+        // アイテムを削除できるのでSubIDは連番にならない。
+        //
+        // SubIDが1,2,3,4,5のときSubID＝3、SubID＝4のアイテムを削除して、
+        // そのあとアイテムを追加したらSubIDは1,2,3,5になっているはず。
+        TEST_METHOD(TestMethod06)
+        {
+            {
+                ItemManager* itemManager = ItemManager::GetObj();
+                itemManager->Init("..\\StarmanLibTest\\item.csv");
+
+                Inventory* obj = Inventory::GetObj();
+                obj->Init("..\\StarmanLibTest\\inventory.csv");
+
+                obj->AddItem(1);
+                obj->AddItem(37);
+
+                Assert::AreEqual(obj->ExistItem(1, 11), true);
+                Assert::AreEqual(obj->ExistItem(37, 11), true);
+
+                obj->RemoveItem(1, 3);
+                obj->RemoveItem(1, 4);
+                obj->AddItem(1);
+
+                obj->RemoveItem(37, 3);
+                obj->RemoveItem(37, 4);
+                obj->AddItem(37);
+
+                Assert::AreEqual(obj->ExistItem(1, 3), true);
+                Assert::AreEqual(obj->ExistItem(1, 4), false);
+                Assert::AreEqual(obj->ExistItem(37, 3), true);
+                Assert::AreEqual(obj->ExistItem(37, 4), false);
             }
         }
     };

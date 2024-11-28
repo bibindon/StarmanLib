@@ -394,7 +394,7 @@ int NSStarmanLib::ItemInfo::GetId() const
 
 void NSStarmanLib::ItemInfo::SetSubId(const int arg)
 {
-    m_subId;
+    m_subId = arg;
 }
 
 int NSStarmanLib::ItemInfo::GetSubId() const

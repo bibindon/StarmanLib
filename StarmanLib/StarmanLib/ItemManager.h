@@ -12,6 +12,7 @@ namespace NSStarmanLib
 // これを実現するためにItemInfoとItemDefというクラスに分ける。
 // ItemDefはアイテムの定義、ItemInfoは個々のアイテムの状態とする
 // ItemInfoはInventoryクラス（インベントリ）やStorehouseクラス（倉庫）で使われる。
+// SubIdで個々のアイテムの識別を行うが、アイテムは削除できるので連番になるとは限らない
 
 class ItemInfo
 {

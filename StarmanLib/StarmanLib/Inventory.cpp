@@ -88,29 +88,58 @@ void Inventory::AddItem(const int id, const int durability)
 {
     int subId = 0;
 
-    // 新しいSubIDを取得。同じアイテムを複数持てるので連番を割り当てる。その連番がSubID
-    std::size_t subSum = std::count_if(m_itemInfoList.begin(), m_itemInfoList.end(),
-                                       [&](const ItemInfo& x)
-                                       {
-                                           return x.GetId() == id;
-                                       });
+    // 新しいSubIDを取得。アイテムは削除できるのでSubIDが連番になるとは限らない。
+    // SubIDは 0ではなく1からスタートする
+    // SubIDが 1,2,3,5となっていたらSubID＝4のアイテムを追加する
+    // SubIDが 1,2,5となっていたらSubID＝3のアイテムを追加する（4に追加するわけではない）
+    // SubIDが 1,2,3,4となっていたらSubID＝5のアイテムを追加する
+    // アイテムがなかったらSubID＝1のアイテムを追加する
+
+    // 欠番となっているSubIDを探す
+    int work = 1;
+    int missingSubId = -1;
+    int newSubId = -1;
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id)
+        {
+            // workとSubIDが一致するなら次のSubIDを見に行く
+            if (it->GetSubId() == work)
+            {
+                work++;
+            }
+            // workとSubIDが異なるなら欠番となっているSubID
+            else
+            {
+                missingSubId = work;
+                break;
+            }
+        }
+    }
+
+    // 欠番となっているSubIDがあったら新規SubIDとする
+    if (missingSubId != -1)
+    {
+        newSubId = missingSubId;
+    }
+    // 欠番となっているSubIDがなかった（＝連番だった）なら末尾に追加する
+    else
+    {
+        std::size_t subSum = std::count_if(m_itemInfoList.begin(), m_itemInfoList.end(),
+                                           [&](const ItemInfo& x)
+                                           {
+                                               return x.GetId() == id;
+                                           });
+        newSubId = subSum + 1;
+    }
+
 
     ItemInfo itemInfo;
     itemInfo.SetId(id);
-
-    // SubIdは0スタートではなく1スタート
-    itemInfo.SetSubId(subSum+1);
-
+    itemInfo.SetSubId(newSubId);
     itemInfo.SetDurabilityCurrent(durability);
-
-    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
-    {
-        if (it->GetId() == id && it->GetSubId() == subSum)
-        {
-            m_itemInfoList.push_back(itemInfo);
-            break;
-        }
-    }
+    m_itemInfoList.push_back(itemInfo);
+    Sort();
 
     m_weight = CalcWeight();
 }
@@ -161,6 +190,42 @@ void NSStarmanLib::Inventory::SetItemDurability(const int id,
         }
     }
 }
+
+bool NSStarmanLib::Inventory::ExistItem(const int id, const int subId)
+{
+    bool result = false;
+
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+ItemInfo NSStarmanLib::Inventory::GetItemInfo(const int id, const int subId)
+{
+    if (ExistItem(id, subId) == false)
+    {
+        throw std::exception();
+    }
+
+    ItemInfo result;
+
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            result = *it;
+            break;
+        }
+    }
+    return result;
+}
+
 
 // 耐久度を無視して個数を数える
 // したがって、耐久度の下がったアイテムをクラフトの素材として使用出来て良いということにする

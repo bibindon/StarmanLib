@@ -32,10 +32,14 @@ public:
 
     // subId・・・耐久値の50の石斧と耐久値が100の石斧を所持することができる
     // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
+    // アイテムは削除できるのでSubIDが連番になるとは限らない
     void RemoveItem(const int id, const int subId);
     void RemoveItem(const std::string name, const int subId, const int level = -1);
 
     void SetItemDurability(const int id, const int subId, const int durability);
+
+    bool ExistItem(const int id, const int subId);
+    ItemInfo GetItemInfo(const int id, const int subId);
 
     int CountItem(const int id);
     int CountItem(const std::string name, const int level = -1);
