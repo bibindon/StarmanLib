@@ -112,15 +112,15 @@ namespace StarmanLibTest
                      "..\\StarmanLibTest\\weaponSave.csv",
                      "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponMap wmap = wm->GetWeaponMap();
-            Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 0);
-            Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 3);
-            Assert::AreEqual(wmap["10"].at(0).GetIdSub(), 0);
-            Assert::AreEqual(wmap["10"].at(3).GetIdSub(), 3);
+            Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 1);
+            Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 4);
+            Assert::AreEqual(wmap["10"].at(0).GetIdSub(), 1);
+            Assert::AreEqual(wmap["10"].at(3).GetIdSub(), 4);
 
             Assert::AreEqual(wmap["1"].at(0).GetReinforce(), 3);
-            Assert::AreEqual(wmap["1"].at(3).GetReinforce(), 0);
+            Assert::AreEqual(wmap["1"].at(3).GetReinforce(), -1);
             Assert::AreEqual(wmap["10"].at(0).GetReinforce(), 3);
-            Assert::AreEqual(wmap["10"].at(3).GetReinforce(), 0);
+            Assert::AreEqual(wmap["10"].at(3).GetReinforce(), -1);
 
             Assert::AreEqual(wmap["1"].at(0).GetAttackRate(), 0.1);
             Assert::AreEqual(wmap["1"].at(3).GetAttackRate(), 0.4);
@@ -132,10 +132,10 @@ namespace StarmanLibTest
             Assert::AreEqual(wmap["10"].at(0).GetFlightDistance(), 370);
             Assert::AreEqual(wmap["10"].at(3).GetFlightDistance(), 400);
 
-            Assert::AreEqual(wmap["1"].at(0).GetDurabilityMax(), 999);
-            Assert::AreEqual(wmap["1"].at(3).GetDurabilityMax(), 996);
-            Assert::AreEqual(wmap["10"].at(0).GetDurabilityMax(), 963);
-            Assert::AreEqual(wmap["10"].at(3).GetDurabilityMax(), 960);
+            Assert::AreEqual(wmap["1"].at(0).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["1"].at(3).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["10"].at(0).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["10"].at(3).GetDurabilityMax(), -1);
 
             Assert::AreEqual(wmap["1"].at(0).GetDurability(), 500);
             Assert::AreEqual(wmap["1"].at(3).GetDurability(), 470);
@@ -210,15 +210,15 @@ namespace StarmanLibTest
             Assert::AreEqual(wtmap["10"].GetIsShow(), false);
 
             WeaponMap wmap = wm->GetWeaponMap();
-            Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 0);
-            Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 3);
-            Assert::AreEqual(wmap["10"].at(0).GetIdSub(), 0);
-            Assert::AreEqual(wmap["10"].at(3).GetIdSub(), 3);
+            Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 1);
+            Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 4);
+            Assert::AreEqual(wmap["10"].at(0).GetIdSub(), 1);
+            Assert::AreEqual(wmap["10"].at(3).GetIdSub(), 4);
 
             Assert::AreEqual(wmap["1"].at(0).GetReinforce(), 3);
-            Assert::AreEqual(wmap["1"].at(3).GetReinforce(), 0);
+            Assert::AreEqual(wmap["1"].at(3).GetReinforce(), -1);
             Assert::AreEqual(wmap["10"].at(0).GetReinforce(), 3);
-            Assert::AreEqual(wmap["10"].at(3).GetReinforce(), 0);
+            Assert::AreEqual(wmap["10"].at(3).GetReinforce(), -1);
 
             Assert::AreEqual(wmap["1"].at(0).GetAttackRate(), 0.1);
             Assert::AreEqual(wmap["1"].at(3).GetAttackRate(), 0.4);
@@ -230,10 +230,10 @@ namespace StarmanLibTest
             Assert::AreEqual(wmap["10"].at(0).GetFlightDistance(), 370);
             Assert::AreEqual(wmap["10"].at(3).GetFlightDistance(), 400);
 
-            Assert::AreEqual(wmap["1"].at(0).GetDurabilityMax(), 999);
-            Assert::AreEqual(wmap["1"].at(3).GetDurabilityMax(), 996);
-            Assert::AreEqual(wmap["10"].at(0).GetDurabilityMax(), 963);
-            Assert::AreEqual(wmap["10"].at(3).GetDurabilityMax(), 960);
+            Assert::AreEqual(wmap["1"].at(0).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["1"].at(3).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["10"].at(0).GetDurabilityMax(), -1);
+            Assert::AreEqual(wmap["10"].at(3).GetDurabilityMax(), -1);
 
             Assert::AreEqual(wmap["1"].at(0).GetDurability(), 500);
             Assert::AreEqual(wmap["1"].at(3).GetDurability(), 470);
