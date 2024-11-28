@@ -515,7 +515,55 @@ namespace StarmanLibTest
         }
 
         // 規定回数、クラフトを行うと強化値の高いアイテムがクラフトされるようになる。
+        TEST_METHOD(TestMethod18)
+        {
+            Storehouse* storehouse = Storehouse::GetObj();
+            int work = 0;
+            bool work_b = false;
+            work = storehouse->CountItem("石槍", -1);
 
+            Assert::AreEqual(work, 10);
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+
+            work = obj->GetCraftsmanSkill("石槍");
+            Assert::AreEqual(work, -1);
+
+            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            work = storehouse->CountItem("石槍", -1);
+
+            Assert::AreEqual(work, 11);
+
+            work = obj->GetCraftsmanSkill("石槍");
+            Assert::AreEqual(work, -1);
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            work = storehouse->CountItem("石槍", -1);
+
+            Assert::AreEqual(work, 12);
+
+            work = obj->GetCraftsmanSkill("石槍");
+            Assert::AreEqual(work, 1);
+
+            CraftSystem::Destroy();
+        }
 
         // 職人の熟練度が高い状態でクラフトを依頼すると同じ素材を使っても
         // 強化度の高いアイテムが作られる。

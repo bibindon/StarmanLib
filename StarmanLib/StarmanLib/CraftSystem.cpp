@@ -521,6 +521,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     {
                         levelup = true;
                     }
+                    break;
                 }
             }
 
@@ -528,23 +529,42 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             // まず、強化値が一つ上のクラフトが存在するかを調べる。
             if (levelup)
             {
+                // 強化が+1~+5で可能の場合、強化値は-1, 1, 2, 3, 4, 5の6通りとなる。
+                // 0が含まれないことに注意。
                 int targetSkill = -1;
+                bool targetSkillExist = false;
+                if (output.GetLevel() == -1)
+                {
+                    targetSkill = 1;
+                }
+                else if (output.GetLevel() >= 1)
+                {
+                    targetSkill = output.GetLevel() + 1;
+                }
+                else
+                {
+                    throw std::exception();
+                }
+
+                std::size_t targetSkillIndex = 0;
                 for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
                 {
+
                     if (output.GetName() == m_craftSkillList.at(i).GetName() &&
-                        output.GetLevel()+1 == m_craftSkillList.at(i).GetLevel())
+                        targetSkill      == m_craftSkillList.at(i).GetLevel())
                     {
-                        targetSkill = i;
+                        targetSkillExist = true;
+                        targetSkillIndex = i;
                         break;
                     }
                 }
 
                 // 存在するならクラフト可能に変更する
-                if (targetSkill != -1)
+                if (targetSkillExist)
                 {
-                    if (m_craftSkillList.at(targetSkill).GetEnable() == false)
+                    if (m_craftSkillList.at(targetSkillIndex).GetEnable() == false)
                     {
-                        m_craftSkillList.at(targetSkill).SetEnable(true);
+                        m_craftSkillList.at(targetSkillIndex).SetEnable(true);
                     }
                 }
             }
