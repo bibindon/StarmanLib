@@ -59,24 +59,27 @@ namespace StarmanLibTest
             craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueue.csv");
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueue.csv");
             Assert::AreEqual(obj != nullptr, true);
             CraftSystem::Destroy();
         }
 
+        // 職人のレベルが取得できるかテスト
         TEST_METHOD(TestMethod03)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
             craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueue.csv");
-            bool result = false;
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueue.csv");
+            int result = false;
             result = obj->GetCraftsmanSkill("イカダ");
-            Assert::AreEqual(result, true);
+            Assert::AreEqual(result, -1);
 
-            result = obj->GetCraftsmanSkill("イカダ", 1);
-            Assert::AreEqual(result, false);
+            result = obj->GetCraftsmanSkill("木の棒");
+            Assert::AreEqual(result, 1);
 
             CraftSystem::Destroy();
         }
@@ -87,15 +90,16 @@ namespace StarmanLibTest
             craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueue.csv");
-            bool result = false;
-            obj->SetCraftsmanSkill("イカダ");
-            result = obj->GetCraftsmanSkill("イカダ");
-            Assert::AreEqual(result, true);
-
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueue.csv");
+            int result = 0;
             obj->SetCraftsmanSkill("イカダ", 1);
-            result = obj->GetCraftsmanSkill("イカダ", 1);
-            Assert::AreEqual(result, true);
+            result = obj->GetCraftsmanSkill("イカダ");
+            Assert::AreEqual(result, 1);
+
+            obj->SetCraftsmanSkill("木の棒", 2);
+            result = obj->GetCraftsmanSkill("木の棒");
+            Assert::AreEqual(result, 2);
 
             CraftSystem::Destroy();
         }
@@ -108,12 +112,14 @@ namespace StarmanLibTest
                 craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
 
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueue.csv");
+                obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                          "..\\StarmanLibTest\\craftsmanQueue.csv");
 
                 bool result = false;
                 obj->SetCraftsmanSkill("イカダ", 1);
-                obj->SetCraftsmanSkill("石付き鉄パイプ");
-                obj->Save("..\\StarmanLibTest\\craftsmanSkillSave.csv", "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->SetCraftsmanSkill("アトラトルに使う槍", 1);
+                obj->Save("..\\StarmanLibTest\\craftsmanSkillSave.csv",
+                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
 
                 CraftSystem::Destroy();
                 CraftInfoManager::Destroy();
@@ -123,14 +129,15 @@ namespace StarmanLibTest
                 craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
 
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkillSave.csv", "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->Init("..\\StarmanLibTest\\craftsmanSkillSave.csv",
+                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
 
-                bool result = false;
-                result = obj->GetCraftsmanSkill("イカダ", 1);
-                Assert::AreEqual(result, true);
+                int result = false;
+                result = obj->GetCraftsmanSkill("イカダ");
+                Assert::AreEqual(result, 1);
 
-                result = obj->GetCraftsmanSkill("石付き鉄パイプ");
-                Assert::AreEqual(result, true);
+                result = obj->GetCraftsmanSkill("アトラトルに使う槍");
+                Assert::AreEqual(result, 1);
 
                 CraftSystem::Destroy();
                 CraftInfoManager::Destroy();

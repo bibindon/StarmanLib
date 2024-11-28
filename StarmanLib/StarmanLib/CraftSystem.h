@@ -101,11 +101,28 @@ public:
     void SetEnable(const bool arg);
     bool GetEnable() const;
 
+    void SetLevelUpNecessity(const int arg);
+    int GetLevelUpNecessity() const;
+
+    void SetSuccessNum(const int arg);
+    int GetSuccessNum() const;
+
 private:
 
+    // クラフトアイテム
     std::string m_name;
+
+    // 強化値
     int m_level;
+
+    // クラフト可能か否か
     bool m_enable;
+
+    // 次のレベルを習得するの日必要なクラフト回数
+    int m_levelUpNecessity;
+
+    // クラフト経験回数
+    int m_successNum;
 };
 
 // クラフトシステム用クラス
@@ -132,7 +149,8 @@ public:
     // 職人がクラフト可能であるか？のフラグをONにする
     void SetCraftsmanSkill(const std::string& craftItem, const int level = -1);
 
-    bool GetCraftsmanSkill(const std::string& craftItem, const int level = -1);
+    // 職人が現在作れるクラフトアイテムのレベル
+    int GetCraftsmanSkill(const std::string& craftItem);
 
     // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
     // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる

@@ -70,6 +70,28 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
             {
                 craftSkill.SetEnable(false);
             }
+
+            int work = 0;
+            if (vss.at(i).at(3).empty())
+            {
+                work = -1;
+            }
+            else
+            {
+                work = std::stoi(vss.at(i).at(3));
+            }
+            craftSkill.SetLevelUpNecessity(work);
+
+            if (vss.at(i).at(4).empty())
+            {
+                work = -1;
+            }
+            else
+            {
+                work = std::stoi(vss.at(i).at(4));
+            }
+            craftSkill.SetSuccessNum(work);
+
             m_craftSkillList.push_back(craftSkill);
         }
     }
@@ -164,19 +186,21 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
         vs.push_back("クラフトアイテム");
         vs.push_back("強化値");
         vs.push_back("クラフト可能");
+        vs.push_back("次のレベルを習得するのに必要なクラフト回数");
+        vs.push_back("現在のクラフト経験回数");
         vss.push_back(vs);
         vs.clear();
 
         for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
         {
             vs.push_back(it->GetName());
-            if (it->GetLevel() != -1)
+            if (it->GetLevel() == -1)
             {
-                vs.push_back(std::to_string(it->GetLevel()));
+                vs.push_back("");
             }
             else
             {
-                vs.push_back("");
+                vs.push_back(std::to_string(it->GetLevel()));
             }
 
             if (it->GetEnable())
@@ -187,6 +211,25 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
             {
                 vs.push_back("");
             }
+
+            if (it->GetLevelUpNecessity() == -1)
+            {
+                vs.push_back("");
+            }
+            else
+            {
+                vs.push_back(std::to_string(it->GetLevelUpNecessity()));
+            }
+
+            if (it->GetSuccessNum() == -1)
+            {
+                throw std::exception();
+            }
+            else
+            {
+                vs.push_back(std::to_string(it->GetSuccessNum()));
+            }
+
             vss.push_back(vs);
             vs.clear();
         }
@@ -291,18 +334,22 @@ void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::string& craftItem, 
     }
 }
 
-bool NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem, const int level)
+int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem)
 {
-    bool result = false;
+    // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を返す。
+    // （craftItemの作れるアイテムの中で最高レベルの数値を返す。）
+    int level = -1;
     for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
     {
-        if (it->GetName() == craftItem && it->GetLevel() == level)
+        if (it->GetName() == craftItem && it->GetEnable())
         {
-            result = it->GetEnable();
-            break;
+            if (it->GetLevel() > level)
+            {
+                level = it->GetLevel();
+            }
         }
     }
-    return result;
+    return level;
 }
 
 bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem)
@@ -314,6 +361,10 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem)
     }
 
     CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
+
+    // 現在、職人が作れるcraftItemのレベルを取得
+    // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を取得。
+    int level = GetCraftsmanSkill(craftItem);
 
     // クラフト情報
     CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, 1, level);
@@ -726,3 +777,24 @@ bool NSStarmanLib::CraftSkill::GetEnable() const
 {
     return m_enable;
 }
+
+void NSStarmanLib::CraftSkill::SetLevelUpNecessity(const int arg)
+{
+    m_levelUpNecessity = arg;
+}
+
+int NSStarmanLib::CraftSkill::GetLevelUpNecessity() const
+{
+    return m_levelUpNecessity;
+}
+
+void NSStarmanLib::CraftSkill::SetSuccessNum(const int arg)
+{
+    m_successNum = arg;
+}
+
+int NSStarmanLib::CraftSkill::GetSuccessNum() const
+{
+    return m_successNum;
+}
+
