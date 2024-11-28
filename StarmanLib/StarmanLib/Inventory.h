@@ -47,6 +47,11 @@ public:
     float GetWeight();
 
 private:
+    // 以下の4つの関数を宣言・定義するのが正しいが・・・なくても・・・別に・・・
+    Inventory() {};
+    Inventory(const Inventory&);
+    Inventory& operator=(const Inventory&);
+    ~Inventory() {};
 
     float CalcWeight();
 
@@ -56,7 +61,7 @@ private:
     static Inventory* obj;
 
     // 所持品の重量（武器は含めない）
-    float m_weight;
+    float m_weight = 0.f;
 
     // 所持品リスト
     // 同じアイテムを複数所持できることに注意

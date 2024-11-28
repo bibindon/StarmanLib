@@ -3,31 +3,36 @@
 #include "CaesarCipher.h"
 
 #include "ItemManager.h"
-#include "Inventory.h"
-#include "Storehouse.h"
 
 #include <iomanip>
 
 using namespace NSStarmanLib;
+
+WeaponManager* WeaponManager::obj;
+
+WeaponManager* NSStarmanLib::WeaponManager::GetObj()
+{
+    if (obj == nullptr)
+    {
+        obj = new WeaponManager();
+    }
+    return obj;
+}
+
+void NSStarmanLib::WeaponManager::Destroy()
+{
+    delete WeaponManager::obj;
+    WeaponManager::obj = nullptr;
+}
 
 void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
                          const std::string& subSavefilename,
                          const bool decrypt)
 {
-    // ItemManagerクラス、Inventoryクラス、StorehouseクラスのInit関数が先に呼ばれている必要がある
+    // ItemManagerクラスのInit関数が先に呼ばれている必要がある
     {
         if (ItemManager::GetObj()->Inited() == false)
-        {
-            throw std::exception();
-        }
-
-        if (Inventory::GetObj()->Inited() == false)
-        {
-            throw std::exception();
-        }
-
-        if (Storehouse::GetObj()->Inited() == false)
         {
             throw std::exception();
         }
@@ -115,6 +120,8 @@ void WeaponManager::Init(const std::string& csvfilename,
             vss = csv::ReadFromString(work);
         }
 
+        ItemManager* itemManager = ItemManager::GetObj();
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             Weapon weapon;
@@ -123,8 +130,11 @@ void WeaponManager::Init(const std::string& csvfilename,
             weapon.SetReinforce(atoi(vss.at(i).at(2).c_str()));
             weapon.SetAttackRate(atof(vss.at(i).at(3).c_str()));
             weapon.SetFlightDistance(atoi(vss.at(i).at(4).c_str()));
-            weapon.SetDurabilityMax(atoi(vss.at(i).at(5).c_str()));
-            weapon.SetDurability(atoi(vss.at(i).at(6).c_str()));
+
+            ItemDef itemDef = itemManager->GetItemDef(weapon.GetId());
+            weapon.SetDurabilityMax(itemDef.GetDurabilityMax());
+
+            weapon.SetDurability(atoi(vss.at(i).at(5).c_str()));
             m_weaponMap[vss.at(i).at(0)].push_back(weapon);
         }
     }
@@ -209,7 +219,6 @@ void WeaponManager::Save(const std::string& savefilename,
         vs.push_back("強化値");
         vs.push_back("攻撃力補正の上昇値");
         vs.push_back("飛距離の上昇値");
-        vs.push_back("耐久値の初期値");
         vs.push_back("現在の耐久値");
         vss.push_back(vs);
         vs.clear();
@@ -228,7 +237,6 @@ void WeaponManager::Save(const std::string& savefilename,
                 std::string stringNum = oss.str();
                 vs.push_back(oss.str());
                 vs.push_back(std::to_string(itBegin->second.at(i).GetFlightDistance()));
-                vs.push_back(std::to_string(itBegin->second.at(i).GetDurabilityMax()));
                 vs.push_back(std::to_string(itBegin->second.at(i).GetDurability()));
                 vss.push_back(vs);
                 vs.clear();
@@ -257,6 +265,10 @@ void WeaponManager::Save(const std::string& savefilename,
             CaesarCipher::EncryptToFile(ss.str(), subSavefilename);
         }
     }
+}
+
+void NSStarmanLib::WeaponManager::SetReinforce(const std::string& name, const int subId, const int reinforce)
+{
 }
 
 std::string WeaponType::GetId() const

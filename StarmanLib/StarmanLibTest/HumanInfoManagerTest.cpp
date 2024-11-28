@@ -69,18 +69,20 @@ namespace StarmanLibTest
         {
             {
                 HumanInfoManager* obj = HumanInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSub.csv");
+                obj->Init("..\\StarmanLibTest\\humanInfo.csv",
+                          "..\\StarmanLibTest\\humanInfoSub.csv");
                 HumanInfo humanInfo = obj->GetHumanInfo("ノーブル");
                 Assert::AreEqual(humanInfo.GetVisible(), false);
                 obj->SetHumanVisible("ノーブル");
                 humanInfo = obj->GetHumanInfo("ノーブル");
                 Assert::AreEqual(humanInfo.GetVisible(), true);
-                obj->Save("humanInfoSubSave.csv");
+                obj->Save("..\\StarmanLibTest\\humanInfoSubSave.csv");
                 HumanInfoManager::Destroy();
             }
             {
                 HumanInfoManager* obj = HumanInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSubSave.csv");
+                obj->Init("..\\StarmanLibTest\\humanInfo.csv",
+                          "..\\StarmanLibTest\\humanInfoSubSave.csv");
                 HumanInfo humanInfo = obj->GetHumanInfo("ノーブル");
                 Assert::AreEqual(humanInfo.GetVisible(), true);
                 HumanInfoManager::Destroy();

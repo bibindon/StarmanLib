@@ -122,6 +122,10 @@ private:
 class WeaponManager
 {
 public:
+    static WeaponManager* GetObj();
+
+    static void Destroy();
+
     void Init(const std::string& csvfilename,
               const std::string& savefilename,
               const std::string& subSavefilename,
@@ -137,9 +141,17 @@ public:
               const std::string& subSavefilename,
               const bool encrypt = false);
 
+    // 強化値を更新し、攻撃力、飛距離、耐久度を更新する
+    void SetReinforce(const std::string& name, const int subId, const int reinforce);
+
 private:
+
+    // シングルトンオブジェクト
+    static WeaponManager* obj;
+
     // このゲームにはインベントリと倉庫がある。
-    // 
+    // 以下の武器がどちらにあるかは、インベントリクラス、倉庫クラスに問い合わせればよく
+    // この武器管理クラスは関与しない。
     std::unordered_map<std::string, WeaponType> m_weaponTypeMap;
     std::unordered_map<std::string, std::vector<Weapon>> m_weaponMap;
 };

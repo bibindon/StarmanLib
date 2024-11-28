@@ -46,7 +46,7 @@ namespace StarmanLibTest
                 Guide* obj = Guide::GetObj();
                 obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
                 obj->SetVisible("ステータス", "「脳のスタミナ」について");
-                obj->Save("guideSave.csv");
+                obj->Save("..\\StarmanLibTest\\guideSave.csv");
                 Guide::Destroy();
             }
             {
