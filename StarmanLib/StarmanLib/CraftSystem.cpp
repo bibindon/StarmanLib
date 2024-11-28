@@ -503,8 +503,52 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             }
 
             // 職人の熟練度の更新
-            // 強化値なしの石斧を一度作ったら、次は強化値＋１の石斧を作れるようになる。
-            // 強化値の存在するアイテムはすべて一度作れば次の強化値のアイテムが作れるようになる。
+            // 強化値なしの袋を2回作ったら、次は強化値＋１の袋を作れるようになる。
+            // そのため作った回数を記録する
+            bool levelup = false;
+            for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
+            {
+                if (output.GetName() == m_craftSkillList.at(i).GetName() &&
+                    output.GetLevel() == m_craftSkillList.at(i).GetLevel())
+                {
+                    int successNum = m_craftSkillList.at(i).GetSuccessNum();
+                    ++successNum;
+                    m_craftSkillList.at(i).SetSuccessNum(successNum);
+
+                    // レベルアップ判定
+                    // 規定回数、クラフトに成功していたら次の強化値のクラフトを可能にする
+                    if (m_craftSkillList.at(i).GetLevelUpNecessity() <= successNum)
+                    {
+                        levelup = true;
+                    }
+                }
+            }
+
+            // レベルアップ処理
+            // まず、強化値が一つ上のクラフトが存在するかを調べる。
+            if (levelup)
+            {
+                int targetSkill = -1;
+                for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
+                {
+                    if (output.GetName() == m_craftSkillList.at(i).GetName() &&
+                        output.GetLevel()+1 == m_craftSkillList.at(i).GetLevel())
+                    {
+                        targetSkill = i;
+                        break;
+                    }
+                }
+
+                // 存在するならクラフト可能に変更する
+                if (targetSkill != -1)
+                {
+                    if (m_craftSkillList.at(targetSkill).GetEnable() == false)
+                    {
+                        m_craftSkillList.at(targetSkill).SetEnable(true);
+                    }
+                }
+            }
+
 
             // 先頭の要素をリクエストのリストから削除
             m_craftRequestList.pop_front();
