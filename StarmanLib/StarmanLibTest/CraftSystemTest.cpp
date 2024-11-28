@@ -453,8 +453,59 @@ namespace StarmanLibTest
         }
 
         // キューイングしてキャンセル
+        TEST_METHOD(TestMethod16)
+        {
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 12時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            obj->CancelCraftStart(0);
+
+            int size = obj->GetCraftRequestList().size();
+
+            Assert::AreEqual(size, 0);
+
+            CraftSystem::Destroy();
+        }
 
         // 複数キューイングしてキャンセル
+        TEST_METHOD(TestMethod17)
+        {
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 12時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            obj->CancelCraftStart(0);
+            obj->CancelCraftStart(0);
+
+            int size = obj->GetCraftRequestList().size();
+
+            Assert::AreEqual(size, 1);
+
+            CraftSystem::Destroy();
+        }
 
         // 素材に武器がある場合。
 
