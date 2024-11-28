@@ -136,6 +136,45 @@ namespace StarmanLibTest
                 Assert::AreEqual(obj->ExistItem(1, 4), false);
                 Assert::AreEqual(obj->ExistItem(37, 3), true);
                 Assert::AreEqual(obj->ExistItem(37, 4), false);
+
+                Inventory::Destroy();
+                ItemManager::Destroy();
+            }
+        }
+
+        // SubIDの採番の確認
+        // 初めて追加されるアイテムならSubIDは1が採番されるはず
+        TEST_METHOD(TestMethod07)
+        {
+            {
+                ItemManager* itemManager = ItemManager::GetObj();
+                itemManager->Init("..\\StarmanLibTest\\item.csv");
+
+                Inventory* obj = Inventory::GetObj();
+                obj->Init("..\\StarmanLibTest\\inventory.csv");
+
+                obj->RemoveItem(3, 1);
+                obj->RemoveItem(3, 2);
+                obj->RemoveItem(3, 3);
+                obj->RemoveItem(3, 4);
+                obj->RemoveItem(3, 5);
+                obj->RemoveItem(3, 6);
+                obj->RemoveItem(3, 7);
+                obj->RemoveItem(3, 8);
+                obj->RemoveItem(3, 9);
+                obj->RemoveItem(3, 10);
+
+                Assert::AreEqual(obj->CountItem(3), 0);
+
+                obj->AddItem(3);
+
+                Assert::AreEqual(obj->CountItem(3), 1);
+                Assert::AreEqual(obj->ExistItem(3, 0), false);
+                Assert::AreEqual(obj->ExistItem(3, 1), true);
+                Assert::AreEqual(obj->ExistItem(3, 2), false);
+
+                Inventory::Destroy();
+                ItemManager::Destroy();
             }
         }
     };
