@@ -1,6 +1,8 @@
 #include "Storehouse.h"
 #include "ItemManager.h"
 
+#include <algorithm>
+
 using namespace NSStarmanLib;
 
 Storehouse* Storehouse::obj { nullptr };
@@ -22,17 +24,36 @@ void Storehouse::Destroy()
 
 void Storehouse::Init(const std::string& csvfile)
 {
+    // ItemManagerのInit関数が先に呼ばれている必要がある。
+    {
+        if (ItemManager::GetObj()->Inited() == false)
+        {
+            throw std::exception();
+        }
+    }
+
     std::vector<std::vector<std::string> > vss;
     vss = csv::Read(csvfile);
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
-        int workId = 0;
-        int workCount = 0;
+        ItemInfo itemInfo;
+        int id = 0;
+        int subId = 0;
+        int durability = 0;
 
-        workId = std::stoi(vss.at(i).at(0));
-        workCount = std::stoi(vss.at(i).at(1));
-        m_itemMap[workId] = workCount;
+        id = std::stoi(vss.at(i).at(0));
+        itemInfo.SetId(id);
+
+        subId = std::stoi(vss.at(i).at(1));
+        itemInfo.SetSubId(subId);
+
+        durability = std::stoi(vss.at(i).at(2));
+        itemInfo.SetDurabilityCurrent(durability);
+
+        m_itemInfoList.push_back(itemInfo);
     }
+
+    m_weight = CalcWeight();
     m_inited = true;
 }
 
@@ -46,14 +67,16 @@ void Storehouse::Save(const std::string& csvfile)
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
     vs.push_back("ID");
-    vs.push_back("個数");
+    vs.push_back("SubID");
+    vs.push_back("耐久度");
     vss.push_back(vs);
     vs.clear();
 
-    for (auto it = m_itemMap.begin(); it != m_itemMap.end(); ++it)
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        vs.push_back(std::to_string(it->first));
-        vs.push_back(std::to_string(it->second));
+        vs.push_back(std::to_string(it->GetId()));
+        vs.push_back(std::to_string(it->GetSubId()));
+        vs.push_back(std::to_string(it->GetDurabilityCurrent()));
         vss.push_back(vs);
         vs.clear();
     }
@@ -61,41 +84,166 @@ void Storehouse::Save(const std::string& csvfile)
     csv::Write(csvfile, vss);
 }
 
-void Storehouse::AddItem(const int id)
+void Storehouse::AddItem(const int id, const int durability)
 {
-    m_itemMap[id] = m_itemMap[id] + 1;
+    int subId = 0;
+
+    // 新しいSubIDを取得。アイテムは削除できるのでSubIDが連番になるとは限らない。
+    // SubIDは 0ではなく1からスタートする
+    // SubIDが 1,2,3,5となっていたらSubID＝4のアイテムを追加する
+    // SubIDが 1,2,5となっていたらSubID＝3のアイテムを追加する（4に追加するわけではない）
+    // SubIDが 1,2,3,4となっていたらSubID＝5のアイテムを追加する
+    // アイテムがなかったらSubID＝1のアイテムを追加する
+
+    // 欠番となっているSubIDを探す
+    int work = 1;
+    int missingSubId = -1;
+    int newSubId = -1;
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id)
+        {
+            // workとSubIDが一致するなら次のSubIDを見に行く
+            if (it->GetSubId() == work)
+            {
+                work++;
+            }
+            // workとSubIDが異なるなら欠番となっているSubID
+            else
+            {
+                missingSubId = work;
+                break;
+            }
+        }
+    }
+
+    // 欠番となっているSubIDがあったら新規SubIDとする
+    if (missingSubId != -1)
+    {
+        newSubId = missingSubId;
+    }
+    // 欠番となっているSubIDがなかった（＝連番だった）なら末尾に追加する
+    else
+    {
+        std::size_t subSum = std::count_if(m_itemInfoList.begin(), m_itemInfoList.end(),
+                                           [&](const ItemInfo& x)
+                                           {
+                                               return x.GetId() == id;
+                                           });
+        newSubId = subSum + 1;
+    }
+
+
+    ItemInfo itemInfo;
+    itemInfo.SetId(id);
+    itemInfo.SetSubId(newSubId);
+    itemInfo.SetDurabilityCurrent(durability);
+    m_itemInfoList.push_back(itemInfo);
+    Sort();
+
+    m_weight = CalcWeight();
 }
 
-void NSStarmanLib::Storehouse::AddItem(const std::string& name, const int level)
+void NSStarmanLib::Storehouse::AddItem(const std::string name,
+                                      const int level,
+                                      const int durability)
 {
     ItemManager* itemManager = ItemManager::GetObj();
     ItemDef itemDef = itemManager->GetItemDef(name, level);
     int materialId = itemDef.GetId();
-    AddItem(materialId);
+    AddItem(materialId, durability);
 }
 
-void Storehouse::RemoveItem(const int id)
+void Storehouse::RemoveItem(const int id, const int subId)
 {
-    if (m_itemMap[id] >= 1)
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        m_itemMap[id] = m_itemMap[id] - 1;
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            m_itemInfoList.erase(it);
+            break;
+        }
+    }
+    m_weight = CalcWeight();
+}
+
+void NSStarmanLib::Storehouse::RemoveItem(const std::string name,
+                                         const int subId,
+                                         const int level)
+{
+    ItemManager* itemManager = ItemManager::GetObj();
+    ItemDef itemDef = itemManager->GetItemDef(name, level);
+    int materialId = itemDef.GetId();
+    RemoveItem(materialId, subId);
+}
+
+void NSStarmanLib::Storehouse::SetItemDurability(const int id,
+                                                const int subId,
+                                                const int durability)
+{
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            it->SetDurabilityCurrent(durability);
+            break;
+        }
     }
 }
 
-void NSStarmanLib::Storehouse::RemoveItem(const std::string& name, const int level)
+bool NSStarmanLib::Storehouse::ExistItem(const int id, const int subId)
 {
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    RemoveItem(materialId);
+    bool result = false;
+
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            result = true;
+            break;
+        }
+    }
+    return result;
 }
 
+ItemInfo NSStarmanLib::Storehouse::GetItemInfo(const int id, const int subId)
+{
+    if (ExistItem(id, subId) == false)
+    {
+        throw std::exception();
+    }
+
+    ItemInfo result;
+
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id && it->GetSubId() == subId)
+        {
+            result = *it;
+            break;
+        }
+    }
+    return result;
+}
+
+
+// 耐久度を無視して個数を数える
+// したがって、耐久度の下がったアイテムをクラフトの素材として使用出来て良いということにする
 int Storehouse::CountItem(const int id)
 {
-    return m_itemMap.at(id);
+    int num = 0;
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id)
+        {
+            num++;
+        }
+    }
+
+    return num;
 }
 
-int NSStarmanLib::Storehouse::CountItem(const std::string& name, const int level)
+int NSStarmanLib::Storehouse::CountItem(const std::string name, const int level)
 {
     ItemManager* itemManager = ItemManager::GetObj();
     ItemDef itemDef = itemManager->GetItemDef(name, level);
@@ -103,4 +251,44 @@ int NSStarmanLib::Storehouse::CountItem(const std::string& name, const int level
     return CountItem(materialId);
 }
 
+float Storehouse::GetWeight()
+{
+    return m_weight;
+}
+
+float Storehouse::CalcWeight()
+{
+    float result = 0.f;
+    ItemManager* itemManager = ItemManager::GetObj();
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        int id = it->GetId();
+        ItemDef itemDef = itemManager->GetItemDef(id);
+        if (itemDef.GetId() == 0)
+        {
+            continue;
+        }
+        result += itemDef.GetWeight();
+    }
+    return result;
+}
+
+void NSStarmanLib::Storehouse::Sort()
+{
+    m_itemInfoList.sort([](const ItemInfo& lhs, const ItemInfo& rhs)
+                        {
+                            if (lhs.GetId() < rhs.GetId())
+                            {
+                                return true;
+                            }
+                            else if (lhs.GetId() == rhs.GetId())
+                            {
+                                if (lhs.GetSubId() < rhs.GetSubId())
+                                {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        });
+}
 
