@@ -137,7 +137,10 @@ public:
     // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
     // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる
     // 5個までキューイング出来る
-    bool QueueCraftRequest(const std::string& craftItem, const int level = -1);
+    //
+    // 職人が強化値＋２の石斧が作れるならそれを作る。
+    // 強化値＋２の石斧が作れるのに＋１の石斧を作る方法は提供しない。
+    bool QueueCraftRequest(const std::string& craftItem);
 
     // 依頼をキャンセル
     bool CancelCraftStart(const int index);

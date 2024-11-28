@@ -305,9 +305,9 @@ bool NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem, 
     return result;
 }
 
-bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, const int level)
+bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem)
 {
-    // 予約は5回まで
+    // 予約は5件まで
     if (m_craftRequestList.size() >= 4)
     {
         return false;
@@ -450,6 +450,10 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             {
                 storehouse->AddItem(output.GetName(), output.GetLevel());
             }
+
+            // 職人の熟練度の更新
+            // 強化値なしの石斧を一度作ったら、次は強化値＋１の石斧を作れるようになる。
+            // 強化値の存在するアイテムはすべて一度作れば次の強化値のアイテムが作れるようになる。
 
             // 先頭の要素をリクエストのリストから削除
             m_craftRequestList.pop_front();
