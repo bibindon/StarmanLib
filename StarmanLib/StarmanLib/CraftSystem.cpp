@@ -360,9 +360,12 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem, 
         materialLevel = craftMaterialList.at(i).GetLevel();
 
         // 素材の必要数分削除する
+        // subIdは数値が若いものから順に使う
+
+        std::vector<int> subIdList = inventory->GetSubIdList(craftMaterialList.at(i).GetId());
         for (int j = 0; j < materialNum; ++j)
         {
-            inventory->RemoveItem(name, materialLevel);
+            inventory->RemoveItem(name, subIdList.at(i), materialLevel);
         }
     }
 

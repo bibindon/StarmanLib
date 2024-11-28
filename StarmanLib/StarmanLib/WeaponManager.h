@@ -141,7 +141,7 @@ public:
               const std::string& subSavefilename,
               const bool encrypt = false);
 
-    // 強化値を更新し、攻撃力、飛距離、耐久度を更新する
+    // TODO 強化値を更新し、攻撃力、飛距離、耐久度を更新する
     void SetReinforce(const std::string& name, const int subId, const int reinforce);
 
 private:

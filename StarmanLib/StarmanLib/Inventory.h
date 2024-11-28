@@ -41,6 +41,9 @@ public:
     bool ExistItem(const int id, const int subId);
     ItemInfo GetItemInfo(const int id, const int subId);
 
+    // SubID‚ðƒŠƒXƒg‚ÅŽó‚¯Žæ‚é
+    std::vector<int> GetSubIdList(const int id);
+
     int CountItem(const int id);
     int CountItem(const std::string name, const int level = -1);
 

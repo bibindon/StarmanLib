@@ -11,16 +11,22 @@ class CraftMaterial
 {
 public:
 
+    void SetId(const int arg);
+    int GetId() const;
+
     void SetName(const std::string& arg);
-    std::string GetName();
+    std::string GetName() const;
 
     void SetNumber(const int arg);
-    int GetNumber();
+    int GetNumber() const;
 
     void SetLevel(const int arg);
-    int GetLevel();
+    int GetLevel() const;
 
 private:
+
+    int m_id = 0;
+
     // ‘fŞ‚Ì–¼‘O
     std::string m_name;
     

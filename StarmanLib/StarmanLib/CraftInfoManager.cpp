@@ -1,5 +1,6 @@
 #include "CraftInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
+#include "ItemManager.h"
 
 using namespace NSStarmanLib;
 
@@ -22,6 +23,8 @@ void CraftInfoManager::Destroy()
 
 void CraftInfoManager::Init(const std::string& csvfileDefinition)
 {
+    ItemManager* itemManager = ItemManager::GetObj();
+
     std::vector<std::vector<std::string> > vss;
     vss = csv::Read(csvfileDefinition);
 
@@ -59,6 +62,7 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition)
             {
                 break;
             }
+
             craftMaterial.SetName(vss.at(i).at(4 + (j * 3)));
 
             work_i = std::stoi(vss.at(i).at(5 + (j * 3)));
@@ -73,6 +77,11 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition)
             {
                 craftMaterial.SetLevel(-1);
             }
+
+            ItemDef itemDef = itemManager->GetItemDef(craftMaterial.GetName(),
+                                                      craftMaterial.GetLevel());
+
+            craftMaterial.SetId(itemDef.GetId());
 
             craftInfo.SetCraftMaterial(j, craftMaterial);
         }
@@ -141,12 +150,22 @@ CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::string& name,
     return m_craftInfoList.at(i);
 }
 
+void NSStarmanLib::CraftMaterial::SetId(const int arg)
+{
+    m_id = arg;
+}
+
+int NSStarmanLib::CraftMaterial::GetId() const
+{
+    return m_id;
+}
+
 void CraftMaterial::SetName(const std::string& arg)
 {
     m_name = arg;
 }
 
-std::string CraftMaterial::GetName()
+std::string CraftMaterial::GetName() const
 {
     return m_name;
 }
@@ -156,7 +175,7 @@ void CraftMaterial::SetNumber(const int arg)
     m_number = arg;
 }
 
-int CraftMaterial::GetNumber()
+int CraftMaterial::GetNumber() const
 {
     return m_number;
 }
@@ -166,7 +185,7 @@ void CraftMaterial::SetLevel(const int arg)
     m_level = arg;
 }
 
-int CraftMaterial::GetLevel()
+int CraftMaterial::GetLevel() const
 {
     return m_level;
 }

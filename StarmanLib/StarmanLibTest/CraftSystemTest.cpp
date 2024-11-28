@@ -142,7 +142,8 @@ void Finalize()
             Initialize();
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueue.csv");
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueue.csv");
             obj->QueueCraftRequest("イカダ");
 
             CraftSystem::Destroy();
@@ -207,7 +208,7 @@ void Finalize()
             int temp = 0;
 
             temp = inventory->CountItem("細い木の幹");
-            Assert::AreEqual(temp, 15);
+            Assert::AreEqual(temp, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
@@ -221,10 +222,10 @@ void Finalize()
             Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
 
             temp = inventory->CountItem("細い木の幹");
-            Assert::AreEqual(temp, 14);
+            Assert::AreEqual(temp, 9);
 
             temp = inventory->CountItem("いい形の石（槍）");
-            Assert::AreEqual(temp, 1);
+            Assert::AreEqual(temp, 9);
 
             obj->UpdateCraftStatus();
 
@@ -234,10 +235,10 @@ void Finalize()
             Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
 
             temp = inventory->CountItem("細い木の幹");
-            Assert::AreEqual(temp, 14);
+            Assert::AreEqual(temp, 9);
 
             temp = inventory->CountItem("いい形の石（槍）");
-            Assert::AreEqual(temp, 1);
+            Assert::AreEqual(temp, 9);
 
             CraftSystem::Destroy();
 
@@ -250,7 +251,8 @@ void Finalize()
             Initialize();
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             obj->QueueCraftRequest("石槍");
 
             obj->UpdateCraftStatus();
@@ -283,10 +285,11 @@ void Finalize()
             int work = 0;
             work = storehouse->CountItem("石槍");
 
-            Assert::AreEqual(work, 0);
+            Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             obj->QueueCraftRequest("石槍");
 
             obj->UpdateCraftStatus();
@@ -300,7 +303,7 @@ void Finalize()
 
             work = storehouse->CountItem("石槍");
 
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
 
@@ -316,7 +319,7 @@ void Finalize()
             int work = 0;
             work = storehouse->CountItem("石槍");
 
-            Assert::AreEqual(work, 0);
+            Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
@@ -334,7 +337,7 @@ void Finalize()
 
             work = storehouse->CountItem("石槍");
 
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 11);
 
             // 1日と1時間、時を進める
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
@@ -343,7 +346,7 @@ void Finalize()
 
             work = storehouse->CountItem("石槍");
 
-            Assert::AreEqual(work, 2);
+            Assert::AreEqual(work, 12);
 
             CraftSystem::Destroy();
 
@@ -359,10 +362,10 @@ void Finalize()
             int work = 0;
 
             work = storehouse->CountItem("石槍");
-            Assert::AreEqual(work, 0);
+            Assert::AreEqual(work, 10);
 
             work = storehouse->CountItem("アトラトル");
-            Assert::AreEqual(work, 0);
+            Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv", "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
@@ -379,10 +382,10 @@ void Finalize()
             obj->UpdateCraftStatus();
 
             work = storehouse->CountItem("石槍");
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 11);
 
             work = storehouse->CountItem("アトラトル");
-            Assert::AreEqual(work, 0);
+            Assert::AreEqual(work, 10);
 
             // 1日と1時間、時を進める
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
@@ -390,10 +393,10 @@ void Finalize()
             obj->UpdateCraftStatus();
 
             work = storehouse->CountItem("石槍");
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 11);
 
             work = storehouse->CountItem("アトラトル");
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
 
