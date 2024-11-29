@@ -352,14 +352,22 @@ bool NSStarmanLib::ItemManager::Inited()
 ItemDef ItemManager::GetItemDef(const std::string& key, const int level)
 {
     ItemDef itemDef;
+    bool exist = false;
     for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
     {
         if (it->second.GetName() == key && it->second.GetLevel() == level)
         {
             itemDef = it->second;
+            exist = true;
             break;
         }
     }
+
+    if (exist == false)
+    {
+        throw std::exception();
+    }
+
     return itemDef;
 }
 

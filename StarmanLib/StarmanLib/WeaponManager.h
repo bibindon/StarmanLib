@@ -5,6 +5,8 @@
 
 namespace NSStarmanLib
 {
+
+// weapon.csvの内容そのまま
 class WeaponDef
 {
 
@@ -83,13 +85,13 @@ private:
     bool m_isShow = false; // 表示
 };
 
-// ItemMangerやInentory, Storehouseからは取得できない情報がある。
-// 攻撃力や飛距離、最大耐久度など
-// 耐久度はInventoryかStorehouseが管理しているので扱わない。
-// TODO 武器一つ一つに対してこのクラスを持つ必要がない気がする
-// +1の石斧と+2の石斧が5個ずつあった場合、10個Weaponが作られてしまうが
-// 2個でで良い気がする。中身全部一緒だし。
-class Weapon
+// WeaponDefの定義では「強化値＋３の石斧の攻撃力」を知りたいとき
+// 計算しないと分からない。
+// 
+// WeaponDefSubでは強化値ごとの攻撃力や飛距離などをあらかじめ計算して保持しておく。
+// 
+// 最大耐久度は管理するが現在の耐久度はInventoryかStorehouseが管理しているので扱わない。
+class WeaponDefSub
 {
 public:
 
@@ -98,9 +100,6 @@ public:
 
     int GetItemId() const;
     void SetItemId(const int& id);
-
-    int GetIdSub() const;
-    void SetIdSub(int idSub);
 
     int GetReinforce() const;
     void SetReinforce(int reinforce);
@@ -119,7 +118,6 @@ private:
     std::string m_weaponId; // 武器ID（weapon.csv）
     int m_itemId = 0; // アイテムID（item.csv）
 
-    int m_idSub = 0; // 武器IDサブ。同じ武器を複数持てるようにするための識別子
     int m_reinforce = 0;
     double m_attackRate = 0.f;
     double m_flightDistance = 0;
@@ -140,34 +138,27 @@ public:
     void Save(const std::string& savefilename,
               const bool encrypt = false);
 
-    WeaponDef GetWeaponDef(const std::string& itemName) const;
+    std::string GetDetail(const std::string& weaponName) const;
+    std::string GetXfilename(const std::string& weaponName) const;
+    std::string GetImageName(const std::string& weaponName) const;
+    double GetWeight(const std::string& weaponName) const;
+    int GetVolume(const std::string& weaponName) const;
+    int GetReinforceMax(const std::string& weaponName) const;
+    bool GetOwnDamage(const std::string& weaponName) const;
+    bool GetIsShow(const std::string& weaponName) const;
 
-    // 武器の削除ができることからSubIdは連番とは限らないことに注意
-    bool ExistWeapon(const std::string& weaponId, const int subId, const int level = -1) const;
-    Weapon GetWeapon(const std::string& weaponId, const int subId, const int level = -1) const;
-    void AddWeapon(const std::string& weaponId, const Weapon& arg);
-    void UpdateWeapon(const std::string& weaponId, const Weapon& arg);
-    void RemoveWeapon(const std::string& weaponId, const int subId, const int level = -1);
-
-    // 強化値を更新し、攻撃力、飛距離、耐久度を更新する
-    void SetReinforceAndUpdateParam(const std::string& weaponId,
-                                    const int subId,
-                                    const int reinforce);
+    double GetAttackRate(const std::string& weaponName, const int level) const;
+    double GetFlightDistance(const std::string& weaponName, const int level) const;
+    double GetStaminaDown(const std::string& weaponName, const int level) const;
+    int GetDurabilityMax(const std::string& weaponName, const int level) const;
 
 private:
 
-    Weapon GetReinforcedWeapon(const Weapon& weapon,
-                               const std::string& weaponId,
-                               const int subId,
-                               const int reinforce);
 
     // シングルトンオブジェクト
     static WeaponManager* obj;
 
-    // このゲームにはインベントリと倉庫がある。
-    // インベントリと倉庫でSubIDが被ることはない。
-    // インベントリにある武器も、倉庫にある武器も区別なくm_weaponMapに保存する。
     std::unordered_map<std::string, WeaponDef> m_weaponDefMap;
-    std::unordered_map<std::string, std::list<Weapon>> m_weaponMap;
+    std::vector<WeaponDefSub> m_weaponDefSubList;
 };
 }

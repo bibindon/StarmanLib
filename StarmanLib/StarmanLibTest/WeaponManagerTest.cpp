@@ -55,6 +55,7 @@ namespace StarmanLibTest
                      "..\\StarmanLibTest\\weaponSave.csv");
         }
 
+        /*
         // Init関数による読み込みテスト
         TEST_METHOD(TestMethod03)
         {
@@ -199,7 +200,7 @@ namespace StarmanLibTest
                 Assert::AreEqual(60, weapon.GetDurabilityMax());
             }
         }
-
+*/
 //        // 武器情報の更新
 //        TEST_METHOD(TestMethod09)
 //        {

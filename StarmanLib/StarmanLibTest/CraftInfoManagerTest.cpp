@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../StarmanLib/CraftInfoManager.h"
+#include "../StarmanLib/Inventory.h"
+#include "../StarmanLib/ItemManager.h"
+#include "../StarmanLib/Storehouse.h"
+
 #include <fstream>
 #include <sstream>
 #include <iterator>
@@ -15,6 +19,26 @@ namespace StarmanLibTest
     TEST_CLASS(CraftInfoManagerTest)
     {
     public:
+
+        TEST_METHOD_INITIALIZE(Initialize)
+        {
+            ItemManager* itemManager = ItemManager::GetObj();
+            itemManager->Init("..\\StarmanLibTest\\item.csv");
+
+            Inventory* inventory = Inventory::GetObj();
+            inventory->Init("..\\StarmanLibTest\\inventory.csv");
+
+            Storehouse* storehouse = Storehouse::GetObj();
+            storehouse->Init("..\\StarmanLibTest\\storehouse.csv");
+        }
+
+        TEST_METHOD_CLEANUP(CleanUp)
+        {
+            CraftInfoManager::Destroy();
+            Storehouse::Destroy();
+            Inventory::Destroy();
+            ItemManager::Destroy();
+        }
 
         TEST_METHOD(TestMethod01)
         {
