@@ -151,10 +151,6 @@ void WeaponManager::Init(const std::string& csvfilename,
                     weapon.SetItemId(itemId);
                     weapon.SetIdSub(subIdList.at(j));
                     weapon.SetReinforce(itemDef.GetLevel());
-
-                    int dura = inventory->GetItemInfo(itemId, subIdList.at(j)).GetDurabilityCurrent();
-                    weapon.SetDurability(dura);
-
                     weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
                     m_weaponMap[weaponId].push_back(weapon);
                 }
@@ -172,10 +168,6 @@ void WeaponManager::Init(const std::string& csvfilename,
                     weapon.SetItemId(itemId);
                     weapon.SetIdSub(subIdList.at(j));
                     weapon.SetReinforce(itemDef.GetLevel());
-
-                    int dura = storehouse->GetItemInfo(itemId, subIdList.at(j)).GetDurabilityCurrent();
-                    weapon.SetDurability(dura);
-
                     weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
                     m_weaponMap[weaponId].push_back(weapon);
                 }
@@ -660,15 +652,5 @@ int Weapon::GetDurabilityMax() const
 void Weapon::SetDurabilityMax(int durabilityMax)
 {
     m_durabilityMax = durabilityMax;
-}
-
-int Weapon::GetDurability() const
-{
-    return m_durability;
-}
-
-void Weapon::SetDurability(int durability)
-{
-    m_durability = durability;
 }
 

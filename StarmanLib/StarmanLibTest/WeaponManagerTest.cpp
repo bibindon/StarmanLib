@@ -184,7 +184,6 @@ namespace StarmanLibTest
                 Assert::AreEqual(1.4, weapon.GetAttackRate());
                 Assert::AreEqual(10.0, weapon.GetFlightDistance());
                 Assert::AreEqual(43, weapon.GetDurabilityMax());
-                Assert::AreEqual(437, weapon.GetDurability());
             }
             {
                 WeaponManager* wm = WeaponManager::GetObj();
@@ -198,13 +197,12 @@ namespace StarmanLibTest
                 Assert::AreEqual(2.0, weapon.GetAttackRate());
                 Assert::AreEqual(40.0, weapon.GetFlightDistance());
                 Assert::AreEqual(60, weapon.GetDurabilityMax());
-                Assert::AreEqual(80, weapon.GetDurability());
             }
         }
 
+//        // 武器情報の更新
 //        TEST_METHOD(TestMethod09)
 //        {
-//            // アイテム情報編集
 //            WeaponManager* wm = WeaponManager::GetObj();
 //            wm->Init("..\\StarmanLibTest\\weapon.csv",
 //                     "..\\StarmanLibTest\\weaponSave.csv");
@@ -226,6 +224,7 @@ namespace StarmanLibTest
 //            Assert::AreEqual(wm->GetWeaponMap()["10"].at(0).GetDurability(), 139);
 //            Assert::AreEqual(wm->GetWeaponMap()["10"].at(3).GetDurability(), 109);
 //        }
+
 //        TEST_METHOD(TestMethod10)
 //        {
 //            WeaponManager* wm = WeaponManager::GetObj();

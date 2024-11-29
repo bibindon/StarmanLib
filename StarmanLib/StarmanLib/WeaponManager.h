@@ -83,9 +83,12 @@ private:
     bool m_isShow = false; // 表示
 };
 
-// 同じ武器を複数持つために定義された武器クラス。
-// マインクラフトでは耐久度の高い木の斧と耐久度の低い木の斧の二つ持つことができるように
-// このゲームでも同じ武器を複数持つことができる。
+// ItemMangerやInentory, Storehouseからは取得できない情報がある。
+// 攻撃力や飛距離、最大耐久度など
+// 耐久度はInventoryかStorehouseが管理しているので扱わない。
+// TODO 武器一つ一つに対してこのクラスを持つ必要がない気がする
+// +1の石斧と+2の石斧が5個ずつあった場合、10個Weaponが作られてしまうが
+// 2個でで良い気がする。中身全部一緒だし。
 class Weapon
 {
 public:
@@ -111,9 +114,6 @@ public:
     int GetDurabilityMax() const;
     void SetDurabilityMax(int durabilityMax);
 
-    int GetDurability() const;
-    void SetDurability(int durability);
-
 private:
 
     std::string m_weaponId; // 武器ID（weapon.csv）
@@ -124,7 +124,6 @@ private:
     double m_attackRate = 0.f;
     double m_flightDistance = 0;
     int m_durabilityMax = 0;
-    int m_durability = 0;
 };
 
 class WeaponManager
