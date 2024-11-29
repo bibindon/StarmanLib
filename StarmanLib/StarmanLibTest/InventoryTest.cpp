@@ -52,6 +52,7 @@ namespace StarmanLibTest
             ItemManager::Destroy();
         }
 
+        // アイテムの増減のテスト
         TEST_METHOD(TestMethod04)
         {
             ItemManager* itemManager = ItemManager::GetObj();

@@ -124,7 +124,7 @@ void Storehouse::AddItem(const int id, const int durability)
                               subIdList2.begin(), subIdList2.end(),
                               std::back_inserter(intersection));
 
-        if (intersection.empty() != false)
+        if (intersection.empty() == false)
         {
             throw std::exception();
         }
