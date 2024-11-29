@@ -144,16 +144,17 @@ public:
     double GetWeight(const std::string& weaponName) const;
     int GetVolume(const std::string& weaponName) const;
     int GetReinforceMax(const std::string& weaponName) const;
-    bool GetOwnDamage(const std::string& weaponName) const;
+    double GetStaminaDown(const std::string& weaponName) const;
+    int GetOwnDamage(const std::string& weaponName) const;
     bool GetIsShow(const std::string& weaponName) const;
 
     double GetAttackRate(const std::string& weaponName, const int level) const;
     double GetFlightDistance(const std::string& weaponName, const int level) const;
-    double GetStaminaDown(const std::string& weaponName, const int level) const;
     int GetDurabilityMax(const std::string& weaponName, const int level) const;
 
 private:
 
+    std::string GetItemName(const std::string& weaponName) const;
 
     // シングルトンオブジェクト
     static WeaponManager* obj;

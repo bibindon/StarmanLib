@@ -126,10 +126,14 @@ void WeaponManager::Init(const std::string& csvfilename,
         // 
         // 最大強化値が1のときは1度は強化できる。
         // つまりWeaponDefSubは2つ必要になる
-        int loopNum = 1;
-        if (weaponDef.GetReinforceMax() != -1)
+        int loopNum = 0;
+        if (weaponDef.GetReinforceMax() == -1)
         {
-            loopNum = weaponDef.GetReinforceMax();
+            loopNum = 1;
+        }
+        else
+        {
+            loopNum = weaponDef.GetReinforceMax()+1;
         }
 
         for (int i = 0; i < loopNum; ++i)
@@ -137,13 +141,13 @@ void WeaponManager::Init(const std::string& csvfilename,
             // 強化値は0,1,2,3,4というようにはならず
             // -1,1,2,3,4,5という感じになる
             int level = 0;
-            if (loopNum == 0)
+            if (i == 0)
             {
                 level = -1;
             }
             else
             {
-                level = loopNum;
+                level = i;
             }
 
             WeaponDefSub weaponDefSub;
@@ -230,47 +234,87 @@ void WeaponManager::Save(const std::string& savefilename,
 
 std::string WeaponManager::GetDetail(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetDetail();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetDetail();
 }
 
 std::string WeaponManager::GetXfilename(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetXfileName();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetXfileName();
 }
 
 std::string WeaponManager::GetImageName(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetImageName();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetImageName();
 }
 
 double WeaponManager::GetWeight(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetWeight();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetWeight();
 }
 
 int WeaponManager::GetVolume(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetVolume();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetVolume();
 }
 
 int WeaponManager::GetReinforceMax(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetReinforceMax();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetReinforceMax();
 }
 
-bool WeaponManager::GetOwnDamage(const std::string& weaponName) const
+int WeaponManager::GetOwnDamage(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetOwnDamage();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetOwnDamage();
 }
 
 bool WeaponManager::GetIsShow(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetIsShow();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetIsShow();
 }
 
 double WeaponManager::GetAttackRate(const std::string& weaponName, const int level) const
 {
-    std::string weaponId = m_weaponDefMap.at(weaponName).GetWeaponId();
+    std::string weaponId = GetItemName(weaponName);
 
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
@@ -278,12 +322,17 @@ double WeaponManager::GetAttackRate(const std::string& weaponName, const int lev
                                return x.GetWeaponId() == weaponId && x.GetReinforce() == level;
                            });
 
+    if (it == m_weaponDefSubList.end())
+    {
+        throw std::exception();
+    }
+
     return it->GetAttackRate();
 }
 
 double WeaponManager::GetFlightDistance(const std::string& weaponName, const int level) const
 {
-    std::string weaponId = m_weaponDefMap.at(weaponName).GetWeaponId();
+    std::string weaponId = GetItemName(weaponName);
 
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
@@ -294,14 +343,19 @@ double WeaponManager::GetFlightDistance(const std::string& weaponName, const int
     return it->GetFlightDistance();
 }
 
-double WeaponManager::GetStaminaDown(const std::string& weaponName, const int level) const
+double WeaponManager::GetStaminaDown(const std::string& weaponName) const
 {
-    return m_weaponDefMap.at(weaponName).GetStaminaDown();
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+    return it->second.GetStaminaDown();
 }
 
 int WeaponManager::GetDurabilityMax(const std::string& weaponName, const int level) const
 {
-    std::string weaponId = m_weaponDefMap.at(weaponName).GetWeaponId();
+    std::string weaponId = GetItemName(weaponName);
 
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
@@ -310,6 +364,17 @@ int WeaponManager::GetDurabilityMax(const std::string& weaponName, const int lev
                            });
 
     return it->GetDurabilityMax();
+}
+
+std::string NSStarmanLib::WeaponManager::GetItemName(const std::string& weaponName) const
+{
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == weaponName;
+                           });
+
+    return it->second.GetWeaponId();
 }
 
 std::string WeaponDef::GetWeaponId() const

@@ -46,6 +46,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod01)
         {
             WeaponManager* wm = WeaponManager::GetObj();
+            WeaponManager::Destroy();
         }
 
         TEST_METHOD(TestMethod02)
@@ -53,322 +54,140 @@ namespace StarmanLibTest
             WeaponManager* wm = WeaponManager::GetObj();
             wm->Init("..\\StarmanLibTest\\weapon.csv",
                      "..\\StarmanLibTest\\weaponSave.csv");
+
+            WeaponManager::Destroy();
         }
 
-        /*
         // Init関数による読み込みテスト
         TEST_METHOD(TestMethod03)
         {
             WeaponManager* wm = WeaponManager::GetObj();
             wm->Init("..\\StarmanLibTest\\weapon.csv",
                      "..\\StarmanLibTest\\weaponSave.csv");
-            WeaponDef weaponDef = wm->GetWeaponDef("石");
-            std::string weaponId = weaponDef.GetWeaponId();
-            Assert::AreEqual(weaponId == "w1", true);
+
+            std::string work;
+            //------------------------------------------------
+            work = wm->GetDetail("石");
+            Assert::AreNotEqual(std::string::npos, work.find("投げたり"));
+
+            work = wm->GetDetail("アトラトルに使う槍");
+            Assert::AreNotEqual(std::string::npos, work.find("そのことに気が付く。"));
+
+            //------------------------------------------------
+            work = wm->GetXfilename("石");
+            Assert::AreEqual("stone.x", work.c_str());
+
+            work = wm->GetXfilename("アトラトルに使う槍");
+            Assert::AreEqual("spearForAtlatl.x", work.c_str());
+
+            //------------------------------------------------
+            work = wm->GetImageName("石");
+            Assert::AreEqual("stone.png", work.c_str());
+
+            work = wm->GetImageName("アトラトルに使う槍");
+            Assert::AreEqual("spearForAtlatl.png", work.c_str());
+
+            //------------------------------------------------
+            work = wm->GetImageName("石");
+            Assert::AreEqual("stone.png", work.c_str());
+
+            work = wm->GetImageName("アトラトルに使う槍");
+            Assert::AreEqual("spearForAtlatl.png", work.c_str());
+
+            double work_d = 0.0;
+            //------------------------------------------------
+            work_d = wm->GetWeight("石");
+            Assert::AreEqual(0.5, work_d);
+
+            work_d = wm->GetWeight("アトラトルに使う槍");
+            Assert::AreEqual(0.6, work_d);
+
+            int work_i = 0;
+            //------------------------------------------------
+            work_i = wm->GetVolume("石");
+            Assert::AreEqual(500, work_i);
+
+            work_i = wm->GetVolume("アトラトルに使う槍");
+            Assert::AreEqual(2000, work_i);
+
+            //------------------------------------------------
+            work_i = wm->GetReinforceMax("石");
+            Assert::AreEqual(0, work_i);
+
+            work_i = wm->GetReinforceMax("アトラトルに使う槍");
+            Assert::AreEqual(5, work_i);
+
+            //------------------------------------------------
+            work_i = wm->GetReinforceMax("石");
+            Assert::AreEqual(0, work_i);
+
+            work_i = wm->GetReinforceMax("アトラトルに使う槍");
+            Assert::AreEqual(5, work_i);
+
+            //------------------------------------------------
+            work_i = wm->GetOwnDamage("石");
+            Assert::AreEqual(10, work_i);
+
+            work_i = wm->GetOwnDamage("アトラトルに使う槍");
+            Assert::AreEqual(5, work_i);
+
+            bool work_b = false;
+
+            //------------------------------------------------
+            work_b = wm->GetIsShow("石");
+            Assert::AreEqual(true, work_b);
+
+            work_b = wm->GetIsShow("アトラトルに使う槍");
+            Assert::AreEqual(false, work_b);
+
+            WeaponManager::Destroy();
         }
 
         // Init関数による読み込みテスト
+        // 強化値を指定
         TEST_METHOD(TestMethod04)
         {
             WeaponManager* wm = WeaponManager::GetObj();
             wm->Init("..\\StarmanLibTest\\weapon.csv",
                      "..\\StarmanLibTest\\weaponSave.csv");
-            {
-                WeaponDef weaponDef = wm->GetWeaponDef("石");
-                std::string weaponId = weaponDef.GetWeaponId();
-                Assert::AreEqual(weaponId == "w1", true);
-            }
-            {
-                WeaponDef weaponDef = wm->GetWeaponDef("アトラトルに使う槍");
-                std::string weaponId = weaponDef.GetWeaponId();
-                Assert::AreEqual(weaponId == "w10", true);
-            }
+
+            double work_d = 0.0;
+
+            // 石は強化できないので強化値＋２の石は存在しない。
+            // 取得しようとしたら例外が発生する
+            Assert::ExpectException<std::exception>(
+                [&]
+                {
+                    work_d = wm->GetAttackRate("石", 2);
+                });
+
+            //-------------------------------------------------
+            work_d = wm->GetAttackRate("石", -1);
+            Assert::AreEqual(3.0, work_d);
+
+            work_d = wm->GetAttackRate("アトラトルに使う槍", 3);
+            Assert::AreEqual(2.0, work_d);
+
+            //-------------------------------------------------
+            work_d = wm->GetFlightDistance("石", -1);
+            Assert::AreEqual(30.0, work_d);
+
+            work_d = wm->GetFlightDistance("弓矢の弓", 3);
+            Assert::AreEqual(6.0, work_d);
+
+            work_d = wm->GetFlightDistance("アトラトルに使う槍", 3);
+            Assert::AreEqual(40.0, work_d);
+
+            //-------------------------------------------------
+            int work_i = 0;
+            work_i = wm->GetDurabilityMax("石", -1);
+            Assert::AreEqual(999, work_i);
+
+            work_i = wm->GetDurabilityMax("アトラトルに使う槍", 3);
+            Assert::AreEqual(40, work_i);
+
+            WeaponManager::Destroy();
         }
-
-        TEST_METHOD(TestMethod05)
-        {
-            WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
-
-            {
-                WeaponDef weaponDef = wm->GetWeaponDef("石");
-                Assert::AreEqual(weaponDef.GetWeaponId() == "w1", true);
-                Assert::AreEqual(weaponDef.GetName() == "石", true);
-                Assert::AreEqual(weaponDef.GetDetail() == "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"", true);
-                Assert::AreEqual(weaponDef.GetXfileName() == "stone.x", true);
-                Assert::AreEqual(weaponDef.GetImageName() == "stone.png", true);
-                Assert::AreEqual(weaponDef.GetWeight() == 0.5f, true);
-                Assert::AreEqual(weaponDef.GetVolume() == 500, true);
-                Assert::AreEqual(weaponDef.GetOwnDamage() == 10, true);
-            }
-        }
-
-        // SubIDが正しいか確認
-        // 同じアイテムを複数持てるし、こちらの斧は耐久度が５０、こちらの斧は耐久度が１００とかできるので
-        // SubIdという考えがある。
-        // インベントリと倉庫があるがSubIdは被らないようになっている。
-        TEST_METHOD(TestMethod06)
-        {
-            WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
-
-            ItemManager* itemManager = ItemManager::GetObj();
-            Inventory* inventory = Inventory::GetObj();
-            Storehouse* storehouse = Storehouse::GetObj();
-
-            ItemDef itemDef = itemManager->GetItemDef("石");
-            WeaponDef weaponDef = wm->GetWeaponDef("石");
-
-            std::vector<int> subIdList = inventory->GetSubIdList(itemDef.GetId());
-            for (std::size_t i = 0; i < subIdList.size(); ++i)
-            {
-                bool result = false;
-                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList.at(i));
-                Assert::AreEqual(result, true);
-            }
-
-            std::vector<int> subIdList2 = storehouse->GetSubIdList(itemDef.GetId());
-            for (std::size_t i = 0; i < subIdList2.size(); ++i)
-            {
-                bool result = false;
-                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList2.at(i));
-                Assert::AreEqual(result, true);
-            }
-        }
-
-        // SubIDが正しいか確認
-        // 強化値も指定する
-        TEST_METHOD(TestMethod07)
-        {
-            WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
-
-            ItemManager* itemManager = ItemManager::GetObj();
-            Inventory* inventory = Inventory::GetObj();
-            Storehouse* storehouse = Storehouse::GetObj();
-
-            ItemDef itemDef = itemManager->GetItemDef("木の棒", 3);
-            WeaponDef weaponDef = wm->GetWeaponDef("木の棒");
-
-            std::vector<int> subIdList = inventory->GetSubIdList(itemDef.GetId());
-            for (std::size_t i = 0; i < subIdList.size(); ++i)
-            {
-                bool result = false;
-                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList.at(i));
-                Assert::AreEqual(result, true);
-            }
-
-            std::vector<int> subIdList2 = storehouse->GetSubIdList(itemDef.GetId());
-            for (std::size_t i = 0; i < subIdList2.size(); ++i)
-            {
-                bool result = false;
-                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList2.at(i));
-                Assert::AreEqual(result, true);
-            }
-        }
-
-        // 武器の耐久度などを取得できるかテスト
-        TEST_METHOD(TestMethod08)
-        {
-            {
-                WeaponManager* wm = WeaponManager::GetObj();
-                wm->Init("..\\StarmanLibTest\\weapon.csv",
-                         "..\\StarmanLibTest\\weaponSave.csv");
-                Weapon weapon = wm->GetWeapon("w2", 3, 4);
-                Assert::AreEqual("w2", weapon.GetWeaponId().c_str());
-                Assert::AreEqual(57, weapon.GetItemId());
-                Assert::AreEqual(3, weapon.GetIdSub());
-                Assert::AreEqual(4, weapon.GetReinforce());
-                Assert::AreEqual(1.4, weapon.GetAttackRate());
-                Assert::AreEqual(10.0, weapon.GetFlightDistance());
-                Assert::AreEqual(43, weapon.GetDurabilityMax());
-            }
-            {
-                WeaponManager* wm = WeaponManager::GetObj();
-                wm->Init("..\\StarmanLibTest\\weapon.csv",
-                         "..\\StarmanLibTest\\weaponSave.csv");
-                Weapon weapon = wm->GetWeapon("w10", 20, 5);
-                Assert::AreEqual("w10", weapon.GetWeaponId().c_str());
-                Assert::AreEqual(92, weapon.GetItemId());
-                Assert::AreEqual(20, weapon.GetIdSub());
-                Assert::AreEqual(5, weapon.GetReinforce());
-                Assert::AreEqual(2.0, weapon.GetAttackRate());
-                Assert::AreEqual(40.0, weapon.GetFlightDistance());
-                Assert::AreEqual(60, weapon.GetDurabilityMax());
-            }
-        }
-*/
-//        // 武器情報の更新
-//        TEST_METHOD(TestMethod09)
-//        {
-//            WeaponManager* wm = WeaponManager::GetObj();
-//            wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                     "..\\StarmanLibTest\\weaponSave.csv");
-//            WeaponTypeMap wtmap = wm->GetWeaponTypeMap();
-//            wtmap["1"].SetIsShow(false);
-//            wtmap["10"].SetIsShow(true);
-//            wm->SetWeaponTypeMap(wtmap);
-//            Assert::AreEqual(wm->GetWeaponTypeMap()["1"].GetIsShow(), false);
-//            Assert::AreEqual(wm->GetWeaponTypeMap()["10"].GetIsShow(), true);
-//
-//            WeaponMap wmap = wm->GetWeaponMap();
-//            wmap["1"].at(0).SetDurability(wmap["1"].at(0).GetDurability() - 1);
-//            wmap["1"].at(3).SetDurability(wmap["1"].at(3).GetDurability() - 1);
-//            wmap["10"].at(0).SetDurability(wmap["10"].at(0).GetDurability() - 1);
-//            wmap["10"].at(3).SetDurability(wmap["10"].at(3).GetDurability() - 1);
-//            wm->SetWeaponMap(wmap);
-//            Assert::AreEqual(wm->GetWeaponMap()["1"].at(0).GetDurability(), 499);
-//            Assert::AreEqual(wm->GetWeaponMap()["1"].at(3).GetDurability(), 469);
-//            Assert::AreEqual(wm->GetWeaponMap()["10"].at(0).GetDurability(), 139);
-//            Assert::AreEqual(wm->GetWeaponMap()["10"].at(3).GetDurability(), 109);
-//        }
-
-//        TEST_METHOD(TestMethod10)
-//        {
-//            WeaponManager* wm = WeaponManager::GetObj();
-//            wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                     "..\\StarmanLibTest\\weaponSave.csv");
-//
-//            wm->Save("..\\StarmanLibTest\\weaponSave2.csv");
-//
-//            std::ifstream ifs("..\\StarmanLibTest\\weaponSave2.csv");
-//            std::istreambuf_iterator<char> itBegin(ifs);
-//            std::istreambuf_iterator<char> itEnd;
-//            std::string str;
-//            for (; itBegin != itEnd; itBegin++)
-//            {
-//                str += *itBegin;
-//            }
-//            Assert::AreEqual(str.c_str(), "ID,表示・非表示\n1,true\n2,false\n3,true\n4,false\n5,true\n6,false\n7,true\n8,false\n9,true\n10,false\n");
-//        }
-//        // 出力したセーブデータを再読み込み
-//        TEST_METHOD(TestMethod11)
-//        {
-//            {
-//                WeaponManager* wm = WeaponManager::GetObj();
-//                wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                         "..\\StarmanLibTest\\weaponSave.csv");
-//
-//                wm->Save("..\\StarmanLibTest\\weaponSave2.csv");
-//                WeaponManager::Destroy();
-//            }
-//            WeaponManager* wm = WeaponManager::GetObj();
-//            wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                     "..\\StarmanLibTest\\weaponSave2.csv");
-//            
-//            WeaponTypeMap wtmap = wm->GetWeaponTypeMap();
-//            Assert::AreEqual(wtmap["w1"].GetIsShow(), true);
-//            Assert::AreEqual(wtmap["w10"].GetIsShow(), false);
-//
-//            WeaponMap wmap = wm->GetWeaponMap();
-//            Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 1);
-//            Assert::AreEqual(wmap["1"].at(3).GetIdSub(), 4);
-//            Assert::AreEqual(wmap["10"].at(0).GetIdSub(), 1);
-//            Assert::AreEqual(wmap["10"].at(3).GetIdSub(), 4);
-//
-//            Assert::AreEqual(wmap["1"].at(0).GetReinforce(), 3);
-//            Assert::AreEqual(wmap["1"].at(3).GetReinforce(), -1);
-//            Assert::AreEqual(wmap["10"].at(0).GetReinforce(), 3);
-//            Assert::AreEqual(wmap["10"].at(3).GetReinforce(), -1);
-//
-//            Assert::AreEqual(wmap["1"].at(0).GetAttackRate(), 0.1);
-//            Assert::AreEqual(wmap["1"].at(3).GetAttackRate(), 0.4);
-//            Assert::AreEqual(wmap["10"].at(0).GetAttackRate(), 3.7);
-//            Assert::AreEqual(wmap["10"].at(3).GetAttackRate(), 4.0);
-//
-//            Assert::AreEqual(wmap["1"].at(0).GetFlightDistance(), 10);
-//            Assert::AreEqual(wmap["1"].at(3).GetFlightDistance(), 40);
-//            Assert::AreEqual(wmap["10"].at(0).GetFlightDistance(), 370);
-//            Assert::AreEqual(wmap["10"].at(3).GetFlightDistance(), 400);
-//
-//            Assert::AreEqual(wmap["1"].at(0).GetDurabilityMax(), -1);
-//            Assert::AreEqual(wmap["1"].at(3).GetDurabilityMax(), -1);
-//            Assert::AreEqual(wmap["10"].at(0).GetDurabilityMax(), -1);
-//            Assert::AreEqual(wmap["10"].at(3).GetDurabilityMax(), -1);
-//
-//            Assert::AreEqual(wmap["1"].at(0).GetDurability(), 500);
-//            Assert::AreEqual(wmap["1"].at(3).GetDurability(), 470);
-//            Assert::AreEqual(wmap["10"].at(0).GetDurability(), 140);
-//            Assert::AreEqual(wmap["10"].at(3).GetDurability(), 110);
-//        }
-//
-//        // 暗号化されたファイルの読み込みテスト
-//        TEST_METHOD(TestMethod12)
-//        {
-//            WeaponManager* wm = WeaponManager::GetObj();
-//            wm->Init("..\\StarmanLibTest\\weapon.csv.enc",
-//                     "..\\StarmanLibTest\\weaponSave.csv.enc",
-//                     true);
-//
-//            WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-//            Assert::AreEqual(wmap["w1"].GetName().c_str(), "石");
-//            Assert::AreEqual(wmap["w10"].GetName().c_str(), "アトラトルに使う槍");
-//            Assert::AreEqual(wmap["w1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
-//            Assert::AreEqual(wmap["w10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
-//            Assert::AreEqual(wmap["w1"].GetWeight(), 0.5);
-//            Assert::AreEqual(wmap["w10"].GetWeight(), 0.6);
-//            Assert::AreEqual(wmap["w1"].GetVolume(), 500);
-//            Assert::AreEqual(wmap["w10"].GetVolume(), 2000);
-//            Assert::AreEqual(wmap["w1"].GetOwnDamage(), 10);
-//            Assert::AreEqual(wmap["w10"].GetOwnDamage(), 5);
-//
-//            Assert::AreEqual(wmap["w1"].GetIsShow(), true);
-//            Assert::AreEqual(wmap["w10"].GetIsShow(), false);
-//        }
-//        // ファイルを暗号化して出力するテスト
-//        TEST_METHOD(TestMethod13)
-//        {
-//            WeaponManager* wm = WeaponManager::GetObj();
-//            wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                     "..\\StarmanLibTest\\weaponSave.csv");
-//
-//            wm->Save("..\\StarmanLibTest\\weaponSave2.csv.enc",
-//                     true);
-//            {
-//                std::ifstream ifs1("..\\StarmanLibTest\\weaponSave2.csv.enc");
-//                std::ifstream ifs2("..\\StarmanLibTest\\weaponSave.csv.enc");
-//                std::string file1 { std::istreambuf_iterator<char>(ifs1), std::istreambuf_iterator<char>() };
-//                std::string file2 { std::istreambuf_iterator<char>(ifs2), std::istreambuf_iterator<char>() };
-//                Assert::AreEqual(file1, file2);
-//            }
-//        }
-//        // 暗号化して出力したファイルを読み込むテスト
-//        TEST_METHOD(TestMethod14)
-//        {
-//            {
-//                WeaponManager* wm = WeaponManager::GetObj();
-//                wm->Init("..\\StarmanLibTest\\weapon.csv",
-//                         "..\\StarmanLibTest\\weaponSave.csv");
-//
-//                wm->Save("..\\StarmanLibTest\\weaponSave3.csv.enc",
-//                         true);
-//                WeaponManager::Destroy();
-//            }
-//            {
-//                WeaponManager* wm = WeaponManager::GetObj();
-//                wm->Init("..\\StarmanLibTest\\weapon.csv.enc",
-//                         "..\\StarmanLibTest\\weaponSave3.csv.enc",
-//                         true);
-//
-//                WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-//                Assert::AreEqual(wmap["w1"].GetName().c_str(), "石");
-//                Assert::AreEqual(wmap["w10"].GetName().c_str(), "アトラトルに使う槍");
-//                Assert::AreEqual(wmap["w1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
-//                Assert::AreEqual(wmap["w10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
-//                Assert::AreEqual(wmap["w1"].GetWeight(), 0.5);
-//                Assert::AreEqual(wmap["w10"].GetWeight(), 0.6);
-//                Assert::AreEqual(wmap["w1"].GetVolume(), 500);
-//                Assert::AreEqual(wmap["w10"].GetVolume(), 2000);
-//                Assert::AreEqual(wmap["w1"].GetOwnDamage(), 10);
-//                Assert::AreEqual(wmap["w10"].GetOwnDamage(), 5);
-//
-//                Assert::AreEqual(wmap["w1"].GetIsShow(), true);
-//                Assert::AreEqual(wmap["w10"].GetIsShow(), false);
-//            }
-//        }
     };
 }
 
