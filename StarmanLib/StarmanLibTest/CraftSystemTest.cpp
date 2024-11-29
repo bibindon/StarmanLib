@@ -46,6 +46,7 @@ namespace StarmanLibTest
             Inventory::Destroy();
             ItemManager::Destroy();
         }
+
         TEST_METHOD(TestMethod01)
         {
             CraftSystem* obj = CraftSystem::GetObj();

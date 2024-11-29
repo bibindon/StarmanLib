@@ -166,6 +166,7 @@ private:
     static WeaponManager* obj;
 
     // このゲームにはインベントリと倉庫がある。
+    // インベントリと倉庫でSubIDが被ることはない。
     // インベントリにある武器も、倉庫にある武器も区別なくm_weaponMapに保存する。
     std::unordered_map<std::string, WeaponDef> m_weaponDefMap;
     std::unordered_map<std::string, std::list<Weapon>> m_weaponMap;

@@ -97,6 +97,12 @@ void WeaponManager::Init(const std::string& csvfilename,
         {
             std::string id = vss.at(i).at(0);
             std::string isShow = vss.at(i).at(1);
+
+            if (m_weaponDefMap.find(id) == m_weaponDefMap.end())
+            {
+                throw std::exception();
+            }
+
             if (isShow == "true")
             {
                 m_weaponDefMap[id].SetIsShow(true);
@@ -172,7 +178,12 @@ void WeaponManager::Init(const std::string& csvfilename,
 
 WeaponDef WeaponManager::GetWeaponDef(const std::string& key) const
 {
-    return m_weaponDefMap.at(key);
+    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+                           [&](const auto x)
+                           {
+                               return x.second.GetName() == key;
+                           });
+    return it->second;
 }
 
 bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id, const int subId) const

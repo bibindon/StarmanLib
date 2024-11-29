@@ -2,6 +2,7 @@
 #include "ItemManager.h"
 
 #include <algorithm>
+#include "Inventory.h"
 
 using namespace NSStarmanLib;
 
@@ -101,28 +102,55 @@ void Storehouse::AddItem(const int id, const int durability)
     // SubIDが 1,2,5となっていたらSubID＝3のアイテムを追加する（4に追加するわけではない）
     // SubIDが 1,2,3,4となっていたらSubID＝5のアイテムを追加する
     // アイテムがなかったらSubID＝1のアイテムを追加する
+    // 
+    // インベントリと倉庫でSubIdが被らないようにする
 
     // 欠番となっているSubIDを探す
-    int work = 1;
-    int missingSubId = -1;
-    int newSubId = -1;
-    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+
+    // subIdのリスト
+    std::vector<int> subIdList = GetSubIdList(id);
+
+    // 倉庫のSubID
+    Inventory* inventory = Inventory::GetObj();
+
+    std::vector<int> subIdList2 = inventory->GetSubIdList(id);
+
+    // インベントリと倉庫で被っているSubIDがあるなら異常終了させる
     {
-        if (it->GetId() == id)
+        std::vector<int> intersection;
+
+        // 二つのリストの積集合を作る
+        std::set_intersection(subIdList.begin(), subIdList.end(),
+                              subIdList2.begin(), subIdList2.end(),
+                              std::back_inserter(intersection));
+
+        if (intersection.empty() != false)
         {
-            // workとSubIDが一致するなら次のSubIDを見に行く
-            if (it->GetSubId() == work)
-            {
-                work++;
-            }
-            // workとSubIDが異なるなら欠番となっているSubID
-            else
-            {
-                missingSubId = work;
-                break;
-            }
+            throw std::exception();
         }
     }
+
+    subIdList.insert(subIdList.end(), subIdList2.begin(), subIdList2.end());
+    std::sort(subIdList.begin(), subIdList.end());
+
+    int work = 1;
+    int missingSubId = -1;
+    for (auto it = subIdList.begin(); it != subIdList.end(); ++it)
+    {
+        // workとSubIDが一致するなら次のSubIDを見に行く
+        if (work == *it)
+        {
+            ++work;
+        }
+        // workとSubIDが異なる＝欠番となっているSubID
+        else
+        {
+            missingSubId = work;
+            break;
+        }
+    }
+
+    int newSubId = -1;
 
     // 欠番となっているSubIDがあったら新規SubIDとする
     if (missingSubId != -1)
@@ -132,12 +160,7 @@ void Storehouse::AddItem(const int id, const int durability)
     // 欠番となっているSubIDがなかった（＝連番だった）なら末尾に追加する
     else
     {
-        std::size_t subSum = std::count_if(m_itemInfoList.begin(), m_itemInfoList.end(),
-                                           [&](const ItemInfo& x)
-                                           {
-                                               return x.GetId() == id;
-                                           });
-        newSubId = subSum + 1;
+        newSubId = subIdList.size() + 1;
     }
 
 

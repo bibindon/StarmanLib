@@ -53,7 +53,7 @@ private:
     // 以下の4つの関数を宣言・定義するのが正しいが・・・なくても・・・別に・・・
     Inventory() {};
     Inventory(const Inventory&);
-    Inventory& operator=(const Inventory&);
+    Inventory& operator=(const Inventory&) {}
     ~Inventory() {};
 
     float CalcWeight();
