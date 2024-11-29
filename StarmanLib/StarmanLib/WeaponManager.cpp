@@ -176,24 +176,26 @@ void WeaponManager::Init(const std::string& csvfilename,
     }
 }
 
-WeaponDef WeaponManager::GetWeaponDef(const std::string& key) const
+WeaponDef WeaponManager::GetWeaponDef(const std::string& itemName) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == key;
+                               return x.second.GetName() == itemName;
                            });
     return it->second;
 }
 
-bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id, const int subId) const
+bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id,
+                                              const int subId,
+                                              const int level) const
 {
     std::list<Weapon> weaponList = m_weaponMap.at(id);
 
     auto it = std::find_if(weaponList.begin(), weaponList.end(),
                            [&](const Weapon& x)
                            {
-                               return x.GetIdSub() == subId;
+                               return x.GetIdSub() == subId && x.GetReinforce() == level;
                            });
 
     if (it != weaponList.end())
@@ -206,14 +208,14 @@ bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id, const int s
     }
 }
 
-Weapon WeaponManager::GetWeapon(const std::string& id, const int subId) const
+Weapon WeaponManager::GetWeapon(const std::string& id, const int subId, const int level) const
 {
     std::list<Weapon> weaponList = m_weaponMap.at(id);
 
     auto it = std::find_if(weaponList.begin(), weaponList.end(),
                            [&](const Weapon& x)
                            {
-                               return x.GetIdSub() == subId;
+                               return x.GetIdSub() == subId && x.GetReinforce() == level;
                            });
 
     if (it == weaponList.end())
@@ -232,7 +234,8 @@ void WeaponManager::AddWeapon(const std::string& id, const Weapon& arg)
     auto it = std::find_if(weaponList.begin(), weaponList.end(),
                            [&](const Weapon& x)
                            {
-                               return x.GetIdSub() == arg.GetIdSub();
+                               return x.GetIdSub() == arg.GetIdSub() &&
+                                   x.GetReinforce() == arg.GetReinforce();
                            });
 
     if (it != weaponList.end())
@@ -251,7 +254,8 @@ void WeaponManager::UpdateWeapon(const std::string& id, const Weapon& arg)
     auto it = std::find_if(weaponList.begin(), weaponList.end(),
                            [&](const Weapon& x)
                            {
-                               return x.GetIdSub() == arg.GetIdSub();
+                               return x.GetIdSub() == arg.GetIdSub() &&
+                                   x.GetReinforce() == arg.GetReinforce();
                            });
 
     if (it == weaponList.end())
@@ -262,8 +266,24 @@ void WeaponManager::UpdateWeapon(const std::string& id, const Weapon& arg)
     *it = arg;
 }
 
-void NSStarmanLib::WeaponManager::RemoveWeapon(const std::string& id, const int subId)
+void NSStarmanLib::WeaponManager::RemoveWeapon(const std::string& id,
+                                               const int subId,
+                                               const int level)
 {
+    // SubIDが一致する武器が存在していないなら異常終了させる
+    std::list<Weapon> weaponList = m_weaponMap.at(id);
+
+    auto it = std::find_if(weaponList.begin(), weaponList.end(),
+                           [&](const Weapon& x)
+                           {
+                               return x.GetIdSub() == subId && x.GetReinforce() == level;
+                           });
+
+    if (it == weaponList.end())
+    {
+        throw std::exception();
+    }
+    weaponList.erase(it);
 }
 
 void WeaponManager::Save(const std::string& savefilename,
@@ -353,7 +373,7 @@ void NSStarmanLib::WeaponManager::SetReinforceAndUpdateParam(const std::string& 
 
     // 新しい飛距離
     temp = weaponDef.GetFlightDistance() + (weaponDef.GetFlightDistanceUp() * reinforce);
-    weapon->SetFlightDistance(temp_i);
+    weapon->SetFlightDistance(temp);
 
     // 新しい耐久力
     temp_i = weaponDef.GetDurability() + (weaponDef.GetDurabilityUp() * reinforce);
@@ -368,7 +388,30 @@ Weapon NSStarmanLib::WeaponManager::GetReinforcedWeapon(const Weapon& weapon,
                                                         const int subId,
                                                         const int reinforce)
 {
-    return Weapon();
+    // weapon.csvの定義を元に武器のステータスを設定する
+    WeaponDef weaponDef = m_weaponDefMap.at(weaponId);
+
+    Weapon result = weapon;
+
+    // 新しい強化値
+    result.SetReinforce(reinforce);
+
+    double temp = 0.0;
+    int temp_i = 0;
+
+    // 新しい攻撃力補正値
+    temp = weaponDef.GetAttackRate() + (weaponDef.GetAttackRateUp() * reinforce);
+    result.SetAttackRate(temp);
+
+    // 新しい飛距離
+    temp = weaponDef.GetFlightDistance() + (weaponDef.GetFlightDistanceUp() * reinforce);
+    result.SetFlightDistance(temp);
+
+    // 新しい耐久力
+    temp_i = weaponDef.GetDurability() + (weaponDef.GetDurabilityUp() * reinforce);
+    result.SetDurabilityMax(temp_i);
+
+    return result;
 }
 
 std::string WeaponDef::GetWeaponId() const

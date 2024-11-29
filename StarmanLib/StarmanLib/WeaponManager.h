@@ -141,14 +141,14 @@ public:
     void Save(const std::string& savefilename,
               const bool encrypt = false);
 
-    WeaponDef GetWeaponDef(const std::string& key) const;
+    WeaponDef GetWeaponDef(const std::string& itemName) const;
 
     // 武器の削除ができることからSubIdは連番とは限らないことに注意
-    bool ExistWeapon(const std::string& id, const int subId) const;
-    Weapon GetWeapon(const std::string& id, const int subId) const;
-    void AddWeapon(const std::string& id, const Weapon& arg);
-    void UpdateWeapon(const std::string& id, const Weapon& arg);
-    void RemoveWeapon(const std::string& id, const int subId);
+    bool ExistWeapon(const std::string& weaponId, const int subId, const int level = -1) const;
+    Weapon GetWeapon(const std::string& weaponId, const int subId, const int level = -1) const;
+    void AddWeapon(const std::string& weaponId, const Weapon& arg);
+    void UpdateWeapon(const std::string& weaponId, const Weapon& arg);
+    void RemoveWeapon(const std::string& weaponId, const int subId, const int level = -1);
 
     // 強化値を更新し、攻撃力、飛距離、耐久度を更新する
     void SetReinforceAndUpdateParam(const std::string& weaponId,

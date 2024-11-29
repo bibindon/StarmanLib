@@ -103,14 +103,40 @@ namespace StarmanLibTest
             }
         }
 
+        // SubIDが正しいか確認
+        // 同じアイテムを複数持てるし、こちらの斧は耐久度が５０、こちらの斧は耐久度が１００とかできるので
+        // SubIdという考えがある。
+        // インベントリと倉庫があるがSubIdは被らないようになっている。
         TEST_METHOD(TestMethod06)
         {
             WeaponManager* wm = WeaponManager::GetObj();
             wm->Init("..\\StarmanLibTest\\weapon.csv",
                      "..\\StarmanLibTest\\weaponSave.csv");
 
-            Inventory
-            WeaponDef weaponDef = wm->GetWeapon("石");
+            ItemManager* itemManager = ItemManager::GetObj();
+            Inventory* inventory = Inventory::GetObj();
+            Storehouse* storehouse = Storehouse::GetObj();
+
+            ItemDef itemDef = itemManager->GetItemDef("石");
+            WeaponDef weaponDef = wm->GetWeaponDef("石");
+
+            std::vector<int> subIdList = inventory->GetSubIdList(itemDef.GetId());
+            for (std::size_t i = 0; i < subIdList.size(); ++i)
+            {
+                bool result = false;
+                // TODO 強化値はどうなる？
+                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList.at(i));
+                Assert::AreEqual(result, true);
+            }
+
+            std::vector<int> subIdList2 = storehouse->GetSubIdList(itemDef.GetId());
+            for (std::size_t i = 0; i < subIdList2.size(); ++i)
+            {
+                bool result = false;
+                // TODO 強化値はどうなる？
+                result = wm->ExistWeapon(weaponDef.GetWeaponId(), subIdList2.at(i));
+                Assert::AreEqual(result, true);
+            }
         }
 
 //        TEST_METHOD(TestMethod07)
