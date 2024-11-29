@@ -64,9 +64,9 @@ void WeaponManager::Init(const std::string& csvfilename,
             weaponDef.SetImageName(vss.at(i).at(4));
             weaponDef.SetWeight(atof(vss.at(i).at(5).c_str()));
             weaponDef.SetVolume(atoi(vss.at(i).at(6).c_str()));
-            weaponDef.SetAttackRate(atof(vss.at(i).at(7).c_str()));
-            weaponDef.SetAttackRateUp(atof(vss.at(i).at(8).c_str()));
-            weaponDef.SetReinforceMax(atoi(vss.at(i).at(9).c_str()));
+            weaponDef.SetReinforceMax(atoi(vss.at(i).at(7).c_str()));
+            weaponDef.SetAttackRate(atof(vss.at(i).at(8).c_str()));
+            weaponDef.SetAttackRateUp(atof(vss.at(i).at(9).c_str()));
 
             weaponDef.SetFlightDistance(atof(vss.at(i).at(10).c_str()));
             weaponDef.SetFlightDistanceUp(atof(vss.at(i).at(11).c_str()));
@@ -151,6 +151,10 @@ void WeaponManager::Init(const std::string& csvfilename,
                     weapon.SetItemId(itemId);
                     weapon.SetIdSub(subIdList.at(j));
                     weapon.SetReinforce(itemDef.GetLevel());
+
+                    int dura = inventory->GetItemInfo(itemId, subIdList.at(j)).GetDurabilityCurrent();
+                    weapon.SetDurability(dura);
+
                     weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
                     m_weaponMap[weaponId].push_back(weapon);
                 }
@@ -168,6 +172,10 @@ void WeaponManager::Init(const std::string& csvfilename,
                     weapon.SetItemId(itemId);
                     weapon.SetIdSub(subIdList.at(j));
                     weapon.SetReinforce(itemDef.GetLevel());
+
+                    int dura = storehouse->GetItemInfo(itemId, subIdList.at(j)).GetDurabilityCurrent();
+                    weapon.SetDurability(dura);
+
                     weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
                     m_weaponMap[weaponId].push_back(weapon);
                 }
@@ -208,9 +216,9 @@ bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id,
     }
 }
 
-Weapon WeaponManager::GetWeapon(const std::string& id, const int subId, const int level) const
+Weapon WeaponManager::GetWeapon(const std::string& weaponId, const int subId, const int level) const
 {
-    std::list<Weapon> weaponList = m_weaponMap.at(id);
+    std::list<Weapon> weaponList = m_weaponMap.at(weaponId);
 
     auto it = std::find_if(weaponList.begin(), weaponList.end(),
                            [&](const Weapon& x)
@@ -393,21 +401,21 @@ Weapon NSStarmanLib::WeaponManager::GetReinforcedWeapon(const Weapon& weapon,
 
     Weapon result = weapon;
 
-    // 新しい強化値
+    // 強化値
     result.SetReinforce(reinforce);
 
     double temp = 0.0;
     int temp_i = 0;
 
-    // 新しい攻撃力補正値
+    // 攻撃力補正値
     temp = weaponDef.GetAttackRate() + (weaponDef.GetAttackRateUp() * reinforce);
     result.SetAttackRate(temp);
 
-    // 新しい飛距離
+    // 飛距離
     temp = weaponDef.GetFlightDistance() + (weaponDef.GetFlightDistanceUp() * reinforce);
     result.SetFlightDistance(temp);
 
-    // 新しい耐久力
+    // 耐久力
     temp_i = weaponDef.GetDurability() + (weaponDef.GetDurabilityUp() * reinforce);
     result.SetDurabilityMax(temp_i);
 
