@@ -27,7 +27,6 @@ void NSStarmanLib::WeaponManager::Destroy()
 
 void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
-                         const std::string& subSavefilename,
                          const bool decrypt)
 {
     // ItemManagerクラスのInit関数が先に呼ばれている必要がある
@@ -106,6 +105,7 @@ void WeaponManager::Init(const std::string& csvfilename,
             }
         }
     }
+    // ItemManager, Inventory, Storehouseを利用して
     // 武器一つごとのセーブデータを読み込む
     {
         std::vector<std::vector<std::string>> vss;
@@ -140,28 +140,92 @@ void WeaponManager::Init(const std::string& csvfilename,
     }
 }
 
-std::unordered_map<std::string, WeaponType> WeaponManager::GetWeaponTypeMap()
+WeaponType WeaponManager::GetWeaponType(const std::string& key) const
 {
-    return m_weaponTypeMap;
+    return m_weaponTypeMap.at(key);
 }
 
-void WeaponManager::SetWeaponTypeMap(const std::unordered_map<std::string, WeaponType>& arg)
+bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id, const int subId) const
 {
-    m_weaponTypeMap = arg;
+    std::list<Weapon> weaponList = m_weaponMap.at(id);
+
+    auto it = std::find_if(weaponList.begin(), weaponList.end(),
+                           [&](const Weapon& x)
+                           {
+                               return x.GetIdSub() == subId;
+                           });
+
+    if (it != weaponList.end())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-std::unordered_map<std::string, std::vector<Weapon>> WeaponManager::GetWeaponMap()
+Weapon WeaponManager::GetWeapon(const std::string& id, const int subId) const
 {
-    return m_weaponMap;
+    std::list<Weapon> weaponList = m_weaponMap.at(id);
+
+    auto it = std::find_if(weaponList.begin(), weaponList.end(),
+                           [&](const Weapon& x)
+                           {
+                               return x.GetIdSub() == subId;
+                           });
+
+    if (it == weaponList.end())
+    {
+        throw std::exception();
+    }
+
+    return *it;
 }
 
-void WeaponManager::SetWeaponMap(const std::unordered_map<std::string, std::vector<Weapon>>& arg)
+void WeaponManager::AddWeapon(const std::string& id, const Weapon& arg)
 {
-    m_weaponMap = arg;
+    // SubIDが一致する武器が存在しているなら異常終了
+    std::list<Weapon> weaponList = m_weaponMap.at(id);
+
+    auto it = std::find_if(weaponList.begin(), weaponList.end(),
+                           [&](const Weapon& x)
+                           {
+                               return x.GetIdSub() == arg.GetIdSub();
+                           });
+
+    if (it != weaponList.end())
+    {
+        throw std::exception();
+    }
+
+    m_weaponMap.at(id).push_back(arg);
+}
+
+void WeaponManager::UpdateWeapon(const std::string& id, const Weapon& arg)
+{
+    // SubIDが一致する武器が存在していないなら異常終了
+    std::list<Weapon> weaponList = m_weaponMap.at(id);
+
+    auto it = std::find_if(weaponList.begin(), weaponList.end(),
+                           [&](const Weapon& x)
+                           {
+                               return x.GetIdSub() == arg.GetIdSub();
+                           });
+
+    if (it == weaponList.end())
+    {
+        throw std::exception();
+    }
+
+    *it = arg;
+}
+
+void NSStarmanLib::WeaponManager::RemoveWeapon(const std::string& id, const int subId)
+{
 }
 
 void WeaponManager::Save(const std::string& savefilename,
-                         const std::string& subSavefilename,
                          const bool encrypt)
 {
     {
@@ -171,8 +235,8 @@ void WeaponManager::Save(const std::string& savefilename,
         vs.push_back("表示・非表示");
         vss.push_back(vs);
         vs.clear();
-        std::unordered_map<std::string, WeaponType>::iterator itBegin = m_weaponTypeMap.begin();
-        std::unordered_map<std::string, WeaponType>::iterator itEnd = m_weaponTypeMap.end();
+        auto itBegin = m_weaponTypeMap.begin();
+        auto itEnd = m_weaponTypeMap.end();
         for (;itBegin != itEnd; ++itBegin)
         {
             vs.push_back(itBegin->second.GetId());
@@ -210,64 +274,11 @@ void WeaponManager::Save(const std::string& savefilename,
             CaesarCipher::EncryptToFile(ss.str(), savefilename);
         }
     }
-
-    {
-        std::vector<std::vector<std::string>> vss;
-        std::vector<std::string> vs;
-        vs.push_back("ID");
-        vs.push_back("サブID");
-        vs.push_back("強化値");
-        vs.push_back("攻撃力補正の上昇値");
-        vs.push_back("飛距離の上昇値");
-        vs.push_back("現在の耐久値");
-        vss.push_back(vs);
-        vs.clear();
-        std::unordered_map<std::string, std::vector<Weapon>>::iterator itBegin = m_weaponMap.begin();
-        std::unordered_map<std::string, std::vector<Weapon>>::iterator itEnd = m_weaponMap.end();
-        for (;itBegin != itEnd; ++itBegin)
-        {
-            for (std::size_t i = 0; i < itBegin->second.size(); ++i)
-            {
-                vs.push_back(itBegin->second.at(i).GetId());
-                vs.push_back(std::to_string(itBegin->second.at(i).GetIdSub()));
-                vs.push_back(std::to_string(itBegin->second.at(i).GetReinforce()));
-                // 小数は小数点以下1桁まで
-                std::ostringstream oss;
-                oss << std::fixed << std::setprecision(1) << itBegin->second.at(i).GetAttackRate();;
-                std::string stringNum = oss.str();
-                vs.push_back(oss.str());
-                vs.push_back(std::to_string(itBegin->second.at(i).GetFlightDistance()));
-                vs.push_back(std::to_string(itBegin->second.at(i).GetDurability()));
-                vss.push_back(vs);
-                vs.clear();
-            }
-        }
-
-        if (encrypt == false)
-        {
-            csv::Write(subSavefilename, vss);
-        }
-        else
-        {
-            std::stringstream ss;
-            for (std::size_t i = 0; i < vss.size(); ++i)
-            {
-                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-                {
-                    ss << vss.at(i).at(j);
-                    if (j != vss.at(i).size() - 1)
-                    {
-                        ss << ",";
-                    }
-                }
-                ss << "\n";
-            }
-            CaesarCipher::EncryptToFile(ss.str(), subSavefilename);
-        }
-    }
 }
 
-void NSStarmanLib::WeaponManager::SetReinforce(const std::string& name, const int subId, const int reinforce)
+void NSStarmanLib::WeaponManager::SetReinforce(const std::string& name,
+                                               const int subId,
+                                               const int reinforce)
 {
 }
 

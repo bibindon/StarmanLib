@@ -611,7 +611,76 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
+        // 武器を作り、武器管理クラスが更新されるかテスト
+        TEST_METHOD(TestMethod20)
+        {
+            Storehouse* storehouse = Storehouse::GetObj();
+            int work = 0;
+            bool work_b = false;
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+
+            work_b = obj->QueueCraftRequest("石槍");
+
+            // 武器の制作を開始
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            // 武器の制作が完了
+            obj->UpdateCraftStatus();
+
+            CraftSystem::Destroy();
+        }
+        
         // 素材に武器がある場合。
+        //TEST_METHOD(TestMethod21)
+        //{
+        //    Storehouse* storehouse = Storehouse::GetObj();
+        //    int work = 0;
+        //    bool work_b = false;
+
+        //    CraftSystem* obj = CraftSystem::GetObj();
+        //    obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+        //              "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+
+        //    work_b = obj->QueueCraftRequest("石槍");
+
+        //    // 職人に石槍の製造を依頼すると、この時点では強化値なしの石槍を作り始める。
+        //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
+        //    Assert::AreEqual(work, -1);
+
+        //    work_b = obj->QueueCraftRequest("石槍");
+
+        //    obj->UpdateCraftStatus();
+
+        //    PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+        //    // 1日と1時間、時を進める
+        //    powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+        //    obj->UpdateCraftStatus();
+
+        //    // 1日と1時間、時を進める
+        //    // ここで職人のレベルアップ。＋１の石槍を作れるようになる
+        //    powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+        //    obj->UpdateCraftStatus();
+
+        //    // ここで石槍を予約したら＋１の石槍が作られる
+        //    work_b = obj->QueueCraftRequest("石槍");
+
+        //    // ＋１の石槍が予約されているか？
+        //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
+        //    Assert::AreEqual(work, 1);
+
+        //    CraftSystem::Destroy();
+        //}
 
     };
 }

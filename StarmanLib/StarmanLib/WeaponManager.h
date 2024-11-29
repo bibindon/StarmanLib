@@ -9,6 +9,8 @@ class WeaponType
 {
 
 public:
+
+    // ここでのIDはweapon.csvでのID
     std::string GetId() const;
     void SetId(const std::string& id);
 
@@ -81,8 +83,9 @@ private:
     bool m_isShow = false; // 表示
 };
 
-// マインクラフトで木の斧を二つ持つことができるように同じ武器を複数持つことができる。
-// Weaponクラスは同じ武器を複数持つために定義されたクラス。
+// 同じ武器を複数持つために定義された武器クラス。
+// マインクラフトでは耐久度の高い木の斧と耐久度の低い木の斧の二つ持つことができるように
+// このゲームでも同じ武器を複数持つことができる。
 class Weapon
 {
 public:
@@ -128,18 +131,19 @@ public:
 
     void Init(const std::string& csvfilename,
               const std::string& savefilename,
-              const std::string& subSavefilename,
               const bool decrypt = false);
 
-    std::unordered_map<std::string, WeaponType> GetWeaponTypeMap();
-    void SetWeaponTypeMap(const std::unordered_map<std::string, WeaponType>& arg);
-
-    std::unordered_map<std::string, std::vector<Weapon>> GetWeaponMap();
-    void SetWeaponMap(const std::unordered_map<std::string, std::vector<Weapon>>& arg);
-
     void Save(const std::string& savefilename,
-              const std::string& subSavefilename,
               const bool encrypt = false);
+
+    WeaponType GetWeaponType(const std::string& key) const;
+
+    // 武器の削除ができることからSubIdは連番とは限らないことに注意
+    bool ExistWeapon(const std::string& id, const int subId) const;
+    Weapon GetWeapon(const std::string& id, const int subId) const;
+    void AddWeapon(const std::string& id, const Weapon& arg);
+    void UpdateWeapon(const std::string& id, const Weapon& arg);
+    void RemoveWeapon(const std::string& id, const int subId);
 
     // TODO 強化値を更新し、攻撃力、飛距離、耐久度を更新する
     void SetReinforce(const std::string& name, const int subId, const int reinforce);
@@ -150,9 +154,8 @@ private:
     static WeaponManager* obj;
 
     // このゲームにはインベントリと倉庫がある。
-    // 以下の武器がどちらにあるかは、インベントリクラス、倉庫クラスに問い合わせればよく
-    // この武器管理クラスは関与しない。
+    // インベントリにある武器も、倉庫にある武器も区別なくm_weaponMapに保存する。
     std::unordered_map<std::string, WeaponType> m_weaponTypeMap;
-    std::unordered_map<std::string, std::vector<Weapon>> m_weaponMap;
+    std::unordered_map<std::string, std::list<Weapon>> m_weaponMap;
 };
 }

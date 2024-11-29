@@ -59,8 +59,8 @@ namespace StarmanLibTest
                      "..\\StarmanLibTest\\weaponSave.csv",
                      "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-            Assert::AreEqual(wmap["1"].GetId().c_str(), "1");
-            Assert::AreEqual(wmap["10"].GetId().c_str(), "10");
+            Assert::AreEqual(wmap["w1"].GetId().c_str(), "w1");
+            Assert::AreEqual(wmap["w10"].GetId().c_str(), "w10");
         }
         TEST_METHOD(TestMethod05)
         {
@@ -69,19 +69,19 @@ namespace StarmanLibTest
                      "..\\StarmanLibTest\\weaponSave.csv",
                      "..\\StarmanLibTest\\subWeaponSave.csv");
             WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-            Assert::AreEqual(wmap["1"].GetName().c_str(), "石");
-            Assert::AreEqual(wmap["10"].GetName().c_str(), "アトラトルに使う槍");
-            Assert::AreEqual(wmap["1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
-            Assert::AreEqual(wmap["10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
-            Assert::AreEqual(wmap["1"].GetWeight(), 0.5);
-            Assert::AreEqual(wmap["10"].GetWeight(), 0.6);
-            Assert::AreEqual(wmap["1"].GetVolume(), 500);
-            Assert::AreEqual(wmap["10"].GetVolume(), 2000);
-            Assert::AreEqual(wmap["1"].GetOwnDamage(), 10);
-            Assert::AreEqual(wmap["10"].GetOwnDamage(), 5);
+            Assert::AreEqual(wmap["w1"].GetName().c_str(), "石");
+            Assert::AreEqual(wmap["w10"].GetName().c_str(), "アトラトルに使う槍");
+            Assert::AreEqual(wmap["w1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
+            Assert::AreEqual(wmap["w10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
+            Assert::AreEqual(wmap["w1"].GetWeight(), 0.5);
+            Assert::AreEqual(wmap["w10"].GetWeight(), 0.6);
+            Assert::AreEqual(wmap["w1"].GetVolume(), 500);
+            Assert::AreEqual(wmap["w10"].GetVolume(), 2000);
+            Assert::AreEqual(wmap["w1"].GetOwnDamage(), 10);
+            Assert::AreEqual(wmap["w10"].GetOwnDamage(), 5);
 
-            Assert::AreEqual(wmap["1"].GetIsShow(), true);
-            Assert::AreEqual(wmap["10"].GetIsShow(), false);
+            Assert::AreEqual(wmap["w1"].GetIsShow(), true);
+            Assert::AreEqual(wmap["w10"].GetIsShow(), false);
         }
         TEST_METHOD(TestMethod06)
         {
@@ -206,8 +206,8 @@ namespace StarmanLibTest
                      "..\\StarmanLibTest\\subWeaponSave.csv");
             
             WeaponTypeMap wtmap = wm->GetWeaponTypeMap();
-            Assert::AreEqual(wtmap["1"].GetIsShow(), true);
-            Assert::AreEqual(wtmap["10"].GetIsShow(), false);
+            Assert::AreEqual(wtmap["w1"].GetIsShow(), true);
+            Assert::AreEqual(wtmap["w10"].GetIsShow(), false);
 
             WeaponMap wmap = wm->GetWeaponMap();
             Assert::AreEqual(wmap["1"].at(0).GetIdSub(), 1);
@@ -251,19 +251,19 @@ namespace StarmanLibTest
                      true);
 
             WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-            Assert::AreEqual(wmap["1"].GetName().c_str(), "石");
-            Assert::AreEqual(wmap["10"].GetName().c_str(), "アトラトルに使う槍");
-            Assert::AreEqual(wmap["1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
-            Assert::AreEqual(wmap["10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
-            Assert::AreEqual(wmap["1"].GetWeight(), 0.5);
-            Assert::AreEqual(wmap["10"].GetWeight(), 0.6);
-            Assert::AreEqual(wmap["1"].GetVolume(), 500);
-            Assert::AreEqual(wmap["10"].GetVolume(), 2000);
-            Assert::AreEqual(wmap["1"].GetOwnDamage(), 10);
-            Assert::AreEqual(wmap["10"].GetOwnDamage(), 5);
+            Assert::AreEqual(wmap["w1"].GetName().c_str(), "石");
+            Assert::AreEqual(wmap["w10"].GetName().c_str(), "アトラトルに使う槍");
+            Assert::AreEqual(wmap["w1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
+            Assert::AreEqual(wmap["w10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
+            Assert::AreEqual(wmap["w1"].GetWeight(), 0.5);
+            Assert::AreEqual(wmap["w10"].GetWeight(), 0.6);
+            Assert::AreEqual(wmap["w1"].GetVolume(), 500);
+            Assert::AreEqual(wmap["w10"].GetVolume(), 2000);
+            Assert::AreEqual(wmap["w1"].GetOwnDamage(), 10);
+            Assert::AreEqual(wmap["w10"].GetOwnDamage(), 5);
 
-            Assert::AreEqual(wmap["1"].GetIsShow(), true);
-            Assert::AreEqual(wmap["10"].GetIsShow(), false);
+            Assert::AreEqual(wmap["w1"].GetIsShow(), true);
+            Assert::AreEqual(wmap["w10"].GetIsShow(), false);
         }
         // ファイルを暗号化して出力するテスト
         TEST_METHOD(TestMethod13)
@@ -306,19 +306,19 @@ namespace StarmanLibTest
                          true);
 
                 WeaponTypeMap wmap = wm->GetWeaponTypeMap();
-                Assert::AreEqual(wmap["1"].GetName().c_str(), "石");
-                Assert::AreEqual(wmap["10"].GetName().c_str(), "アトラトルに使う槍");
-                Assert::AreEqual(wmap["1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
-                Assert::AreEqual(wmap["10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
-                Assert::AreEqual(wmap["1"].GetWeight(), 0.5);
-                Assert::AreEqual(wmap["10"].GetWeight(), 0.6);
-                Assert::AreEqual(wmap["1"].GetVolume(), 500);
-                Assert::AreEqual(wmap["10"].GetVolume(), 2000);
-                Assert::AreEqual(wmap["1"].GetOwnDamage(), 10);
-                Assert::AreEqual(wmap["10"].GetOwnDamage(), 5);
+                Assert::AreEqual(wmap["w1"].GetName().c_str(), "石");
+                Assert::AreEqual(wmap["w10"].GetName().c_str(), "アトラトルに使う槍");
+                Assert::AreEqual(wmap["w1"].GetDetail().c_str(), "\"投げたり、殴ったりする。シャレにならないくらい強い。\n\"");
+                Assert::AreEqual(wmap["w10"].GetDetail().c_str(), "\"槍の柄の部分が柔らかく「しなる」材質じゃないと、実は全然飛ばない。\n何回も使うとそのことに気が付く。\n\n＋１～＋５\n\"");
+                Assert::AreEqual(wmap["w1"].GetWeight(), 0.5);
+                Assert::AreEqual(wmap["w10"].GetWeight(), 0.6);
+                Assert::AreEqual(wmap["w1"].GetVolume(), 500);
+                Assert::AreEqual(wmap["w10"].GetVolume(), 2000);
+                Assert::AreEqual(wmap["w1"].GetOwnDamage(), 10);
+                Assert::AreEqual(wmap["w10"].GetOwnDamage(), 5);
 
-                Assert::AreEqual(wmap["1"].GetIsShow(), true);
-                Assert::AreEqual(wmap["10"].GetIsShow(), false);
+                Assert::AreEqual(wmap["w1"].GetIsShow(), true);
+                Assert::AreEqual(wmap["w10"].GetIsShow(), false);
             }
         }
     };
