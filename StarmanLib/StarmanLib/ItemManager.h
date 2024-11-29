@@ -196,6 +196,7 @@ public:
 
     ItemDef GetItemDef(const std::string& key, const int level = -1);
     ItemDef GetItemDef(const int id);
+    std::vector<int> GetItemDef(const ItemDef::ItemType type);
 
 private:
 

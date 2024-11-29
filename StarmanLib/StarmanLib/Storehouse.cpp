@@ -234,6 +234,21 @@ ItemInfo NSStarmanLib::Storehouse::GetItemInfo(const int id, const int subId)
 }
 
 
+// SubIDをリストで受け取る
+std::vector<int> NSStarmanLib::Storehouse::GetSubIdList(const int id)
+{
+    std::vector<int> result;
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        if (it->GetId() == id)
+        {
+            result.push_back(it->GetSubId());
+        }
+    }
+
+    return result;
+}
+
 // 耐久度を無視して個数を数える
 // したがって、耐久度の下がったアイテムをクラフトの素材として使用出来て良いということにする
 int Storehouse::CountItem(const int id)

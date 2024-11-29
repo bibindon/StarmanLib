@@ -374,12 +374,29 @@ ItemDef ItemManager::GetItemDef(const int id)
             break;
         }
     }
+
     if (itemDef.GetId() == 0)
     {
         // ë∂ç›ÇµÇ»Ç¢IDÇéÊìæÇµÇÊÇ§Ç∆ÇµÇΩÅB
         throw std::exception();
     }
+
     return itemDef;
+}
+
+std::vector<int> NSStarmanLib::ItemManager::GetItemDef(const ItemDef::ItemType type)
+{
+    std::vector<int> idList;
+
+    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
+    {
+        if (it->second.GetType() == type)
+        {
+            idList.push_back(it->second.GetId());
+        }
+    }
+
+    return idList;
 }
 
 void NSStarmanLib::ItemInfo::SetId(const int arg)

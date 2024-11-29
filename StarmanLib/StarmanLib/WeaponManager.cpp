@@ -5,6 +5,8 @@
 #include "ItemManager.h"
 
 #include <iomanip>
+#include "Inventory.h"
+#include "Storehouse.h"
 
 using namespace NSStarmanLib;
 
@@ -54,26 +56,26 @@ void WeaponManager::Init(const std::string& csvfilename,
         // 先頭行は無視
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
-            WeaponType weaponType;
-            weaponType.SetId(vss.at(i).at(0));
-            weaponType.SetName(vss.at(i).at(1));
-            weaponType.SetDetail(vss.at(i).at(2));
-            weaponType.SetXfileName(vss.at(i).at(3));
-            weaponType.SetImageName(vss.at(i).at(4));
-            weaponType.SetWeight(atof(vss.at(i).at(5).c_str()));
-            weaponType.SetVolume(atoi(vss.at(i).at(6).c_str()));
-            weaponType.SetAttackRate(atof(vss.at(i).at(7).c_str()));
-            weaponType.SetAttackRateUp(atof(vss.at(i).at(8).c_str()));
-            weaponType.SetReinforceMax(atoi(vss.at(i).at(9).c_str()));
+            WeaponDef weaponDef;
+            weaponDef.SetWeaponId(vss.at(i).at(0));
+            weaponDef.SetName(vss.at(i).at(1));
+            weaponDef.SetDetail(vss.at(i).at(2));
+            weaponDef.SetXfileName(vss.at(i).at(3));
+            weaponDef.SetImageName(vss.at(i).at(4));
+            weaponDef.SetWeight(atof(vss.at(i).at(5).c_str()));
+            weaponDef.SetVolume(atoi(vss.at(i).at(6).c_str()));
+            weaponDef.SetAttackRate(atof(vss.at(i).at(7).c_str()));
+            weaponDef.SetAttackRateUp(atof(vss.at(i).at(8).c_str()));
+            weaponDef.SetReinforceMax(atoi(vss.at(i).at(9).c_str()));
 
-            weaponType.SetFlightDistance(atof(vss.at(i).at(10).c_str()));
-            weaponType.SetFlightDistanceUp(atof(vss.at(i).at(11).c_str()));
-            weaponType.SetStaminaDown(atof(vss.at(i).at(12).c_str()));
-            weaponType.SetDurability(atoi(vss.at(i).at(13).c_str()));
-            weaponType.SetDurabilityUp(atoi(vss.at(i).at(14).c_str()));
-            weaponType.SetOwnDamage(atoi(vss.at(i).at(15).c_str()));
+            weaponDef.SetFlightDistance(atof(vss.at(i).at(10).c_str()));
+            weaponDef.SetFlightDistanceUp(atof(vss.at(i).at(11).c_str()));
+            weaponDef.SetStaminaDown(atof(vss.at(i).at(12).c_str()));
+            weaponDef.SetDurability(atoi(vss.at(i).at(13).c_str()));
+            weaponDef.SetDurabilityUp(atoi(vss.at(i).at(14).c_str()));
+            weaponDef.SetOwnDamage(atoi(vss.at(i).at(15).c_str()));
 
-            m_weaponTypeMap[weaponType.GetId()] = weaponType;
+            m_weaponDefMap[weaponDef.GetWeaponId()] = weaponDef;
         }
     }
     // 保存された武器の情報を読み込む
@@ -97,52 +99,80 @@ void WeaponManager::Init(const std::string& csvfilename,
             std::string isShow = vss.at(i).at(1);
             if (isShow == "true")
             {
-                m_weaponTypeMap[id].SetIsShow(true);
+                m_weaponDefMap[id].SetIsShow(true);
             }
             else
             {
-                m_weaponTypeMap[id].SetIsShow(false);
+                m_weaponDefMap[id].SetIsShow(false);
             }
         }
     }
     // ItemManager, Inventory, Storehouseを利用して
     // 武器一つごとのセーブデータを読み込む
     {
-        std::vector<std::vector<std::string>> vss;
-        // 暗号化されたファイルを復号化するか
-        if (decrypt == false)
-        {
-            vss = csv::Read(subSavefilename);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(subSavefilename);
-            vss = csv::ReadFromString(work);
-        }
-
+        // Inventoryの武器をクラス内に保存
         ItemManager* itemManager = ItemManager::GetObj();
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        std::vector<int> idList = itemManager->GetItemDef(ItemDef::ItemType::WEAPON);
+        for (std::size_t i = 0; i < idList.size(); ++i)
         {
-            Weapon weapon;
-            weapon.SetId(vss.at(i).at(0));
-            weapon.SetIdSub(atoi(vss.at(i).at(1).c_str()));
-            weapon.SetReinforce(atoi(vss.at(i).at(2).c_str()));
-            weapon.SetAttackRate(atof(vss.at(i).at(3).c_str()));
-            weapon.SetFlightDistance(atoi(vss.at(i).at(4).c_str()));
+            int itemId = idList.at(i);
+            ItemDef itemDef = itemManager->GetItemDef(itemId);
+            std::string weaponId;
 
-            ItemDef itemDef = itemManager->GetItemDef(weapon.GetId());
-            weapon.SetDurabilityMax(itemDef.GetDurabilityMax());
+            for (auto it = m_weaponDefMap.begin(); it != m_weaponDefMap.end(); ++it)
+            {
+                if (it->second.GetName() == itemDef.GetName())
+                {
+                    weaponId = it->first;
+                }
+            }
 
-            weapon.SetDurability(atoi(vss.at(i).at(5).c_str()));
-            m_weaponMap[vss.at(i).at(0)].push_back(weapon);
+            if (weaponId.empty())
+            {
+                throw std::exception();
+            }
+
+            // Inventory
+            {
+                Inventory* inventory = Inventory::GetObj();
+                std::vector<int> subIdList = inventory->GetSubIdList(itemId);
+
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    Weapon weapon;
+                    weapon.SetWeaponId(weaponId);
+                    weapon.SetItemId(itemId);
+                    weapon.SetIdSub(subIdList.at(j));
+                    weapon.SetReinforce(itemDef.GetLevel());
+                    weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
+                    m_weaponMap[weaponId].push_back(weapon);
+                }
+            }
+
+            // Storehouse
+            {
+                Storehouse* storehouse = Storehouse::GetObj();
+                std::vector<int> subIdList = storehouse->GetSubIdList(itemId);
+
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    Weapon weapon;
+                    weapon.SetWeaponId(weaponId);
+                    weapon.SetItemId(itemId);
+                    weapon.SetIdSub(subIdList.at(j));
+                    weapon.SetReinforce(itemDef.GetLevel());
+                    weapon = GetReinforcedWeapon(weapon, weaponId, subIdList.at(j), itemDef.GetLevel());
+                    m_weaponMap[weaponId].push_back(weapon);
+                }
+            }
         }
     }
 }
 
-WeaponType WeaponManager::GetWeaponType(const std::string& key) const
+WeaponDef WeaponManager::GetWeaponDef(const std::string& key) const
 {
-    return m_weaponTypeMap.at(key);
+    return m_weaponDefMap.at(key);
 }
 
 bool NSStarmanLib::WeaponManager::ExistWeapon(const std::string& id, const int subId) const
@@ -235,11 +265,11 @@ void WeaponManager::Save(const std::string& savefilename,
         vs.push_back("表示・非表示");
         vss.push_back(vs);
         vs.clear();
-        auto itBegin = m_weaponTypeMap.begin();
-        auto itEnd = m_weaponTypeMap.end();
+        auto itBegin = m_weaponDefMap.begin();
+        auto itEnd = m_weaponDefMap.end();
         for (;itBegin != itEnd; ++itBegin)
         {
-            vs.push_back(itBegin->second.GetId());
+            vs.push_back(itBegin->second.GetWeaponId());
             if (itBegin->second.GetIsShow())
             {
                 vs.push_back("true");
@@ -276,190 +306,248 @@ void WeaponManager::Save(const std::string& savefilename,
     }
 }
 
-void NSStarmanLib::WeaponManager::SetReinforce(const std::string& name,
-                                               const int subId,
-                                               const int reinforce)
+void NSStarmanLib::WeaponManager::SetReinforceAndUpdateParam(const std::string& weaponId,
+                                                             const int subId,
+                                                             const int reinforce)
 {
+    // weapon.csvの定義を元に武器のステータスを設定する
+    WeaponDef weaponDef = m_weaponDefMap.at(weaponId);
+
+    std::list<Weapon> weaponList = m_weaponMap.at(weaponId);
+
+    auto weapon = weaponList.end();
+    for (auto it = weaponList.begin(); it != weaponList.end(); ++it)
+    {
+        if (it->GetIdSub() == subId)
+        {
+            weapon = it;
+            break;
+        }
+    }
+
+    if (weapon == weaponList.end())
+    {
+        throw std::exception();
+    }
+
+    // 新しい強化値
+    weapon->SetReinforce(reinforce);
+
+    double temp = 0.0;
+    int temp_i = 0;
+
+    // 新しい攻撃力補正値
+    temp = weaponDef.GetAttackRate() + (weaponDef.GetAttackRateUp() * reinforce);
+    weapon->SetAttackRate(temp);
+
+    // 新しい飛距離
+    temp = weaponDef.GetFlightDistance() + (weaponDef.GetFlightDistanceUp() * reinforce);
+    weapon->SetFlightDistance(temp_i);
+
+    // 新しい耐久力
+    temp_i = weaponDef.GetDurability() + (weaponDef.GetDurabilityUp() * reinforce);
+    weapon->SetDurabilityMax(temp_i);
+
+    // 現在の耐久力を最大に回復。
+    weapon->SetDurability(temp_i);
 }
 
-std::string WeaponType::GetId() const
+Weapon NSStarmanLib::WeaponManager::GetReinforcedWeapon(const Weapon& weapon,
+                                                        const std::string& weaponId,
+                                                        const int subId,
+                                                        const int reinforce)
 {
-    return m_id;
+    return Weapon();
 }
 
-void WeaponType::SetId(const std::string& id)
+std::string WeaponDef::GetWeaponId() const
 {
-    m_id = id;
+    return m_weaponId;
 }
 
-std::string WeaponType::GetName() const
+void WeaponDef::SetWeaponId(const std::string& id)
+{
+    m_weaponId = id;
+}
+
+std::string WeaponDef::GetName() const
 {
     return m_name;
 }
 
-void WeaponType::SetName(const std::string& name)
+void WeaponDef::SetName(const std::string& name)
 {
     m_name = name;
 }
 
-std::string WeaponType::GetDetail() const
+std::string WeaponDef::GetDetail() const
 {
     return m_detail;
 }
 
-void WeaponType::SetDetail(const std::string& detail)
+void WeaponDef::SetDetail(const std::string& detail)
 {
     m_detail = detail;
 }
 
-std::string WeaponType::GetXfileName() const
+std::string WeaponDef::GetXfileName() const
 {
     return m_xfileName;
 }
 
-void WeaponType::SetXfileName(const std::string& xfileName)
+void WeaponDef::SetXfileName(const std::string& xfileName)
 {
     m_xfileName = xfileName;
 }
 
-std::string WeaponType::GetImageName() const
+std::string WeaponDef::GetImageName() const
 {
     return m_imageName;
 }
 
-void WeaponType::SetImageName(const std::string& imageName)
+void WeaponDef::SetImageName(const std::string& imageName)
 {
     m_imageName = imageName;
 }
 
-double WeaponType::GetWeight() const
+double WeaponDef::GetWeight() const
 {
     return m_weight;
 }
 
-void WeaponType::SetWeight(double weight)
+void WeaponDef::SetWeight(double weight)
 {
     m_weight = weight;
 }
 
-int WeaponType::GetVolume() const
+int WeaponDef::GetVolume() const
 {
     return m_volume;
 }
 
-void WeaponType::SetVolume(int volume)
+void WeaponDef::SetVolume(int volume)
 {
     m_volume = volume;
 }
 
-double WeaponType::GetAttackRate() const
+double WeaponDef::GetAttackRate() const
 {
     return m_attackRate;
 }
 
-void WeaponType::SetAttackRate(double attackRate)
+void WeaponDef::SetAttackRate(double attackRate)
 {
     m_attackRate = attackRate;
 }
 
-double WeaponType::GetAttackRateUp() const
+double WeaponDef::GetAttackRateUp() const
 {
     return m_attackRateUp;
 }
 
-void WeaponType::SetAttackRateUp(double attackRateUp)
+void WeaponDef::SetAttackRateUp(double attackRateUp)
 {
     m_attackRateUp = attackRateUp;
 }
 
-int WeaponType::GetReinforceMax() const
+int WeaponDef::GetReinforceMax() const
 {
     return m_reinforceMax;
 }
 
-void WeaponType::SetReinforceMax(int reinforceMax)
+void WeaponDef::SetReinforceMax(int reinforceMax)
 {
     m_reinforceMax = reinforceMax;
 }
 
-double WeaponType::GetFlightDistance() const
+double WeaponDef::GetFlightDistance() const
 {
     return m_flightDistance;
 }
 
-void WeaponType::SetFlightDistance(double flightDistance)
+void WeaponDef::SetFlightDistance(double flightDistance)
 {
     m_flightDistance = flightDistance;
 }
 
-double WeaponType::GetFlightDistanceUp() const
+double WeaponDef::GetFlightDistanceUp() const
 {
     return m_flightDistanceUp;
 }
 
-void WeaponType::SetFlightDistanceUp(double flightDistanceUp)
+void WeaponDef::SetFlightDistanceUp(double flightDistanceUp)
 {
     m_flightDistanceUp = flightDistanceUp;
 }
 
-double WeaponType::GetStaminaDown() const
+double WeaponDef::GetStaminaDown() const
 {
     return m_staminaDown;
 }
 
-void WeaponType::SetStaminaDown(double staminaDown)
+void WeaponDef::SetStaminaDown(double staminaDown)
 {
     m_staminaDown = staminaDown;
 }
 
-int WeaponType::GetDurability() const
+int WeaponDef::GetDurability() const
 {
     return m_durability;
 }
 
-void WeaponType::SetDurability(int durability)
+void WeaponDef::SetDurability(int durability)
 {
     m_durability = durability;
 }
 
-int WeaponType::GetDurabilityUp() const
+int WeaponDef::GetDurabilityUp() const
 {
     return m_durabilityUp;
 }
 
-void WeaponType::SetDurabilityUp(int durabilityUp)
+void WeaponDef::SetDurabilityUp(int durabilityUp)
 {
     m_durabilityUp = durabilityUp;
 }
 
-int WeaponType::GetOwnDamage() const
+int WeaponDef::GetOwnDamage() const
 {
     return m_ownDamage;
 }
 
-void WeaponType::SetOwnDamage(int ownDamage)
+void WeaponDef::SetOwnDamage(int ownDamage)
 {
     m_ownDamage = ownDamage;
 }
 
-bool WeaponType::GetIsShow() const
+bool WeaponDef::GetIsShow() const
 {
     return m_isShow;
 }
 
-void WeaponType::SetIsShow(bool isShow)
+void WeaponDef::SetIsShow(bool isShow)
 {
     m_isShow = isShow;
 }
 
-std::string Weapon::GetId() const
+std::string Weapon::GetWeaponId() const
 {
-    return m_id;
+    return m_weaponId;
 }
 
-void Weapon::SetId(const std::string& id)
+void Weapon::SetWeaponId(const std::string& id)
 {
-    m_id = id;
+    m_weaponId = id;
+}
+
+int NSStarmanLib::Weapon::GetItemId() const
+{
+    return m_itemId;
+}
+
+void NSStarmanLib::Weapon::SetItemId(const int& id)
+{
+    m_itemId = id;
 }
 
 int Weapon::GetIdSub() const
@@ -492,12 +580,12 @@ void Weapon::SetAttackRate(double attackRate)
     m_attackRate = attackRate;
 }
 
-int Weapon::GetFlightDistance() const
+double Weapon::GetFlightDistance() const
 {
     return m_flightDistance;
 }
 
-void Weapon::SetFlightDistance(int flightDistance)
+void Weapon::SetFlightDistance(double flightDistance)
 {
     m_flightDistance = flightDistance;
 }
