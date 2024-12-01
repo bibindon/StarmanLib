@@ -18,6 +18,9 @@ std::string MapInfo::GetName()
 void MapInfo::SetDetail(const std::string& detail)
 {
     m_detail = detail;
+
+    // u"v‹L†‚Íæ‚èœ‚­
+    m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
 std::string MapInfo::GetDetail()

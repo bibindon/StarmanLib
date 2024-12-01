@@ -31,9 +31,9 @@ private:
     std::string m_name;
     std::string m_imagePath;
     std::string m_detail;
-    int m_x;
-    int m_y;
-    bool m_isDiscovered;
+    int m_x = 0;
+    int m_y = 0;
+    bool m_isDiscovered = false;
 };
 
 class MapInfoManager
