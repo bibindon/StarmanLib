@@ -20,12 +20,16 @@ public:
     void SetPos(const int x, const int y);
     void GetPos(int* x, int* y);
 
+    void SetImagePath(const std::string& imagePath);
+    std::string GetImagePath();
+
     void SetDiscovered(const bool);
     bool IsDiscovered();
 
 private:
 
     std::string m_name;
+    std::string m_imagePath;
     std::string m_detail;
     int m_x;
     int m_y;
@@ -43,6 +47,7 @@ public:
     void SetDiscovered(const std::string& name);
     std::string GetDetail(const std::string& name);
     void GetPos(const std::string& name, int* x, int* y);
+    std::string GetImagePath(const std::string& name);
     void Save(const std::string& csvfile);
 
 private:

@@ -37,6 +37,16 @@ void MapInfo::GetPos(int* x, int* y)
     *y = m_y;
 }
 
+void NSStarmanLib::MapInfo::SetImagePath(const std::string& imagePath)
+{
+    m_imagePath = imagePath;
+}
+
+std::string NSStarmanLib::MapInfo::GetImagePath()
+{
+    return m_imagePath;
+}
+
 void MapInfo::SetDiscovered(const bool discovered)
 {
     m_isDiscovered = discovered;
@@ -76,6 +86,8 @@ void MapInfoManager::Init(const std::string& csvfile)
         int x = std::stoi(vss.at(i).at(4));
         int y = std::stoi(vss.at(i).at(5));
         mapInfo.SetPos(x, y);
+
+        mapInfo.SetImagePath(vss.at(i).at(6));
         m_mapInfoList.push_back(mapInfo);
     }
 }
@@ -132,6 +144,15 @@ void MapInfoManager::GetPos(const std::string& name, int* x, int* y)
     it->GetPos(x, y);
 }
 
+std::string NSStarmanLib::MapInfoManager::GetImagePath(const std::string& name)
+{
+    auto it = std::find_if(m_mapInfoList.begin(),
+                           m_mapInfoList.end(),
+                           [&](MapInfo mi) { return mi.GetName() == name; });
+
+    return it->GetImagePath();
+}
+
 void MapInfoManager::Save(const std::string& csvfile)
 {
     std::vector<std::vector<std::string>> vss;
@@ -142,6 +163,7 @@ void MapInfoManager::Save(const std::string& csvfile)
     vs.push_back("à–¾•¶");
     vs.push_back("X");
     vs.push_back("Y");
+    vs.push_back("‰æ‘œƒtƒ@ƒCƒ‹–¼");
     vss.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
@@ -162,6 +184,9 @@ void MapInfoManager::Save(const std::string& csvfile)
         m_mapInfoList.at(i).GetPos(&x, &y);
         vs.push_back(std::to_string(x));
         vs.push_back(std::to_string(y));
+
+        vs.push_back(m_mapInfoList.at(i).GetImagePath());
+
         vss.push_back(vs);
         vs.clear();
     }

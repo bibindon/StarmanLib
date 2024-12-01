@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include <cassert>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -46,8 +47,16 @@ namespace StarmanLibTest
             Assert::AreEqual(bDiscovered, true);
         }
 
-        // 保存したときの内容が正しいか確認
         TEST_METHOD(TestMethod05)
+        {
+            MapInfoManager* obj = MapInfoManager::GetObj();
+            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
+            std::string result = obj->GetImagePath("プロリタン島");
+            Assert::AreEqual("res\\\\image\\\\narrowmap2.png", result.c_str());
+        }
+
+        // 保存したときの内容が正しいか確認
+        TEST_METHOD(TestMethod06)
         {
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
