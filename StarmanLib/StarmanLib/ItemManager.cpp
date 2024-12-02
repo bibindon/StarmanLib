@@ -349,6 +349,18 @@ bool NSStarmanLib::ItemManager::Inited()
     return m_inited;
 }
 
+std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
+{
+    std::vector<int> idList;
+
+    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
+    {
+        idList.push_back(it->second.GetId());
+    }
+
+    return idList;
+}
+
 ItemDef ItemManager::GetItemDef(const std::string& key, const int level)
 {
     ItemDef itemDef;
