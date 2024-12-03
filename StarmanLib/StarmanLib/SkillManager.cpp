@@ -133,27 +133,43 @@ void SkillManager::Save(const std::string& csvfile)
 
 void SkillManager::SetSkillLevel(const std::string& skillName, const int skillLevel)
 {
+    if (m_playerSkillLevelMap.find(skillName) == m_playerSkillLevelMap.end())
+    {
+        throw std::exception();
+    }
     m_playerSkillLevelMap[skillName] = skillLevel;
 }
 
 int SkillManager::GetSkillLevel(const std::string& skillName)
 {
-    return m_playerSkillLevelMap[skillName];
+    return m_playerSkillLevelMap.at(skillName);
 }
 
 std::string SkillManager::GetDetail(const std::string& key)
 {
-    return m_skillLevelMap[key].GetDetail();
+    return m_skillLevelMap.at(key).GetDetail();
 }
 
 float SkillManager::GetDamage(const std::string& key, const int level)
 {
-    return m_skillLevelMap[key].GetDamage(level);
+    return m_skillLevelMap.at(key).GetDamage(level);
 }
 
 float SkillManager::GetRange(const std::string& key, const int level)
 {
-    return m_skillLevelMap[key].GetRange(level);
+    return m_skillLevelMap.at(key).GetRange(level);
+}
+
+std::vector<std::string> NSStarmanLib::SkillManager::GetNameList()
+{
+    std::vector<std::string> nameList;
+
+    for (auto it = m_skillLevelMap.begin(); it != m_skillLevelMap.end(); ++it)
+    {
+        nameList.push_back(it->first);
+    }
+
+    return nameList;
 }
 
 

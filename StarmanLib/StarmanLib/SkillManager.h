@@ -55,6 +55,8 @@ public:
     float GetDamage(const std::string& key, const int level);
     float GetRange(const std::string& key, const int level);
 
+    std::vector<std::string> GetNameList();
+
 private:
 
     // シングルトンオブジェクト
