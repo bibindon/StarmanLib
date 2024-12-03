@@ -27,7 +27,8 @@ namespace StarmanLibTest
         {
             EnemyManager* obj = EnemyManager::GetObj();
             obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                      "..\\StarmanLibTest\\enemyOrigin.csv");
+                      "..\\StarmanLibTest\\enemyOrigin.csv",
+                      "..\\StarmanLibTest\\enemyVisible.csv");
 
             Assert::AreEqual(obj != nullptr, true);
             EnemyManager::Destroy();
@@ -37,7 +38,8 @@ namespace StarmanLibTest
         {
             EnemyManager* obj = EnemyManager::GetObj();
             obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                      "..\\StarmanLibTest\\enemyOrigin.csv");
+                      "..\\StarmanLibTest\\enemyOrigin.csv",
+                      "..\\StarmanLibTest\\enemyVisible.csv");
             std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(10.f, 0.f, 10.f, 1.f);
             Assert::AreEqual((int)enemyInfoList.size() == 1, true);
             EnemyManager::Destroy();
@@ -47,7 +49,8 @@ namespace StarmanLibTest
         {
             EnemyManager* obj = EnemyManager::GetObj();
             obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                      "..\\StarmanLibTest\\enemyOrigin.csv");
+                      "..\\StarmanLibTest\\enemyOrigin.csv",
+                      "..\\StarmanLibTest\\enemyVisible.csv");
             std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(5.f, 5.f, 5.f, 10.f);
             Assert::AreEqual((int)enemyInfoList.size() == 1, true);
             Assert::AreEqual(enemyInfoList.at(0).GetID() == 1, true);
@@ -61,7 +64,8 @@ namespace StarmanLibTest
         {
             EnemyManager* obj = EnemyManager::GetObj();
             obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                      "..\\StarmanLibTest\\enemyOrigin.csv");
+                      "..\\StarmanLibTest\\enemyOrigin.csv",
+                      "..\\StarmanLibTest\\enemyVisible.csv");
             std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(96.f, 0.f, 97.f, 2.f);
             Assert::AreEqual((int)enemyInfoList.size() == 1, true);
             Assert::AreEqual(enemyInfoList.at(0).GetID() == 30, true);
@@ -76,7 +80,8 @@ namespace StarmanLibTest
             {
                 EnemyManager* obj = EnemyManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                          "..\\StarmanLibTest\\enemyOrigin.csv");
+                          "..\\StarmanLibTest\\enemyOrigin.csv",
+                          "..\\StarmanLibTest\\enemyVisible.csv");
                 EnemyInfo enemyInfo;
                 enemyInfo.SetX(111.f);
                 enemyInfo.SetY(222.f);
@@ -84,7 +89,8 @@ namespace StarmanLibTest
                 enemyInfo.SetHP(444);
                 enemyInfo.SetDefeated(true);
                 obj->UpdateEnemyInfo(5, enemyInfo);
-                obj->Save("..\\StarmanLibTest\\enemySave.csv");
+                obj->Save("..\\StarmanLibTest\\enemySave.csv",
+                          "..\\StarmanLibTest\\enemyVisibleSave.csv");
                 EnemyManager::Destroy();
             }
         }
@@ -94,7 +100,8 @@ namespace StarmanLibTest
             {
                 EnemyManager* obj = EnemyManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                          "..\\StarmanLibTest\\enemyOrigin.csv");
+                          "..\\StarmanLibTest\\enemyOrigin.csv",
+                          "..\\StarmanLibTest\\enemyVisible.csv");
                 EnemyInfo enemyInfo;
                 enemyInfo.SetID(20);
                 enemyInfo.SetBreed("エンバン");
@@ -104,19 +111,25 @@ namespace StarmanLibTest
                 enemyInfo.SetHP(444);
                 enemyInfo.SetDefeated(true);
                 obj->UpdateEnemyInfo(20, enemyInfo);
-                obj->Save("..\\StarmanLibTest\\enemySave.csv");
+                obj->SetEnemyVisible("エンバン", true);
+                obj->Save("..\\StarmanLibTest\\enemySave.csv",
+                          "..\\StarmanLibTest\\enemyVisibleSave.csv");
                 EnemyManager::Destroy();
             }
             {
                 EnemyManager* obj = EnemyManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\enemyDef.csv",
-                          "..\\StarmanLibTest\\enemySave.csv");
+                          "..\\StarmanLibTest\\enemySave.csv",
+                          "..\\StarmanLibTest\\enemyVisibleSave.csv");
                 std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(111.f, 222.f, 333.f, 1.f);
-                Assert::AreEqual((int)enemyInfoList.size() == 1, true);
-                Assert::AreEqual(enemyInfoList.at(0).GetID() == 20, true);
-                Assert::AreEqual(enemyInfoList.at(0).GetBreed() == "エンバン", true);
-                Assert::AreEqual(enemyInfoList.at(0).GetHP(), 444);
-                Assert::AreEqual(enemyInfoList.at(0).GetDefeated(), true);
+                Assert::AreEqual(true, (int)enemyInfoList.size() == 1);
+                Assert::AreEqual(true, enemyInfoList.at(0).GetID() == 20);
+                Assert::AreEqual(true, enemyInfoList.at(0).GetBreed() == "エンバン");
+                Assert::AreEqual(444, enemyInfoList.at(0).GetHP());
+                Assert::AreEqual(true, enemyInfoList.at(0).GetDefeated());
+
+                bool work = obj->GetEnemyDef("エンバン").GetVisible();
+                Assert::AreEqual(true, work);
                 EnemyManager::Destroy();
             }
         }

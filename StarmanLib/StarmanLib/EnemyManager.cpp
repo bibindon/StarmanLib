@@ -22,7 +22,8 @@ void EnemyManager::Destroy()
 }
 
 void EnemyManager::Init(const std::string& csvEnemyDef,
-                        const std::string& csvEnemyInfo)
+                        const std::string& csvEnemyInfo,
+                        const std::string& csvEnemyVisible)
 {
     {
         std::vector<std::vector<std::string> > vss;
@@ -105,47 +106,103 @@ void EnemyManager::Init(const std::string& csvEnemyDef,
             m_enemyInfoMap[(int)i] = enemyInfo;
         }
     }
+    {
+        std::vector<std::vector<std::string> > vss;
+        vss = csv::Read(csvEnemyVisible);
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            int work_i = 0;
+            work_i = std::stoi(vss.at(i).at(0));
+            if (m_enemyDefMap.find(work_i) == m_enemyDefMap.end())
+            {
+                throw std::exception();
+            }
+
+            if (vss.at(i).at(2) == "○")
+            {
+                m_enemyDefMap[work_i].SetVisible(true);
+            }
+            else if (vss.at(i).at(2) == "")
+            {
+                m_enemyDefMap[work_i].SetVisible(false);
+            }
+            else
+            {
+                throw std::exception();
+            }
+        }
+    }
 }
 
-void EnemyManager::Save(const std::string& csvfile)
+void EnemyManager::Save(const std::string& csvEnemyInfo,
+                        const std::string& csvEvemyVisible)
 {
-    std::vector<std::vector<std::string>> vss;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("タイプ");
-    vs.push_back("PosX");
-    vs.push_back("PosY");
-    vs.push_back("PosZ");
-    vs.push_back("RotX");
-    vs.push_back("RotY");
-    vs.push_back("RotZ");
-    vs.push_back("残りHP");
-    vs.push_back("討伐済み");
-    vss.push_back(vs);
-    vs.clear();
-    for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
     {
-        vs.push_back(std::to_string(it->first));
-        vs.push_back(it->second.GetBreed());
-        vs.push_back(std::to_string(it->second.GetX()));
-        vs.push_back(std::to_string(it->second.GetY()));
-        vs.push_back(std::to_string(it->second.GetZ()));
-        vs.push_back(std::to_string(it->second.GetRotX()));
-        vs.push_back(std::to_string(it->second.GetRotY()));
-        vs.push_back(std::to_string(it->second.GetRotZ()));
-        vs.push_back(std::to_string(it->second.GetHP()));
-        if (it->second.GetDefeated())
-        {
-            vs.push_back("○");
-        }
-        else
-        {
-            vs.push_back("");
-        }
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back("タイプ");
+        vs.push_back("PosX");
+        vs.push_back("PosY");
+        vs.push_back("PosZ");
+        vs.push_back("RotX");
+        vs.push_back("RotY");
+        vs.push_back("RotZ");
+        vs.push_back("残りHP");
+        vs.push_back("討伐済み");
         vss.push_back(vs);
         vs.clear();
+        for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
+        {
+            vs.push_back(std::to_string(it->first));
+            vs.push_back(it->second.GetBreed());
+            vs.push_back(std::to_string(it->second.GetX()));
+            vs.push_back(std::to_string(it->second.GetY()));
+            vs.push_back(std::to_string(it->second.GetZ()));
+            vs.push_back(std::to_string(it->second.GetRotX()));
+            vs.push_back(std::to_string(it->second.GetRotY()));
+            vs.push_back(std::to_string(it->second.GetRotZ()));
+            vs.push_back(std::to_string(it->second.GetHP()));
+            if (it->second.GetDefeated())
+            {
+                vs.push_back("○");
+            }
+            else
+            {
+                vs.push_back("");
+            }
+            vss.push_back(vs);
+            vs.clear();
+        }
+        csv::Write(csvEnemyInfo, vss);
     }
-    csv::Write(csvfile, vss);
+    {
+        std::vector<std::vector<std::string>> vss;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back("タイプ");
+        vs.push_back("表示・非表示");
+        vss.push_back(vs);
+        vs.clear();
+
+        for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+        {
+            vs.push_back(std::to_string(it->first));
+            vs.push_back(it->second.GetName());
+
+            if (it->second.GetVisible())
+            {
+                vs.push_back("○");
+            }
+            else
+            {
+                vs.push_back("");
+            }
+            vss.push_back(vs);
+            vs.clear();
+        }
+        csv::Write(csvEvemyVisible, vss);
+    }
 }
 
 std::vector<EnemyInfo> EnemyManager::GetEnemyInfo(const float x,
@@ -223,6 +280,18 @@ EnemyDef NSStarmanLib::EnemyManager::GetEnemyDef(const std::string name)
         }
     }
     return enemyDef;
+}
+
+void NSStarmanLib::EnemyManager::SetEnemyVisible(const std::string name, const bool visible)
+{
+    for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+    {
+        if (it->second.GetName() == name)
+        {
+            it->second.SetVisible(visible);
+            break;
+        }
+    }
 }
 
 void EnemyInfo::SetID(const int arg)
@@ -373,4 +442,14 @@ void NSStarmanLib::EnemyDef::SetImagePath(const std::string& arg)
 std::string NSStarmanLib::EnemyDef::GetImagePath()
 {
     return m_imagePath;
+}
+
+void NSStarmanLib::EnemyDef::SetVisible(const bool arg)
+{
+    m_visible = arg;
+}
+
+bool NSStarmanLib::EnemyDef::GetVisible()
+{
+    return m_visible;
 }

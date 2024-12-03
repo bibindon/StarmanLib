@@ -24,6 +24,9 @@ public:
     void SetImagePath(const std::string& arg);
     std::string GetImagePath();
 
+    void SetVisible(const bool arg);
+    bool GetVisible();
+
 private:
 
     // 敵一種類ごとに割り振られるID
@@ -38,6 +41,8 @@ private:
     // ファイルパス
     std::string m_imagePath;
 
+    // メニューでの表示・非表示
+    bool m_visible;
 };
 
 // 敵管理クラス。
@@ -116,9 +121,11 @@ public:
     static void Destroy();
 
     void Init(const std::string& csvEnemyDef,
-              const std::string& csvEnemyInfo);
+              const std::string& csvEnemyInfo,
+              const std::string& csvEnemyVisible);
 
-    void Save(const std::string& csvfile);
+    void Save(const std::string& csvEnemyInfo,
+              const std::string& csvEnemyVisible);
 
     // 引数で示す座標と半径の内側にいる敵を取得
     std::vector<EnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
@@ -128,6 +135,7 @@ public:
     std::vector<std::string> GetEnemyNameList();
 
     EnemyDef GetEnemyDef(const std::string name);
+    void SetEnemyVisible(const std::string name, const bool visible);
 
 private:
 
