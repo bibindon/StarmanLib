@@ -5,17 +5,55 @@
 
 namespace NSStarmanLib
 {
+
+// 敵の定義情報
+// 敵一種類につき、1インスタンス
+class EnemyDef
+{
+public:
+
+    void SetIDDef(const int arg);
+    int GetIDDef();
+
+    void SetName(const std::string& arg);
+    std::string GetName();
+
+    void SetDetail(const std::string& arg);
+    std::string GetDetail();
+
+    void SetImagePath(const std::string& arg);
+    std::string GetImagePath();
+
+private:
+
+    // 敵一種類ごとに割り振られるID
+    int m_idDef = 0;
+
+    // 説明文
+    std::string m_name;
+
+    // 説明文
+    std::string m_detail;
+
+    // ファイルパス
+    std::string m_imagePath;
+
+};
+
 // 敵管理クラス。
+// 敵1体につき、1インスタンス
 // CSVファイルに記載された敵の座標やHPなどを提供するのみである。
 // 敵の行動パターンだとか衝突判定、ジャンプの軌道など詳細なことはここではやらない。
 // （ライブラリの使用者がゲーム内で独自の実装を行うべき）
-
 class EnemyInfo
 {
 public:
 
     void SetID(const int arg);
     int GetID();
+
+    void SetIDDef(const int arg);
+    int GetIDDef();
 
     void SetBreed(const std::string& breed);
     std::string GetBreed();
@@ -46,7 +84,11 @@ public:
 
 private:
 
-    int m_id { 0 };
+    // 敵一体ごとに割り振られるID
+    int m_id = 0;
+
+    // 敵一種類ごとに割り振られるID
+    int m_idDef = 0;
 
     // モンスターの種族
     std::string m_breed;
@@ -73,7 +115,8 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile);
+    void Init(const std::string& csvEnemyDef,
+              const std::string& csvEnemyInfo);
 
     void Save(const std::string& csvfile);
 
@@ -87,6 +130,7 @@ private:
     // シングルトンオブジェクト
     static EnemyManager* obj;
 
+    std::unordered_map<int, EnemyDef> m_enemyDefMap;
     std::unordered_map<int, EnemyInfo> m_enemyInfoMap;
 
 };
