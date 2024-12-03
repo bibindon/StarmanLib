@@ -17,6 +17,7 @@ std::string SkillDefinition::GetName()
 void SkillDefinition::SetDetail(const std::string& arg)
 {
     m_detail = arg;
+    m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
 std::string SkillDefinition::GetDetail()
