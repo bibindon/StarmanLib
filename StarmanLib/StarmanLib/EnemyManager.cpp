@@ -1,5 +1,6 @@
 #include "EnemyManager.h"
 #include "HeaderOnlyCsv.hpp"
+#include <algorithm>
 
 using namespace NSStarmanLib;
 
@@ -171,6 +172,57 @@ std::vector<EnemyInfo> EnemyManager::GetEnemyInfo(const float x,
 void EnemyManager::UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo)
 {
     m_enemyInfoMap[id] = enemyInfo;
+}
+
+std::vector<std::string> NSStarmanLib::EnemyManager::GetEnemyNameList()
+{
+    std::vector<std::string> nameList;
+    for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+    {
+        nameList.push_back(it->second.GetName());
+    }
+
+    // ID‚ªŽá‚¢‡‚Éƒ\[ƒg
+    std::sort(nameList.begin(), nameList.end(),
+              [&](const auto x1, const auto x2)
+              {
+                  int id1 = 0;
+                  int id2 = 0;
+                  for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+                  {
+                      if (it->second.GetName() == x1)
+                      {
+                          id1 = it->first;
+                          break;
+                      }
+                  }
+
+                  for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+                  {
+                      if (it->second.GetName() == x2)
+                      {
+                          id2 = it->first;
+                          break;
+                      }
+                  }
+                  return id1 < id2;
+              });
+
+    return nameList;
+}
+
+EnemyDef NSStarmanLib::EnemyManager::GetEnemyDef(const std::string name)
+{
+    EnemyDef enemyDef;
+    for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
+    {
+        if (it->second.GetName() == name)
+        {
+            enemyDef = it->second;
+            break;
+        }
+    }
+    return enemyDef;
 }
 
 void EnemyInfo::SetID(const int arg)

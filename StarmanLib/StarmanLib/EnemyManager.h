@@ -125,6 +125,10 @@ public:
 
     void UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo);
 
+    std::vector<std::string> GetEnemyNameList();
+
+    EnemyDef GetEnemyDef(const std::string name);
+
 private:
 
     // シングルトンオブジェクト
