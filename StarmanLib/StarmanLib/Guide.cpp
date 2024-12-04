@@ -28,6 +28,7 @@ std::string GuideItem::GetSubCategory()
 void GuideItem::SetText(const std::string& text)
 {
     m_text = text;
+    m_text.erase(std::remove(m_text.begin(), m_text.end(), '"'), m_text.end());
 }
 
 std::string GuideItem::GetText()
