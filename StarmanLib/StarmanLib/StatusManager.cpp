@@ -732,7 +732,7 @@ void StatusManager::Update()
     //------------------------------------
     Inventory* inventory = Inventory::GetObj();
     float weight = inventory->GetWeight();
-    work1 = 10000 / (weight + 10);
+    work1 = 10000 / (weight + 10000);
 
 	bodyStaminaCurrent *= work1;
 	bodyStaminaMaxSub *= work1;
