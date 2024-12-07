@@ -184,6 +184,19 @@ void NSStarmanLib::Storehouse::AddItem(const std::string name,
     AddItem(materialId, durability);
 }
 
+void NSStarmanLib::Storehouse::AddExistingItem(const int id, const int subId)
+{
+    // ‘qŒÉ‚©‚ç‘Ï‹v“x‚ðŽæ“¾
+    Storehouse* storehouse = Storehouse::GetObj();
+    ItemInfo itemInfo = storehouse->GetItemInfo(id, subId);
+    int work = itemInfo.GetDurabilityCurrent();
+
+    m_itemInfoList.push_back(itemInfo);
+
+    Sort();
+    m_weight = CalcWeight();
+}
+
 void Storehouse::RemoveItem(const int id, const int subId)
 {
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
