@@ -3,6 +3,8 @@
 #include "PowereggDateTime.h"
 #include "Inventory.h"
 
+// TODO 頭痛、風邪、腹痛、脱水症状
+
 using namespace NSStarmanLib;
 
 float Status::GetBodyStaminaCurrent() const
@@ -716,6 +718,31 @@ void StatusManager::Update()
 		brainStaminaCurrent *= work3;
 		brainStaminaMaxSub *= work3;
     }
+
+    //------------------------------------
+    // インベントリの重量
+    // インベントリの重量によってスタミナの下がりやすさが悪化する
+    // 0kgだったら1倍
+    // 10kgだったら0.999倍
+    // 100㎏だったら0.99倍
+    // 1万を足して、1万をその数で割る
+    // 例
+    //   10kgだったら0.999倍
+    //   10000 / (10 + 10000) = 0.999
+    //------------------------------------
+    Inventory* inventory = Inventory::GetObj();
+    float weight = inventory->GetWeight();
+    work1 = 10000 / (weight + 10);
+
+	bodyStaminaCurrent *= work1;
+	bodyStaminaMaxSub *= work1;
+
+	brainStaminaCurrent *= work1;
+	brainStaminaMaxSub *= work1;
+
+    //-----------------------------------------
+    // 計算結果をセット
+    //-----------------------------------------
 
     m_status.SetBodyStaminaCurrent(bodyStaminaCurrent);
     m_status.SetBodyStaminaMaxSub(bodyStaminaMaxSub);
