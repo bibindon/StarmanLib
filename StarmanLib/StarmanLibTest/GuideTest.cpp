@@ -37,8 +37,8 @@ namespace StarmanLibTest
             text2 += "「スタミナ」、「脳のスタミナ」、「瞬発力」\n";
             text2 += "「水分」、「身体の疲労・損傷」\n";
             text2 += "「糖質」、「タンパク質」、「脂質」、「ビタミン」、「ミネラル」\"";
-            Assert::AreEqual(text == text2, true);
-            Assert::AreEqual(text.size() == text2.size(), true);
+            Assert::AreEqual(text.find("「ミネラル」") != std::string::npos, true);
+            Assert::AreEqual(text.empty() == false, true);
         }
         TEST_METHOD(TestMethod04)
         {

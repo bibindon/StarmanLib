@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include "../StarmanLib/Inventory.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -15,6 +16,21 @@ namespace StarmanLibTest
     TEST_CLASS(StatusManagerTest)
     {
     public:
+
+        TEST_METHOD_INITIALIZE(Initialize)
+        {
+            ItemManager* itemManager = ItemManager::GetObj();
+            itemManager->Init("..\\StarmanLibTest\\item.csv");
+
+            Inventory* inventory = Inventory::GetObj();
+            inventory->Init("..\\StarmanLibTest\\inventory.csv");
+        }
+
+        TEST_METHOD_CLEANUP(CleanUp)
+        {
+            Inventory::Destroy();
+            ItemManager::Destroy();
+        }
 
         TEST_METHOD(TestMethod01)
         {

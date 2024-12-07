@@ -297,7 +297,7 @@ void ItemManager::Init(const std::string& csvfile)
             work_f = std::stof(vss.at(i).at(15));
             itemDef.SetMuscleDebuff(work_f);
 
-            if (vss.at(i).at(16) == "ÅZ")
+            if (vss.at(i).at(16) == "Åõ")
             {
                 itemDef.SetHeadache(true);
             }
@@ -306,7 +306,7 @@ void ItemManager::Init(const std::string& csvfile)
                 itemDef.SetHeadache(false);
             }
 
-            if (vss.at(i).at(17) == "ÅZ")
+            if (vss.at(i).at(17) == "Åõ")
             {
                 itemDef.SetStomachache(true);
             }

@@ -1,6 +1,11 @@
 #pragma once
 
 #include <string>
+#include "ItemManager.h"
+
+// 一般的に、「攻撃を受けたとき、最終的に負うダメージがいくつになるか」は
+// それなりに複雑なコードになる。
+// ゲーム本体にその複雑さを持ち込まなくてよいようにしたい。
 
 namespace NSStarmanLib
 {
@@ -97,6 +102,9 @@ public:
 
     bool GetLackOfSleep() const;
     void SetLackOfSleep(bool mlackOfSleep);
+
+    bool GetDead() const;
+    void SetDead(const bool arg);
 
 private:
 
@@ -196,13 +204,16 @@ private:
 
     // 睡眠不足
     bool m_lackOfSleep { false };
+
+    // 死亡
+    bool m_dead = false;
 };
 
 class StatusManager
 {
 public:
 
-    enum class PlayerAction
+    enum class PlayerState
     {
         // 立ち状態と歩き状態は同じくらい疲れるべき
         // 立ち状態
@@ -243,6 +254,20 @@ public:
 
     // 防御力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetDefensePower();
+
+    // 食材を食べる
+    void Eat(const ItemDef& food);
+
+    // 寝る
+    bool Sleep();
+
+    // 会話する
+    // 会話したら脳の体力が減る。
+    void Talk();
+
+    // 魔法を使う
+    // 魔法を使ったら脳の体力が減る
+    void UseMagic();
 
     //-------------------------------------------------------
     // Statusクラスの同名の関数を呼ぶ
@@ -335,7 +360,17 @@ public:
     bool GetLackOfSleep() const;
     void SetLackOfSleep(bool mlackOfSleep);
 
-    void SetPlayerAction(const PlayerAction arg);
+    void SetPlayerAction(const PlayerState arg);
+
+    bool GetDead() const;
+    void SetDead(const bool arg);
+
+    // 装備武器
+    ItemInfo GetEquipWeapon() const;
+    void SetEquipWeapon(const ItemInfo& arg);
+
+    // 強い精神ストレス
+    void SetSuperStress();
 
 private:
 
@@ -344,7 +379,22 @@ private:
 
     Status m_status;
 
-    PlayerAction m_playerAction { PlayerAction::STAND };
+    PlayerState m_playerState { PlayerState::STAND };
+
+    // 体のスタミナが70％以下になったことが一日に1度でもあった
+    bool m_training = false;
+
+    // 前回日時をチェックした時の日
+    int m_previousDay = 0;
+
+    // 前回日時をチェックした時の時刻
+    int m_previousHour = 0;
+
+    // 朝8時をまたいだ
+    bool m_over8clock = false;
+
+    // 装備武器
+    ItemInfo m_EquipWeapon;
 };
 }
 

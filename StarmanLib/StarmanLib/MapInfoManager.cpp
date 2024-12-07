@@ -77,7 +77,7 @@ void MapInfoManager::Init(const std::string& csvfile)
     {
         MapInfo mapInfo;
         mapInfo.SetName(vss.at(i).at(1));
-        if (vss.at(i).at(2) == "ÅZ")
+        if (vss.at(i).at(2) == "Åõ")
         {
             mapInfo.SetDiscovered(true);
         }
@@ -175,13 +175,16 @@ void MapInfoManager::Save(const std::string& csvfile)
         vs.push_back(m_mapInfoList.at(i).GetName());
         if (m_mapInfoList.at(i).IsDiscovered())
         {
-            vs.push_back("ÅZ");
+            vs.push_back("Åõ");
         }
         else
         {
             vs.push_back("");
         }
-        vs.push_back(m_mapInfoList.at(i).GetDetail());
+        std::string work = m_mapInfoList.at(i).GetDetail();
+        work = "\"" + work + "\"";
+        vs.push_back(work);
+
         int x = 0;
         int y = 0;
         m_mapInfoList.at(i).GetPos(&x, &y);

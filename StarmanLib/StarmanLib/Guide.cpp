@@ -65,7 +65,7 @@ void Guide::Init(const std::string& csvfile)
         guideItem.SetCategory(vss.at(i).at(1));
         guideItem.SetSubCategory(vss.at(i).at(2));
         guideItem.SetText(vss.at(i).at(3));
-        if (vss.at(i).at(4) == "〇")
+        if (vss.at(i).at(4) == "○")
         {
             guideItem.SetVisible(true);
         }
@@ -171,10 +171,15 @@ void Guide::Save(const std::string& csvfile)
         vs.push_back(std::to_string(i+1));
         vs.push_back(m_guideList.at(i).GetCategory());
         vs.push_back(m_guideList.at(i).GetSubCategory());
-        vs.push_back(m_guideList.at(i).GetText());
+
+        // ダブルクォートを戦闘と末尾に付与する
+        std::string work;
+        work = m_guideList.at(i).GetText();
+        work = "\"" + work + "\"";
+        vs.push_back(work);
         if (m_guideList.at(i).GetVisible())
         {
-            vs.push_back("〇");
+            vs.push_back("○");
         }
         else
         {
