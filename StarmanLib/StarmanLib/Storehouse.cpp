@@ -187,8 +187,8 @@ void NSStarmanLib::Storehouse::AddItem(const std::string name,
 void NSStarmanLib::Storehouse::AddExistingItem(const int id, const int subId)
 {
     // ‘qŒÉ‚©‚ç‘Ï‹v“x‚ðŽæ“¾
-    Storehouse* storehouse = Storehouse::GetObj();
-    ItemInfo itemInfo = storehouse->GetItemInfo(id, subId);
+    Inventory* inventory = Inventory::GetObj();
+    ItemInfo itemInfo = inventory->GetItemInfo(id, subId);
     int work = itemInfo.GetDurabilityCurrent();
 
     m_itemInfoList.push_back(itemInfo);
