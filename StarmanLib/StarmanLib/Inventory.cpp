@@ -183,13 +183,12 @@ void NSStarmanLib::Inventory::AddItem(const std::string name,
     AddItem(materialId, durability);
 }
 
-void NSStarmanLib::Inventory::AddExistingItem(const int id, const int subId)
+void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, const int durability)
 {
-    // ‘qŒÉ‚©‚ç‘Ï‹v“x‚ðŽæ“¾
-    Storehouse* storehouse = Storehouse::GetObj();
-    ItemInfo itemInfo = storehouse->GetItemInfo(id, subId);
-    int work = itemInfo.GetDurabilityCurrent();
-
+    ItemInfo itemInfo;
+    itemInfo.SetId(id);
+    itemInfo.SetSubId(subId);
+    itemInfo.SetDurabilityCurrent(durability);
     m_itemInfoList.push_back(itemInfo);
 
     Sort();
