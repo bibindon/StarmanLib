@@ -30,6 +30,12 @@ public:
     void AddItem(const int id, const int durability = -1);
     void AddItem(const std::string name, const int level = -1, const int durability = -1);
 
+    // SubIDを指定してアイテムを追加（インベントリから倉庫へアイテムを移動するときに使う）
+    // インベントリでアイテムを削除してから追加する必要がある。
+    // インベントリでアイテムを削除していないと
+    // 「すでにそのSubIDは使われている」ということでエラーになる
+    void AddItemWithSubID(const int id, const int subId, const int durability = -1);
+
     // subId・・・耐久値の50の石斧と耐久値が100の石斧を所持することができる
     // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
     // アイテムは削除できるのでSubIDが連番になるとは限らない

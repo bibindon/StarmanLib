@@ -163,7 +163,6 @@ void Inventory::AddItem(const int id, const int durability)
         newSubId = subIdList.size() + 1;
     }
 
-
     ItemInfo itemInfo;
     itemInfo.SetId(id);
     itemInfo.SetSubId(newSubId);
@@ -182,6 +181,18 @@ void NSStarmanLib::Inventory::AddItem(const std::string name,
     ItemDef itemDef = itemManager->GetItemDef(name, level);
     int materialId = itemDef.GetId();
     AddItem(materialId, durability);
+}
+
+void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, const int durability)
+{
+    ItemInfo itemInfo;
+    itemInfo.SetId(id);
+    itemInfo.SetSubId(subId);
+    itemInfo.SetDurabilityCurrent(durability);
+    m_itemInfoList.push_back(itemInfo);
+
+    Sort();
+    m_weight = CalcWeight();
 }
 
 void Inventory::RemoveItem(const int id, const int subId)
