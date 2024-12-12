@@ -531,7 +531,7 @@ void StatusManager::Init(const std::string& csvfile)
         }
         else if (vss.at(i).at(1) == "装備武器ID")
         {
-			ItemInfo itemInfo;
+            ItemInfo itemInfo;
             if (vss.at(i).at(2) == "")
             {
                 itemInfo.SetId(-1);
@@ -541,8 +541,8 @@ void StatusManager::Init(const std::string& csvfile)
                 int work = std::stoi(vss.at(i).at(2));
                 itemInfo.SetId(work);
             }
-			m_EquipWeapon = itemInfo;
-		}
+            m_EquipWeapon = itemInfo;
+        }
         else if (vss.at(i).at(1) == "装備武器SubID")
         {
             if (vss.at(i).at(2) == "")
@@ -558,7 +558,7 @@ void StatusManager::Init(const std::string& csvfile)
                 ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
                 m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
             }
-		}
+        }
     }
 }
 
@@ -666,25 +666,25 @@ void StatusManager::Update()
     work3 = work1 / work2;
     if (work3 <= 0.2f)
     {
-		work3 /= 100;
-		work3 += 0.98f;
+        work3 /= 100;
+        work3 += 0.98f;
 
-		bodyStaminaCurrent *= work3;
-		bodyStaminaMaxSub *= work3;
+        bodyStaminaCurrent *= work3;
+        bodyStaminaMaxSub *= work3;
 
-		brainStaminaCurrent *= work3;
-		brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= work3;
+        brainStaminaMaxSub *= work3;
     }
     else if (work3 <= 0.4f)
     {
-		work3 /= 100;
-		work3 += 0.99f;
+        work3 /= 100;
+        work3 += 0.99f;
 
-		bodyStaminaCurrent *= work3;
-		bodyStaminaMaxSub *= work3;
+        bodyStaminaCurrent *= work3;
+        bodyStaminaMaxSub *= work3;
 
-		brainStaminaCurrent *= work3;
-		brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= work3;
+        brainStaminaMaxSub *= work3;
     }
 
     //------------------------------------
@@ -698,25 +698,25 @@ void StatusManager::Update()
     work3 = work1 / work2;
     if (work3 <= 0.f)
     {
-		work3 /= 100;
-		work3 += 0.98f;
+        work3 /= 100;
+        work3 += 0.98f;
 
-		bodyStaminaCurrent *= work3;
-		bodyStaminaMaxSub *= work3;
+        bodyStaminaCurrent *= work3;
+        bodyStaminaMaxSub *= work3;
 
-		brainStaminaCurrent *= work3;
-		brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= work3;
+        brainStaminaMaxSub *= work3;
     }
     else if (work3 <= 0.2f)
     {
-		work3 /= 100;
-		work3 += 0.99f;
+        work3 /= 100;
+        work3 += 0.99f;
 
-		bodyStaminaCurrent *= work3;
-		bodyStaminaMaxSub *= work3;
+        bodyStaminaCurrent *= work3;
+        bodyStaminaMaxSub *= work3;
 
-		brainStaminaCurrent *= work3;
-		brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= work3;
+        brainStaminaMaxSub *= work3;
     }
 
     //------------------------------------
@@ -734,11 +734,11 @@ void StatusManager::Update()
     float weight = inventory->GetWeight();
     work1 = 10000 / (weight + 10000);
 
-	bodyStaminaCurrent *= work1;
-	bodyStaminaMaxSub *= work1;
+    bodyStaminaCurrent *= work1;
+    bodyStaminaMaxSub *= work1;
 
-	brainStaminaCurrent *= work1;
-	brainStaminaMaxSub *= work1;
+    brainStaminaCurrent *= work1;
+    brainStaminaMaxSub *= work1;
 
     //-----------------------------------------
     // 計算結果をセット
@@ -771,9 +771,9 @@ void StatusManager::Update()
     // 糖質がなくなったら消費される
     if (m_status.GetCarboCurrent() <= 0.f)
     {
-		work1 = m_status.GetLipidCurrent();
-		work1 -= 0.01f;
-		m_status.SetLipidCurrent(work1);
+        work1 = m_status.GetLipidCurrent();
+        work1 -= 0.01f;
+        m_status.SetLipidCurrent(work1);
     }
 
     work1 = m_status.GetVitaminCurrent();
@@ -813,7 +813,7 @@ void StatusManager::Update()
             {
                 m_over8clock = true;
             }
-		}
+        }
         // 日付が進んでいるパターン
         else if (m_previousDay < currentDay)
         {
@@ -835,8 +835,8 @@ void StatusManager::Update()
     {
         m_over8clock = false;
 
-		// 体のスタミナが70％以下になったことが一日に1度もなかったら
-		// 体のスタミナの最大値が1％下がる
+        // 体のスタミナが70％以下になったことが一日に1度もなかったら
+        // 体のスタミナの最大値が1％下がる
         // トレーニング不足
         if (m_training == false)
         {
@@ -1284,44 +1284,44 @@ bool NSStarmanLib::StatusManager::Sleep()
     // 睡眠（仮眠ではない）
     if (nap == false)
     {
-		// 脳の体力は寝たら全快する。
-		// 寝るのが遅かったら回復量が50％に制限される
-		bool late = false;
+        // 脳の体力は寝たら全快する。
+        // 寝るのが遅かったら回復量が50％に制限される
+        bool late = false;
 
-		m_status.SetSleep(true);
+        m_status.SetSleep(true);
 
-		int hour = dateTime->GetHour();
-		if (2 <= hour && hour <= 8)
-		{
-			late = true;
-		}
+        int hour = dateTime->GetHour();
+        if (2 <= hour && hour <= 8)
+        {
+            late = true;
+        }
 
-		float work = 0.f;
-		if (late == false)
-		{
-			work = GetBrainStaminaMax();
-			SetBrainStaminaMaxSub(work);
-			SetBrainStaminaCurrent(work);
-		}
-		// 寝る時間が遅かったら
-		else
-		{
-			work = GetBrainStaminaMax();
-			float work2 = 0.f;
-			work2 = GetBrainStaminaMaxSub();
-			work2 += (work - work2) / 2;
-			SetBrainStaminaMaxSub(work2);
+        float work = 0.f;
+        if (late == false)
+        {
+            work = GetBrainStaminaMax();
+            SetBrainStaminaMaxSub(work);
+            SetBrainStaminaCurrent(work);
+        }
+        // 寝る時間が遅かったら
+        else
+        {
+            work = GetBrainStaminaMax();
+            float work2 = 0.f;
+            work2 = GetBrainStaminaMaxSub();
+            work2 += (work - work2) / 2;
+            SetBrainStaminaMaxSub(work2);
 
-			work2 = GetBrainStaminaCurrent();
-			work2 += (work - work2) / 2;
-			SetBrainStaminaCurrent(work);
-			m_status.SetLackOfSleep(true);
-		}
+            work2 = GetBrainStaminaCurrent();
+            work2 += (work - work2) / 2;
+            SetBrainStaminaCurrent(work);
+            m_status.SetLackOfSleep(true);
+        }
 
         // 体のスタミナは寝たら寝不足でも全快する
-		work = GetBodyStaminaMax();
-		SetBodyStaminaMaxSub(work);
-		SetBodyStaminaCurrent(work);
+        work = GetBodyStaminaMax();
+        SetBodyStaminaMaxSub(work);
+        SetBodyStaminaCurrent(work);
 
         // 時間を7時間進める
         dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
@@ -1329,16 +1329,16 @@ bool NSStarmanLib::StatusManager::Sleep()
     // 仮眠
     else if (nap)
     {
-		// 脳のスタミナは寝たら全快する。
-		float work = 0.f;
-		work = GetBrainStaminaMax();
-		SetBrainStaminaMaxSub(work);
-		SetBrainStaminaCurrent(work);
+        // 脳のスタミナは寝たら全快する。
+        float work = 0.f;
+        work = GetBrainStaminaMax();
+        SetBrainStaminaMaxSub(work);
+        SetBrainStaminaCurrent(work);
 
         // 体のスタミナは寝たら全快する
-		work = GetBodyStaminaMax();
-		SetBodyStaminaMaxSub(work);
-		SetBodyStaminaCurrent(work);
+        work = GetBodyStaminaMax();
+        SetBodyStaminaMaxSub(work);
+        SetBodyStaminaCurrent(work);
 
         // 時間を90分進める
         dateTime->IncreaseDateTime(0, 0, 1, 30, 0);
@@ -1349,25 +1349,25 @@ bool NSStarmanLib::StatusManager::Sleep()
 void NSStarmanLib::StatusManager::Talk()
 {
     float work = 0.f;
-	work = GetBrainStaminaCurrent();
+    work = GetBrainStaminaCurrent();
 
     work -= 0.05f;
-	SetBrainStaminaMaxSub(work);
+    SetBrainStaminaMaxSub(work);
 
     work -= 0.05f;
-	SetBrainStaminaCurrent(work);
+    SetBrainStaminaCurrent(work);
 }
 
 void NSStarmanLib::StatusManager::UseMagic()
 {
     float work = 0.f;
-	work = GetBrainStaminaCurrent();
+    work = GetBrainStaminaCurrent();
 
     work -= 0.25f;
-	SetBrainStaminaMaxSub(work);
+    SetBrainStaminaMaxSub(work);
 
     work -= 0.25f;
-	SetBrainStaminaCurrent(work);
+    SetBrainStaminaCurrent(work);
 }
 
 float StatusManager::GetBodyStaminaCurrent() const
@@ -1689,16 +1689,16 @@ void NSStarmanLib::StatusManager::SetSuperStress()
 {
     // 強いストレスがあった場合、脳の体力が半分になる。現在地も最大値も半分になる。
     float work = 0.f;
-	work = GetBrainStaminaMax();
+    work = GetBrainStaminaMax();
     work *= 0.5f;
-	SetBrainStaminaMax(work);
+    SetBrainStaminaMax(work);
 
-	work = GetBrainStaminaMaxSub();
+    work = GetBrainStaminaMaxSub();
     work *= 0.5f;
-	SetBrainStaminaMaxSub(work);
+    SetBrainStaminaMaxSub(work);
 
-	work = GetBrainStaminaCurrent();
+    work = GetBrainStaminaCurrent();
     work *= 0.5f;
-	SetBrainStaminaCurrent(work);
+    SetBrainStaminaCurrent(work);
 }
 
