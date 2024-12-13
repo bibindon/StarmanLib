@@ -308,6 +308,16 @@ void NSStarmanLib::Status::SetDead(const bool arg)
     m_dead = arg;
 }
 
+float NSStarmanLib::Status::GetSatiety() const
+{
+    return m_satiety;
+}
+
+void NSStarmanLib::Status::SetSatiety(const float arg)
+{
+    m_satiety = arg;
+}
+
 StatusManager* StatusManager::obj { nullptr };
 
 StatusManager* StatusManager::GetObj()
@@ -1255,7 +1265,7 @@ float StatusManager::GetDefensePower()
     return 1.0f;
 }
 
-void NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
+bool NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
 {
     if (itemDef.GetType() != ItemDef::ItemType::FOOD)
     {
@@ -1263,6 +1273,16 @@ void NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
     }
 
     float work_f = 0.f;
+    work_f = m_status.GetSatiety();
+    work_f += itemDef.GetCarbo();
+
+    // “œŽ¿‚ª100‚¾‚Á‚½‚ç–ž• ‚Å‚ ‚é‚Æ‚µ‚Ä‚±‚êˆÈãH‚×‚ç‚ê‚È‚¢B
+    if (work_f >= 100.f)
+    {
+        return false;
+    }
+    m_status.SetSatiety(work_f);
+
     work_f = GetCarboCurrent();
     work_f += itemDef.GetCarbo();
     SetCarboCurrent(work_f);
@@ -1290,6 +1310,8 @@ void NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
     work_f = GetWaterCurrent();
     work_f += itemDef.GetWater();
     SetWaterCurrent(work_f);
+
+    return true;
 }
 
 bool NSStarmanLib::StatusManager::Sleep()

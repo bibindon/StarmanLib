@@ -106,6 +106,9 @@ public:
     bool GetDead() const;
     void SetDead(const bool arg);
 
+    float GetSatiety() const;
+    void SetSatiety(const float arg);
+
 private:
 
     // 体のスタミナ（現在値）
@@ -207,6 +210,10 @@ private:
 
     // 死亡
     bool m_dead = false;
+
+    // 満腹度
+    float m_satiety = 0.f;
+
 };
 
 class StatusManager
@@ -256,7 +263,7 @@ public:
     float GetDefensePower();
 
     // 食材を食べる
-    void Eat(const ItemDef& food);
+    bool Eat(const ItemDef& food);
 
     // 寝る
     bool Sleep();
