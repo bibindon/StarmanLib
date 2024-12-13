@@ -32,8 +32,8 @@ public:
     void SetRevivePos(const float x, const float y, const float z);
     void GetRevivePos(float* x, float* y, float* z);
 
-    void SetContractDate(const int month, const int day);
-    void GetContractDate(int* month, int* day);
+    void SetContractDate(const int year, const int month, const int day);
+    void GetContractDate(int* year, int* month, int* day);
 
 private:
 
@@ -52,6 +52,7 @@ private:
     float m_z { 0.f };
 
     // Œ_–ñ‚µ‚½“ú
+    int m_year { 0 };
     int m_month { 0 };
     int m_day { 0 };
 };

@@ -30,14 +30,16 @@ void Rynen::GetRevivePos(float* x, float* y, float* z)
     *z = m_z;
 }
 
-void Rynen::SetContractDate(const int month, const int day)
+void Rynen::SetContractDate(const int year, const int month, const int day)
 {
+    m_year = year;
     m_month = month;
     m_day = day;
 }
 
-void Rynen::GetContractDate(int* month, int* day)
+void Rynen::GetContractDate(int* year, int* month, int* day)
 {
+    *year = m_year;
     *month = m_month;
     *day = m_day;
 }

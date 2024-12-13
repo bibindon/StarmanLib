@@ -2,6 +2,7 @@
 #include "HeaderOnlyCsv.hpp"
 #include "PowereggDateTime.h"
 #include "Inventory.h"
+#include "Rynen.h"
 
 // TODO 頭痛、風邪、腹痛、脱水症状
 
@@ -564,6 +565,8 @@ void StatusManager::Init(const std::string& csvfile)
 
 void StatusManager::Update()
 {
+    // TODO 何秒経過したかをチェック
+
     // プレイヤーの状態により、徐々にスタミナが低下
     float bodyStaminaCurrent = m_status.GetBodyStaminaCurrent();
     float bodyStaminaMaxSub = m_status.GetBodyStaminaMaxSub();
@@ -854,6 +857,47 @@ void StatusManager::Update()
         if (m_status.GetSleep() == false)
         {
             m_status.SetSleep(true);
+        }
+    }
+
+    //-----------------------------------------------------------
+    // 契約して1年経過していたら死亡
+    //-----------------------------------------------------------
+    Rynen* rynen = Rynen::GetObj();
+    if (rynen->GetContracted())
+    {
+        int rynenYear = 0;
+        int rynenMonth = 0;
+        int rynenDay = 0;
+        rynen->GetContractDate(&rynenYear, &rynenMonth, &rynenDay);
+
+        int currentYear = dateTime->GetYear();
+        int currentMonth = dateTime->GetMonth();
+        int currentDay = dateTime->GetDay();
+
+        bool deadline = false;
+        if (rynenYear > currentYear)
+        {
+            deadline = true;
+        }
+        else if (rynenYear == currentYear)
+        {
+			if (rynenMonth > currentMonth)
+			{
+				deadline = true;
+			}
+			else if (rynenMonth == currentMonth)
+			{
+                if (rynenDay > currentDay)
+                {
+                    deadline = true;
+                }
+			}
+        }
+
+        if (deadline)
+        {
+            m_status.SetDead(true);
         }
     }
 }
