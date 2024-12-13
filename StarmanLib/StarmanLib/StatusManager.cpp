@@ -910,6 +910,58 @@ void StatusManager::Update()
             m_status.SetDead(true);
         }
     }
+
+    //----------------------------------------------------
+    // 状態異常の治療
+    // 時間経過でしか治らない。
+    // 風邪：5日
+    // 腕骨折・足骨折：90日
+    // 頭痛・腹痛：1日（＝24時間）
+    //----------------------------------------------------
+    if (m_status.GetCold())
+    {
+        --m_remainColdCure;
+        if (m_remainColdCure == 0)
+        {
+            m_status.SetCold(false);
+        }
+    }
+
+    if (m_status.GetFractureLeg())
+    {
+        --m_remainLegFracCure;
+        if (m_remainLegFracCure == 0)
+        {
+            m_status.SetFractureLeg(false);
+        }
+    }
+
+    if (m_status.GetHeadache())
+    {
+        --m_remainHeadacheCure;
+        if (m_remainHeadacheCure == 0)
+        {
+            m_status.SetHeadache(false);
+        }
+    }
+
+    if (m_status.GetStomachache())
+    {
+        --m_remainStomachacheCure;
+        if (m_remainStomachacheCure== 0)
+        {
+            m_status.SetStomachache(false);
+        }
+    }
+
+    if (m_status.GetDehydration())
+    {
+        --m_remainDehydration;
+        if (m_remainDehydration== 0)
+        {
+            m_status.SetDehydration(false);
+        }
+    }
 }
 
 void StatusManager::Save(const std::string& csvfile)
@@ -1653,6 +1705,11 @@ bool StatusManager::GetFractureArm() const
 
 void StatusManager::SetFractureArm(bool arg)
 {
+    if (arg)
+    {
+        // 治るのに90日(ゲーム内で180時間)かかる。
+        m_remainArmFracCure = 3600 * 2 * 180;
+    }
     m_status.SetFractureArm(arg);
 }
 
@@ -1663,6 +1720,11 @@ bool StatusManager::GetFractureLeg() const
 
 void StatusManager::SetFractureLeg(bool arg)
 {
+    if (arg)
+    {
+        // 治るのに90日(ゲーム内で180時間)かかる。
+        m_remainLegFracCure = 3600 * 2 * 180;
+    }
     m_status.SetFractureLeg(arg);
 }
 
@@ -1673,6 +1735,11 @@ bool StatusManager::GetHeadache() const
 
 void StatusManager::SetHeadache(bool arg)
 {
+    if (arg)
+    {
+        // 治るのに1日(ゲーム内で2時間)かかる。
+        m_remainHeadacheCure = 3600 * 2;
+    }
     m_status.SetHeadache(arg);
 }
 
@@ -1683,6 +1750,11 @@ bool StatusManager::GetCold() const
 
 void StatusManager::SetCold(bool arg)
 {
+    if (arg)
+    {
+        // 治るのに5日(ゲーム内で10時間)かかる。
+        m_remainColdCure = 3600 * 2 * 10;
+    }
     m_status.SetCold(arg);
 }
 
@@ -1693,6 +1765,11 @@ bool StatusManager::GetStomachache() const
 
 void StatusManager::SetStomachache(bool arg)
 {
+    if (arg)
+    {
+        // 腹痛は治るのに1日(ゲーム内で2時間)かかる。
+        m_remainStomachacheCure = 3600 * 2;
+    }
     m_status.SetStomachache(arg);
 }
 
@@ -1713,6 +1790,11 @@ bool StatusManager::GetDehydration() const
 
 void StatusManager::SetDehydration(bool arg)
 {
+    if (arg)
+    {
+        // 治るのに1日(ゲーム内で2時間)かかる。
+        m_remainDehydration = 3600 * 2;
+    }
     m_status.SetDehydration(arg);
 }
 
