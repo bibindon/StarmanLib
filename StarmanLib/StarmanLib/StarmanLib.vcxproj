@@ -144,7 +144,7 @@
     <ClInclude Include="CaesarCipher.h" />
     <ClInclude Include="CraftInfoManager.h" />
     <ClInclude Include="CraftSystem.h" />
-    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyInfoManager.h" />
     <ClInclude Include="Guide.h" />
     <ClInclude Include="HeaderOnlyCsv.hpp" />
     <ClInclude Include="HumanInfoManager.h" />
@@ -164,7 +164,7 @@
     <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="CraftInfoManager.cpp" />
     <ClCompile Include="CraftSystem.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyInfoManager.cpp" />
     <ClCompile Include="Guide.cpp" />
     <ClCompile Include="HumanInfoManager.cpp" />
     <ClCompile Include="Inventory.cpp" />

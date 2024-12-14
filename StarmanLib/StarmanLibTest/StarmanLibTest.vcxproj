@@ -159,7 +159,7 @@
   <ItemGroup>
     <ClCompile Include="CraftInfoManagerTest.cpp" />
     <ClCompile Include="CraftSystemTest.cpp" />
-    <ClCompile Include="EnemyManagerTest.cpp" />
+    <ClCompile Include="EnemyInfoManagerTest.cpp" />
     <ClCompile Include="GuideTest.cpp" />
     <ClCompile Include="HumanInfoManagerTest.cpp" />
     <ClCompile Include="InventoryTest.cpp" />

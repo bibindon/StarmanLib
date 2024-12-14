@@ -30,7 +30,7 @@
     <ClCompile Include="StatusManagerTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyManagerTest.cpp">
+    <ClCompile Include="EnemyInfoManagerTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ItemManagerTest.cpp">
