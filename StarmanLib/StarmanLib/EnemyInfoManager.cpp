@@ -294,6 +294,16 @@ void NSStarmanLib::EnemyInfoManager::SetEnemyVisible(const std::string name, con
     }
 }
 
+EnemyInfo NSStarmanLib::EnemyInfoManager::GetEnemyInfo(const int id)
+{
+    return m_enemyInfoMap.at(id);
+}
+
+void NSStarmanLib::EnemyInfoManager::SetDefeat(const int id)
+{
+    m_enemyInfoMap.at(id).SetDefeated(true);
+}
+
 void EnemyInfo::SetID(const int arg)
 {
     m_id = arg;

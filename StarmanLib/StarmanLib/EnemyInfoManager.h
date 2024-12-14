@@ -137,6 +137,9 @@ public:
     EnemyDef GetEnemyDef(const std::string name);
     void SetEnemyVisible(const std::string name, const bool visible);
 
+    EnemyInfo GetEnemyInfo(const int id);
+    void SetDefeat(const int id);
+
 private:
 
     // シングルトンオブジェクト
