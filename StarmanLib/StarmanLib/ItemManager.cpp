@@ -523,7 +523,7 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByPosID(const int posId)
 
 // 引数で指定した座標に存在するアイテムを取得
 // GetItemDefIdが-1だったらアイテムがない。
-ItemPos NSStarmanLib::ItemManager::GetItemPosListByPos(const float x,
+ItemPos NSStarmanLib::ItemManager::GetItemPosByPos(const float x,
                                                        const float y,
                                                        const float z,
                                                        const float r)

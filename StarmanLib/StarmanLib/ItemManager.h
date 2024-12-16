@@ -226,7 +226,7 @@ public:
     ItemDef GetItemDefByPosID(const int posId);
 
     // 1メートル以内にあるアイテムを一つだけ返す
-    ItemPos GetItemPosListByPos(const float x, const float y, const float z, const float r = 1.f);
+    ItemPos GetItemPosByPos(const float x, const float y, const float z, const float r = 1.f);
     void SetItemPosObtained(const int itemPosId);
 
 private:
