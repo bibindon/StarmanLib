@@ -28,8 +28,9 @@ public:
 
     // 一個ずつしか増加減出来ない想定
     // 新たにSubIDを割り当てる
-    void AddItem(const int id, const int durability = -1);
-    void AddItem(const std::string name, const int level = -1, const int durability = -1);
+    // 新たに割り当てたSubIDを返す
+    int AddItem(const int id, const int durability = -1);
+    int AddItem(const std::string name, const int level = -1, const int durability = -1);
 
     // SubIDを指定してアイテムを追加（倉庫からインベントリへアイテムを移動するときに使う）
     // 倉庫でアイテムを削除してから追加する必要がある。

@@ -92,7 +92,7 @@ void Inventory::Save(const std::string& csvfile)
     csv::Write(csvfile, vss);
 }
 
-void Inventory::AddItem(const int id, const int durability)
+int Inventory::AddItem(const int id, const int durability)
 {
     int subId = 0;
 
@@ -171,16 +171,17 @@ void Inventory::AddItem(const int id, const int durability)
     Sort();
 
     m_weight = CalcWeight();
+    return newSubId;
 }
 
-void NSStarmanLib::Inventory::AddItem(const std::string name,
-                                      const int level,
-                                      const int durability)
+int NSStarmanLib::Inventory::AddItem(const std::string name,
+                                     const int level,
+                                     const int durability)
 {
     ItemManager* itemManager = ItemManager::GetObj();
     ItemDef itemDef = itemManager->GetItemDef(name, level);
     int materialId = itemDef.GetId();
-    AddItem(materialId, durability);
+    return AddItem(materialId, durability);
 }
 
 void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, const int durability)
