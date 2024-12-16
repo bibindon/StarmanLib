@@ -357,6 +357,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
 			ItemPos itemPos;
 
 			posId = std::stoi(vss.at(i).at(0));
+			itemPos.SetItemPosId(posId);
 
 			itemDefId = std::stoi(vss.at(i).at(1));
 			itemPos.SetItemDefId(itemDefId);
@@ -522,14 +523,14 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByPosID(const int posId)
 }
 
 // 引数で指定した座標に存在するアイテムを取得
-// GetItemDefIdが-1だったらアイテムがない。
+// GetItemPosIdが-1だったらアイテムがない。
 ItemPos NSStarmanLib::ItemManager::GetItemPosByPos(const float x,
                                                        const float y,
                                                        const float z,
                                                        const float r)
 {
     ItemPos itemPos;
-    itemPos.SetItemDefId(-1);
+    itemPos.SetItemPosId(-1);
 
     // 球で距離を測るより立方体で測ったほうが速そう
     for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
@@ -593,6 +594,16 @@ void NSStarmanLib::ItemInfo::SetDurabilityCurrent(const int arg)
 int NSStarmanLib::ItemInfo::GetDurabilityCurrent() const
 {
     return m_durabilityCurrent;
+}
+
+void NSStarmanLib::ItemPos::SetItemPosId(const int id)
+{
+    m_itemPosId = id;
+}
+
+int NSStarmanLib::ItemPos::GetItemPosId() const
+{
+    return m_itemPosId;
 }
 
 void NSStarmanLib::ItemPos::SetItemDefId(const int id)

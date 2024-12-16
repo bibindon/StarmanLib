@@ -185,6 +185,9 @@ private:
 class ItemPos
 {
 public:
+    void SetItemPosId(const int id);
+    int GetItemPosId() const;
+
     void SetItemDefId(const int id);
     int GetItemDefId() const;
 
@@ -196,6 +199,7 @@ public:
 
 private:
 
+    int m_itemPosId = 0;
     int m_itemDefId = 0;
     float m_x = 0.f;
     float m_y = 0.f;
