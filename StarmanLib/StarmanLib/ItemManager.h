@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <map>
 
 namespace NSStarmanLib
 {
@@ -131,53 +132,75 @@ private:
     std::string m_imagePath;
 
     // 重量（kg）
-    float m_weight;
+    float m_weight = 0.f;
 
     // 体積（mL）
-    float m_volume;
+    float m_volume = 0.f;
 
     // 種類
     ItemType m_eType;
 
     // 糖質
-    float m_carbo;
+    float m_carbo = 0.f;
 
     // タンパク質
-    float m_protein;
+    float m_protein = 0.f;
 
     // 脂質
-    float m_lipid;
+    float m_lipid = 0.f;
 
     // ビタミン
-    float m_vitamin;
+    float m_vitamin = 0.f;
 
     // ミネラル
-    float m_mineral;
+    float m_mineral = 0.f;
 
     // 水分
     // マイナスになることがある。
-    float m_water;
+    float m_water = 0.f;
 
     // デバフ（体のスタミナ）
-    float m_bodyStaminaDebuff;
+    float m_bodyStaminaDebuff = 0.f;
 
     // デバフ（脳のスタミナ）
-    float m_brainStaminaDebuff;
+    float m_brainStaminaDebuff = 0.f;
 
     // デバフ（肉体の修復度）
-    float m_muscleDebuff;
+    float m_muscleDebuff = 0.f;
 
     // デバフ（頭痛）
-    bool m_headache;
+    bool m_headache = false;
 
     // デバフ（腹痛）
-    bool m_stomachache;
+    bool m_stomachache = false;
 
     // 強化値
     int m_level = -1;
 
     // 耐久度
     int m_durabilityMax = -1;
+};
+
+// ワールドマップ上のどこにアイテムが落ちているかの情報
+class ItemPos
+{
+public:
+    void SetItemDefId(const int id);
+    int GetItemDefId() const;
+
+    void SetPos(const float x, const float y, const float z);
+    void GetPos(float* x, float* y, float* z);
+
+    void SetObtained(const bool arg);
+    bool GetObtained();
+
+private:
+
+    int m_itemDefId = 0;
+    float m_x = 0.f;
+    float m_y = 0.f;
+    float m_z = 0.f;
+    bool m_obtained = false;
 };
 
 // アイテム情報を管理するクラス
@@ -191,13 +214,20 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile);
+    void Init(const std::string& csvfile, const std::string& csvfilePos);
     bool Inited();
+    void Save(const std::string& csvfilePos);
 
     std::vector<int> GetItemIdList();
     ItemDef GetItemDef(const std::string& key, const int level = -1);
     ItemDef GetItemDef(const int id);
     std::vector<int> GetItemDef(const ItemDef::ItemType type);
+    
+    ItemDef GetItemDefByPosID(const int posId);
+
+    // 1メートル以内にあるアイテムを一つだけ返す
+    ItemPos GetItemPosListByPos(const float x, const float y, const float z, const float r = 1.f);
+    void SetItemPosObtained(const int itemPosId);
 
 private:
 
@@ -207,6 +237,8 @@ private:
     std::unordered_map<int, ItemDef> m_itemDefMap;
 
     bool m_inited = false;
+
+    std::map<int, ItemPos> m_itemPosMap;
 };
 }
 

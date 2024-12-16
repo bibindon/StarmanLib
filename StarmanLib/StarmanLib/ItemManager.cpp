@@ -221,132 +221,217 @@ void ItemManager::Destroy()
     ItemManager::obj = nullptr;
 }
 
-void ItemManager::Init(const std::string& csvfile)
+void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos)
 {
-    std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfile);
-    for (std::size_t i = 1; i < vss.size(); ++i)
     {
-        int work_i = 0;
-        float work_f = 0.f;
+		std::vector<std::vector<std::string> > vss;
+		vss = csv::Read(csvfile);
+		for (std::size_t i = 1; i < vss.size(); ++i)
+		{
+			int work_i = 0;
+			float work_f = 0.f;
 
-        ItemDef itemDef;
+			ItemDef itemDef;
 
-        work_i = std::stoi(vss.at(i).at(0));
-        itemDef.SetId(work_i);
+			work_i = std::stoi(vss.at(i).at(0));
+			itemDef.SetId(work_i);
 
-        itemDef.SetName(vss.at(i).at(1));
+			itemDef.SetName(vss.at(i).at(1));
 
-        itemDef.SetDetail(vss.at(i).at(2));
+			itemDef.SetDetail(vss.at(i).at(2));
 
-        itemDef.SetImagePath(vss.at(i).at(3));
+			itemDef.SetImagePath(vss.at(i).at(3));
 
-        work_f = std::stof(vss.at(i).at(4));
-        itemDef.SetWeight(work_f);
+			work_f = std::stof(vss.at(i).at(4));
+			itemDef.SetWeight(work_f);
 
-        work_f = std::stof(vss.at(i).at(5));
-        itemDef.SetVolume(work_f);
+			work_f = std::stof(vss.at(i).at(5));
+			itemDef.SetVolume(work_f);
 
-        if (vss.at(i).at(6) == "貴重品")
-        {
-            itemDef.SetType(ItemDef::ItemType::VALUABLES);
-        }
-        else if (vss.at(i).at(6) == "素材")
-        {
-            itemDef.SetType(ItemDef::ItemType::MATERIAL);
-        }
-        else if (vss.at(i).at(6) == "食材")
-        {
-            itemDef.SetType(ItemDef::ItemType::FOOD);
-        }
-        else if (vss.at(i).at(6) == "武器")
-        {
-            itemDef.SetType(ItemDef::ItemType::WEAPON);
-        }
-        else if (vss.at(i).at(6) == "その他")
-        {
-            itemDef.SetType(ItemDef::ItemType::OTHERS);
-        }
+			if (vss.at(i).at(6) == "貴重品")
+			{
+				itemDef.SetType(ItemDef::ItemType::VALUABLES);
+			}
+			else if (vss.at(i).at(6) == "素材")
+			{
+				itemDef.SetType(ItemDef::ItemType::MATERIAL);
+			}
+			else if (vss.at(i).at(6) == "食材")
+			{
+				itemDef.SetType(ItemDef::ItemType::FOOD);
+			}
+			else if (vss.at(i).at(6) == "武器")
+			{
+				itemDef.SetType(ItemDef::ItemType::WEAPON);
+			}
+			else if (vss.at(i).at(6) == "その他")
+			{
+				itemDef.SetType(ItemDef::ItemType::OTHERS);
+			}
 
-        if (itemDef.GetType() == ItemDef::ItemType::FOOD)
-        {
-            work_f = std::stof(vss.at(i).at(7));
-            itemDef.SetCarbo(work_f);
+			if (itemDef.GetType() == ItemDef::ItemType::FOOD)
+			{
+				work_f = std::stof(vss.at(i).at(7));
+				itemDef.SetCarbo(work_f);
 
-            work_f = std::stof(vss.at(i).at(8));
-            itemDef.SetProtein(work_f);
+				work_f = std::stof(vss.at(i).at(8));
+				itemDef.SetProtein(work_f);
 
-            work_f = std::stof(vss.at(i).at(9));
-            itemDef.SetLipid(work_f);
+				work_f = std::stof(vss.at(i).at(9));
+				itemDef.SetLipid(work_f);
 
-            work_f = std::stof(vss.at(i).at(10));
-            itemDef.SetVitamin(work_f);
+				work_f = std::stof(vss.at(i).at(10));
+				itemDef.SetVitamin(work_f);
 
-            work_f = std::stof(vss.at(i).at(11));
-            itemDef.SetMineral(work_f);
+				work_f = std::stof(vss.at(i).at(11));
+				itemDef.SetMineral(work_f);
 
-            work_f = std::stof(vss.at(i).at(12));
-            itemDef.SetWater(work_f);
+				work_f = std::stof(vss.at(i).at(12));
+				itemDef.SetWater(work_f);
 
-            work_f = std::stof(vss.at(i).at(13));
-            itemDef.SetBodyStaminaDebuff(work_f);
+				work_f = std::stof(vss.at(i).at(13));
+				itemDef.SetBodyStaminaDebuff(work_f);
 
-            work_f = std::stof(vss.at(i).at(14));
-            itemDef.SetBrainStaminaDebuff(work_f);
+				work_f = std::stof(vss.at(i).at(14));
+				itemDef.SetBrainStaminaDebuff(work_f);
 
-            work_f = std::stof(vss.at(i).at(15));
-            itemDef.SetMuscleDebuff(work_f);
+				work_f = std::stof(vss.at(i).at(15));
+				itemDef.SetMuscleDebuff(work_f);
 
-            if (vss.at(i).at(16) == "○")
-            {
-                itemDef.SetHeadache(true);
-            }
-            else
-            {
-                itemDef.SetHeadache(false);
-            }
+				if (vss.at(i).at(16) == "○")
+				{
+					itemDef.SetHeadache(true);
+				}
+				else
+				{
+					itemDef.SetHeadache(false);
+				}
 
-            if (vss.at(i).at(17) == "○")
-            {
-                itemDef.SetStomachache(true);
-            }
-            else
-            {
-                itemDef.SetStomachache(false);
-            }
-        }
+				if (vss.at(i).at(17) == "○")
+				{
+					itemDef.SetStomachache(true);
+				}
+				else
+				{
+					itemDef.SetStomachache(false);
+				}
+			}
 
-        // 強化値
-        if (vss.at(i).at(18).empty())
-        {
-            work_i = -1;
-        }
-        else
-        {
-            work_i = std::stoi(vss.at(i).at(18));
-        }
+			// 強化値
+			if (vss.at(i).at(18).empty())
+			{
+				work_i = -1;
+			}
+			else
+			{
+				work_i = std::stoi(vss.at(i).at(18));
+			}
 
-        itemDef.SetLevel(work_i);
+			itemDef.SetLevel(work_i);
 
-        // 耐久度の最大値（＝初期値）
-        if (vss.at(i).at(19).empty())
-        {
-            work_i = -1;
-        }
-        else
-        {
-            work_i = std::stoi(vss.at(i).at(19));
-        }
+			// 耐久度の最大値（＝初期値）
+			if (vss.at(i).at(19).empty())
+			{
+				work_i = -1;
+			}
+			else
+			{
+				work_i = std::stoi(vss.at(i).at(19));
+			}
 
-        itemDef.SetDurabilityMax(work_i);
-        m_itemDefMap[(int)i] = itemDef;
+			itemDef.SetDurabilityMax(work_i);
+			m_itemDefMap[(int)i] = itemDef;
+		}
     }
-    m_inited = true;
+    {
+		std::vector<std::vector<std::string> > vss;
+		vss = csv::Read(csvfilePos);
+		for (std::size_t i = 1; i < vss.size(); ++i)
+		{
+			int posId = 0;
+			int itemDefId = 0;
+			float x = 0.f;
+			float y = 0.f;
+			float z = 0.f;
+
+			ItemPos itemPos;
+
+			posId = std::stoi(vss.at(i).at(0));
+
+			itemDefId = std::stoi(vss.at(i).at(1));
+			itemPos.SetItemDefId(itemDefId);
+
+			x = std::stof(vss.at(i).at(2));
+			y = std::stof(vss.at(i).at(3));
+			z = std::stof(vss.at(i).at(4));
+			itemPos.SetPos(x, y, z);
+
+			if (vss.at(i).at(5) == "○")
+			{
+				itemPos.SetObtained(true);
+			}
+			else if (vss.at(i).at(5) == "")
+			{
+				itemPos.SetObtained(false);
+			}
+			else
+			{
+				throw std::exception();
+			}
+			m_itemPosMap[posId] = itemPos;
+		}
+    }
+	m_inited = true;
 }
 
 bool NSStarmanLib::ItemManager::Inited()
 {
     return m_inited;
+}
+
+void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos)
+{
+    std::vector<std::vector<std::string>> vss;
+    std::vector<std::string> vs;
+    vs.push_back("ID");
+    vs.push_back("アイテムID");
+    vs.push_back("X");
+    vs.push_back("Y");
+    vs.push_back("Z");
+    vs.push_back("取得済み");
+    vss.push_back(vs);
+    vs.clear();
+
+    ItemManager* itemManager = ItemManager::GetObj();
+
+    for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
+    {
+        vs.push_back(std::to_string(it->first));
+        vs.push_back(std::to_string(it->second.GetItemDefId()));
+
+        float x = 0.f;
+        float y = 0.f;
+        float z = 0.f;
+        it->second.GetPos(&x, &y, &z);
+
+        vs.push_back(std::to_string(x));
+        vs.push_back(std::to_string(y));
+        vs.push_back(std::to_string(z));
+
+        if (it->second.GetObtained())
+        {
+            vs.push_back("○");
+        }
+        else
+        {
+            vs.push_back("");
+        }
+
+        vss.push_back(vs);
+        vs.clear();
+    }
+
+    csv::Write(csvfilePos, vss);
 }
 
 std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
@@ -419,6 +504,67 @@ std::vector<int> NSStarmanLib::ItemManager::GetItemDef(const ItemDef::ItemType t
     return idList;
 }
 
+ItemDef NSStarmanLib::ItemManager::GetItemDefByPosID(const int posId)
+{
+    if (m_itemPosMap.find(posId) == m_itemPosMap.end())
+    {
+        throw std::exception();
+    }
+
+    int itemDefId = m_itemPosMap[posId].GetItemDefId();
+
+    if (m_itemDefMap.find(itemDefId) == m_itemDefMap.end())
+    {
+        throw std::exception();
+    }
+
+    return m_itemDefMap[itemDefId];
+}
+
+// 引数で指定した座標に存在するアイテムを取得
+// GetItemDefIdが-1だったらアイテムがない。
+ItemPos NSStarmanLib::ItemManager::GetItemPosListByPos(const float x,
+                                                       const float y,
+                                                       const float z,
+                                                       const float r)
+{
+    ItemPos itemPos;
+    itemPos.SetItemDefId(-1);
+
+    // 球で距離を測るより立方体で測ったほうが速そう
+    for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
+    {
+        float x2 = 0.f;
+        float y2 = 0.f;
+        float z2 = 0.f;
+        it->second.GetPos(&x2, &y2, &z2);
+
+        if ((x2 - r) <= x && x <= (x2 + r))
+        {
+            if ((y2 - r) <= y && y <= (y2 + r))
+            {
+				if ((z2 - r) <= z && z <= (z2 + r))
+				{
+                    if (it->second.GetObtained() == false)
+                    {
+                        itemPos = it->second;
+                    }
+				}
+			}
+        }
+    }
+    return itemPos;
+}
+
+void NSStarmanLib::ItemManager::SetItemPosObtained(const int itemPosId)
+{
+    if (m_itemPosMap.find(itemPosId) == m_itemPosMap.end())
+    {
+        throw std::exception();
+    }
+    m_itemPosMap[itemPosId].SetObtained(true);
+}
+
 void NSStarmanLib::ItemInfo::SetId(const int arg)
 {
     m_id = arg;
@@ -449,3 +595,36 @@ int NSStarmanLib::ItemInfo::GetDurabilityCurrent() const
     return m_durabilityCurrent;
 }
 
+void NSStarmanLib::ItemPos::SetItemDefId(const int id)
+{
+    m_itemDefId = id;
+}
+
+int NSStarmanLib::ItemPos::GetItemDefId() const
+{
+	return m_itemDefId;
+}
+
+void NSStarmanLib::ItemPos::SetPos(const float x, const float y, const float z)
+{
+    m_x = x;
+    m_y = y;
+    m_z = z;
+}
+
+void NSStarmanLib::ItemPos::GetPos(float* x, float* y, float* z)
+{
+    *x = m_x;
+    *y = m_y;
+    *z = m_z;
+}
+
+void NSStarmanLib::ItemPos::SetObtained(const bool arg)
+{
+	m_obtained = arg;
+}
+
+bool NSStarmanLib::ItemPos::GetObtained()
+{
+	return m_obtained;
+}

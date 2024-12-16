@@ -20,7 +20,7 @@ namespace StarmanLibTest
         TEST_METHOD_INITIALIZE(Initialize)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             Inventory* inventory = Inventory::GetObj();
             inventory->Init("..\\StarmanLibTest\\inventory.csv");

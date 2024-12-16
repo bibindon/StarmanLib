@@ -27,7 +27,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             Inventory* obj = Inventory::GetObj();
             obj->Init("..\\StarmanLibTest\\inventory.csv");
@@ -39,7 +39,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             Inventory* obj = Inventory::GetObj();
             obj->Init("..\\StarmanLibTest\\inventory.csv");
@@ -56,7 +56,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv");
+            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             Inventory* obj = Inventory::GetObj();
             obj->Init("..\\StarmanLibTest\\inventory.csv");
@@ -79,7 +79,7 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init("..\\StarmanLibTest\\inventory.csv");
@@ -93,7 +93,7 @@ namespace StarmanLibTest
             }
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init("..\\StarmanLibTest\\inventorySave.csv");
@@ -114,7 +114,7 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init("..\\StarmanLibTest\\inventory.csv");
@@ -149,7 +149,7 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv");
+                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init("..\\StarmanLibTest\\inventory.csv");
