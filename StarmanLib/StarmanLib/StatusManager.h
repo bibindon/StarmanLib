@@ -259,6 +259,9 @@ public:
     // 攻撃力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetAttackPower();
 
+    // 攻撃したときにスタミナや武器の耐久度などを減らす
+    void ConsumeAttackCost();
+
     // 防御力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetDefensePower();
 

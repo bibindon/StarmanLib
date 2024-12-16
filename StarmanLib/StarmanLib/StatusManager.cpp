@@ -2,7 +2,9 @@
 #include "HeaderOnlyCsv.hpp"
 #include "PowereggDateTime.h"
 #include "Inventory.h"
+#include "ItemManager.h"
 #include "Rynen.h"
+#include "WeaponManager.h"
 
 // TODO 頭痛、風邪、腹痛、脱水症状
 
@@ -1299,15 +1301,101 @@ float StatusManager::GetWalkSpeed()
 float StatusManager::GetAttackPower()
 {
     float result = 0.f;
+    float work = 0.0;
 
-    // TODO 武器の攻撃力、重量、瞬発力など
+    auto itemManager = ItemManager::GetObj();
+    auto itemDef = itemManager->GetItemDef(m_EquipWeapon.GetId());
+    auto weaponName = itemDef.GetName();
+    auto weaponManager = WeaponManager::GetObj();
+    auto inventory = Inventory::GetObj();
+    auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+
+    // 装備中の武器の攻撃力
+    double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
+    result = (float)attackRate;
+
+    // 瞬発力
+    work = m_status.GetExplosivePower();
+    result *= work;
+
+    // 脳のスタミナ
+    // 10%減っていたら1%攻撃力を下げる。
+    // 20%減っていたら2%攻撃力を下げる。
+    work = m_status.GetBrainStaminaCurrent() / m_status.GetBrainStaminaMax();
+    work = (1.0f - work) / 10;
+    result *= (1.0f - work);
+
+    // 水分
+    // 1%減っていたら1%攻撃力を下げる。
+    // 2%減っていたら2%攻撃力を下げる。
+    work = m_status.GetWaterCurrent() / m_status.GetWaterMax();
+    result *= work;
+
+    // 重量
+    // インベントリの重量によって攻撃力が低下する
+    // 0kgだったら1倍
+    // 10kgだったら0.9倍
+    // 100㎏だったら0倍
+    //------------------------------------
+    float weight = inventory->GetWeight();
+    work = (1.f - (weight / 100.0f));
+    result *= work;
+
+    // 肉体の修復度
 
     // 腕の骨が折れていたら90％ダウン（＝0.1倍になる）
     if (m_status.GetFractureArm())
     {
         result *= 0.1f;
     }
+
+    // 足の骨が折れていたら90％ダウン（＝0.1倍になる）
+    if (m_status.GetFractureLeg())
+    {
+        result *= 0.1f;
+    }
+
+    // 風邪
+
+    // 脱水症状
+
+
+
     return result;
+}
+
+void NSStarmanLib::StatusManager::ConsumeAttackCost()
+{
+    // TODO 未完了
+
+    //--------------------------------
+    // 消耗
+    // 武器の耐久度、スタミナ、その他、全部消耗する
+    //--------------------------------
+
+    int work_i = 0;
+
+    // 武器の耐久度
+    auto inventory = Inventory::GetObj();
+    auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+    work_i = itemInfo.GetDurabilityCurrent();
+    --work_i;
+    itemInfo.SetDurabilityCurrent(work_i);
+
+    // 水分
+    // 身体のスタミナ
+    // 肉体の修復度
+
+    //---------------------------------------------
+    // 状態異常を悪化
+    //---------------------------------------------
+    // 風邪
+    // 腕の骨折
+    // 足の骨折
+    // 脱水症状
+    // 頭痛
+    // 腹痛
+
 }
 
 float StatusManager::GetDefensePower()
