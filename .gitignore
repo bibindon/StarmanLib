@@ -5,6 +5,9 @@
 /.vs
 /StarmanLib/.vs/StarmanLib/v16
 *.user
-Debug
 .vs
 *.csv#
+/StarmanLib/Debug/*
+!/StarmanLib/Debug/StarmanLib.*
+/StarmanLib/StarmanLib/Debug/*
+/StarmanLib/StarmanLibTest/Debug
