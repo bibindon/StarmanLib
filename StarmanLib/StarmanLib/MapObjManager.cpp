@@ -358,7 +358,7 @@ void NSStarmanLib::MapObjManager::SetShow(const int frame_x,
 										  const int id,
 										  const bool show)
 {
-	std::vector<MapObj> work = m_mapObjMap[frame_x][frame_Z];
+	std::vector<MapObj>& work = m_mapObjMap[frame_x][frame_Z];
 	auto it = std::find_if(work.begin(), work.end(),
 						   [&](const MapObj& item)
 						   {

@@ -165,6 +165,7 @@
     <ClCompile Include="InventoryTest.cpp" />
     <ClCompile Include="ItemManagerTest.cpp" />
     <ClCompile Include="MapInfoManagerTest.cpp" />
+    <ClCompile Include="MapObjManagerTest.cpp" />
     <ClCompile Include="NpcStatusManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
