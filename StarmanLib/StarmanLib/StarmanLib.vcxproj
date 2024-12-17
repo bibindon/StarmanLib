@@ -151,6 +151,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MapInfoManager.h" />
+    <ClInclude Include="MapObjManager.h" />
     <ClInclude Include="NpcStatusManager.h" />
     <ClInclude Include="PatchTestManager.h" />
     <ClInclude Include="PowereggDateTime.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MapInfoManager.cpp" />
+    <ClCompile Include="MapObjManager.cpp" />
     <ClCompile Include="NpcStatusManager.cpp" />
     <ClCompile Include="PatchTestManager.cpp" />
     <ClCompile Include="PowereggDateTime.cpp" />
