@@ -1,6 +1,8 @@
 #include "MapObjManager.h"
 #include "HeaderOnlyCsv.hpp"
 
+NSStarmanLib::MapObjManager* NSStarmanLib::MapObjManager::obj = nullptr;
+
 void NSStarmanLib::MapObj::SetId(const int id)
 {
 	m_id = id;
