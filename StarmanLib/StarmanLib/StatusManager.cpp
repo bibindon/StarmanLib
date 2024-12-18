@@ -320,6 +320,36 @@ void NSStarmanLib::Status::SetSatiety(const float arg)
     m_satiety = arg;
 }
 
+float NSStarmanLib::Status::GetX() const
+{
+    return m_x;
+}
+
+void NSStarmanLib::Status::SetX(const float arg)
+{
+    m_x = arg;
+}
+
+float NSStarmanLib::Status::GetY() const
+{
+    return m_y;
+}
+
+void NSStarmanLib::Status::SetY(const float arg)
+{
+    m_y = arg;
+}
+
+float NSStarmanLib::Status::GetZ() const
+{
+    return m_z;
+}
+
+void NSStarmanLib::Status::SetZ(const float arg)
+{
+    m_z = arg;
+}
+
 StatusManager* StatusManager::obj { nullptr };
 
 StatusManager* StatusManager::GetObj()
@@ -571,6 +601,21 @@ void StatusManager::Init(const std::string& csvfile)
                 ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
                 m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
             }
+        }
+        else if (vss.at(i).at(1) == "x")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetX(value);
+        }
+        else if (vss.at(i).at(1) == "y")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetY(value);
+        }
+        else if (vss.at(i).at(1) == "z")
+        {
+            float value = std::stof(vss.at(i).at(2));
+            m_status.SetZ(value);
         }
     }
 }
@@ -1953,5 +1998,12 @@ void NSStarmanLib::StatusManager::SetSuperStress()
     work = GetBrainStaminaCurrent();
     work *= 0.5f;
     SetBrainStaminaCurrent(work);
+}
+
+void NSStarmanLib::StatusManager::GetXYZ(float* x, float* y, float* z)
+{
+    *x = m_status.GetX();
+    *y = m_status.GetY();
+    *z = m_status.GetZ();
 }
 

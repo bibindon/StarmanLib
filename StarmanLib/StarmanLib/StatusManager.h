@@ -109,6 +109,15 @@ public:
     float GetSatiety() const;
     void SetSatiety(const float arg);
 
+    float GetX() const;
+    void SetX(const float arg);
+
+    float GetY() const;
+    void SetY(const float arg);
+
+    float GetZ() const;
+    void SetZ(const float arg);
+
 private:
 
     // 体のスタミナ（現在値）
@@ -213,6 +222,10 @@ private:
 
     // 満腹度
     float m_satiety = 0.f;
+
+    float m_x = 0.f;
+    float m_y = 0.f;
+    float m_z = 0.f;
 
 };
 
@@ -384,6 +397,8 @@ public:
 
     // 強い精神ストレス
     void SetSuperStress();
+
+    void GetXYZ(float* x, float* y, float* z);
 
 private:
 
