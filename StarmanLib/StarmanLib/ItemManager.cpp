@@ -1,6 +1,7 @@
 #include "ItemManager.h"
 #include <vector>
 #include "HeaderOnlyCsv.hpp"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -221,11 +222,22 @@ void ItemManager::Destroy()
     ItemManager::obj = nullptr;
 }
 
-void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos)
+void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos,
+                       const bool decrypt)
 {
     {
 		std::vector<std::vector<std::string> > vss;
-		vss = csv::Read(csvfile);
+
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfile);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfile);
+            vss = csv::ReadFromString(work);
+        }
+
 		for (std::size_t i = 1; i < vss.size(); ++i)
 		{
 			int work_i = 0;
@@ -390,7 +402,8 @@ bool NSStarmanLib::ItemManager::Inited()
     return m_inited;
 }
 
-void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos)
+void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
+                                     const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -432,7 +445,27 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos)
         vs.clear();
     }
 
-    csv::Write(csvfilePos, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfilePos, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfilePos);
+    }
 }
 
 std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()

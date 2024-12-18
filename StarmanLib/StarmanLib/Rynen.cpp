@@ -1,6 +1,7 @@
 #include "Rynen.h"
 #include <vector>
 #include "HeaderOnlyCsv.hpp"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -59,10 +60,20 @@ void Rynen::Destroy()
     Rynen::obj = nullptr;
 }
 
-void Rynen::Init(const std::string& csvfile)
+void Rynen::Init(const std::string& csvfile,
+                 const bool decrypt)
 {
     std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfile);
+
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfile);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfile);
+        vss = csv::ReadFromString(work);
+    }
 
     if (vss.at(0).at(1) == "Åõ")
     {
@@ -100,7 +111,8 @@ void Rynen::Init(const std::string& csvfile)
     m_day = work_i;
 }
 
-void Rynen::Save(const std::string& csvfile)
+void Rynen::Save(const std::string& csvfile,
+                 const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -160,7 +172,27 @@ void Rynen::Save(const std::string& csvfile)
     vss.push_back(vs);
     vs.clear();
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 void Rynen::SetContracted(const bool arg)

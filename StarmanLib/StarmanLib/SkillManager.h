@@ -44,9 +44,11 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer);
+    void Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer,
+              const bool decrypt = false);
 
-    void Save(const std::string& csvfile);
+    void Save(const std::string& csvfile,
+              const bool encrypt = false);
 
     void SetSkillLevel(const std::string& skillName, const int skillLevel);
     int GetSkillLevel(const std::string& skillName);

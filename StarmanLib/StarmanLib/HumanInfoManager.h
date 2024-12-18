@@ -44,8 +44,11 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileBase, const std::string& csvfileSaved);
-    void Save(const std::string& csvfile);
+    void Init(const std::string& csvfileBase, const std::string& csvfileSaved,
+              const bool decrypt = false);
+
+    void Save(const std::string& csvfile,
+              const bool encrypt = false);
 
     HumanInfo GetHumanInfo(const std::string& name);
     std::vector<std::string> GetHumanNameList();

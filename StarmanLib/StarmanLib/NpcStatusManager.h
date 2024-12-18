@@ -78,8 +78,10 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile);
-    void Save(const std::string& csvfile);
+    void Init(const std::string& csvfile,
+              const bool decrypt = false);
+    void Save(const std::string& csvfile,
+              const bool encrypt = false);
 
     NpcStatus GetNpcStatus(const std::string& name);
     void SetNpcStatus(const std::string& key, const NpcStatus& value);

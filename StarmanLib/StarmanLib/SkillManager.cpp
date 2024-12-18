@@ -1,4 +1,5 @@
 #include "SkillManager.h"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -60,11 +61,21 @@ void SkillManager::Destroy()
     SkillManager::obj = nullptr;
 }
 
-void SkillManager::Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer)
+void SkillManager::Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer,
+                        const bool decrypt)
 {
     {
         std::vector<std::vector<std::string> > vss;
-        vss = csv::Read(csvfileDefinition);
+
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfileDefinition);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfileDefinition);
+            vss = csv::ReadFromString(work);
+        }
 
         SkillDefinition skillDefinition;
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -99,7 +110,16 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
     }
     {
         std::vector<std::vector<std::string> > vss;
-        vss = csv::Read(csvfilePlayer);
+
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfilePlayer);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfilePlayer);
+            vss = csv::ReadFromString(work);
+        }
         int work = 0;
 
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -110,7 +130,8 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
     }
 }
 
-void SkillManager::Save(const std::string& csvfile)
+void SkillManager::Save(const std::string& csvfile,
+                        const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -129,7 +150,27 @@ void SkillManager::Save(const std::string& csvfile)
         vs.clear();
     }
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 void SkillManager::SetSkillLevel(const std::string& skillName, const int skillLevel)

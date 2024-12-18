@@ -5,6 +5,7 @@
 #include "ItemManager.h"
 #include "Rynen.h"
 #include "WeaponManager.h"
+#include "CaesarCipher.h"
 
 // TODO 頭痛、風邪、腹痛、脱水症状
 
@@ -367,7 +368,8 @@ void StatusManager::Destroy()
     StatusManager::obj = nullptr;
 }
 
-void StatusManager::Init(const std::string& csvfile)
+void StatusManager::Init(const std::string& csvfile,
+                         const bool decrypt)
 {
     {
         ItemManager* itemManager = ItemManager::GetObj();
@@ -376,7 +378,18 @@ void StatusManager::Init(const std::string& csvfile)
             throw std::exception();
         }
     }
-    std::vector<std::vector<std::string> > vss = csv::Read(csvfile);
+
+    std::vector<std::vector<std::string> > vss;
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfile);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfile);
+        vss = csv::ReadFromString(work);
+    }
+
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
         if (vss.at(i).at(1) == "体のスタミナ（現在値）")
@@ -1014,7 +1027,8 @@ void StatusManager::Update()
 void StatusManager::Save(const std::string& csvfile,
                          const float player_x,
                          const float player_y,
-                         const float player_z)
+                         const float player_z,
+                         const bool encrypt)
 {
     std::vector<std::vector<std::string> > vss;
     std::vector<std::string> vs;
@@ -1312,7 +1326,27 @@ void StatusManager::Save(const std::string& csvfile,
     vs.push_back(work);
     vss.push_back(vs);
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 // TODO

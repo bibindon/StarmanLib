@@ -1,5 +1,6 @@
 #include "HumanInfoManager.h"
 #include "ItemManager.h"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -20,11 +21,22 @@ void HumanInfoManager::Destroy()
     HumanInfoManager::obj = nullptr;
 }
 
-void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& csvfileSaved)
+void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& csvfileSaved,
+                            const bool decrypt)
 {
     {
         std::vector<std::vector<std::string> > vss;
-        vss = csv::Read(csvfileBase);
+
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfileBase);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfileBase);
+            vss = csv::ReadFromString(work);
+        }
+
         HumanInfo humanInfo;
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
@@ -41,11 +53,22 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
     }
     {
         std::vector<std::vector<std::string> > vss;
-        vss = csv::Read(csvfileSaved);
+
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvfileSaved);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvfileSaved);
+            vss = csv::ReadFromString(work);
+        }
+
         if (vss.size() == 0)
         {
             return;
         }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             std::string name = vss.at(i).at(0);
@@ -61,7 +84,8 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
     }
 }
 
-void HumanInfoManager::Save(const std::string& csvfile)
+void HumanInfoManager::Save(const std::string& csvfile,
+                            const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -85,7 +109,27 @@ void HumanInfoManager::Save(const std::string& csvfile)
         vs.clear();
     }
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 HumanInfo HumanInfoManager::GetHumanInfo(const std::string& name)

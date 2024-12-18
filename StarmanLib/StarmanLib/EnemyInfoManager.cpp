@@ -1,6 +1,7 @@
 #include "EnemyInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
 #include <algorithm>
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -22,12 +23,23 @@ void EnemyInfoManager::Destroy()
 }
 
 void EnemyInfoManager::Init(const std::string& csvEnemyDef,
-                        const std::string& csvEnemyInfo,
-                        const std::string& csvEnemyVisible)
+                            const std::string& csvEnemyInfo,
+                            const std::string& csvEnemyVisible,
+                            const bool decrypt)
 {
     {
         std::vector<std::vector<std::string> > vss;
         vss = csv::Read(csvEnemyDef);
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvEnemyDef);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvEnemyDef);
+            vss = csv::ReadFromString(work);
+        }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             int work_i = 0;
@@ -50,7 +62,18 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
 
     {
         std::vector<std::vector<std::string> > vss;
+
         vss = csv::Read(csvEnemyInfo);
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvEnemyInfo);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvEnemyInfo);
+            vss = csv::ReadFromString(work);
+        }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             int work_i = 0;
@@ -108,7 +131,18 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
     }
     {
         std::vector<std::vector<std::string> > vss;
+
         vss = csv::Read(csvEnemyVisible);
+        if (decrypt == false)
+        {
+            vss = csv::Read(csvEnemyVisible);
+        }
+        else
+        {
+            std::string work = CaesarCipher::DecryptFromFile(csvEnemyVisible);
+            vss = csv::ReadFromString(work);
+        }
+
         for (std::size_t i = 1; i < vss.size(); ++i)
         {
             int work_i = 0;
@@ -135,7 +169,8 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
 }
 
 void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
-                        const std::string& csvEvemyVisible)
+                            const std::string& csvEvemyVisible,
+                            const bool encrypt)
 {
     {
         std::vector<std::vector<std::string>> vss;
@@ -174,7 +209,28 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
             vss.push_back(vs);
             vs.clear();
         }
-        csv::Write(csvEnemyInfo, vss);
+
+        if (encrypt == false)
+        {
+            csv::Write(csvEnemyInfo, vss);
+        }
+        else
+        {
+            std::stringstream ss;
+            for (std::size_t i = 0; i < vss.size(); ++i)
+            {
+                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+                {
+                    ss << vss.at(i).at(j);
+                    if (j != vss.at(i).size() - 1)
+                    {
+                        ss << ",";
+                    }
+                }
+                ss << "\n";
+            }
+            CaesarCipher::EncryptToFile(ss.str(), csvEnemyInfo);
+        }
     }
     {
         std::vector<std::vector<std::string>> vss;
@@ -201,7 +257,28 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
             vss.push_back(vs);
             vs.clear();
         }
-        csv::Write(csvEvemyVisible, vss);
+
+        if (encrypt == false)
+        {
+            csv::Write(csvEvemyVisible, vss);
+        }
+        else
+        {
+            std::stringstream ss;
+            for (std::size_t i = 0; i < vss.size(); ++i)
+            {
+                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+                {
+                    ss << vss.at(i).at(j);
+                    if (j != vss.at(i).size() - 1)
+                    {
+                        ss << ",";
+                    }
+                }
+                ss << "\n";
+            }
+            CaesarCipher::EncryptToFile(ss.str(), csvEvemyVisible);
+        }
     }
 }
 

@@ -86,8 +86,10 @@ class MapObjManager
 public:
 
     static MapObjManager* GetObj();
-    void Init(const std::string& csvfile);
-    void Save(const std::string& csvfile);
+    void Init(const std::string& csvfile,
+			  const bool decrypt = false);
+    void Save(const std::string& csvfile,
+			  const bool encrypt = false);
     static void Destroy();
 
 	// 表示すべきオブジェクトを返す

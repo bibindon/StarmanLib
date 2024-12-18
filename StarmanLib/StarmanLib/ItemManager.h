@@ -218,9 +218,11 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile, const std::string& csvfilePos);
+    void Init(const std::string& csvfile, const std::string& csvfilePos,
+              const bool decrypt = false);
     bool Inited();
-    void Save(const std::string& csvfilePos);
+    void Save(const std::string& csvfilePos,
+              const bool encrypt = false);
 
     std::vector<int> GetItemIdList();
     ItemDef GetItemDef(const std::string& key, const int level = -1);

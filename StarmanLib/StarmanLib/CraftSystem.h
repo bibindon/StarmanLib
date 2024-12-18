@@ -139,9 +139,11 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileSkill, const std::string& csvfileQueue);
+    void Init(const std::string& csvfileSkill, const std::string& csvfileQueue,
+              const bool decrypt = false);
 
-    void Save(const std::string& csvfileSkill, const std::string& csvfileQueue);
+    void Save(const std::string& csvfileSkill, const std::string& csvfileQueue,
+              const bool encrypt = false);
 
     // 職人がクラフト可能であるか？のフラグをONにする
     void SetCraftsmanSkill(const std::string& craftItem, const int level = -1);

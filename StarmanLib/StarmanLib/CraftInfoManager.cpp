@@ -1,6 +1,7 @@
 #include "CraftInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
 #include "ItemManager.h"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -21,12 +22,23 @@ void CraftInfoManager::Destroy()
     CraftInfoManager::obj = nullptr;
 }
 
-void CraftInfoManager::Init(const std::string& csvfileDefinition)
+void CraftInfoManager::Init(const std::string& csvfileDefinition,
+                            const bool decrypt)
 {
     ItemManager* itemManager = ItemManager::GetObj();
 
     std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfileDefinition);
+
+    // à√çÜâªÇ≥ÇÍÇΩÉtÉ@ÉCÉãÇïúçÜâªÇ∑ÇÈÇ©
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfileDefinition);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfileDefinition);
+        vss = csv::ReadFromString(work);
+    }
 
     for (std::size_t i = 1; i < vss.size(); ++i)
     {

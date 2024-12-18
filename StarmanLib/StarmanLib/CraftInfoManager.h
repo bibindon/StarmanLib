@@ -96,7 +96,8 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileDefinition);
+    void Init(const std::string& csvfileDefinition,
+              const bool decrypt = false);
     bool Inited();
 
     std::vector<CraftOutput> GetCraftItemList();

@@ -22,9 +22,11 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile);
+    void Init(const std::string& csvfile,
+              const bool decrypt = false);
     bool Inited();
-    void Save(const std::string& csvfile);
+    void Save(const std::string& csvfile,
+              const bool encrypt = false);
 
     // ˆêŒÂ‚¸‚Â‚µ‚©‘‰ÁŒ¸o—ˆ‚È‚¢‘z’è
     // V‚½‚ÉSubID‚ğŠ„‚è“–‚Ä‚é

@@ -259,7 +259,8 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile);
+    void Init(const std::string& csvfile,
+              const bool decrypt = false);
 
     // 1秒に一度呼ばれる想定
     void Update();
@@ -267,7 +268,8 @@ public:
     void Save(const std::string& csvfile,
               const float player_x,
               const float player_y,
-              const float player_z);
+              const float player_z,
+              const bool encrypt = false);
 
     // 歩行速度。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetWalkSpeed();

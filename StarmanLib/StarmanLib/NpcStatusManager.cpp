@@ -1,5 +1,6 @@
 #include "NpcStatusManager.h"
 #include "HeaderOnlyCsv.hpp"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -110,10 +111,21 @@ void NpcStatusManager::Destroy()
     NpcStatusManager::obj = nullptr;
 }
 
-void NpcStatusManager::Init(const std::string& csvfile)
+void NpcStatusManager::Init(const std::string& csvfile,
+                            const bool decrypt)
 {
     std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfile);
+
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfile);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfile);
+        vss = csv::ReadFromString(work);
+    }
+
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
         float work_f = 0.f;
@@ -160,7 +172,8 @@ void NpcStatusManager::Init(const std::string& csvfile)
     }
 }
 
-void NpcStatusManager::Save(const std::string& csvfile)
+void NpcStatusManager::Save(const std::string& csvfile,
+                            const bool encrypt)
 {
     std::vector<std::vector<std::string> > vss;
     std::vector<std::string> vs;
@@ -229,7 +242,27 @@ void NpcStatusManager::Save(const std::string& csvfile)
         vs.clear();
     }
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 NpcStatus NpcStatusManager::GetNpcStatus(const std::string& name)

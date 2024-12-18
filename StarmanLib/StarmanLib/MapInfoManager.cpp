@@ -1,5 +1,6 @@
 #include "MapInfoManager.h"
 #include "HeaderOnlyCsv.hpp"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -69,10 +70,21 @@ MapInfoManager* MapInfoManager::GetObj()
     return obj;
 }
 
-void MapInfoManager::Init(const std::string& csvfile)
+void MapInfoManager::Init(const std::string& csvfile,
+                          const bool decrypt)
 {
     std::vector<std::vector<std::string>> vss;
-    vss = csv::Read(csvfile);
+
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfile);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfile);
+        vss = csv::ReadFromString(work);
+    }
+
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
         MapInfo mapInfo;
@@ -156,7 +168,8 @@ std::string NSStarmanLib::MapInfoManager::GetImagePath(const std::string& name)
     return it->GetImagePath();
 }
 
-void MapInfoManager::Save(const std::string& csvfile)
+void MapInfoManager::Save(const std::string& csvfile,
+                          const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -196,5 +209,26 @@ void MapInfoManager::Save(const std::string& csvfile)
         vss.push_back(vs);
         vs.clear();
     }
-    csv::Write(csvfile, vss);
+
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }

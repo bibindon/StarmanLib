@@ -40,7 +40,8 @@ class MapInfoManager
 {
 public:
     static MapInfoManager* GetObj();
-    void Init(const std::string& csvfile);
+    void Init(const std::string& csvfile,
+              const bool decrypt = false);
     static void Destroy();
     std::vector<std::string> GetNameList();
     bool IsDiscovered(const std::string& name);
@@ -48,7 +49,8 @@ public:
     std::string GetDetail(const std::string& name);
     void GetPos(const std::string& name, int* x, int* y);
     std::string GetImagePath(const std::string& name);
-    void Save(const std::string& csvfile);
+    void Save(const std::string& csvfile,
+              const bool encrypt = false);
 
 private:
 

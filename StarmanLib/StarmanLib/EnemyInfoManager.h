@@ -122,10 +122,12 @@ public:
 
     void Init(const std::string& csvEnemyDef,
               const std::string& csvEnemyInfo,
-              const std::string& csvEnemyVisible);
+              const std::string& csvEnemyVisible,
+              const bool decrypt = false);
 
     void Save(const std::string& csvEnemyInfo,
-              const std::string& csvEnemyVisible);
+              const std::string& csvEnemyVisible,
+              const bool encrypt = false);
 
     // ˆø”‚Å¦‚·À•W‚Æ”¼Œa‚Ì“à‘¤‚É‚¢‚é“G‚ğæ“¾
     std::vector<EnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);

@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include "Inventory.h"
+#include "CaesarCipher.h"
 
 using namespace NSStarmanLib;
 
@@ -23,7 +24,8 @@ void Storehouse::Destroy()
     Storehouse::obj = nullptr;
 }
 
-void Storehouse::Init(const std::string& csvfile)
+void Storehouse::Init(const std::string& csvfile,
+                      const bool decrypt)
 {
     // ItemManager‚ÌInitŠÖ”‚ªæ‚ÉŒÄ‚Î‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB
     {
@@ -34,7 +36,17 @@ void Storehouse::Init(const std::string& csvfile)
     }
 
     std::vector<std::vector<std::string> > vss;
-    vss = csv::Read(csvfile);
+
+    if (decrypt == false)
+    {
+        vss = csv::Read(csvfile);
+    }
+    else
+    {
+        std::string work = CaesarCipher::DecryptFromFile(csvfile);
+        vss = csv::ReadFromString(work);
+    }
+
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
         ItemInfo itemInfo;
@@ -63,7 +75,8 @@ bool NSStarmanLib::Storehouse::Inited()
     return m_inited;
 }
 
-void Storehouse::Save(const std::string& csvfile)
+void Storehouse::Save(const std::string& csvfile,
+                      const bool encrypt)
 {
     std::vector<std::vector<std::string>> vss;
     std::vector<std::string> vs;
@@ -89,7 +102,27 @@ void Storehouse::Save(const std::string& csvfile)
         vs.clear();
     }
 
-    csv::Write(csvfile, vss);
+    if (encrypt == false)
+    {
+        csv::Write(csvfile, vss);
+    }
+    else
+    {
+        std::stringstream ss;
+        for (std::size_t i = 0; i < vss.size(); ++i)
+        {
+            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            {
+                ss << vss.at(i).at(j);
+                if (j != vss.at(i).size() - 1)
+                {
+                    ss << ",";
+                }
+            }
+            ss << "\n";
+        }
+        CaesarCipher::EncryptToFile(ss.str(), csvfile);
+    }
 }
 
 void Storehouse::AddItem(const int id, const int durability)
