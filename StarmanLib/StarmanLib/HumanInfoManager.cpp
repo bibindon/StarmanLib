@@ -1,6 +1,6 @@
 #include "HumanInfoManager.h"
 #include "ItemManager.h"
-#include "CaesarCipher.h"
+#include "Util.h"
 
 using namespace NSStarmanLib;
 
@@ -25,17 +25,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
                             const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string> > vss;
-
-        if (decrypt == false)
-        {
-            vss = csv::Read(csvfileBase);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(csvfileBase);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfileBase, decrypt);
 
         HumanInfo humanInfo;
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -52,17 +42,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
         }
     }
     {
-        std::vector<std::vector<std::string> > vss;
-
-        if (decrypt == false)
-        {
-            vss = csv::Read(csvfileSaved);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(csvfileSaved);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfileSaved, decrypt);
 
         if (vss.size() == 0)
         {
@@ -109,27 +89,7 @@ void HumanInfoManager::Save(const std::string& csvfile,
         vs.clear();
     }
 
-    if (encrypt == false)
-    {
-        csv::Write(csvfile, vss);
-    }
-    else
-    {
-        std::stringstream ss;
-        for (std::size_t i = 0; i < vss.size(); ++i)
-        {
-            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-            {
-                ss << vss.at(i).at(j);
-                if (j != vss.at(i).size() - 1)
-                {
-                    ss << ",";
-                }
-            }
-            ss << "\n";
-        }
-        CaesarCipher::EncryptToFile(ss.str(), csvfile);
-    }
+    Util::WriteToCsv(csvfile, vss, encrypt);
 }
 
 HumanInfo HumanInfoManager::GetHumanInfo(const std::string& name)

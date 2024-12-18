@@ -1,12 +1,10 @@
 #include "WeaponManager.h"
-#include "HeaderOnlyCsv.hpp"
-#include "CaesarCipher.h"
-
 #include "ItemManager.h"
 
 #include <iomanip>
 #include "Inventory.h"
 #include "Storehouse.h"
+#include "Util.h"
 
 using namespace NSStarmanLib;
 
@@ -41,17 +39,7 @@ void WeaponManager::Init(const std::string& csvfilename,
 
     // 武器データを読む
     {
-        std::vector<std::vector<std::string>> vss;
-        // 暗号化されたファイルを復号化するか
-        if (decrypt == false)
-        {
-            vss = csv::Read(csvfilename);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(csvfilename);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfilename, decrypt);
 
         // 先頭行は無視
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -80,17 +68,7 @@ void WeaponManager::Init(const std::string& csvfilename,
     }
     // 保存された武器の情報を読み込む
     {
-        std::vector<std::vector<std::string>> vss;
-        // 暗号化されたファイルを復号化するか
-        if (decrypt == false)
-        {
-            vss = csv::Read(savefilename);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(savefilename);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(savefilename, decrypt);
 
         // 先頭行は無視
         for (std::size_t i = 1; i < vss.size(); ++i)
@@ -208,27 +186,7 @@ void WeaponManager::Save(const std::string& savefilename,
             vs.clear();
         }
 
-        if (encrypt == false)
-        {
-            csv::Write(savefilename, vss);
-        }
-        else
-        {
-            std::stringstream ss;
-            for (std::size_t i = 0; i < vss.size(); ++i)
-            {
-                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-                {
-                    ss << vss.at(i).at(j);
-                    if (j != vss.at(i).size() - 1)
-                    {
-                        ss << ",";
-                    }
-                }
-                ss << "\n";
-            }
-            CaesarCipher::EncryptToFile(ss.str(), savefilename);
-        }
+        Util::WriteToCsv(savefilename, vss, encrypt);
     }
 }
 

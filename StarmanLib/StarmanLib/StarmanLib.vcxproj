@@ -162,6 +162,7 @@
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="StatusManager.h" />
     <ClInclude Include="Storehouse.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="WeaponManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="StatusManager.cpp" />
     <ClCompile Include="Storehouse.cpp" />
+    <ClCompile Include="Util.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

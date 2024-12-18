@@ -1,10 +1,9 @@
 #include "CraftSystem.h"
-#include "HeaderOnlyCsv.hpp"
 #include "PowereggDateTime.h"
 #include "Inventory.h"
 #include "ItemManager.h"
 #include "Storehouse.h"
-#include "CaesarCipher.h"
+#include "Util.h"
 
 using namespace NSStarmanLib;
 
@@ -38,18 +37,7 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
     }
 
     {
-        std::vector<std::vector<std::string> > vss;
-
-        // 暗号化されたファイルを復号化するか
-        if (decrypt == false)
-        {
-            vss = csv::Read(csvfileSkill);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(csvfileSkill);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string> > vss = Util::ReadFromCsv(csvfileSkill, decrypt);
 
         if (vss.empty())
         {
@@ -108,18 +96,7 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
         }
     }
     {
-        std::vector<std::vector<std::string> > vss;
-
-        // 暗号化されたファイルを復号化するか
-        if (decrypt == false)
-        {
-            vss = csv::Read(csvfileQueue);
-        }
-        else
-        {
-            std::string work = CaesarCipher::DecryptFromFile(csvfileQueue);
-            vss = csv::ReadFromString(work);
-        }
+        std::vector<std::vector<std::string> > vss = Util::ReadFromCsv(csvfileQueue, decrypt);
 
         if (vss.empty())
         {
@@ -257,27 +234,7 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
             vs.clear();
         }
 
-        if (encrypt == false)
-        {
-            csv::Write(csvfileSkill, vss);
-        }
-        else
-        {
-            std::stringstream ss;
-            for (std::size_t i = 0; i < vss.size(); ++i)
-            {
-                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-                {
-                    ss << vss.at(i).at(j);
-                    if (j != vss.at(i).size() - 1)
-                    {
-                        ss << ",";
-                    }
-                }
-                ss << "\n";
-            }
-            CaesarCipher::EncryptToFile(ss.str(), csvfileSkill);
-        }
+        Util::WriteToCsv(csvfileSkill, vss, encrypt);
     }
     {
         std::vector<std::vector<std::string>> vss;
@@ -361,27 +318,7 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
             vs.clear();
         }
 
-        if (encrypt == false)
-        {
-            csv::Write(csvfileQueue, vss);
-        }
-        else
-        {
-            std::stringstream ss;
-            for (std::size_t i = 0; i < vss.size(); ++i)
-            {
-                for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-                {
-                    ss << vss.at(i).at(j);
-                    if (j != vss.at(i).size() - 1)
-                    {
-                        ss << ",";
-                    }
-                }
-                ss << "\n";
-            }
-            CaesarCipher::EncryptToFile(ss.str(), csvfileQueue);
-        }
+        Util::WriteToCsv(csvfileQueue, vss, encrypt);
     }
 }
 

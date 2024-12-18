@@ -75,6 +75,9 @@
     <ClInclude Include="MapObjManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeaponManager.cpp">
@@ -129,6 +132,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="MapObjManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

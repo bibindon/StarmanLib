@@ -1,11 +1,11 @@
 #include "StatusManager.h"
-#include "HeaderOnlyCsv.hpp"
 #include "PowereggDateTime.h"
 #include "Inventory.h"
 #include "ItemManager.h"
 #include "Rynen.h"
 #include "WeaponManager.h"
-#include "CaesarCipher.h"
+
+#include "Util.h"
 
 // TODO “ª’ÉA•—×A• ’ÉA’E…Çó
 
@@ -379,16 +379,7 @@ void StatusManager::Init(const std::string& csvfile,
         }
     }
 
-    std::vector<std::vector<std::string> > vss;
-    if (decrypt == false)
-    {
-        vss = csv::Read(csvfile);
-    }
-    else
-    {
-        std::string work = CaesarCipher::DecryptFromFile(csvfile);
-        vss = csv::ReadFromString(work);
-    }
+    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vss.size(); ++i)
     {
@@ -1326,27 +1317,7 @@ void StatusManager::Save(const std::string& csvfile,
     vs.push_back(work);
     vss.push_back(vs);
 
-    if (encrypt == false)
-    {
-        csv::Write(csvfile, vss);
-    }
-    else
-    {
-        std::stringstream ss;
-        for (std::size_t i = 0; i < vss.size(); ++i)
-        {
-            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
-            {
-                ss << vss.at(i).at(j);
-                if (j != vss.at(i).size() - 1)
-                {
-                    ss << ",";
-                }
-            }
-            ss << "\n";
-        }
-        CaesarCipher::EncryptToFile(ss.str(), csvfile);
-    }
+    Util::WriteToCsv(csvfile, vss, encrypt);
 }
 
 // TODO
