@@ -11,3 +11,9 @@
 !/StarmanLib/Debug/StarmanLib.*
 /StarmanLib/StarmanLib/Debug/*
 /StarmanLib/StarmanLibTest/Debug
+/StarmanLib/Release/StarmanLibTest.pdb
+/StarmanLib/Release/StarmanLibTest.lib
+/StarmanLib/Release/StarmanLibTest.exp
+/StarmanLib/Release/StarmanLibTest.dll
+/StarmanLib/StarmanLib/Release
+/StarmanLib/StarmanLibTest/Release
