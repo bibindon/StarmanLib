@@ -110,7 +110,7 @@ namespace StarmanLibTest
                 obj->Init("..\\StarmanLibTest\\statusOrigin.csv");
                 obj->SetBodyStaminaCurrent(123.f);
                 obj->SetFractureArm(true);
-                obj->Save("..\\StarmanLibTest\\statusSave.csv");
+                obj->Save("..\\StarmanLibTest\\statusSave.csv", 1, 2, 3);
                 StatusManager::Destroy();
             }
             {

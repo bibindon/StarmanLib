@@ -966,7 +966,10 @@ void StatusManager::Update()
     }
 }
 
-void StatusManager::Save(const std::string& csvfile)
+void StatusManager::Save(const std::string& csvfile,
+                         const float player_x,
+                         const float player_y,
+                         const float player_z)
 {
     std::vector<std::vector<std::string> > vss;
     std::vector<std::string> vs;
@@ -1238,15 +1241,29 @@ void StatusManager::Save(const std::string& csvfile)
 
     vs.clear();
     vs.push_back("31");
-    vs.push_back("‘•”õ•ŠíID");
-    work = std::to_string(GetEquipWeapon().GetId());
+    vs.push_back("‘•”õ•ŠíSubID");
+    work = std::to_string(GetEquipWeapon().GetSubId());
     vs.push_back(work);
     vss.push_back(vs);
 
     vs.clear();
     vs.push_back("32");
-    vs.push_back("‘•”õ•ŠíSubID");
-    work = std::to_string(GetEquipWeapon().GetSubId());
+    vs.push_back("x");
+    work = std::to_string(player_x);
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("33");
+    vs.push_back("y");
+    work = std::to_string(player_y);
+    vs.push_back(work);
+    vss.push_back(vs);
+
+    vs.clear();
+    vs.push_back("34");
+    vs.push_back("z");
+    work = std::to_string(player_z);
     vs.push_back(work);
     vss.push_back(vs);
 

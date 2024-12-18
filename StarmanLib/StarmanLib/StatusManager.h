@@ -251,7 +251,10 @@ public:
     // 1秒に一度呼ばれる想定
     void Update();
 
-    void Save(const std::string& csvfile);
+    void Save(const std::string& csvfile,
+              const float player_x,
+              const float player_y,
+              const float player_z);
 
     // 歩行速度。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetWalkSpeed();
