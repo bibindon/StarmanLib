@@ -227,163 +227,163 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
     {
         std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
 
-		for (std::size_t i = 1; i < vss.size(); ++i)
-		{
-			int work_i = 0;
-			float work_f = 0.f;
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            int work_i = 0;
+            float work_f = 0.f;
 
-			ItemDef itemDef;
+            ItemDef itemDef;
 
-			work_i = std::stoi(vss.at(i).at(0));
-			itemDef.SetId(work_i);
+            work_i = std::stoi(vss.at(i).at(0));
+            itemDef.SetId(work_i);
 
-			itemDef.SetName(vss.at(i).at(1));
+            itemDef.SetName(vss.at(i).at(1));
 
-			itemDef.SetDetail(vss.at(i).at(2));
+            itemDef.SetDetail(vss.at(i).at(2));
 
-			itemDef.SetImagePath(vss.at(i).at(3));
+            itemDef.SetImagePath(vss.at(i).at(3));
 
-			work_f = std::stof(vss.at(i).at(4));
-			itemDef.SetWeight(work_f);
+            work_f = std::stof(vss.at(i).at(4));
+            itemDef.SetWeight(work_f);
 
-			work_f = std::stof(vss.at(i).at(5));
-			itemDef.SetVolume(work_f);
+            work_f = std::stof(vss.at(i).at(5));
+            itemDef.SetVolume(work_f);
 
-			if (vss.at(i).at(6) == "貴重品")
-			{
-				itemDef.SetType(ItemDef::ItemType::VALUABLES);
-			}
-			else if (vss.at(i).at(6) == "素材")
-			{
-				itemDef.SetType(ItemDef::ItemType::MATERIAL);
-			}
-			else if (vss.at(i).at(6) == "食材")
-			{
-				itemDef.SetType(ItemDef::ItemType::FOOD);
-			}
-			else if (vss.at(i).at(6) == "武器")
-			{
-				itemDef.SetType(ItemDef::ItemType::WEAPON);
-			}
-			else if (vss.at(i).at(6) == "その他")
-			{
-				itemDef.SetType(ItemDef::ItemType::OTHERS);
-			}
+            if (vss.at(i).at(6) == "貴重品")
+            {
+                itemDef.SetType(ItemDef::ItemType::VALUABLES);
+            }
+            else if (vss.at(i).at(6) == "素材")
+            {
+                itemDef.SetType(ItemDef::ItemType::MATERIAL);
+            }
+            else if (vss.at(i).at(6) == "食材")
+            {
+                itemDef.SetType(ItemDef::ItemType::FOOD);
+            }
+            else if (vss.at(i).at(6) == "武器")
+            {
+                itemDef.SetType(ItemDef::ItemType::WEAPON);
+            }
+            else if (vss.at(i).at(6) == "その他")
+            {
+                itemDef.SetType(ItemDef::ItemType::OTHERS);
+            }
 
-			if (itemDef.GetType() == ItemDef::ItemType::FOOD)
-			{
-				work_f = std::stof(vss.at(i).at(7));
-				itemDef.SetCarbo(work_f);
+            if (itemDef.GetType() == ItemDef::ItemType::FOOD)
+            {
+                work_f = std::stof(vss.at(i).at(7));
+                itemDef.SetCarbo(work_f);
 
-				work_f = std::stof(vss.at(i).at(8));
-				itemDef.SetProtein(work_f);
+                work_f = std::stof(vss.at(i).at(8));
+                itemDef.SetProtein(work_f);
 
-				work_f = std::stof(vss.at(i).at(9));
-				itemDef.SetLipid(work_f);
+                work_f = std::stof(vss.at(i).at(9));
+                itemDef.SetLipid(work_f);
 
-				work_f = std::stof(vss.at(i).at(10));
-				itemDef.SetVitamin(work_f);
+                work_f = std::stof(vss.at(i).at(10));
+                itemDef.SetVitamin(work_f);
 
-				work_f = std::stof(vss.at(i).at(11));
-				itemDef.SetMineral(work_f);
+                work_f = std::stof(vss.at(i).at(11));
+                itemDef.SetMineral(work_f);
 
-				work_f = std::stof(vss.at(i).at(12));
-				itemDef.SetWater(work_f);
+                work_f = std::stof(vss.at(i).at(12));
+                itemDef.SetWater(work_f);
 
-				work_f = std::stof(vss.at(i).at(13));
-				itemDef.SetBodyStaminaDebuff(work_f);
+                work_f = std::stof(vss.at(i).at(13));
+                itemDef.SetBodyStaminaDebuff(work_f);
 
-				work_f = std::stof(vss.at(i).at(14));
-				itemDef.SetBrainStaminaDebuff(work_f);
+                work_f = std::stof(vss.at(i).at(14));
+                itemDef.SetBrainStaminaDebuff(work_f);
 
-				work_f = std::stof(vss.at(i).at(15));
-				itemDef.SetMuscleDebuff(work_f);
+                work_f = std::stof(vss.at(i).at(15));
+                itemDef.SetMuscleDebuff(work_f);
 
-				if (vss.at(i).at(16) == "○")
-				{
-					itemDef.SetHeadache(true);
-				}
-				else
-				{
-					itemDef.SetHeadache(false);
-				}
+                if (vss.at(i).at(16) == "○")
+                {
+                    itemDef.SetHeadache(true);
+                }
+                else
+                {
+                    itemDef.SetHeadache(false);
+                }
 
-				if (vss.at(i).at(17) == "○")
-				{
-					itemDef.SetStomachache(true);
-				}
-				else
-				{
-					itemDef.SetStomachache(false);
-				}
-			}
+                if (vss.at(i).at(17) == "○")
+                {
+                    itemDef.SetStomachache(true);
+                }
+                else
+                {
+                    itemDef.SetStomachache(false);
+                }
+            }
 
-			// 強化値
-			if (vss.at(i).at(18).empty())
-			{
-				work_i = -1;
-			}
-			else
-			{
-				work_i = std::stoi(vss.at(i).at(18));
-			}
+            // 強化値
+            if (vss.at(i).at(18).empty())
+            {
+                work_i = -1;
+            }
+            else
+            {
+                work_i = std::stoi(vss.at(i).at(18));
+            }
 
-			itemDef.SetLevel(work_i);
+            itemDef.SetLevel(work_i);
 
-			// 耐久度の最大値（＝初期値）
-			if (vss.at(i).at(19).empty())
-			{
-				work_i = -1;
-			}
-			else
-			{
-				work_i = std::stoi(vss.at(i).at(19));
-			}
+            // 耐久度の最大値（＝初期値）
+            if (vss.at(i).at(19).empty())
+            {
+                work_i = -1;
+            }
+            else
+            {
+                work_i = std::stoi(vss.at(i).at(19));
+            }
 
-			itemDef.SetDurabilityMax(work_i);
-			m_itemDefMap[(int)i] = itemDef;
-		}
+            itemDef.SetDurabilityMax(work_i);
+            m_itemDefMap[(int)i] = itemDef;
+        }
     }
     {
         std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfilePos, decrypt);
 
-		for (std::size_t i = 1; i < vss.size(); ++i)
-		{
-			int posId = 0;
-			int itemDefId = 0;
-			float x = 0.f;
-			float y = 0.f;
-			float z = 0.f;
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            int posId = 0;
+            int itemDefId = 0;
+            float x = 0.f;
+            float y = 0.f;
+            float z = 0.f;
 
-			ItemPos itemPos;
+            ItemPos itemPos;
 
-			posId = std::stoi(vss.at(i).at(0));
-			itemPos.SetItemPosId(posId);
+            posId = std::stoi(vss.at(i).at(0));
+            itemPos.SetItemPosId(posId);
 
-			itemDefId = std::stoi(vss.at(i).at(1));
-			itemPos.SetItemDefId(itemDefId);
+            itemDefId = std::stoi(vss.at(i).at(1));
+            itemPos.SetItemDefId(itemDefId);
 
-			x = std::stof(vss.at(i).at(2));
-			y = std::stof(vss.at(i).at(3));
-			z = std::stof(vss.at(i).at(4));
-			itemPos.SetPos(x, y, z);
+            x = std::stof(vss.at(i).at(2));
+            y = std::stof(vss.at(i).at(3));
+            z = std::stof(vss.at(i).at(4));
+            itemPos.SetPos(x, y, z);
 
-			if (vss.at(i).at(5) == "○")
-			{
-				itemPos.SetObtained(true);
-			}
-			else if (vss.at(i).at(5) == "")
-			{
-				itemPos.SetObtained(false);
-			}
-			else
-			{
-				throw std::exception();
-			}
-			m_itemPosMap[posId] = itemPos;
-		}
+            if (vss.at(i).at(5) == "○")
+            {
+                itemPos.SetObtained(true);
+            }
+            else if (vss.at(i).at(5) == "")
+            {
+                itemPos.SetObtained(false);
+            }
+            else
+            {
+                throw std::exception();
+            }
+            m_itemPosMap[posId] = itemPos;
+        }
     }
-	m_inited = true;
+    m_inited = true;
 }
 
 bool NSStarmanLib::ItemManager::Inited()
@@ -546,14 +546,14 @@ ItemPos NSStarmanLib::ItemManager::GetItemPosByPos(const float x,
         {
             if ((y2 - r) <= y && y <= (y2 + r))
             {
-				if ((z2 - r) <= z && z <= (z2 + r))
-				{
+                if ((z2 - r) <= z && z <= (z2 + r))
+                {
                     if (it->second.GetObtained() == false)
                     {
                         itemPos = it->second;
                     }
-				}
-			}
+                }
+            }
         }
     }
     return itemPos;
@@ -615,7 +615,7 @@ void NSStarmanLib::ItemPos::SetItemDefId(const int id)
 
 int NSStarmanLib::ItemPos::GetItemDefId() const
 {
-	return m_itemDefId;
+    return m_itemDefId;
 }
 
 void NSStarmanLib::ItemPos::SetPos(const float x, const float y, const float z)
@@ -634,10 +634,10 @@ void NSStarmanLib::ItemPos::GetPos(float* x, float* y, float* z)
 
 void NSStarmanLib::ItemPos::SetObtained(const bool arg)
 {
-	m_obtained = arg;
+    m_obtained = arg;
 }
 
 bool NSStarmanLib::ItemPos::GetObtained()
 {
-	return m_obtained;
+    return m_obtained;
 }

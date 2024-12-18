@@ -943,17 +943,17 @@ void StatusManager::Update()
         }
         else if (rynenYear == currentYear)
         {
-			if (rynenMonth > currentMonth)
-			{
-				deadline = true;
-			}
-			else if (rynenMonth == currentMonth)
-			{
+            if (rynenMonth > currentMonth)
+            {
+                deadline = true;
+            }
+            else if (rynenMonth == currentMonth)
+            {
                 if (rynenDay > currentDay)
                 {
                     deadline = true;
                 }
-			}
+            }
         }
 
         if (deadline)
