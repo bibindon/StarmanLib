@@ -46,9 +46,13 @@ public:
 	void SetScale(const float arg);
 	float GetScale() const;
 
+	// 100メートル以上離れたら非表示にするが、それとは別に、木を切ったら、切った木を非表示にしたい。
+	// Show/Hide, Visible/Disableで言葉を使い分けることにする
 	void SetShow(const bool arg);
 	bool GetShow() const;
 
+	void SetVisible(const bool arg);
+	bool GetVisible() const;
 private:
 
 	int m_id = 0;
@@ -69,16 +73,21 @@ private:
 	float m_scale = 0.f;
 
 	bool m_show = false;
+	bool m_visible = false;
 };
 
 // 全部調べたら大変負荷が重くなるので100メートルごとの格子を考える。
 // マップを100メートルごとの格子で分割し、自分がいる格子とその周りの8つの格子だけを処理する
+//
+// 100メートル以上離れたら非表示にするが、それとは別に、木を切ったら、切った木を非表示にしたい。
+// Show/Hide, Visible/Disableで言葉を使い分けることにする
 class MapObjManager
 {
 public:
 
     static MapObjManager* GetObj();
     void Init(const std::string& csvfile);
+    void Save(const std::string& csvfile);
     static void Destroy();
 
 	// 表示すべきオブジェクトを返す
@@ -94,8 +103,11 @@ public:
 						   const float playerZ,
 						   std::vector<MapObj>* needHide);
 
+	// 100メートル以上離れたら非表示にするが、それとは別に、木を切ったら、切った木を非表示にしたい。
+	// Show/Hide, Visible/Disableで言葉を使い分けることにする
+	void SetShow(const int frame_x, const int frame_z, const int id, const bool show);
 
-	void SetShow(const int frame_x, const int frame_y, const int id, const bool show);
+	void SetVisible(const int frame_x, const int frame_z, const int id, const bool visible);
 
 private:
 
