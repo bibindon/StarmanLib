@@ -1,4 +1,3 @@
-#pragma once
 #include <string>
 
 class CaesarCipher
@@ -8,43 +7,39 @@ public:
     {
         std::string result;
         char* work = nullptr;
-        work = new char[text.size() + 1];
-        strcpy_s(work, text.size() + 1, text.c_str());
-        for (std::size_t i = 0; i < text.size(); ++i)
+        std::size_t len = text.length();
+        work = new char[len + 1];
+        strcpy_s(work, len + 1, text.c_str());
+        for (std::size_t i = 0; i < len + 1; ++i)
         {
             work[i] = work[i] + 10;
         }
-        result = std::string(work);
+        // work[i]を+10したときに0になってしまうことがある。
+        // そのためworkの中には0x00が含まれることを考慮する
+        result = std::string(&work[0], &work[len + 1]);
         delete[] work;
         return result;
     }
 
     static void EncryptToFile(const std::string& text, const std::string& filename)
     {
-        std::string buff;
-        {
-            char* work = nullptr;
-            work = new char[text.size() + 1];
-            strcpy_s(work, text.size() + 1, text.c_str());
-            for (std::size_t i = 0; i < text.size(); ++i)
-            {
-                work[i] = work[i] + 10;
-            }
-            buff = std::string(work);
-            delete[] work;
-        }
+        std::string buff = Encrypt(text);
 
         std::ofstream ofs(filename);
-        ofs << buff;
+
+        ofs.write(buff.data(), buff.size()); // ignore NULL
     }
 
     static std::string Decrypt(const std::string& text)
     {
         std::string result;
         char* work = nullptr;
-        work = new char[text.size() + 1];
-        strcpy_s(work, text.size() + 1, text.c_str());
-        for (std::size_t i = 0; i < text.size(); ++i)
+        std::size_t len = text.length();
+        work = new char[len]; // +1しない。暗号化時にヌル文字を+10した記号が末尾にあるから。
+
+        // 途中にnull文字があっても指定バイト数までコピーする
+        memcpy(work, text.c_str(), len);
+        for (std::size_t i = 0; i < len; ++i)
         {
             work[i] = work[i] - 10;
         }
@@ -68,4 +63,3 @@ public:
         return work;
     }
 };
-
