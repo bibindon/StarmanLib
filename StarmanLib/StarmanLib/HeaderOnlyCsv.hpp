@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iterator>
+#include <exception>
 #include "Shlwapi.h"
 #pragma comment( lib, "Shlwapi.lib" ) 
 
@@ -21,6 +22,12 @@ public:
         }
 
         std::ifstream ifs(filepath);
+        if (ifs.is_open() == false)
+        {
+            std::string work = filepath + "を開くことができませんでした。";
+            throw std::exception(work.c_str());
+        }
+
         std::string buffComma;
         bool doubleQuoteMode = false;
         std::vector<std::string> work;
@@ -123,6 +130,11 @@ public:
     static void Write(const std::string& filepath, const std::vector<std::vector<std::string> >& csvData)
     {
         std::ofstream ofs(filepath);
+        if (ofs.is_open() == false)
+        {
+            std::string work = filepath + "を開くことができませんでした。";
+            throw std::exception(work.c_str());
+        }
         for (std::size_t i = 0; i < csvData.size(); ++i)
         {
             for (std::size_t j = 0; j < csvData.at(i).size(); ++j)
@@ -165,7 +177,5 @@ private:
         rtrim(s);
         ltrim(s);
     }
-
-//    std::vector<std::vector<std::string> > m_csvData;
 };
 
