@@ -95,6 +95,9 @@ public:
     // 表示すべきオブジェクトを返す
     std::vector<MapObj> GetMapObjList(const float playerX, const float playerZ);
 
+    // 半径r以内のオブジェクトを返す。
+    std::vector<MapObj> GetMapObjListR(const float playerX, const float playerZ, const float r);
+
     // 表示すべきなのに表示されていないオブジェクトを返す
     void GetMapObjListShow(const float playerX,
                            const float playerZ,

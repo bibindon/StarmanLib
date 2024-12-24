@@ -323,6 +323,36 @@ std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjList(con
     return result;
 }
 
+std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjListR(const float playerX,
+                                                                              const float playerZ,
+                                                                              const float r)
+{
+    std::vector<MapObj> result;
+    // プレイヤーのX座標が   0 ~  99 なら格子Xは0
+    // プレイヤーのX座標が 100 ~ 199 なら格子Xは1
+
+    int frameX = (int)playerX / 100;
+    int frameZ = (int)playerZ / 100;
+
+    std::vector<MapObj> work;
+    work = m_mapObjMap[frameX][frameZ];
+
+    std::vector<MapObj> work2;
+    float r2 = r * r;
+    for (int i = 0; i < (int)work.size(); ++i)
+    {
+        float x3 = work.at(i).GetX();
+        float z3 = work.at(i).GetZ();
+        float r3 = (playerX - x3) * (playerX - x3) + (playerZ - z3) * (playerZ - z3);
+        if (r2 > r3)
+        {
+            work2.push_back(work.at(i));
+        }
+    }
+
+    return work2;
+}
+
 void NSStarmanLib::MapObjManager::GetMapObjListShow(const float playerX,
                                                     const float playerZ,
                                                     std::vector<MapObj>* needShow)
