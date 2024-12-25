@@ -9,6 +9,7 @@
 namespace NSStarmanLib
 {
 
+
 class MapObj
 {
 public:
@@ -22,8 +23,8 @@ public:
     void SetFrameZ(const int z);
     int GetFrameZ() const;
 
-    void SetFilename(const std::string& arg);
-    std::string GetFilename() const;
+    void SetModelId(const int arg);
+    int GetModelId() const;
 
     void SetX(const float arg);
     float GetX() const;
@@ -60,7 +61,7 @@ private:
     int m_frameX = 0;
     int m_frameZ = 0;
 
-    std::string m_filename;
+    int m_modelId;
 
     float m_x = 0.f;
     float m_y = 0.f;
@@ -86,10 +87,14 @@ class MapObjManager
 public:
 
     static MapObjManager* GetObj();
+
     void Init(const std::string& csvfile,
+              const std::string& csvModelId,
               const bool decrypt = false);
+
     void Save(const std::string& csvfile,
               const bool encrypt = false);
+
     static void Destroy();
 
     // 表示すべきオブジェクトを返す
@@ -114,6 +119,8 @@ public:
 
     void SetVisible(const int frame_x, const int frame_z, const int id, const bool visible);
 
+    std::string GetModelName(const int id);
+
 private:
 
     static MapObjManager* obj;
@@ -121,7 +128,11 @@ private:
     // m_mapObjMap[10][20] これは1000m ~ 1100m, 2000m ~ 2100mの範囲の3Ｄモデルのリストを意味する
     std::unordered_map<int, std::unordered_map<int, std::vector<MapObj>>> m_mapObjMap;
 
-    
+    // モデルの配置情報は巨大なためファイル名をそのまま扱うととてつもなく巨大になってしまう。
+    // tree.x -> 1
+    // rock.x -> 2
+    // のような識別子を与えるようにする
+    std::unordered_map<int, std::string> m_XnameMap;
 };
 
 }

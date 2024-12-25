@@ -26,7 +26,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs = obj->GetMapObjList(-290, 550);
             Assert::AreEqual(true, vs.size() != 0);
             MapObjManager::Destroy();
@@ -35,7 +35,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs = obj->GetMapObjList(-150, 550);
             Assert::AreEqual(3, (int)vs.size());
             MapObjManager::Destroy();
@@ -44,7 +44,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs = obj->GetMapObjList(-150, 550);
             Assert::AreEqual(3, (int)vs.size());
 
@@ -56,7 +56,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs = obj->GetMapObjList(-150, 550);
             obj->SetShow(-2, 5, 1, true);
 
@@ -68,7 +68,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs;
             obj->GetMapObjListShow(-150, 550, &vs);
             Assert::AreEqual(3, (int)vs.size());
@@ -83,7 +83,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod07)
         {
             MapObjManager* obj = MapObjManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\map_obj.csv");
+            obj->Init("..\\StarmanLibTest\\map_obj.csv", "..\\StarmanLibTest\\map_obj_type.csv");
             std::vector<MapObj> vs;
             obj->GetMapObjListHide(-150, 550, &vs);
             Assert::AreEqual(0, (int)vs.size());

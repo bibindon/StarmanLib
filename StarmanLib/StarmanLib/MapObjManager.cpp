@@ -34,14 +34,14 @@ int NSStarmanLib::MapObj::GetFrameZ() const
     return m_frameZ;
 }
 
-void NSStarmanLib::MapObj::SetFilename(const std::string& arg)
+void NSStarmanLib::MapObj::SetModelId(const int arg)
 {
-    m_filename = arg;
+    m_modelId = arg;
 }
 
-std::string NSStarmanLib::MapObj::GetFilename() const
+int NSStarmanLib::MapObj::GetModelId() const
 {
-    return m_filename;
+    return m_modelId;
 }
 
 void NSStarmanLib::MapObj::SetX(const float arg)
@@ -144,57 +144,68 @@ NSStarmanLib::MapObjManager* NSStarmanLib::MapObjManager::GetObj()
 }
 
 void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
+                                       const std::string& csvModelId,
                                        const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
-
-    for (std::size_t i = 1; i < vss.size(); ++i)
     {
-        MapObj mapObj;
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
 
-        mapObj.SetId(std::stoi(vss.at(i).at(0)));
-
-        mapObj.SetFilename(vss.at(i).at(1));
-
-        float work = 0.f;
-
-        work = std::stof(vss.at(i).at(2));
-        mapObj.SetX(work);
-
-        int frameX = (int)work / 100;
-        mapObj.SetFrameX(frameX);
-
-        work = std::stof(vss.at(i).at(3));
-        mapObj.SetY(work);
-
-        work = std::stof(vss.at(i).at(4));
-        mapObj.SetZ(work);
-
-        int frameZ = (int)work / 100;
-        mapObj.SetFrameZ(frameZ);
-
-        work = std::stof(vss.at(i).at(5));
-        mapObj.SetRotX(work);
-
-        work = std::stof(vss.at(i).at(6));
-        mapObj.SetRotY(work);
-
-        work = std::stof(vss.at(i).at(7));
-        mapObj.SetRotZ(work);
-
-        work = std::stof(vss.at(i).at(8));
-        mapObj.SetScale(work);
-
-        if (vss.at(i).at(9) == "Åõ")
+        for (std::size_t i = 1; i < vss.size(); ++i)
         {
-            mapObj.SetVisible(true);
-        }
-        else
-        {
-            mapObj.SetVisible(false);
-        }
+            MapObj mapObj;
 
-        m_mapObjMap[frameX][frameZ].emplace_back(mapObj);
+            mapObj.SetId(std::stoi(vss.at(i).at(0)));
+
+            mapObj.SetModelId(std::stoi(vss.at(i).at(1)));
+
+            float work = 0.f;
+
+            work = std::stof(vss.at(i).at(2));
+            mapObj.SetX(work);
+
+            int frameX = (int)work / 100;
+            mapObj.SetFrameX(frameX);
+
+            work = std::stof(vss.at(i).at(3));
+            mapObj.SetY(work);
+
+            work = std::stof(vss.at(i).at(4));
+            mapObj.SetZ(work);
+
+            int frameZ = (int)work / 100;
+            mapObj.SetFrameZ(frameZ);
+
+            work = std::stof(vss.at(i).at(5));
+            mapObj.SetRotX(work);
+
+            work = std::stof(vss.at(i).at(6));
+            mapObj.SetRotY(work);
+
+            work = std::stof(vss.at(i).at(7));
+            mapObj.SetRotZ(work);
+
+            work = std::stof(vss.at(i).at(8));
+            mapObj.SetScale(work);
+
+            if (vss.at(i).at(9) == "Åõ")
+            {
+                mapObj.SetVisible(true);
+            }
+            else
+            {
+                mapObj.SetVisible(false);
+            }
+
+            m_mapObjMap[frameX][frameZ].emplace_back(mapObj);
+        }
+    }
+    {
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvModelId, decrypt);
+
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            m_XnameMap[std::stoi(vss.at(i).at(0))] = vss.at(i).at(1);
+        }
     }
 }
 
@@ -226,7 +237,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("ID");
-    vs.push_back("ÉÇÉfÉãñº");
+    vs.push_back("ÉÇÉfÉãID");
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("Z");
@@ -241,7 +252,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     {
         vs.clear();
         vs.push_back(std::to_string(work.at(i).GetId()));
-        vs.push_back(work.at(i).GetFilename());
+        vs.push_back(std::to_string(work.at(i).GetModelId()));
         vs.push_back(std::to_string(work.at(i).GetX()));
         vs.push_back(std::to_string(work.at(i).GetY()));
         vs.push_back(std::to_string(work.at(i).GetZ()));
@@ -566,5 +577,10 @@ void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
         throw std::exception();
     }
     it->SetVisible(visible);
+}
+
+std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
+{
+    return m_XnameMap.at(id);
 }
 
