@@ -1,9 +1,11 @@
 #include "MapObjManager.h"
 #include <algorithm>
 #include "Util.h"
+#include <fstream>
 
 NSStarmanLib::MapObjManager* NSStarmanLib::MapObjManager::obj = nullptr;
 
+/*
 void NSStarmanLib::MapObj::SetId(const int id)
 {
     m_id = id;
@@ -113,6 +115,7 @@ bool NSStarmanLib::MapObj::GetVisible() const
 {
     return m_visible;
 }
+*/
 
 NSStarmanLib::MapObjManager* NSStarmanLib::MapObjManager::GetObj()
 {
@@ -132,45 +135,38 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            MapObj mapObj;
+            stMapObj work;
 
-            mapObj.SetId(std::stoi(vvs.at(i).at(0)));
+            float work_f = 0.f;
 
-            mapObj.SetModelId(std::stoi(vvs.at(i).at(1)));
+            work.m_id = std::stoi(vvs.at(i).at(0));
 
-            float work = 0.f;
+            work.m_modelId = std::stoi(vvs.at(i).at(1));
 
-            work = std::stof(vvs.at(i).at(2));
-            mapObj.SetX(work);
+            work_f = std::stof(vvs.at(i).at(2));
+            work.m_x = work_f;
+            work.m_frameX = (int)work_f/100;
 
-            int frameX = (int)work / 100;
-            mapObj.SetFrameX(frameX);
+            work.m_y = std::stof(vvs.at(i).at(3));
 
-            work = std::stof(vvs.at(i).at(3));
-            mapObj.SetY(work);
+            work_f = std::stof(vvs.at(i).at(4));
+            work.m_z = work_f;
+            work.m_frameZ = (int)work_f/100;
 
-            work = std::stof(vvs.at(i).at(4));
-            mapObj.SetZ(work);
+            work.m_yRot = std::stof(vvs.at(i).at(5));
 
-            int frameZ = (int)work / 100;
-            mapObj.SetFrameZ(frameZ);
-
-            work = std::stof(vvs.at(i).at(5));
-            mapObj.SetRotY(work);
-
-            work = std::stof(vvs.at(i).at(6));
-            mapObj.SetScale(work);
+            work.m_scale = std::stof(vvs.at(i).at(6));
 
             if (vvs.at(i).at(7) == "y")
             {
-                mapObj.SetVisible(true);
+                work.m_visible = true;
             }
             else
             {
-                mapObj.SetVisible(false);
+                work.m_visible = false;
             }
 
-            m_mapObjMap[frameX][frameZ].emplace_back(mapObj);
+            m_stMapObjMap[work.m_frameX][work.m_frameZ].emplace_back(work);
         }
     }
     {
@@ -183,11 +179,38 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
     }
 }
 
-void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binfile,
+void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
                                                  const std::string& csvModelId,
                                                  const bool decrypt)
 {
-    // TODO binデータの読み込み
+    {
+        std::vector<NSStarmanLib::stMapObj> stMapObjList;
+
+        std::ifstream inFile(binFile, std::ios::binary);
+        if (inFile.is_open() == false)
+        {
+            throw std::exception();
+        }
+
+        size_t size = 0;
+
+        // ベクターサイズを読み込む
+        inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        // ベクターサイズを設定
+        stMapObjList.resize(size);
+
+        // データ本体を読み込む
+        inFile.read(reinterpret_cast<char*>(stMapObjList.data()),
+                    static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
+
+        inFile.close();
+
+        for (auto it = stMapObjList.begin(); it != stMapObjList.end(); ++it)
+        {
+            m_stMapObjMap[it->m_frameX][it->m_frameX].emplace_back(*it);
+        }
+    }
 
     {
         std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
@@ -202,9 +225,9 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binfile,
 void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
                                        const bool encrypt)
 {
-    std::vector<MapObj> work;
+    std::vector<stMapObj> work;
 
-    for (auto itX = m_mapObjMap.begin(); itX != m_mapObjMap.end(); ++itX)
+    for (auto itX = m_stMapObjMap.begin(); itX != m_stMapObjMap.end(); ++itX)
     {
         for (auto itZ = itX->second.begin(); itZ != itX->second.end(); ++itZ)
         {
@@ -216,9 +239,9 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     }
 
     std::sort(work.begin(), work.end(),
-              [](const MapObj& x1, const MapObj& x2)
+              [](const stMapObj& x1, const stMapObj& x2)
               {
-                  return x1.GetId() < x2.GetId();
+                  return x1.m_id < x2.m_id;
               });
 
     std::vector<std::vector<std::string> > vss;
@@ -239,14 +262,14 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     for (int i = 0; i < (int)work.size(); ++i)
     {
         vs.clear();
-        vs.push_back(std::to_string(work.at(i).GetId()));
-        vs.push_back(std::to_string(work.at(i).GetModelId()));
-        vs.push_back(std::to_string(work.at(i).GetX()));
-        vs.push_back(std::to_string(work.at(i).GetY()));
-        vs.push_back(std::to_string(work.at(i).GetZ()));
-        vs.push_back(std::to_string(work.at(i).GetRotY()));
-        vs.push_back(std::to_string(work.at(i).GetScale()));
-        if (work.at(i).GetVisible())
+        vs.push_back(std::to_string(work.at(i).m_id));
+        vs.push_back(std::to_string(work.at(i).m_modelId));
+        vs.push_back(std::to_string(work.at(i).m_x));
+        vs.push_back(std::to_string(work.at(i).m_y));
+        vs.push_back(std::to_string(work.at(i).m_z));
+        vs.push_back(std::to_string(work.at(i).m_yRot));
+        vs.push_back(std::to_string(work.at(i).m_scale));
+        if (work.at(i).m_visible)
         {
             vs.push_back("y");
         }
@@ -261,24 +284,29 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vss, encrypt);
 }
 
+void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binfile)
+{
+}
+
 void NSStarmanLib::MapObjManager::Destroy()
 {
     delete MapObjManager::obj;
     MapObjManager::obj = nullptr;
 }
 
-std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjList(const float playerX,
-                                                                             const float playerZ)
+std::vector<NSStarmanLib::stMapObj>
+NSStarmanLib::MapObjManager::GetMapObjList(const float playerX,
+                                           const float playerZ)
 {
-    std::vector<MapObj> result;
+    std::vector<stMapObj> result;
     // プレイヤーのX座標が   0 ~  99 なら格子Xは0
     // プレイヤーのX座標が 100 ~ 199 なら格子Xは1
 
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
 
-    std::vector<MapObj> work;
-    work = m_mapObjMap[frameX][frameZ];
+    std::vector<stMapObj> work;
+    work = m_stMapObjMap[frameX][frameZ];
     result = work;
 
     //-----------------------------------------------------------------------------
@@ -286,60 +314,61 @@ std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjList(con
     //-----------------------------------------------------------------------------
 
     // 左上
-    work = m_mapObjMap[frameX-1][frameZ+1];
+    work = m_stMapObjMap[frameX-1][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
     // 上
-    work = m_mapObjMap[frameX][frameZ+1];
+    work = m_stMapObjMap[frameX][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
     // 右上
-    work = m_mapObjMap[frameX+1][frameZ+1];
+    work = m_stMapObjMap[frameX+1][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
     // 左
-    work = m_mapObjMap[frameX-1][frameZ];
+    work = m_stMapObjMap[frameX-1][frameZ];
     result.insert(result.end(), work.begin(), work.end());
 
     // 右
-    work = m_mapObjMap[frameX+1][frameZ];
+    work = m_stMapObjMap[frameX+1][frameZ];
     result.insert(result.end(), work.begin(), work.end());
 
     // 左下
-    work = m_mapObjMap[frameX-1][frameZ-1];
+    work = m_stMapObjMap[frameX-1][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
     // 下
-    work = m_mapObjMap[frameX][frameZ-1];
+    work = m_stMapObjMap[frameX][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
     // 右下
-    work = m_mapObjMap[frameX+1][frameZ-1];
+    work = m_stMapObjMap[frameX+1][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
     return result;
 }
 
-std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjListR(const float playerX,
-                                                                              const float playerZ,
-                                                                              const float r)
+std::vector<NSStarmanLib::stMapObj>
+NSStarmanLib::MapObjManager::GetMapObjListR(const float playerX,
+                                            const float playerZ,
+                                            const float r)
 {
-    std::vector<MapObj> result;
+    std::vector<stMapObj> result;
     // プレイヤーのX座標が   0 ~  99 なら格子Xは0
     // プレイヤーのX座標が 100 ~ 199 なら格子Xは1
 
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
 
-    std::vector<MapObj> work;
-    work = m_mapObjMap[frameX][frameZ];
+    std::vector<stMapObj> work;
+    work = m_stMapObjMap[frameX][frameZ];
 
-    std::vector<MapObj> work2;
+    std::vector<stMapObj> work2;
     float r2 = r * r;
     for (int i = 0; i < (int)work.size(); ++i)
     {
-        float x3 = work.at(i).GetX();
-        float z3 = work.at(i).GetZ();
+        float x3 = work.at(i).m_x;
+        float z3 = work.at(i).m_z;
         float r3 = (playerX - x3) * (playerX - x3) + (playerZ - z3) * (playerZ - z3);
         if (r2 > r3)
         {
@@ -352,15 +381,15 @@ std::vector<NSStarmanLib::MapObj> NSStarmanLib::MapObjManager::GetMapObjListR(co
 
 void NSStarmanLib::MapObjManager::GetMapObjListShow(const float playerX,
                                                     const float playerZ,
-                                                    std::vector<MapObj>* needShow)
+                                                    std::vector<stMapObj>* needShow)
 {
     needShow->clear();
 
-    std::vector<MapObj> work = GetMapObjList(playerX, playerZ);
+    std::vector<stMapObj> work = GetMapObjList(playerX, playerZ);
 
     for (int i = 0; i < (int)work.size(); ++i)
     {
-        if (work.at(i).GetShow() == false && work.at(i).GetVisible())
+        if (work.at(i).m_show == false && work.at(i).m_visible)
         {
             needShow->push_back(work.at(i));
         }
@@ -369,7 +398,7 @@ void NSStarmanLib::MapObjManager::GetMapObjListShow(const float playerX,
 
 void NSStarmanLib::MapObjManager::GetMapObjListHide(const float playerX,
                                                     const float playerZ,
-                                                    std::vector<MapObj>* needHide)
+                                                    std::vector<stMapObj>* needHide)
 {
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
@@ -463,10 +492,10 @@ void NSStarmanLib::MapObjManager::GetMapObjListHide(const float playerX,
     {
         int x = target.at(i).x;
         int z = target.at(i).z;
-        std::vector<MapObj> list = m_mapObjMap[x][z];
+        std::vector<stMapObj> list = m_stMapObjMap[x][z];
         for (int j = 0; j < (int)list.size(); ++j)
         {
-            if (list.at(j).GetShow())
+            if (list.at(j).m_show)
             {
                 needHide->push_back(list.at(j));
             }
@@ -518,10 +547,10 @@ void NSStarmanLib::MapObjManager::GetMapObjListHide(const float playerX,
     {
         int x = target.at(i).x;
         int z = target.at(i).z;
-        std::vector<MapObj> list = m_mapObjMap[x][z];
+        std::vector<stMapObj> list = m_stMapObjMap[x][z];
         for (int j = 0; j < (int)list.size(); ++j)
         {
-            if (list.at(j).GetShow() && list.at(j).GetVisible() == false)
+            if (list.at(j).m_show && list.at(j).m_visible == false)
             {
                 needHide->push_back(list.at(j));
             }
@@ -534,17 +563,17 @@ void NSStarmanLib::MapObjManager::SetShow(const int frame_x,
                                           const int id,
                                           const bool show)
 {
-    std::vector<MapObj>& work = m_mapObjMap[frame_x][frame_z];
+    std::vector<stMapObj>& work = m_stMapObjMap[frame_x][frame_z];
     auto it = std::find_if(work.begin(), work.end(),
-                           [&](const MapObj& item)
+                           [&](const stMapObj& item)
                            {
-                               return item.GetId() == id;
+                               return item.m_id == id;
                            });
     if (it == work.end())
     {
         throw std::exception();
     }
-    it->SetShow(show);
+    it->m_show = show;
 }
 
 void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
@@ -552,17 +581,17 @@ void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
                                              const int id,
                                              const bool visible)
 {
-    std::vector<MapObj>& work = m_mapObjMap[frame_x][frame_z];
+    std::vector<stMapObj>& work = m_stMapObjMap[frame_x][frame_z];
     auto it = std::find_if(work.begin(), work.end(),
-                           [&](const MapObj& item)
+                           [&](const stMapObj& item)
                            {
-                               return item.GetId() == id;
+                               return item.m_id == id;
                            });
     if (it == work.end())
     {
         throw std::exception();
     }
-    it->SetVisible(visible);
+    it->m_visible = visible;
 }
 
 std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
