@@ -284,8 +284,41 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vss, encrypt);
 }
 
-void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binfile)
+void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binFile)
 {
+    std::vector<stMapObj> stMapObjList;
+
+    for (auto itX = m_stMapObjMap.begin(); itX != m_stMapObjMap.end(); ++itX)
+    {
+        for (auto itZ = itX->second.begin(); itZ != itX->second.end(); ++itZ)
+        {
+            for (int i = 0; i < (int)itZ->second.size(); ++i)
+            {
+                stMapObjList.push_back(itZ->second.at(i));
+            }
+        }
+    }
+
+    std::sort(stMapObjList.begin(), stMapObjList.end(),
+              [](const stMapObj& x1, const stMapObj& x2)
+              {
+                  return x1.m_id < x2.m_id;
+              });
+
+    std::ofstream outFile(binFile, std::ios::binary);
+    if (outFile.is_open())
+    {
+        size_t size = stMapObjList.size();
+
+        // ベクターサイズを書き込む
+        outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+
+        // データ本体を書き込む
+        outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
+                      static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
+
+        outFile.close();
+    }
 }
 
 void NSStarmanLib::MapObjManager::Destroy()

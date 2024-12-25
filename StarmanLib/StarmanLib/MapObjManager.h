@@ -9,6 +9,9 @@
 namespace NSStarmanLib
 {
 
+// 廃止予定
+// マップデータをクラスで扱うのは重すぎた。
+
 //class MapObj
 //{
 //public:
