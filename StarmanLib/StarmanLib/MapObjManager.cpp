@@ -194,7 +194,6 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
             mapObj.SetVisible(false);
         }
 
-//        m_mapObjMap[frameX][frameZ].push_back(mapObj);
         m_mapObjMap[frameX][frameZ].emplace_back(mapObj);
     }
 }
