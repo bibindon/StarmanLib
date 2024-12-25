@@ -17,3 +17,9 @@
 /StarmanLib/Release/StarmanLibTest.dll
 /StarmanLib/StarmanLib/Release
 /StarmanLib/StarmanLibTest/Release
+/StarmanLib/BinToCsv/Debug
+/StarmanLib/BinToCsvTest/Debug
+/StarmanLib/CsvToBin/Debug
+/StarmanLib/CsvToBinTest/Debug
+/StarmanLib/BinToCsv/Release
+/StarmanLib/CsvToBin/Release
