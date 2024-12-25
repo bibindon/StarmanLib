@@ -35,14 +35,8 @@ public:
     void SetZ(const float arg);
     float GetZ() const;
 
-    void SetRotX(const float arg);
-    float GetRotX() const;
-
     void SetRotY(const float arg);
     float GetRotY() const;
-
-    void SetRotZ(const float arg);
-    float GetRotZ() const;
 
     void SetScale(const float arg);
     float GetScale() const;
@@ -89,6 +83,10 @@ public:
     void Init(const std::string& csvfile,
               const std::string& csvModelId,
               const bool decrypt = false);
+
+    // バイナリファイルで読み書きする
+    void InitWithBinary(const std::string& binfile,
+                        const std::string& csvModelId);
 
     void Save(const std::string& csvfile,
               const bool encrypt = false);

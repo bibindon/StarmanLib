@@ -183,6 +183,18 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
     }
 }
 
+void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binfile, const std::string& csvModelId)
+{
+    {
+        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvModelId, decrypt);
+
+        for (std::size_t i = 1; i < vss.size(); ++i)
+        {
+            m_XnameMap[std::stoi(vss.at(i).at(0))] = vss.at(i).at(1);
+        }
+    }
+}
+
 void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
                                        const bool encrypt)
 {
