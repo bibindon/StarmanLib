@@ -25,34 +25,34 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
                             const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfileBase, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileBase, decrypt);
 
         HumanInfo humanInfo;
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            humanInfo.SetName(vss.at(i).at(1));
+            humanInfo.SetName(vvs.at(i).at(1));
 
             // 「"」記号があれば削除
-            std::string work = vss.at(i).at(2);
+            std::string work = vvs.at(i).at(2);
             work.erase(std::remove(work.begin(), work.end(), '"'), work.end());
 
             humanInfo.SetDetail(work);
-            humanInfo.SetImagePath(vss.at(i).at(3));
+            humanInfo.SetImagePath(vvs.at(i).at(3));
             m_humanInfoMap[humanInfo.GetName()] = humanInfo;
         }
     }
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfileSaved, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileSaved, decrypt);
 
-        if (vss.size() == 0)
+        if (vvs.size() == 0)
         {
             return;
         }
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            std::string name = vss.at(i).at(0);
-            if (vss.at(i).at(1) == "○")
+            std::string name = vvs.at(i).at(0);
+            if (vvs.at(i).at(1) == "○")
             {
                 m_humanInfoMap.at(name).SetVisible(true);
             }
@@ -67,11 +67,11 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
 void HumanInfoManager::Save(const std::string& csvfile,
                             const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("名前");
     vs.push_back("表示");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
@@ -85,11 +85,11 @@ void HumanInfoManager::Save(const std::string& csvfile,
         {
             vs.push_back("");
         }
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 HumanInfo HumanInfoManager::GetHumanInfo(const std::string& name)

@@ -113,37 +113,37 @@ void NpcStatusManager::Destroy()
 void NpcStatusManager::Init(const std::string& csvfile,
                             const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         float work_f = 0.f;
 
         NpcStatus npcStatus;
 
-        npcStatus.SetName(vss.at(i).at(0));
+        npcStatus.SetName(vvs.at(i).at(0));
 
-        work_f = std::stof(vss.at(i).at(1));
+        work_f = std::stof(vvs.at(i).at(1));
         npcStatus.SetCarbo(work_f);
 
-        work_f = std::stof(vss.at(i).at(2));
+        work_f = std::stof(vvs.at(i).at(2));
         npcStatus.SetProtein(work_f);
 
-        work_f = std::stof(vss.at(i).at(3));
+        work_f = std::stof(vvs.at(i).at(3));
         npcStatus.SetLipid(work_f);
 
-        work_f = std::stof(vss.at(i).at(4));
+        work_f = std::stof(vvs.at(i).at(4));
         npcStatus.SetVitamin(work_f);
 
-        work_f = std::stof(vss.at(i).at(5));
+        work_f = std::stof(vvs.at(i).at(5));
         npcStatus.SetMineral(work_f);
 
-        if (vss.at(i).at(6) == "○")
+        if (vvs.at(i).at(6) == "○")
         {
             npcStatus.SetRynenContract();
         }
 
-        if (vss.at(i).at(7) == "○")
+        if (vvs.at(i).at(7) == "○")
         {
             npcStatus.SetDrinkWordbress(true);
         }
@@ -152,7 +152,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetDrinkWordbress(false);
         }
 
-        if (vss.at(i).at(8) == "○")
+        if (vvs.at(i).at(8) == "○")
         {
             npcStatus.SetDead();
         }
@@ -164,7 +164,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
 void NpcStatusManager::Save(const std::string& csvfile,
                             const bool encrypt)
 {
-    std::vector<std::vector<std::string> > vss;
+    std::vector<std::vector<std::string> > vvs;
     std::vector<std::string> vs;
     std::string work;
 
@@ -177,7 +177,7 @@ void NpcStatusManager::Save(const std::string& csvfile,
     vs.push_back("ライネンの契約をしている");
     vs.push_back("ワードブレスを飲んでいる");
     vs.push_back("死んでいる");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     for (auto it = m_NpcStatusMap.begin(); it != m_NpcStatusMap.end(); ++it)
@@ -227,11 +227,11 @@ void NpcStatusManager::Save(const std::string& csvfile,
             vs.push_back("");
         }
 
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 NpcStatus NpcStatusManager::GetNpcStatus(const std::string& name)

@@ -225,81 +225,81 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                        const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int work_i = 0;
             float work_f = 0.f;
 
             ItemDef itemDef;
 
-            work_i = std::stoi(vss.at(i).at(0));
+            work_i = std::stoi(vvs.at(i).at(0));
             itemDef.SetId(work_i);
 
-            itemDef.SetName(vss.at(i).at(1));
+            itemDef.SetName(vvs.at(i).at(1));
 
-            itemDef.SetDetail(vss.at(i).at(2));
+            itemDef.SetDetail(vvs.at(i).at(2));
 
-            itemDef.SetImagePath(vss.at(i).at(3));
+            itemDef.SetImagePath(vvs.at(i).at(3));
 
-            work_f = std::stof(vss.at(i).at(4));
+            work_f = std::stof(vvs.at(i).at(4));
             itemDef.SetWeight(work_f);
 
-            work_f = std::stof(vss.at(i).at(5));
+            work_f = std::stof(vvs.at(i).at(5));
             itemDef.SetVolume(work_f);
 
-            if (vss.at(i).at(6) == "貴重品")
+            if (vvs.at(i).at(6) == "貴重品")
             {
                 itemDef.SetType(ItemDef::ItemType::VALUABLES);
             }
-            else if (vss.at(i).at(6) == "素材")
+            else if (vvs.at(i).at(6) == "素材")
             {
                 itemDef.SetType(ItemDef::ItemType::MATERIAL);
             }
-            else if (vss.at(i).at(6) == "食材")
+            else if (vvs.at(i).at(6) == "食材")
             {
                 itemDef.SetType(ItemDef::ItemType::FOOD);
             }
-            else if (vss.at(i).at(6) == "武器")
+            else if (vvs.at(i).at(6) == "武器")
             {
                 itemDef.SetType(ItemDef::ItemType::WEAPON);
             }
-            else if (vss.at(i).at(6) == "その他")
+            else if (vvs.at(i).at(6) == "その他")
             {
                 itemDef.SetType(ItemDef::ItemType::OTHERS);
             }
 
             if (itemDef.GetType() == ItemDef::ItemType::FOOD)
             {
-                work_f = std::stof(vss.at(i).at(7));
+                work_f = std::stof(vvs.at(i).at(7));
                 itemDef.SetCarbo(work_f);
 
-                work_f = std::stof(vss.at(i).at(8));
+                work_f = std::stof(vvs.at(i).at(8));
                 itemDef.SetProtein(work_f);
 
-                work_f = std::stof(vss.at(i).at(9));
+                work_f = std::stof(vvs.at(i).at(9));
                 itemDef.SetLipid(work_f);
 
-                work_f = std::stof(vss.at(i).at(10));
+                work_f = std::stof(vvs.at(i).at(10));
                 itemDef.SetVitamin(work_f);
 
-                work_f = std::stof(vss.at(i).at(11));
+                work_f = std::stof(vvs.at(i).at(11));
                 itemDef.SetMineral(work_f);
 
-                work_f = std::stof(vss.at(i).at(12));
+                work_f = std::stof(vvs.at(i).at(12));
                 itemDef.SetWater(work_f);
 
-                work_f = std::stof(vss.at(i).at(13));
+                work_f = std::stof(vvs.at(i).at(13));
                 itemDef.SetBodyStaminaDebuff(work_f);
 
-                work_f = std::stof(vss.at(i).at(14));
+                work_f = std::stof(vvs.at(i).at(14));
                 itemDef.SetBrainStaminaDebuff(work_f);
 
-                work_f = std::stof(vss.at(i).at(15));
+                work_f = std::stof(vvs.at(i).at(15));
                 itemDef.SetMuscleDebuff(work_f);
 
-                if (vss.at(i).at(16) == "○")
+                if (vvs.at(i).at(16) == "○")
                 {
                     itemDef.SetHeadache(true);
                 }
@@ -308,7 +308,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                     itemDef.SetHeadache(false);
                 }
 
-                if (vss.at(i).at(17) == "○")
+                if (vvs.at(i).at(17) == "○")
                 {
                     itemDef.SetStomachache(true);
                 }
@@ -319,25 +319,25 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
             }
 
             // 強化値
-            if (vss.at(i).at(18).empty())
+            if (vvs.at(i).at(18).empty())
             {
                 work_i = -1;
             }
             else
             {
-                work_i = std::stoi(vss.at(i).at(18));
+                work_i = std::stoi(vvs.at(i).at(18));
             }
 
             itemDef.SetLevel(work_i);
 
             // 耐久度の最大値（＝初期値）
-            if (vss.at(i).at(19).empty())
+            if (vvs.at(i).at(19).empty())
             {
                 work_i = -1;
             }
             else
             {
-                work_i = std::stoi(vss.at(i).at(19));
+                work_i = std::stoi(vvs.at(i).at(19));
             }
 
             itemDef.SetDurabilityMax(work_i);
@@ -345,9 +345,9 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
         }
     }
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfilePos, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilePos, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int posId = 0;
             int itemDefId = 0;
@@ -357,22 +357,22 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
 
             ItemPos itemPos;
 
-            posId = std::stoi(vss.at(i).at(0));
+            posId = std::stoi(vvs.at(i).at(0));
             itemPos.SetItemPosId(posId);
 
-            itemDefId = std::stoi(vss.at(i).at(1));
+            itemDefId = std::stoi(vvs.at(i).at(1));
             itemPos.SetItemDefId(itemDefId);
 
-            x = std::stof(vss.at(i).at(2));
-            y = std::stof(vss.at(i).at(3));
-            z = std::stof(vss.at(i).at(4));
+            x = std::stof(vvs.at(i).at(2));
+            y = std::stof(vvs.at(i).at(3));
+            z = std::stof(vvs.at(i).at(4));
             itemPos.SetPos(x, y, z);
 
-            if (vss.at(i).at(5) == "○")
+            if (vvs.at(i).at(5) == "○")
             {
                 itemPos.SetObtained(true);
             }
-            else if (vss.at(i).at(5) == "")
+            else if (vvs.at(i).at(5) == "")
             {
                 itemPos.SetObtained(false);
             }
@@ -394,7 +394,7 @@ bool NSStarmanLib::ItemManager::Inited()
 void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
                                      const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
     vs.push_back("アイテムID");
@@ -402,7 +402,7 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
     vs.push_back("Y");
     vs.push_back("Z");
     vs.push_back("取得済み");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     ItemManager* itemManager = ItemManager::GetObj();
@@ -430,11 +430,11 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
             vs.push_back("");
         }
 
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfilePos, vss, encrypt);
+    Util::WriteToCsv(csvfilePos, vvs, encrypt);
 }
 
 std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()

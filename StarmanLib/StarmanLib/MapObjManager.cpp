@@ -244,7 +244,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
                   return x1.m_id < x2.m_id;
               });
 
-    std::vector<std::vector<std::string> > vss;
+    std::vector<std::vector<std::string> > vvs;
     std::vector<std::string> vs;
     std::string work_str;
 
@@ -257,7 +257,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     vs.push_back("RotY");
     vs.push_back("Scale");
     vs.push_back("•\Ž¦");
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     for (int i = 0; i < (int)work.size(); ++i)
     {
@@ -278,10 +278,10 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
             vs.push_back("n");
         }
 
-        vss.push_back(vs);
+        vvs.push_back(vs);
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binFile)

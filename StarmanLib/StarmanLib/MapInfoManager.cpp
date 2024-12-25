@@ -73,13 +73,13 @@ MapInfoManager* MapInfoManager::GetObj()
 void MapInfoManager::Init(const std::string& csvfile,
                           const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         MapInfo mapInfo;
-        mapInfo.SetName(vss.at(i).at(1));
-        if (vss.at(i).at(2) == "○")
+        mapInfo.SetName(vvs.at(i).at(1));
+        if (vvs.at(i).at(2) == "○")
         {
             mapInfo.SetDiscovered(true);
         }
@@ -87,12 +87,12 @@ void MapInfoManager::Init(const std::string& csvfile,
         {
             mapInfo.SetDiscovered(false);
         }
-        mapInfo.SetDetail(vss.at(i).at(3));
-        int x = std::stoi(vss.at(i).at(4));
-        int y = std::stoi(vss.at(i).at(5));
+        mapInfo.SetDetail(vvs.at(i).at(3));
+        int x = std::stoi(vvs.at(i).at(4));
+        int y = std::stoi(vvs.at(i).at(5));
         mapInfo.SetPos(x, y);
 
-        mapInfo.SetImagePath(vss.at(i).at(6));
+        mapInfo.SetImagePath(vvs.at(i).at(6));
         m_mapInfoList.push_back(mapInfo);
     }
 }
@@ -161,7 +161,7 @@ std::string NSStarmanLib::MapInfoManager::GetImagePath(const std::string& name)
 void MapInfoManager::Save(const std::string& csvfile,
                           const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
     vs.push_back("地名");
@@ -170,7 +170,7 @@ void MapInfoManager::Save(const std::string& csvfile,
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("画像ファイル名");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
     {
@@ -196,9 +196,9 @@ void MapInfoManager::Save(const std::string& csvfile,
 
         vs.push_back(m_mapInfoList.at(i).GetImagePath());
 
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }

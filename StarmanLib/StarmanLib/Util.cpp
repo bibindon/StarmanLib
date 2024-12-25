@@ -5,38 +5,38 @@
 std::vector<std::vector<std::string>> Util::ReadFromCsv(const std::string& filename,
                                                         const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
 
     if (decrypt == false)
     {
-        vss = csv::Read(filename);
+        vvs = csv::Read(filename);
     }
     else
     {
         std::string work = CaesarCipher::DecryptFromFile(filename);
-        vss = csv::ReadFromString(work);
+        vvs = csv::ReadFromString(work);
     }
 
-    return vss;
+    return vvs;
 }
 
 void Util::WriteToCsv(const std::string& filename,
-                      const std::vector<std::vector<std::string>>& vss,
+                      const std::vector<std::vector<std::string>>& vvs,
                       const bool encrypt)
 {
     if (encrypt == false)
     {
-        csv::Write(filename, vss);
+        csv::Write(filename, vvs);
     }
     else
     {
         std::stringstream ss;
-        for (std::size_t i = 0; i < vss.size(); ++i)
+        for (std::size_t i = 0; i < vvs.size(); ++i)
         {
-            for (std::size_t j = 0; j < vss.at(i).size(); ++j)
+            for (std::size_t j = 0; j < vvs.at(i).size(); ++j)
             {
-                ss << vss.at(i).at(j);
-                if (j != vss.at(i).size() - 1)
+                ss << vvs.at(i).at(j);
+                if (j != vvs.at(i).size() - 1)
                 {
                     ss << ",";
                 }

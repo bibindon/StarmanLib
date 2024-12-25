@@ -27,42 +27,42 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
                             const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvEnemyDef, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvEnemyDef, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int work_i = 0;
             float work_f = 0.f;
 
             EnemyDef enemyDef;
 
-            work_i = std::stoi(vss.at(i).at(0));
+            work_i = std::stoi(vvs.at(i).at(0));
             enemyDef.SetIDDef(work_i);
 
-            enemyDef.SetName(vss.at(i).at(1));
+            enemyDef.SetName(vvs.at(i).at(1));
 
-            enemyDef.SetDetail(vss.at(i).at(2));
+            enemyDef.SetDetail(vvs.at(i).at(2));
 
-            enemyDef.SetImagePath(vss.at(i).at(3));
+            enemyDef.SetImagePath(vvs.at(i).at(3));
 
             m_enemyDefMap[(int)i] = enemyDef;
         }
     }
 
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvEnemyInfo, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvEnemyInfo, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int work_i = 0;
             float work_f = 0.f;
 
             EnemyInfo enemyInfo;
 
-            work_i = std::stoi(vss.at(i).at(0));
+            work_i = std::stoi(vvs.at(i).at(0));
             enemyInfo.SetID(work_i);
 
-            enemyInfo.SetBreed(vss.at(i).at(1));
+            enemyInfo.SetBreed(vvs.at(i).at(1));
 
             std::string work_str = enemyInfo.GetBreed();
             for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
@@ -75,28 +75,28 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
                 }
             }
 
-            work_f = std::stof(vss.at(i).at(2));
+            work_f = std::stof(vvs.at(i).at(2));
             enemyInfo.SetX(work_f);
 
-            work_f = std::stof(vss.at(i).at(3));
+            work_f = std::stof(vvs.at(i).at(3));
             enemyInfo.SetY(work_f);
 
-            work_f = std::stof(vss.at(i).at(4));
+            work_f = std::stof(vvs.at(i).at(4));
             enemyInfo.SetZ(work_f);
 
-            work_f = std::stof(vss.at(i).at(5));
+            work_f = std::stof(vvs.at(i).at(5));
             enemyInfo.SetRotX(work_f);
 
-            work_f = std::stof(vss.at(i).at(6));
+            work_f = std::stof(vvs.at(i).at(6));
             enemyInfo.SetRotY(work_f);
 
-            work_f = std::stof(vss.at(i).at(7));
+            work_f = std::stof(vvs.at(i).at(7));
             enemyInfo.SetRotZ(work_f);
 
-            work_i = std::stoi(vss.at(i).at(8));
+            work_i = std::stoi(vvs.at(i).at(8));
             enemyInfo.SetHP(work_i);
 
-            if (vss.at(i).at(9) == "○")
+            if (vvs.at(i).at(9) == "○")
             {
                 enemyInfo.SetDefeated(true);
             }
@@ -108,22 +108,22 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
         }
     }
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvEnemyVisible, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvEnemyVisible, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int work_i = 0;
-            work_i = std::stoi(vss.at(i).at(0));
+            work_i = std::stoi(vvs.at(i).at(0));
             if (m_enemyDefMap.find(work_i) == m_enemyDefMap.end())
             {
                 throw std::exception();
             }
 
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_enemyDefMap[work_i].SetVisible(true);
             }
-            else if (vss.at(i).at(2) == "")
+            else if (vvs.at(i).at(2) == "")
             {
                 m_enemyDefMap[work_i].SetVisible(false);
             }
@@ -140,7 +140,7 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
                             const bool encrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss;
+        std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
         vs.push_back("タイプ");
@@ -152,7 +152,7 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
         vs.push_back("RotZ");
         vs.push_back("残りHP");
         vs.push_back("討伐済み");
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
         for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
         {
@@ -173,19 +173,19 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
             {
                 vs.push_back("");
             }
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
         }
 
-        Util::WriteToCsv(csvEnemyInfo, vss, encrypt);
+        Util::WriteToCsv(csvEnemyInfo, vvs, encrypt);
     }
     {
-        std::vector<std::vector<std::string>> vss;
+        std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
         vs.push_back("タイプ");
         vs.push_back("表示・非表示");
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
 
         for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
@@ -201,11 +201,11 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
             {
                 vs.push_back("");
             }
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
         }
 
-        Util::WriteToCsv(csvEvemyVisible, vss, encrypt);
+        Util::WriteToCsv(csvEvemyVisible, vvs, encrypt);
     }
 }
 

@@ -62,9 +62,9 @@ void Rynen::Destroy()
 void Rynen::Init(const std::string& csvfile,
                  const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    if (vss.at(0).at(1) == "○")
+    if (vvs.at(0).at(1) == "○")
     {
         m_contracted = true;
     }
@@ -73,7 +73,7 @@ void Rynen::Init(const std::string& csvfile,
         m_contracted = false;
     }
 
-    if (vss.at(1).at(1) == "○")
+    if (vvs.at(1).at(1) == "○")
     {
         m_reviveEnable = true;
     }
@@ -83,27 +83,27 @@ void Rynen::Init(const std::string& csvfile,
     }
 
     float work_f = 0.f;
-    work_f = std::stof(vss.at(2).at(1));
+    work_f = std::stof(vvs.at(2).at(1));
     m_x = work_f;
 
-    work_f = std::stof(vss.at(3).at(1));
+    work_f = std::stof(vvs.at(3).at(1));
     m_y = work_f;
 
-    work_f = std::stof(vss.at(4).at(1));
+    work_f = std::stof(vvs.at(4).at(1));
     m_z = work_f;
 
     int work_i = 0;
-    work_i = std::stoi(vss.at(5).at(1));
+    work_i = std::stoi(vvs.at(5).at(1));
     m_month = work_i;
 
-    work_i = std::stoi(vss.at(6).at(1));
+    work_i = std::stoi(vvs.at(6).at(1));
     m_day = work_i;
 }
 
 void Rynen::Save(const std::string& csvfile,
                  const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     std::string work;
 
@@ -116,7 +116,7 @@ void Rynen::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("復活可能フラグ");
@@ -128,40 +128,40 @@ void Rynen::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("x");
     work = std::to_string(m_x);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("y");
     work = std::to_string(m_y);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("z");
     work = std::to_string(m_z);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("契約日（月）");
     work = std::to_string(m_month);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     vs.push_back("契約日（日）");
     work = std::to_string(m_day);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 void Rynen::SetContracted(const bool arg)

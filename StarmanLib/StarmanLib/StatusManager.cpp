@@ -379,118 +379,118 @@ void StatusManager::Init(const std::string& csvfile,
         }
     }
 
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
-        if (vss.at(i).at(1) == "体のスタミナ（現在値）")
+        if (vvs.at(i).at(1) == "体のスタミナ（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaCurrent(value);
         }
-        else if (vss.at(i).at(1) == "体のスタミナ（最大値）")
+        else if (vvs.at(i).at(1) == "体のスタミナ（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMax(value);
         }
-        else if (vss.at(i).at(1) == "体のスタミナ（回復可能値）")
+        else if (vvs.at(i).at(1) == "体のスタミナ（回復可能値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMaxSub(value);
         }
-        else if (vss.at(i).at(1) == "脳のスタミナ（現在値）")
+        else if (vvs.at(i).at(1) == "脳のスタミナ（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaCurrent(value);
         }
-        else if (vss.at(i).at(1) == "脳のスタミナ（最大値）")
+        else if (vvs.at(i).at(1) == "脳のスタミナ（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMax(value);
         }
-        else if (vss.at(i).at(1) == "脳のスタミナ（回復可能値）")
+        else if (vvs.at(i).at(1) == "脳のスタミナ（回復可能値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMaxSub(value);
         }
-        else if (vss.at(i).at(1) == "瞬発力")
+        else if (vvs.at(i).at(1) == "瞬発力")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetExplosivePower(value);
         }
-        else if (vss.at(i).at(1) == "肉体の修復度（現在値）")
+        else if (vvs.at(i).at(1) == "肉体の修復度（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleCurrent(value);
         }
-        else if (vss.at(i).at(1) == "肉体の修復度（最大値）")
+        else if (vvs.at(i).at(1) == "肉体の修復度（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleMax(value);
         }
-        else if (vss.at(i).at(1) == "糖質（現在値）")
+        else if (vvs.at(i).at(1) == "糖質（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboCurrent(value);
         }
-        else if (vss.at(i).at(1) == "糖質（最大値）")
+        else if (vvs.at(i).at(1) == "糖質（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboMax(value);
         }
-        else if (vss.at(i).at(1) == "タンパク質（現在値）")
+        else if (vvs.at(i).at(1) == "タンパク質（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinCurrent(value);
         }
-        else if (vss.at(i).at(1) == "タンパク質（最大値）")
+        else if (vvs.at(i).at(1) == "タンパク質（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinMax(value);
         }
-        else if (vss.at(i).at(1) == "脂質（現在値）")
+        else if (vvs.at(i).at(1) == "脂質（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidCurrent(value);
         }
-        else if (vss.at(i).at(1) == "脂質（最大値）")
+        else if (vvs.at(i).at(1) == "脂質（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidMax(value);
         }
-        else if (vss.at(i).at(1) == "ビタミン（現在値）")
+        else if (vvs.at(i).at(1) == "ビタミン（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminCurrent(value);
         }
-        else if (vss.at(i).at(1) == "ビタミン（最大値）")
+        else if (vvs.at(i).at(1) == "ビタミン（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminMax(value);
         }
-        else if (vss.at(i).at(1) == "ミネラル（現在値）")
+        else if (vvs.at(i).at(1) == "ミネラル（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralCurrent(value);
         }
-        else if (vss.at(i).at(1) == "ミネラル（最大値）")
+        else if (vvs.at(i).at(1) == "ミネラル（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralMax(value);
         }
-        else if (vss.at(i).at(1) == "水分（現在値）")
+        else if (vvs.at(i).at(1) == "水分（現在値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterCurrent(value);
         }
-        else if (vss.at(i).at(1) == "水分（最大値）")
+        else if (vvs.at(i).at(1) == "水分（最大値）")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterMax(value);
         }
-        else if (vss.at(i).at(1) == "腕骨折")
+        else if (vvs.at(i).at(1) == "腕骨折")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetFractureArm(true);
             }
@@ -499,9 +499,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureArm(false);
             }
         }
-        else if (vss.at(i).at(1) == "足骨折")
+        else if (vvs.at(i).at(1) == "足骨折")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetFractureLeg(true);
             }
@@ -510,9 +510,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureLeg(false);
             }
         }
-        else if (vss.at(i).at(1) == "頭痛")
+        else if (vvs.at(i).at(1) == "頭痛")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetHeadache(true);
             }
@@ -521,9 +521,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetHeadache(false);
             }
         }
-        else if (vss.at(i).at(1) == "風邪")
+        else if (vvs.at(i).at(1) == "風邪")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetCold(true);
             }
@@ -532,9 +532,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetCold(false);
             }
         }
-        else if (vss.at(i).at(1) == "腹痛")
+        else if (vvs.at(i).at(1) == "腹痛")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetStomachache(true);
             }
@@ -543,9 +543,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetStomachache(false);
             }
         }
-        else if (vss.at(i).at(1) == "睡眠")
+        else if (vvs.at(i).at(1) == "睡眠")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetSleep(true);
             }
@@ -554,9 +554,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetSleep(false);
             }
         }
-        else if (vss.at(i).at(1) == "脱水症状")
+        else if (vvs.at(i).at(1) == "脱水症状")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetDehydration(true);
             }
@@ -565,9 +565,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetDehydration(false);
             }
         }
-        else if (vss.at(i).at(1) == "睡眠不足")
+        else if (vvs.at(i).at(1) == "睡眠不足")
         {
-            if (vss.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == "○")
             {
                 m_status.SetLackOfSleep(true);
             }
@@ -576,29 +576,29 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetLackOfSleep(false);
             }
         }
-        else if (vss.at(i).at(1) == "装備武器ID")
+        else if (vvs.at(i).at(1) == "装備武器ID")
         {
             ItemInfo itemInfo;
-            if (vss.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == "")
             {
                 itemInfo.SetId(-1);
             }
             else
             {
-                int work = std::stoi(vss.at(i).at(2));
+                int work = std::stoi(vvs.at(i).at(2));
                 itemInfo.SetId(work);
             }
             m_EquipWeapon = itemInfo;
         }
-        else if (vss.at(i).at(1) == "装備武器SubID")
+        else if (vvs.at(i).at(1) == "装備武器SubID")
         {
-            if (vss.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == "")
             {
                 m_EquipWeapon.SetSubId(-1);
             }
             else
             {
-                int work = std::stoi(vss.at(i).at(2));
+                int work = std::stoi(vvs.at(i).at(2));
                 m_EquipWeapon.SetSubId(work);
 
                 Inventory* inventory = Inventory::GetObj();
@@ -606,19 +606,19 @@ void StatusManager::Init(const std::string& csvfile,
                 m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
             }
         }
-        else if (vss.at(i).at(1) == "x")
+        else if (vvs.at(i).at(1) == "x")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetX(value);
         }
-        else if (vss.at(i).at(1) == "y")
+        else if (vvs.at(i).at(1) == "y")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetY(value);
         }
-        else if (vss.at(i).at(1) == "z")
+        else if (vvs.at(i).at(1) == "z")
         {
-            float value = std::stof(vss.at(i).at(2));
+            float value = std::stof(vvs.at(i).at(2));
             m_status.SetZ(value);
         }
     }
@@ -1021,7 +1021,7 @@ void StatusManager::Save(const std::string& csvfile,
                          const float player_z,
                          const bool encrypt)
 {
-    std::vector<std::vector<std::string> > vss;
+    std::vector<std::vector<std::string> > vvs;
     std::vector<std::string> vs;
     std::string work;
 
@@ -1029,154 +1029,154 @@ void StatusManager::Save(const std::string& csvfile,
     vs.push_back("ID");
     vs.push_back("ステータス名");
     vs.push_back("値");
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("1");
     vs.push_back("体のスタミナ（現在値）");
     work = std::to_string(m_status.GetBodyStaminaCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("2");
     vs.push_back("体のスタミナ（最大値）");
     work = std::to_string(m_status.GetBodyStaminaMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("3");
     vs.push_back("体のスタミナ（回復可能値）");
     work = std::to_string(m_status.GetBodyStaminaMaxSub());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("4");
     vs.push_back("脳のスタミナ（現在値）");
     work = std::to_string(m_status.GetBrainStaminaCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("5");
     vs.push_back("脳のスタミナ（最大値）");
     work = std::to_string(m_status.GetBrainStaminaMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("6");
     vs.push_back("脳のスタミナ（回復可能値）");
     work = std::to_string(m_status.GetBrainStaminaMaxSub());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("7");
     vs.push_back("瞬発力");
     work = std::to_string(m_status.GetExplosivePower());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("8");
     vs.push_back("肉体の修復度（現在値）");
     work = std::to_string(m_status.GetMuscleCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("9");
     vs.push_back("肉体の修復度（最大値）");
     work = std::to_string(m_status.GetMuscleMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("10");
     vs.push_back("糖質（現在値）");
     work = std::to_string(m_status.GetCarboCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("11");
     vs.push_back("糖質（最大値）");
     work = std::to_string(m_status.GetCarboMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("12");
     vs.push_back("タンパク質（現在値）");
     work = std::to_string(m_status.GetProteinCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("13");
     vs.push_back("タンパク質（最大値）");
     work = std::to_string(m_status.GetProteinMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("14");
     vs.push_back("脂質（現在値）");
     work = std::to_string(m_status.GetLipidCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("15");
     vs.push_back("脂質（最大値）");
     work = std::to_string(m_status.GetLipidMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("16");
     vs.push_back("ビタミン（現在値）");
     work = std::to_string(m_status.GetVitaminCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("17");
     vs.push_back("ビタミン（最大値）");
     work = std::to_string(m_status.GetVitaminMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("18");
     vs.push_back("ミネラル（現在値）");
     work = std::to_string(m_status.GetMineralCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("19");
     vs.push_back("ミネラル（最大値）");
     work = std::to_string(m_status.GetMineralMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("20");
     vs.push_back("水分（現在値）");
     work = std::to_string(m_status.GetWaterCurrent());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("21");
     vs.push_back("水分（最大値）");
     work = std::to_string(m_status.GetWaterMax());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("22");
@@ -1189,7 +1189,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("23");
@@ -1202,7 +1202,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("24");
@@ -1215,7 +1215,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("25");
@@ -1228,7 +1228,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("26");
@@ -1241,7 +1241,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("27");
@@ -1254,7 +1254,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("28");
@@ -1267,7 +1267,7 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("29");
@@ -1280,44 +1280,44 @@ void StatusManager::Save(const std::string& csvfile,
     {
         vs.push_back("");
     }
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("30");
     vs.push_back("装備武器ID");
     work = std::to_string(GetEquipWeapon().GetId());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("31");
     vs.push_back("装備武器SubID");
     work = std::to_string(GetEquipWeapon().GetSubId());
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("32");
     vs.push_back("x");
     work = std::to_string(player_x);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("33");
     vs.push_back("y");
     work = std::to_string(player_y);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("34");
     vs.push_back("z");
     work = std::to_string(player_z);
     vs.push_back(work);
-    vss.push_back(vs);
+    vvs.push_back(vs);
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 // TODO

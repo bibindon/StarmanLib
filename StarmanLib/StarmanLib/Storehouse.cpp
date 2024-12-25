@@ -36,22 +36,22 @@ void Storehouse::Init(const std::string& csvfile,
         }
     }
 
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         ItemInfo itemInfo;
         int id = 0;
         int subId = 0;
         int durability = 0;
 
-        id = std::stoi(vss.at(i).at(0));
+        id = std::stoi(vvs.at(i).at(0));
         itemInfo.SetId(id);
 
-        subId = std::stoi(vss.at(i).at(2));
+        subId = std::stoi(vvs.at(i).at(2));
         itemInfo.SetSubId(subId);
 
-        durability = std::stoi(vss.at(i).at(3));
+        durability = std::stoi(vvs.at(i).at(3));
         itemInfo.SetDurabilityCurrent(durability);
 
         m_itemInfoList.push_back(itemInfo);
@@ -69,13 +69,13 @@ bool NSStarmanLib::Storehouse::Inited()
 void Storehouse::Save(const std::string& csvfile,
                       const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
     vs.push_back("アイテム名");
     vs.push_back("SubID");
     vs.push_back("耐久度");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     ItemManager* itemManager = ItemManager::GetObj();
@@ -89,11 +89,11 @@ void Storehouse::Save(const std::string& csvfile,
 
         vs.push_back(std::to_string(it->GetSubId()));
         vs.push_back(std::to_string(it->GetDurabilityCurrent()));
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 void Storehouse::AddItem(const int id, const int durability)

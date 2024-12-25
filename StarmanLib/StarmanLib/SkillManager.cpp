@@ -66,48 +66,48 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
                         const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfileDefinition, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
 
         SkillDefinition skillDefinition;
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            skillDefinition.SetName(vss.at(i).at(0));
-            skillDefinition.SetDetail(vss.at(i).at(1));
-            skillDefinition.SetDamage(0, std::stof(vss.at(i).at(2)));
-            skillDefinition.SetDamage(1, std::stof(vss.at(i).at(3)));
-            skillDefinition.SetDamage(2, std::stof(vss.at(i).at(4)));
-            skillDefinition.SetDamage(3, std::stof(vss.at(i).at(5)));
-            skillDefinition.SetDamage(4, std::stof(vss.at(i).at(6)));
-            skillDefinition.SetDamage(5, std::stof(vss.at(i).at(7)));
-            skillDefinition.SetDamage(6, std::stof(vss.at(i).at(8)));
-            skillDefinition.SetDamage(7, std::stof(vss.at(i).at(9)));
-            skillDefinition.SetDamage(8, std::stof(vss.at(i).at(10)));
-            skillDefinition.SetDamage(9, std::stof(vss.at(i).at(11)));
-            skillDefinition.SetDamage(10, std::stof(vss.at(i).at(12)));
+            skillDefinition.SetName(vvs.at(i).at(0));
+            skillDefinition.SetDetail(vvs.at(i).at(1));
+            skillDefinition.SetDamage(0, std::stof(vvs.at(i).at(2)));
+            skillDefinition.SetDamage(1, std::stof(vvs.at(i).at(3)));
+            skillDefinition.SetDamage(2, std::stof(vvs.at(i).at(4)));
+            skillDefinition.SetDamage(3, std::stof(vvs.at(i).at(5)));
+            skillDefinition.SetDamage(4, std::stof(vvs.at(i).at(6)));
+            skillDefinition.SetDamage(5, std::stof(vvs.at(i).at(7)));
+            skillDefinition.SetDamage(6, std::stof(vvs.at(i).at(8)));
+            skillDefinition.SetDamage(7, std::stof(vvs.at(i).at(9)));
+            skillDefinition.SetDamage(8, std::stof(vvs.at(i).at(10)));
+            skillDefinition.SetDamage(9, std::stof(vvs.at(i).at(11)));
+            skillDefinition.SetDamage(10, std::stof(vvs.at(i).at(12)));
 
-            skillDefinition.SetRange(0, std::stof(vss.at(i).at(13)));
-            skillDefinition.SetRange(1, std::stof(vss.at(i).at(14)));
-            skillDefinition.SetRange(2, std::stof(vss.at(i).at(15)));
-            skillDefinition.SetRange(3, std::stof(vss.at(i).at(16)));
-            skillDefinition.SetRange(4, std::stof(vss.at(i).at(17)));
-            skillDefinition.SetRange(5, std::stof(vss.at(i).at(18)));
-            skillDefinition.SetRange(6, std::stof(vss.at(i).at(19)));
-            skillDefinition.SetRange(7, std::stof(vss.at(i).at(20)));
-            skillDefinition.SetRange(8, std::stof(vss.at(i).at(21)));
-            skillDefinition.SetRange(9, std::stof(vss.at(i).at(22)));
-            skillDefinition.SetRange(10, std::stof(vss.at(i).at(23)));
+            skillDefinition.SetRange(0, std::stof(vvs.at(i).at(13)));
+            skillDefinition.SetRange(1, std::stof(vvs.at(i).at(14)));
+            skillDefinition.SetRange(2, std::stof(vvs.at(i).at(15)));
+            skillDefinition.SetRange(3, std::stof(vvs.at(i).at(16)));
+            skillDefinition.SetRange(4, std::stof(vvs.at(i).at(17)));
+            skillDefinition.SetRange(5, std::stof(vvs.at(i).at(18)));
+            skillDefinition.SetRange(6, std::stof(vvs.at(i).at(19)));
+            skillDefinition.SetRange(7, std::stof(vvs.at(i).at(20)));
+            skillDefinition.SetRange(8, std::stof(vvs.at(i).at(21)));
+            skillDefinition.SetRange(9, std::stof(vvs.at(i).at(22)));
+            skillDefinition.SetRange(10, std::stof(vvs.at(i).at(23)));
             m_skillLevelMap[skillDefinition.GetName()] = skillDefinition;
         }
     }
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfilePlayer, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilePlayer, decrypt);
 
         int work = 0;
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            work = std::stoi(vss.at(i).at(1));
-            m_playerSkillLevelMap[vss.at(i).at(0)] = work;
+            work = std::stoi(vvs.at(i).at(1));
+            m_playerSkillLevelMap[vvs.at(i).at(0)] = work;
         }
     }
 }
@@ -115,24 +115,24 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
 void SkillManager::Save(const std::string& csvfile,
                         const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     std::string work;
 
     vs.push_back("–¼Ì");
     vs.push_back("ƒŒƒxƒ‹");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
 
     for (auto it = m_playerSkillLevelMap.begin(); it != m_playerSkillLevelMap.end(); ++it)
     {
         vs.push_back(it->first);
         vs.push_back(std::to_string(it->second));
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 void SkillManager::SetSkillLevel(const std::string& skillName, const int skillLevel)

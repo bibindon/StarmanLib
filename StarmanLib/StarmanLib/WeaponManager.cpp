@@ -39,42 +39,42 @@ void WeaponManager::Init(const std::string& csvfilename,
 
     // 武器データを読む
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfilename, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilename, decrypt);
 
         // 先頭行は無視
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             WeaponDef weaponDef;
-            weaponDef.SetWeaponId(vss.at(i).at(0));
-            weaponDef.SetName(vss.at(i).at(1));
-            weaponDef.SetDetail(vss.at(i).at(2));
-            weaponDef.SetXfileName(vss.at(i).at(3));
-            weaponDef.SetImageName(vss.at(i).at(4));
-            weaponDef.SetWeight(atof(vss.at(i).at(5).c_str()));
-            weaponDef.SetVolume(atoi(vss.at(i).at(6).c_str()));
-            weaponDef.SetReinforceMax(atoi(vss.at(i).at(7).c_str()));
-            weaponDef.SetAttackRate(atof(vss.at(i).at(8).c_str()));
-            weaponDef.SetAttackRateUp(atof(vss.at(i).at(9).c_str()));
+            weaponDef.SetWeaponId(vvs.at(i).at(0));
+            weaponDef.SetName(vvs.at(i).at(1));
+            weaponDef.SetDetail(vvs.at(i).at(2));
+            weaponDef.SetXfileName(vvs.at(i).at(3));
+            weaponDef.SetImageName(vvs.at(i).at(4));
+            weaponDef.SetWeight(atof(vvs.at(i).at(5).c_str()));
+            weaponDef.SetVolume(atoi(vvs.at(i).at(6).c_str()));
+            weaponDef.SetReinforceMax(atoi(vvs.at(i).at(7).c_str()));
+            weaponDef.SetAttackRate(atof(vvs.at(i).at(8).c_str()));
+            weaponDef.SetAttackRateUp(atof(vvs.at(i).at(9).c_str()));
 
-            weaponDef.SetFlightDistance(atof(vss.at(i).at(10).c_str()));
-            weaponDef.SetFlightDistanceUp(atof(vss.at(i).at(11).c_str()));
-            weaponDef.SetStaminaDown(atof(vss.at(i).at(12).c_str()));
-            weaponDef.SetDurability(atoi(vss.at(i).at(13).c_str()));
-            weaponDef.SetDurabilityUp(atoi(vss.at(i).at(14).c_str()));
-            weaponDef.SetOwnDamage(atoi(vss.at(i).at(15).c_str()));
+            weaponDef.SetFlightDistance(atof(vvs.at(i).at(10).c_str()));
+            weaponDef.SetFlightDistanceUp(atof(vvs.at(i).at(11).c_str()));
+            weaponDef.SetStaminaDown(atof(vvs.at(i).at(12).c_str()));
+            weaponDef.SetDurability(atoi(vvs.at(i).at(13).c_str()));
+            weaponDef.SetDurabilityUp(atoi(vvs.at(i).at(14).c_str()));
+            weaponDef.SetOwnDamage(atoi(vvs.at(i).at(15).c_str()));
 
             m_weaponDefMap[weaponDef.GetWeaponId()] = weaponDef;
         }
     }
     // 保存された武器の情報を読み込む
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(savefilename, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(savefilename, decrypt);
 
         // 先頭行は無視
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            std::string id = vss.at(i).at(0);
-            std::string isShow = vss.at(i).at(1);
+            std::string id = vvs.at(i).at(0);
+            std::string isShow = vvs.at(i).at(1);
 
             if (m_weaponDefMap.find(id) == m_weaponDefMap.end())
             {
@@ -163,11 +163,11 @@ void WeaponManager::Save(const std::string& savefilename,
                          const bool encrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss;
+        std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
         vs.push_back("表示・非表示");
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
         auto itBegin = m_weaponDefMap.begin();
         auto itEnd = m_weaponDefMap.end();
@@ -182,11 +182,11 @@ void WeaponManager::Save(const std::string& savefilename,
             {
                 vs.push_back("false");
             }
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
         }
 
-        Util::WriteToCsv(savefilename, vss, encrypt);
+        Util::WriteToCsv(savefilename, vvs, encrypt);
     }
 }
 

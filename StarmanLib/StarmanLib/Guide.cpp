@@ -58,15 +58,15 @@ Guide* Guide::GetObj()
 void Guide::Init(const std::string& csvfile,
                  const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         GuideItem guideItem;
-        guideItem.SetCategory(vss.at(i).at(1));
-        guideItem.SetSubCategory(vss.at(i).at(2));
-        guideItem.SetText(vss.at(i).at(3));
-        if (vss.at(i).at(4) == "Åõ")
+        guideItem.SetCategory(vvs.at(i).at(1));
+        guideItem.SetSubCategory(vvs.at(i).at(2));
+        guideItem.SetText(vvs.at(i).at(3));
+        if (vvs.at(i).at(4) == "Åõ")
         {
             guideItem.SetVisible(true);
         }
@@ -159,14 +159,14 @@ void Guide::SetVisible(const std::string& category, const std::string& subCatego
 void Guide::Save(const std::string& csvfile,
                  const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vss;
+    std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
     vs.push_back("ëÂï™óﬁ");
     vs.push_back("è¨ï™óﬁ");
     vs.push_back("ê‡ñæï∂");
     vs.push_back("ï\é¶çœÇ›");
-    vss.push_back(vs);
+    vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
@@ -187,9 +187,9 @@ void Guide::Save(const std::string& csvfile,
         {
             vs.push_back("");
         }
-        vss.push_back(vs);
+        vvs.push_back(vs);
         vs.clear();
     }
 
-    Util::WriteToCsv(csvfile, vss, encrypt);
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }

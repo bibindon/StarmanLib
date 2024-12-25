@@ -10,7 +10,7 @@ public:
         ReadFromCsv(const std::string& filename, const bool decrypt);
 
     static void WriteToCsv(const std::string& filename,
-                           const std::vector<std::vector<std::string>>& vss,
+                           const std::vector<std::vector<std::string>>& vvs,
                            const bool encrypt);
 };
 

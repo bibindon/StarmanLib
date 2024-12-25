@@ -26,22 +26,22 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 {
     ItemManager* itemManager = ItemManager::GetObj();
 
-    std::vector<std::vector<std::string> > vss = Util::ReadFromCsv(csvfileDefinition, decrypt);
+    std::vector<std::vector<std::string> > vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
 
-    for (std::size_t i = 1; i < vss.size(); ++i)
+    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         CraftInfo craftInfo;
         CraftOutput craftOutput;
         int work_i = 0;
 
-        craftOutput.SetName(vss.at(i).at(1));
+        craftOutput.SetName(vvs.at(i).at(1));
 
-        work_i = std::stoi(vss.at(i).at(2));
+        work_i = std::stoi(vvs.at(i).at(2));
         craftOutput.SetNumber(work_i);
 
-        if (vss.at(i).at(3).empty() == false)
+        if (vvs.at(i).at(3).empty() == false)
         {
-            work_i = std::stoi(vss.at(i).at(3));
+            work_i = std::stoi(vvs.at(i).at(3));
             craftOutput.SetLevel(work_i);
         }
         else
@@ -58,19 +58,19 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 
             // 必要素材が5種類の時もあれば1種類の時もある。
             // 必要素材の名前が空なら、もはや必要な素材はないということ
-            if (vss.at(i).at(4 + (j * 3)).empty())
+            if (vvs.at(i).at(4 + (j * 3)).empty())
             {
                 break;
             }
 
-            craftMaterial.SetName(vss.at(i).at(4 + (j * 3)));
+            craftMaterial.SetName(vvs.at(i).at(4 + (j * 3)));
 
-            work_i = std::stoi(vss.at(i).at(5 + (j * 3)));
+            work_i = std::stoi(vvs.at(i).at(5 + (j * 3)));
             craftMaterial.SetNumber(work_i);
 
-            if (vss.at(i).at(6 + (j * 3)).empty() == false)
+            if (vvs.at(i).at(6 + (j * 3)).empty() == false)
             {
-                work_i = std::stoi(vss.at(i).at(6 + (j * 3)));
+                work_i = std::stoi(vvs.at(i).at(6 + (j * 3)));
                 craftMaterial.SetLevel(work_i);
             }
             else
