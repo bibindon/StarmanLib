@@ -69,6 +69,28 @@ private:
     bool m_visible = false;
 };
 
+// MapObjが大量に必要となるため構造体を使い高速化を計る
+struct stMapObj
+{
+    int m_id = 0;
+
+    int m_frameX = 0;
+    int m_frameZ = 0;
+
+    int m_modelId;
+
+    float m_x = 0.f;
+    float m_y = 0.f;
+    float m_z = 0.f;
+
+    float m_yRot = 0.f;
+
+    float m_scale = 0.f;
+
+    bool m_show = false;
+    bool m_visible = false;
+};
+
 // 全部調べたら大変負荷が重くなるので100メートルごとの格子を考える。
 // マップを100メートルごとの格子で分割し、自分がいる格子とその周りの8つの格子だけを処理する
 //
@@ -86,7 +108,8 @@ public:
 
     // バイナリファイルで読み書きする
     void InitWithBinary(const std::string& binfile,
-                        const std::string& csvModelId);
+                        const std::string& csvModelId,
+                        const bool decrypt = false);
 
     void Save(const std::string& csvfile,
               const bool encrypt = false);
@@ -124,11 +147,15 @@ private:
     // m_mapObjMap[10][20] これは1000m ~ 1100m, 2000m ~ 2100mの範囲の3Ｄモデルのリストを意味する
     std::unordered_map<int, std::unordered_map<int, std::vector<MapObj>>> m_mapObjMap;
 
+    std::unordered_map<int, std::unordered_map<int, std::vector<stMapObj>>> m_stMapObjMap;
+
     // モデルの配置情報は巨大なためファイル名をそのまま扱うととてつもなく巨大になってしまう。
     // tree.x -> 1
     // rock.x -> 2
     // のような識別子を与えるようにする
     std::unordered_map<int, std::string> m_XnameMap;
+
+    bool m_bBinData = false;
 };
 
 }

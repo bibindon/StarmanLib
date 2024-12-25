@@ -128,40 +128,40 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
                                        const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvfile, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             MapObj mapObj;
 
-            mapObj.SetId(std::stoi(vss.at(i).at(0)));
+            mapObj.SetId(std::stoi(vvs.at(i).at(0)));
 
-            mapObj.SetModelId(std::stoi(vss.at(i).at(1)));
+            mapObj.SetModelId(std::stoi(vvs.at(i).at(1)));
 
             float work = 0.f;
 
-            work = std::stof(vss.at(i).at(2));
+            work = std::stof(vvs.at(i).at(2));
             mapObj.SetX(work);
 
             int frameX = (int)work / 100;
             mapObj.SetFrameX(frameX);
 
-            work = std::stof(vss.at(i).at(3));
+            work = std::stof(vvs.at(i).at(3));
             mapObj.SetY(work);
 
-            work = std::stof(vss.at(i).at(4));
+            work = std::stof(vvs.at(i).at(4));
             mapObj.SetZ(work);
 
             int frameZ = (int)work / 100;
             mapObj.SetFrameZ(frameZ);
 
-            work = std::stof(vss.at(i).at(5));
+            work = std::stof(vvs.at(i).at(5));
             mapObj.SetRotY(work);
 
-            work = std::stof(vss.at(i).at(6));
+            work = std::stof(vvs.at(i).at(6));
             mapObj.SetScale(work);
 
-            if (vss.at(i).at(7) == "y")
+            if (vvs.at(i).at(7) == "y")
             {
                 mapObj.SetVisible(true);
             }
@@ -174,23 +174,27 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
         }
     }
     {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvModelId, decrypt);
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            m_XnameMap[std::stoi(vss.at(i).at(0))] = vss.at(i).at(1);
+            m_XnameMap[std::stoi(vvs.at(i).at(0))] = vvs.at(i).at(1);
         }
     }
 }
 
-void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binfile, const std::string& csvModelId)
+void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binfile,
+                                                 const std::string& csvModelId,
+                                                 const bool decrypt)
 {
-    {
-        std::vector<std::vector<std::string>> vss = Util::ReadFromCsv(csvModelId, decrypt);
+    // TODO binÉfÅ[É^ÇÃì«Ç›çûÇ›
 
-        for (std::size_t i = 1; i < vss.size(); ++i)
+    {
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
+
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            m_XnameMap[std::stoi(vss.at(i).at(0))] = vss.at(i).at(1);
+            m_XnameMap[std::stoi(vvs.at(i).at(0))] = vvs.at(i).at(1);
         }
     }
 }
