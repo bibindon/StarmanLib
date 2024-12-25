@@ -34,7 +34,7 @@ public:
         std::istreambuf_iterator<char> itBegin(ifs);
         std::istreambuf_iterator<char> itEnd;
 
-        for (; itBegin != itEnd; itBegin++)
+        for (; itBegin != itEnd; ++itBegin)
         {
             if (*itBegin != ',' && *itBegin != '\n')
             {
