@@ -67,9 +67,7 @@ private:
     float m_y = 0.f;
     float m_z = 0.f;
 
-    float m_xRot = 0.f;
     float m_yRot = 0.f;
-    float m_zRot = 0.f;
 
     float m_scale = 0.f;
 

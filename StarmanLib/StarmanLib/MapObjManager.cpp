@@ -74,16 +74,6 @@ float NSStarmanLib::MapObj::GetZ() const
     return m_z;
 }
 
-void NSStarmanLib::MapObj::SetRotX(const float arg)
-{
-    m_xRot = arg;
-}
-
-float NSStarmanLib::MapObj::GetRotX() const
-{
-    return m_xRot;
-}
-
 void NSStarmanLib::MapObj::SetRotY(const float arg)
 {
     m_yRot = arg;
@@ -92,16 +82,6 @@ void NSStarmanLib::MapObj::SetRotY(const float arg)
 float NSStarmanLib::MapObj::GetRotY() const
 {
     return m_yRot;
-}
-
-void NSStarmanLib::MapObj::SetRotZ(const float arg)
-{
-    m_zRot = arg;
-}
-
-float NSStarmanLib::MapObj::GetRotZ() const
-{
-    return m_zRot;
 }
 
 void NSStarmanLib::MapObj::SetScale(const float arg)
@@ -176,18 +156,12 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
             mapObj.SetFrameZ(frameZ);
 
             work = std::stof(vss.at(i).at(5));
-            mapObj.SetRotX(work);
-
-            work = std::stof(vss.at(i).at(6));
             mapObj.SetRotY(work);
 
-            work = std::stof(vss.at(i).at(7));
-            mapObj.SetRotZ(work);
-
-            work = std::stof(vss.at(i).at(8));
+            work = std::stof(vss.at(i).at(6));
             mapObj.SetScale(work);
 
-            if (vss.at(i).at(9) == "Åõ")
+            if (vss.at(i).at(7) == "y")
             {
                 mapObj.SetVisible(true);
             }
@@ -241,9 +215,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("Z");
-    vs.push_back("RotX");
     vs.push_back("RotY");
-    vs.push_back("RotZ");
     vs.push_back("Scale");
     vs.push_back("ï\é¶");
     vss.push_back(vs);
@@ -256,17 +228,15 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
         vs.push_back(std::to_string(work.at(i).GetX()));
         vs.push_back(std::to_string(work.at(i).GetY()));
         vs.push_back(std::to_string(work.at(i).GetZ()));
-        vs.push_back(std::to_string(work.at(i).GetRotX()));
         vs.push_back(std::to_string(work.at(i).GetRotY()));
-        vs.push_back(std::to_string(work.at(i).GetRotZ()));
         vs.push_back(std::to_string(work.at(i).GetScale()));
         if (work.at(i).GetVisible())
         {
-            vs.push_back("Åõ");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         vss.push_back(vs);
