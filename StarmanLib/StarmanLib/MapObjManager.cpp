@@ -208,7 +208,7 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
 
         for (auto it = stMapObjList.begin(); it != stMapObjList.end(); ++it)
         {
-            m_stMapObjMap[it->m_frameX][it->m_frameX].emplace_back(*it);
+            m_stMapObjMap[it->m_frameX][it->m_frameZ].emplace_back(*it);
         }
     }
 
