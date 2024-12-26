@@ -31,13 +31,13 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int work_i = 0;
+            int id = 0;
             float work_f = 0.f;
 
             EnemyDef enemyDef;
 
-            work_i = std::stoi(vvs.at(i).at(0));
-            enemyDef.SetIDDef(work_i);
+            id = std::stoi(vvs.at(i).at(0));
+            enemyDef.SetIDDef(id);
 
             enemyDef.SetName(vvs.at(i).at(1));
 
@@ -45,7 +45,7 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
 
             enemyDef.SetImagePath(vvs.at(i).at(3));
 
-            m_enemyDefMap[(int)i] = enemyDef;
+            m_enemyDefMap[id] = enemyDef;
         }
     }
 
