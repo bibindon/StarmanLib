@@ -214,17 +214,18 @@ std::vector<EnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
                                                   const float z,
                                                   const float r)
 {
+    // ãÖÇ≈îªíËÇ∑ÇÈÇ∆èdÇ¢ÇÃÇ≈óßï˚ëÃÇ≈îªíËÇ∑ÇÈ
     std::vector<EnemyInfo> enemyInfoList;
     for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
     {
         float dx = it->second.GetX() - x;
-        float dy = it->second.GetY() - y;
-        float dz = it->second.GetZ() - z;
-
-        float distance = std::sqrt(dx * dx + dy * dy + dz * dz);
-        if (distance <= r)
+        if (-r <= dx && dx <= r)
         {
-            enemyInfoList.push_back(it->second);
+            float dz = it->second.GetZ() - z;
+            if (-r <= dz && dz <= r)
+            {
+                enemyInfoList.push_back(it->second);
+            }
         }
     }
     return enemyInfoList;
@@ -323,7 +324,7 @@ void NSStarmanLib::EnemyInfo::SetIDDef(const int arg)
     m_idDef = arg;
 }
 
-int NSStarmanLib::EnemyInfo::GetIDDef()
+int NSStarmanLib::EnemyInfo::GetIDDef() const
 {
     return m_idDef;
 }
@@ -343,19 +344,9 @@ void EnemyInfo::SetX(const float arg)
     m_x = arg;
 }
 
-float EnemyInfo::GetX()
-{
-    return m_x;
-}
-
 void EnemyInfo::SetY(const float arg)
 {
     m_y = arg;
-}
-
-float EnemyInfo::GetY()
-{
-    return m_y;
 }
 
 void EnemyInfo::SetZ(const float arg)
@@ -363,17 +354,12 @@ void EnemyInfo::SetZ(const float arg)
     m_z = arg;
 }
 
-float EnemyInfo::GetZ()
-{
-    return m_z;
-}
-
 void EnemyInfo::SetRotX(const float arg)
 {
     m_rotX = arg;
 }
 
-float EnemyInfo::GetRotX()
+float EnemyInfo::GetRotX() const
 {
     return m_rotX;
 }
@@ -383,7 +369,7 @@ void EnemyInfo::SetRotY(const float arg)
     m_rotY = arg;
 }
 
-float EnemyInfo::GetRotY()
+float EnemyInfo::GetRotY() const
 {
     return m_rotY;
 }
@@ -393,7 +379,7 @@ void EnemyInfo::SetRotZ(const float arg)
     m_rotZ = arg;
 }
 
-float EnemyInfo::GetRotZ()
+float EnemyInfo::GetRotZ() const
 {
     return m_rotZ;
 }
@@ -403,7 +389,7 @@ void EnemyInfo::SetHP(const int arg)
     m_HP = arg;
 }
 
-int EnemyInfo::GetHP()
+int EnemyInfo::GetHP() const
 {
     return m_HP;
 }
@@ -413,7 +399,7 @@ void EnemyInfo::SetDefeated(const bool arg)
     m_bDefeated = arg;
 }
 
-bool EnemyInfo::GetDefeated()
+bool EnemyInfo::GetDefeated() const
 {
     return m_bDefeated;
 }
@@ -423,7 +409,7 @@ void NSStarmanLib::EnemyDef::SetIDDef(const int arg)
     m_idDef = arg;
 }
 
-int NSStarmanLib::EnemyDef::GetIDDef()
+int NSStarmanLib::EnemyDef::GetIDDef() const
 {
     return m_idDef;
 }
@@ -464,7 +450,7 @@ void NSStarmanLib::EnemyDef::SetVisible(const bool arg)
     m_visible = arg;
 }
 
-bool NSStarmanLib::EnemyDef::GetVisible()
+bool NSStarmanLib::EnemyDef::GetVisible() const
 {
     return m_visible;
 }

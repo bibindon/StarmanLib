@@ -13,7 +13,7 @@ class EnemyDef
 public:
 
     void SetIDDef(const int arg);
-    int GetIDDef();
+    int GetIDDef() const;
 
     void SetName(const std::string& arg);
     std::string GetName();
@@ -25,7 +25,7 @@ public:
     std::string GetImagePath();
 
     void SetVisible(const bool arg);
-    bool GetVisible();
+    bool GetVisible() const;
 
 private:
 
@@ -58,34 +58,34 @@ public:
     int GetID();
 
     void SetIDDef(const int arg);
-    int GetIDDef();
+    int GetIDDef() const;
 
     void SetBreed(const std::string& breed);
     std::string GetBreed();
 
     void SetX(const float arg);
-    float GetX();
+    float GetX() const { return m_x; }
 
     void SetY(const float arg);
-    float GetY();
+    float GetY() const { return m_y; }
 
     void SetZ(const float arg);
-    float GetZ();
+    float GetZ() const { return m_z; }
 
     void SetRotX(const float arg);
-    float GetRotX();
+    float GetRotX() const;
 
     void SetRotY(const float arg);
-    float GetRotY();
+    float GetRotY() const;
 
     void SetRotZ(const float arg);
-    float GetRotZ();
+    float GetRotZ() const;
 
     void SetHP(const int arg);
-    int GetHP();
+    int GetHP() const;
 
     void SetDefeated(const bool arg);
-    bool GetDefeated();
+    bool GetDefeated() const;
 
 private:
 
