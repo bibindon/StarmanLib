@@ -54,13 +54,13 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int work_i = 0;
+            int idSub = 0;
             float work_f = 0.f;
 
             EnemyInfo enemyInfo;
 
-            work_i = std::stoi(vvs.at(i).at(0));
-            enemyInfo.SetID(work_i);
+            idSub = std::stoi(vvs.at(i).at(0));
+            enemyInfo.SetID(idSub);
 
             enemyInfo.SetBreed(vvs.at(i).at(1));
 
@@ -69,8 +69,8 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
             {
                 if (it->second.GetName() == work_str)
                 {
-                    work_i = it->second.GetIDDef();
-                    enemyInfo.SetIDDef(work_i);
+                    int idDef = it->second.GetIDDef();
+                    enemyInfo.SetIDDef(idDef);
                     break;
                 }
             }
@@ -93,8 +93,8 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
             work_f = std::stof(vvs.at(i).at(7));
             enemyInfo.SetRotZ(work_f);
 
-            work_i = std::stoi(vvs.at(i).at(8));
-            enemyInfo.SetHP(work_i);
+            int hp = std::stoi(vvs.at(i).at(8));
+            enemyInfo.SetHP(hp);
 
             if (vvs.at(i).at(9) == "Åõ")
             {
@@ -104,7 +104,7 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
             {
                 enemyInfo.SetDefeated(false);
             }
-            m_enemyInfoMap[(int)i] = enemyInfo;
+            m_enemyInfoMap[(int)idSub] = enemyInfo;
         }
     }
     {
