@@ -9,6 +9,13 @@ namespace NSStarmanLib
 // 糖質が0になったら餓死、それ以外が0になったら病死する。
 // 倉庫にワードブレスがあればライネンの契約をし復活する。
 
+enum class eNpcFeature
+{
+    STOREHOUSE,
+    CRAFTMAN,
+    NONE,
+};
+
 class NpcStatus
 {
 public:
@@ -39,6 +46,33 @@ public:
 
     void SetDead();
     bool GetDead();
+
+    void SetX(const float arg);
+    float GetX() const;
+
+    void SetY(const float arg);
+    float GetY() const;
+
+    void SetZ(const float arg);
+    float GetZ() const;
+
+    void SetRotY(const float arg);
+    float GetRotY() const;
+
+    void SetHasTalk(const bool arg);
+    bool GetHasTalk() const;
+
+    void SetTalkCsv(const std::string& arg);
+    std::string GetTalkCsv() const;
+
+    void SetFeatureEnable(const bool arg);
+    bool GetFeatureEnable() const;
+
+    void SetNpcFeature(const eNpcFeature arg);
+    eNpcFeature GetNpcFeature() const;
+
+    void SetMenuShow(const bool arg);
+    bool GetMenuShow() const;
 
 private:
 
@@ -77,8 +111,24 @@ private:
 
     float m_rotY = 0.f;
 
-    bool m_
+    // 会話すべき文言があるか？
+    // ・NPCの会話は荷物番や鍛冶屋の機能を表示する前に表示する
+    bool m_bHasTalk = false;
+
+    // 会話すべき文言
+    // m_talkCsvの内容を使って利用者に会話してもらう。
+    std::string m_talkCsv;
+
+    // 荷物番や鍛冶屋の機能が解禁されているか。
+    bool m_bFeatureEnable = false;
+
+    eNpcFeature m_eNpcFeature = eNpcFeature::NONE;
+
+    // NPCをメニュー画面で表示するか
+    bool m_bMenuShow = false;
 };
+
+
 
 class NpcStatusManager
 {
