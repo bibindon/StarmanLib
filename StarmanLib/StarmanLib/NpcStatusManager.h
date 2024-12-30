@@ -68,6 +68,16 @@ private:
 
     // Ž€‚ñ‚Å‚¢‚é‚©”Û‚©
     bool m_dead { false };
+
+    float m_x = 0.f;
+
+    float m_y = 0.f;
+
+    float m_z = 0.f;
+
+    float m_rotY = 0.f;
+
+    bool m_
 };
 
 class NpcStatusManager
