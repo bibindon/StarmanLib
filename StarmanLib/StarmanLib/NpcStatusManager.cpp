@@ -448,5 +448,15 @@ NpcStatus NpcStatusManager::GetNpcStatus(const std::string& name)
 
 void NpcStatusManager::SetNpcStatus(const std::string& key, const NpcStatus& value)
 {
-    m_NpcStatusMap[key] = value;
+    m_NpcStatusMap.at(key) = value;
+}
+
+std::vector<std::string> NSStarmanLib::NpcStatusManager::GetNameList()
+{
+    std::vector<std::string> vs;
+    for (auto it = m_NpcStatusMap.begin(); it != m_NpcStatusMap.end(); ++it)
+    {
+        vs.push_back(it->first);
+    }
+    return vs;
 }

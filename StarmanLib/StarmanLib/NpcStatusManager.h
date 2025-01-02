@@ -146,6 +146,8 @@ public:
     NpcStatus GetNpcStatus(const std::string& name);
     void SetNpcStatus(const std::string& key, const NpcStatus& value);
 
+    std::vector<std::string> GetNameList();
+
 private:
 
     // シングルトンオブジェクト
