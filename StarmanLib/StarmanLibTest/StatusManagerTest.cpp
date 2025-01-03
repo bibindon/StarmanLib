@@ -124,5 +124,15 @@ namespace StarmanLibTest
             }
             StatusManager::Destroy();
         }
+
+        // ƒeƒXƒg‚µ‚½‚¢‚±‚Æ
+        // •Ší‚ð‘•”õ‚µ‚Ä‚¢‚È‚¢ó‘Ô‚Å—Ž‚¿‚È‚¢‚±‚Æ
+        TEST_METHOD(TestMethod10)
+        {
+            StatusManager* obj = StatusManager::GetObj();
+            obj->Init("..\\StarmanLibTest\\statusTest10.csv");
+            float work = obj->GetAttackPower();
+            obj->ConsumeAttackCost();
+        }
     };
 }

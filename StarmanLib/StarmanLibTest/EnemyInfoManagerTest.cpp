@@ -45,14 +45,16 @@ namespace StarmanLibTest
             EnemyInfoManager::Destroy();
         }
 
+        // テストしたいこと
+        // 座標と範囲を指定して敵の情報が取得できること
         TEST_METHOD(TestMethod04)
         {
             EnemyInfoManager* obj = EnemyInfoManager::GetObj();
             obj->Init("..\\StarmanLibTest\\enemyDef.csv",
                       "..\\StarmanLibTest\\enemyOrigin.csv",
                       "..\\StarmanLibTest\\enemyVisible.csv");
-            std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(5.f, 5.f, 5.f, 10.f);
-            Assert::AreEqual((int)enemyInfoList.size() == 1, true);
+            std::vector<EnemyInfo> enemyInfoList = obj->GetEnemyInfo(5.f, 5.f, 5.f, 6.f);
+            Assert::AreEqual(1, (int)enemyInfoList.size());
             Assert::AreEqual(enemyInfoList.at(0).GetID() == 1, true);
             Assert::AreEqual(enemyInfoList.at(0).GetBreed() == "リッポウタイ", true);
             Assert::AreEqual(enemyInfoList.at(0).GetX(), 10.f);

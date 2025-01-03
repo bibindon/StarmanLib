@@ -1370,16 +1370,24 @@ float StatusManager::GetAttackPower()
     float result = 0.f;
     float work = 0.0;
 
-    auto itemManager = ItemManager::GetObj();
-    auto itemDef = itemManager->GetItemDef(m_EquipWeapon.GetId());
-    auto weaponName = itemDef.GetName();
-    auto weaponManager = WeaponManager::GetObj();
+    // -1‚¾‚Á‚½‚ç•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢
     auto inventory = Inventory::GetObj();
-    auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+    if (m_EquipWeapon.GetId() != -1)
+    {
+        auto itemManager = ItemManager::GetObj();
+        auto itemDef = itemManager->GetItemDef(m_EquipWeapon.GetId());
+        auto weaponName = itemDef.GetName();
+        auto weaponManager = WeaponManager::GetObj();
+        auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
 
-    // ‘•”õ’†‚Ì•Ší‚ÌUŒ‚—Í
-    double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
-    result = (float)attackRate;
+        // ‘•”õ’†‚Ì•Ší‚ÌUŒ‚—Í
+        double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
+        result = (float)attackRate;
+    }
+    else
+    {
+        result = 1.f;
+    }
 
     // u”­—Í
     work = m_status.GetExplosivePower();
@@ -1443,11 +1451,14 @@ void NSStarmanLib::StatusManager::ConsumeAttackCost()
     int work_i = 0;
 
     // •Ší‚Ì‘Ï‹v“x
-    auto inventory = Inventory::GetObj();
-    auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
-    work_i = itemInfo.GetDurabilityCurrent();
-    --work_i;
-    itemInfo.SetDurabilityCurrent(work_i);
+    if (m_EquipWeapon.GetId() != -1)
+    {
+        auto inventory = Inventory::GetObj();
+        auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+        work_i = itemInfo.GetDurabilityCurrent();
+        --work_i;
+        itemInfo.SetDurabilityCurrent(work_i);
+    }
 
     // …•ª
     // g‘Ì‚ÌƒXƒ^ƒ~ƒi
