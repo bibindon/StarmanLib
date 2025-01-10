@@ -626,8 +626,6 @@ void StatusManager::Init(const std::string& csvfile,
 
 void StatusManager::Update()
 {
-    // TODO 何秒経過したかをチェック
-
     // プレイヤーの状態により、徐々にスタミナが低下
     float bodyStaminaCurrent = m_status.GetBodyStaminaCurrent();
     float bodyStaminaMaxSub = m_status.GetBodyStaminaMaxSub();
@@ -716,8 +714,35 @@ void StatusManager::Update()
     // 不足していたら、スタミナの下がりやすさが悪化する
     // 40%を下回ったら0.9998倍
     // 20%になったら0.9996倍
+    // 0%になっても餓死はしない。脂肪が消費される。脂肪も0なら餓死。
     // 80%以上あると
     //------------------------------------
+    work1 = m_status.GetCarboCurrent();
+    work2 = m_status.GetCarboMax();
+    work3 = work1 / work2;
+    if (0.2f <= work3 && work3 <= 0.4f)
+    {
+        bodyStaminaCurrent *= 0.9998f;
+        bodyStaminaMaxSub *= 0.9998f;
+
+        brainStaminaCurrent *= 0.9998f;
+        brainStaminaMaxSub *= 0.9998f;
+    }
+    else if (0.f < work3 && work3 <= 0.2f)
+    {
+        bodyStaminaCurrent *= 0.9996f;
+        bodyStaminaMaxSub *= 0.9996f;
+
+        brainStaminaCurrent *= 0.9996f;
+        brainStaminaMaxSub *= 0.9996f;
+    }
+    else if (work3 <= 0.f)
+    {
+        if (m_status.GetLipidCurrent() <= 0.f)
+        {
+            m_status.SetDead(true);
+        }
+    }
 
     //------------------------------------
     // ビタミン
@@ -730,25 +755,19 @@ void StatusManager::Update()
     work3 = work1 / work2;
     if (work3 <= 0.2f)
     {
-        work3 /= 100;
-        work3 += 0.98f;
+        bodyStaminaCurrent *= 0.9999f;
+        bodyStaminaMaxSub *= 0.9999f;
 
-        bodyStaminaCurrent *= work3;
-        bodyStaminaMaxSub *= work3;
-
-        brainStaminaCurrent *= work3;
-        brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= 0.9999f;
+        brainStaminaMaxSub *= 0.9999f;
     }
     else if (work3 <= 0.4f)
     {
-        work3 /= 100;
-        work3 += 0.99f;
+        bodyStaminaCurrent *= 0.9998f;
+        bodyStaminaMaxSub *= 0.9998f;
 
-        bodyStaminaCurrent *= work3;
-        bodyStaminaMaxSub *= work3;
-
-        brainStaminaCurrent *= work3;
-        brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= 0.9998f;
+        brainStaminaMaxSub *= 0.9998f;
     }
 
     //------------------------------------
@@ -762,25 +781,19 @@ void StatusManager::Update()
     work3 = work1 / work2;
     if (work3 <= 0.f)
     {
-        work3 /= 100;
-        work3 += 0.98f;
+        bodyStaminaCurrent *= 0.9999f;
+        bodyStaminaMaxSub *= 0.9999f;
 
-        bodyStaminaCurrent *= work3;
-        bodyStaminaMaxSub *= work3;
-
-        brainStaminaCurrent *= work3;
-        brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= 0.9999f;
+        brainStaminaMaxSub *= 0.9999f;
     }
     else if (work3 <= 0.2f)
     {
-        work3 /= 100;
-        work3 += 0.99f;
+        bodyStaminaCurrent *= 0.9998f;
+        bodyStaminaMaxSub *= 0.9998f;
 
-        bodyStaminaCurrent *= work3;
-        bodyStaminaMaxSub *= work3;
-
-        brainStaminaCurrent *= work3;
-        brainStaminaMaxSub *= work3;
+        brainStaminaCurrent *= 0.9998f;
+        brainStaminaMaxSub *= 0.9998f;
     }
 
     //------------------------------------
@@ -823,7 +836,7 @@ void StatusManager::Update()
     //------------------------------------------------------
     // 体内の五大栄養素と水分を減らす
     //------------------------------------------------------
-    // 一日何も食べなければ体内の糖質が0になってもおかしくはないはずだ。
+    // 一日何も食べなければ体内の糖質が0になってもおかしくはないはず。
     work1 = m_status.GetCarboCurrent();
     work1 -= 0.02f;
     m_status.SetCarboCurrent(work1);
@@ -832,7 +845,7 @@ void StatusManager::Update()
     work1 -= 0.01f;
     m_status.SetProteinCurrent(work1);
 
-    // 糖質がなくなったら消費される
+    // 糖質がなくなったら脂肪が消費される
     if (m_status.GetCarboCurrent() <= 0.f)
     {
         work1 = m_status.GetLipidCurrent();
@@ -978,9 +991,36 @@ void StatusManager::Update()
         }
     }
 
+    if (m_status.GetFractureArm())
+    {
+        // 五大栄養素が半分以下の時は回復が止まる
+        if (m_status.GetCarboCurrent() / m_status.GetCarboMax() >= 0.5f &&
+            m_status.GetProteinCurrent() / m_status.GetProteinMax() >= 0.5f &&
+            m_status.GetLipidCurrent() / m_status.GetLipidMax() >= 0.5f &&
+            m_status.GetVitaminCurrent() / m_status.GetVitaminMax() >= 0.5f &&
+            m_status.GetMineralCurrent() / m_status.GetMineralMax() >= 0.5f)
+        {
+            --m_remainArmFracCure;
+        }
+
+        if (m_remainArmFracCure == 0)
+        {
+            m_status.SetFractureArm(false);
+        }
+    }
+
     if (m_status.GetFractureLeg())
     {
-        --m_remainLegFracCure;
+        // 五大栄養素が半分以下の時は回復が止まる
+        if (m_status.GetCarboCurrent() / m_status.GetCarboMax() >= 0.5f &&
+            m_status.GetProteinCurrent() / m_status.GetProteinMax() >= 0.5f &&
+            m_status.GetLipidCurrent() / m_status.GetLipidMax() >= 0.5f &&
+            m_status.GetVitaminCurrent() / m_status.GetVitaminMax() >= 0.5f &&
+            m_status.GetMineralCurrent() / m_status.GetMineralMax() >= 0.5f)
+        {
+            --m_remainLegFracCure;
+        }
+
         if (m_remainLegFracCure == 0)
         {
             m_status.SetFractureLeg(false);
@@ -1007,7 +1047,18 @@ void StatusManager::Update()
 
     if (m_status.GetDehydration())
     {
-        --m_remainDehydration;
+        if (m_status.GetCarboCurrent() / m_status.GetCarboMax() >= 0.5f &&
+            m_status.GetProteinCurrent() / m_status.GetProteinMax() >= 0.5f &&
+            m_status.GetLipidCurrent() / m_status.GetLipidMax() >= 0.5f &&
+            m_status.GetVitaminCurrent() / m_status.GetVitaminMax() >= 0.5f &&
+            m_status.GetMineralCurrent() / m_status.GetMineralMax() >= 0.5f)
+        {
+            if (m_status.GetWaterCurrent() / m_status.GetWaterMax() >= 0.98f)
+            {
+                --m_remainDehydration;
+            }
+        }
+
         if (m_remainDehydration== 0)
         {
             m_status.SetDehydration(false);
@@ -1435,6 +1486,10 @@ float StatusManager::GetAttackPower()
     // 脱水症状
 
 
+    if (result < 0.f)
+    {
+        result = 0.f;
+    }
 
     return result;
 }
