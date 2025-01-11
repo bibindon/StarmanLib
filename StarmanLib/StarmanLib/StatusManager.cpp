@@ -1831,6 +1831,12 @@ float StatusManager::GetBrainStaminaCurrent() const
 
 void StatusManager::SetBrainStaminaCurrent(float arg)
 {
+    // 脳のスタミナが0になったら気絶
+    if (arg < 0.f)
+    {
+        arg = 0.f;
+        m_status.SetSleep(true);
+    }
     m_status.SetBrainStaminaCurrent(arg);
 }
 
@@ -1871,6 +1877,11 @@ float StatusManager::GetMuscleCurrent() const
 
 void StatusManager::SetMuscleCurrent(float arg)
 {
+    if (arg < 0.f)
+    {
+        arg = 0.f;
+        m_status.SetDead(true);
+    }
     m_status.SetMuscleCurrent(arg);
 }
 
