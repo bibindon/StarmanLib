@@ -1419,6 +1419,9 @@ float StatusManager::GetWalkSpeed()
         walkSpeed *= 0.1f;
     }
 
+    // ФўТ▓Ро
+    walkSpeed *= 3.f;
+
     return walkSpeed;
 }
 
