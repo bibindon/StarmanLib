@@ -807,15 +807,22 @@ void StatusManager::Update()
     //   10kgだったら0.999倍
     //   10000 / (10 + 10000) = 0.999
     //------------------------------------
-    Inventory* inventory = Inventory::GetObj();
-    float weight = inventory->GetWeight();
-    work1 = 10000 / (weight + 10000);
+    {
+        // 座っていたり、横になっていたら無視。
+        if (m_playerState != PlayerState::LYING_DOWN &&
+            m_playerState != PlayerState::SIT)
+        {
+            Inventory* inventory = Inventory::GetObj();
+            float weight = inventory->GetWeight();
+            work1 = 10000 / (weight + 10000);
 
-    bodyStaminaCurrent *= work1;
-    bodyStaminaMaxSub *= work1;
+            bodyStaminaCurrent *= work1;
+            bodyStaminaMaxSub *= work1;
 
-    brainStaminaCurrent *= work1;
-    brainStaminaMaxSub *= work1;
+            brainStaminaCurrent *= work1;
+            brainStaminaMaxSub *= work1;
+        }
+    }
 
     //-----------------------------------------
     // 計算結果をセット
@@ -1371,7 +1378,6 @@ void StatusManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-// TODO
 float StatusManager::GetWalkSpeed()
 {
     float walkSpeed = 1.f;
@@ -1434,6 +1440,12 @@ float StatusManager::GetAttackPower()
         // 装備中の武器の攻撃力
         double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
         result = (float)attackRate;
+
+        // 耐久度が0だったら攻撃力は1になる
+        if (itemInfo.GetDurabilityCurrent() == 0)
+        {
+            result = 1.f;
+        }
     }
     else
     {
@@ -1465,9 +1477,15 @@ float StatusManager::GetAttackPower()
     //------------------------------------
     float weight = inventory->GetWeight();
     work = (1.f - (weight / 100.0f));
+    if (work < 0.f)
+    {
+        work = 0.f;
+    }
     result *= work;
 
     // 肉体の修復度
+    work = m_status.GetMuscleCurrent() / m_status.GetMuscleMax();
+    result *= work;
 
     // 腕の骨が折れていたら90％ダウン（＝0.1倍になる）
     if (m_status.GetFractureArm())
@@ -1481,11 +1499,31 @@ float StatusManager::GetAttackPower()
         result *= 0.1f;
     }
 
-    // 風邪
+    // 風邪の場合、50％ダウン
+    if (m_status.GetCold())
+    {
+        result *= 0.5f;
+    }
 
-    // 脱水症状
+    // 脱水症状の場合、50％ダウン
+    if (m_status.GetDehydration())
+    {
+        result *= 0.5f;
+    }
 
+    // 頭痛の場合、50％ダウン
+    if (m_status.GetHeadache())
+    {
+        result *= 0.5f;
+    }
 
+    // 腹痛の場合、50％ダウン
+    if (m_status.GetStomachache())
+    {
+        result *= 0.5f;
+    }
+
+    // 攻撃力がマイナス、はありえない。
     if (result < 0.f)
     {
         result = 0.f;
@@ -1496,14 +1534,13 @@ float StatusManager::GetAttackPower()
 
 void NSStarmanLib::StatusManager::ConsumeAttackCost()
 {
-    // TODO 未完了
-
     //--------------------------------
     // 消耗
     // 武器の耐久度、スタミナ、その他、全部消耗する
     //--------------------------------
 
     int work_i = 0;
+    float work_f = 0;
 
     // 武器の耐久度
     if (m_EquipWeapon.GetId() != -1)
@@ -1516,19 +1553,64 @@ void NSStarmanLib::StatusManager::ConsumeAttackCost()
     }
 
     // 水分
+    work_f = m_status.GetWaterCurrent();
+    m_status.SetWaterCurrent(work_f - 0.01f);
+
     // 身体のスタミナ
+    work_f = m_status.GetBodyStaminaCurrent();
+    m_status.SetBodyStaminaCurrent(work_f - 0.01f);
+
     // 肉体の修復度
+    work_f = m_status.GetMuscleCurrent();
+    if (m_EquipWeapon.GetId() != -1)
+    {
+        m_status.SetMuscleCurrent(work_f - 0.01f);
+    }
+    // 素手だったら猛烈に消耗する
+    else
+    {
+        m_status.SetMuscleCurrent(work_f - 0.05f);
+    }
 
     //---------------------------------------------
     // 状態異常を悪化
     //---------------------------------------------
-    // 風邪
-    // 腕の骨折
-    // 足の骨折
-    // 脱水症状
-    // 頭痛
-    // 腹痛
 
+    // 風邪
+    if (m_status.GetCold())
+    {
+        ++m_remainColdCure;
+    }
+
+    // 腕の骨折
+    if (m_status.GetFractureArm())
+    {
+        ++m_remainArmFracCure;
+    }
+
+    // 足の骨折
+    if (m_status.GetFractureLeg())
+    {
+        ++m_remainLegFracCure;
+    }
+
+    // 脱水症状
+    if (m_status.GetDehydration())
+    {
+        ++m_remainDehydration;
+    }
+
+    // 頭痛
+    if (m_status.GetHeadache())
+    {
+        ++m_remainHeadacheCure;
+    }
+
+    // 腹痛
+    if (m_status.GetStomachache())
+    {
+        ++m_remainStomachacheCure;
+    }
 }
 
 float StatusManager::GetDefensePower()
