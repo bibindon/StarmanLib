@@ -651,10 +651,10 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::SIT)
     {
-        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.001f;
+        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.01f;
         bodyStaminaMaxSub  -= 0.00002f;
 
-        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.002f;
+        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.02f;
         brainStaminaMaxSub  -= 0.00004f;
 
         // ”]‚Ì‘Ì—Í‚ª20“ˆÈ‰º‚ÅÀ‚é‚ÆQ‚Ä‚µ‚Ü‚¤
@@ -665,10 +665,10 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::LYING_DOWN)
     {
-        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.002f;
+        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.02f;
         bodyStaminaMaxSub  += 0.00002f;
 
-        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.004f;
+        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.04f;
         brainStaminaMaxSub  -= 0.00008f;
 
         // ”]‚Ì‘Ì—Í‚ª50“ˆÈ‰º‚Å‰¡‚É‚È‚é‚ÆQ‚Ä‚µ‚Ü‚¤
