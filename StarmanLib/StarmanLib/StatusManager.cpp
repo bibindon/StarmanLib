@@ -7,8 +7,6 @@
 
 #include "Util.h"
 
-// TODO 頭痛、風邪、腹痛、脱水症状
-
 using namespace NSStarmanLib;
 
 float Status::GetBodyStaminaCurrent() const
@@ -1672,22 +1670,17 @@ bool NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
     return true;
 }
 
+// TODO なんか変
 bool NSStarmanLib::StatusManager::Sleep()
 {
     PowereggDateTime* dateTime = PowereggDateTime::GetObj();
-
-    // 睡眠不足でもなく、トレーニングもしていないなら0時より前に寝ようとしても寝ることができない。
-    if (m_training == false && m_status.GetLackOfSleep() == false)
-    {
-        return false;
-    }
 
     // 仮眠か睡眠か
     // 脳の体力が50％以下で横になったor脳の体力が20％以下で座ったなら何時でも寝てしまう。
     // このとき、0時だったら睡眠、それより前だったら仮眠になる。
     bool nap = false;
 
-    if (dateTime->GetHour() <= 23)
+    if (7 <= dateTime->GetHour() && dateTime->GetHour() <= 23)
     {
         if (m_status.GetBrainStaminaCurrent() <= m_status.GetBrainStaminaMax() * 0.5f)
         {
@@ -1701,6 +1694,16 @@ bool NSStarmanLib::StatusManager::Sleep()
             if (m_playerState == PlayerState::SIT)
             {
                 nap = true;
+            }
+        }
+        else
+        {
+            // 睡眠不足でもなく、トレーニングもしていないなら
+            // 7~23時の間に寝ようとしても寝ることができない。
+            if (m_training == false &&
+                m_status.GetLackOfSleep() == false)
+            {
+                return false;
             }
         }
     }
@@ -1747,6 +1750,19 @@ bool NSStarmanLib::StatusManager::Sleep()
         SetBodyStaminaMaxSub(work);
         SetBodyStaminaCurrent(work);
 
+        // 肉体の修復度
+        {
+            work = GetMuscleCurrent();
+            work2 = GetMuscleMax();
+
+            work + 10.f;
+            if (work >= work2)
+            {
+                work = work2;
+            }
+            SetMuscleCurrent(work);
+        }
+
         // 時間を7時間進める
         dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
     }
@@ -1763,6 +1779,19 @@ bool NSStarmanLib::StatusManager::Sleep()
         work = GetBodyStaminaMax();
         SetBodyStaminaMaxSub(work);
         SetBodyStaminaCurrent(work);
+
+        // 肉体の修復度
+        {
+            work = GetMuscleCurrent();
+            work2 = GetMuscleMax();
+
+            work + 2.f;
+            if (work >= work2)
+            {
+                work = work2;
+            }
+            SetMuscleCurrent(work);
+        }
 
         // 時間を90分進める
         dateTime->IncreaseDateTime(0, 0, 1, 30, 0);
