@@ -1724,6 +1724,8 @@ bool NSStarmanLib::StatusManager::Sleep()
         }
 
         float work = 0.f;
+        float work2 = 0.f;
+
         if (late == false)
         {
             work = GetBrainStaminaMax();
@@ -1734,7 +1736,6 @@ bool NSStarmanLib::StatusManager::Sleep()
         else
         {
             work = GetBrainStaminaMax();
-            float work2 = 0.f;
             work2 = GetBrainStaminaMaxSub();
             work2 += (work - work2) / 2;
             SetBrainStaminaMaxSub(work2);
@@ -1755,7 +1756,7 @@ bool NSStarmanLib::StatusManager::Sleep()
             work = GetMuscleCurrent();
             work2 = GetMuscleMax();
 
-            work + 10.f;
+            work += 10.f;
             if (work >= work2)
             {
                 work = work2;
@@ -1771,6 +1772,7 @@ bool NSStarmanLib::StatusManager::Sleep()
     {
         // 脳のスタミナは寝たら全快する。
         float work = 0.f;
+        float work2 = 0.f;
         work = GetBrainStaminaMax();
         SetBrainStaminaMaxSub(work);
         SetBrainStaminaCurrent(work);
@@ -1785,7 +1787,7 @@ bool NSStarmanLib::StatusManager::Sleep()
             work = GetMuscleCurrent();
             work2 = GetMuscleMax();
 
-            work + 2.f;
+            work += 2.f;
             if (work >= work2)
             {
                 work = work2;
