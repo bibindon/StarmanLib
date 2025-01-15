@@ -255,6 +255,12 @@ public:
 
         // ‘S—Í¾‘–
         SPRINTING,
+
+        // …’†‚ÅÃ~
+        IDLE_WATER,
+
+        // ‰j‚¬ó‘Ô
+        SWIM,
     };
 
     static StatusManager* GetObj();

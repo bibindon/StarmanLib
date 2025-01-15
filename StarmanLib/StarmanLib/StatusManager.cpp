@@ -675,6 +675,22 @@ void StatusManager::Update()
             m_status.SetSleep(true);
         }
     }
+    else if (m_playerState == PlayerState::IDLE_WATER)
+    {
+        bodyStaminaCurrent -= 0.001f;
+        bodyStaminaMaxSub  -= 0.0002f;
+
+        brainStaminaCurrent -= 0.002f;
+        brainStaminaMaxSub  -= 0.0004f;
+    }
+    else if (m_playerState == PlayerState::SWIM)
+    {
+        bodyStaminaCurrent -= 0.001f;
+        bodyStaminaMaxSub  -= 0.0002f;
+
+        brainStaminaCurrent -= 0.002f;
+        brainStaminaMaxSub  -= 0.0004f;
+    }
 
     //------------------------------------
     // …•ª
