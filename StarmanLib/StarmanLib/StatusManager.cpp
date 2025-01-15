@@ -1708,6 +1708,72 @@ bool NSStarmanLib::StatusManager::Sleep()
         }
     }
 
+    // 五大栄養素と水分を消費
+    {
+        float work1 = 0.f;
+        float work2 = 0.f;
+
+        // 糖質
+        work1 = GetCarboCurrent();
+        work1 *= 0.8f;
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            // 糖質が0なら、脂質が減る
+            work2 = work1;
+            work1 = 0.f;
+        }
+        SetCarboCurrent(work1);
+
+        // タンパク質
+        work1 = GetProteinCurrent();
+        work1 *= 0.8f;
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetProteinCurrent(work1);
+
+        // 脂質
+        work1 = GetLipidCurrent();
+        work1 += work2;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetLipidCurrent(work1);
+
+        // ビタミン
+        work1 = GetVitaminCurrent();
+        work1 *= 0.8f;
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetVitaminCurrent(work1);
+
+        // ミネラル
+        work1 = GetMineralCurrent();
+        work1 *= 0.8f;
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetMineralCurrent(work1);
+
+        // 水分
+        work1 = GetWaterCurrent();
+        work1 -= 0.5f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetWaterCurrent(work1);
+    }
+
     // 睡眠（仮眠ではない）
     if (nap == false)
     {
@@ -1723,45 +1789,45 @@ bool NSStarmanLib::StatusManager::Sleep()
             late = true;
         }
 
-        float work = 0.f;
+        float work1 = 0.f;
         float work2 = 0.f;
 
         if (late == false)
         {
-            work = GetBrainStaminaMax();
-            SetBrainStaminaMaxSub(work);
-            SetBrainStaminaCurrent(work);
+            work1 = GetBrainStaminaMax();
+            SetBrainStaminaMaxSub(work1);
+            SetBrainStaminaCurrent(work1);
         }
         // 寝る時間が遅かったら
         else
         {
-            work = GetBrainStaminaMax();
+            work1 = GetBrainStaminaMax();
             work2 = GetBrainStaminaMaxSub();
-            work2 += (work - work2) / 2;
+            work2 += (work1 - work2) / 2;
             SetBrainStaminaMaxSub(work2);
 
             work2 = GetBrainStaminaCurrent();
-            work2 += (work - work2) / 2;
-            SetBrainStaminaCurrent(work);
+            work2 += (work1 - work2) / 2;
+            SetBrainStaminaCurrent(work1);
             m_status.SetLackOfSleep(true);
         }
 
         // 体のスタミナは寝たら寝不足でも全快する
-        work = GetBodyStaminaMax();
-        SetBodyStaminaMaxSub(work);
-        SetBodyStaminaCurrent(work);
+        work1 = GetBodyStaminaMax();
+        SetBodyStaminaMaxSub(work1);
+        SetBodyStaminaCurrent(work1);
 
         // 肉体の修復度
         {
-            work = GetMuscleCurrent();
+            work1 = GetMuscleCurrent();
             work2 = GetMuscleMax();
 
-            work += 10.f;
-            if (work >= work2)
+            work1 += 10.f;
+            if (work1 >= work2)
             {
-                work = work2;
+                work1 = work2;
             }
-            SetMuscleCurrent(work);
+            SetMuscleCurrent(work1);
         }
 
         // 時間を7時間進める
