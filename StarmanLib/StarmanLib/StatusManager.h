@@ -11,6 +11,14 @@
 
 namespace NSStarmanLib
 {
+enum class eMagicType
+{
+    None,
+    Fire,
+    Ice,
+    Dark,
+};
+
 // PlayerのステータスとNPCのステータスは別のものとして用意する。
 // ここで扱うステータスはプレイヤーのStatus。
 
@@ -410,6 +418,9 @@ public:
 
     void GetXYZ(float* x, float* y, float* z);
 
+    void SetMagicType(const eMagicType magicType);
+    eMagicType GetMagicType() const;
+
 private:
 
     // シングルトンオブジェクト
@@ -457,6 +468,9 @@ private:
     // 脱水症状の完治にかかる秒数
     // 1日（＝24時間）。五大栄養素・水が不足すると回復が止まる
     int m_remainDehydration = 0;
+
+    // 装備中の魔法
+    eMagicType m_eMagicType = eMagicType::None;
 };
 }
 

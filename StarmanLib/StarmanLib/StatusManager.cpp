@@ -2287,3 +2287,13 @@ void NSStarmanLib::StatusManager::GetXYZ(float* x, float* y, float* z)
     *z = m_status.GetZ();
 }
 
+void NSStarmanLib::StatusManager::SetMagicType(const eMagicType magicType)
+{
+    m_eMagicType = magicType;
+}
+
+eMagicType NSStarmanLib::StatusManager::GetMagicType() const
+{
+    return m_eMagicType;
+}
+
