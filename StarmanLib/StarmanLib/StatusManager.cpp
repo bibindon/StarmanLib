@@ -1907,6 +1907,15 @@ void NSStarmanLib::StatusManager::UseMagic()
     SetBrainStaminaCurrent(work);
 }
 
+void NSStarmanLib::StatusManager::DrinkWordBress(const float playerX,
+                                                 const float playerY,
+                                                 const float playerZ)
+{
+    auto rynen = Rynen::GetObj();
+    rynen->SetReviveEnable(true);
+    rynen->SetRevivePos(playerX, playerY, playerZ);
+}
+
 float StatusManager::GetBodyStaminaCurrent() const
 {
     return m_status.GetBodyStaminaCurrent();

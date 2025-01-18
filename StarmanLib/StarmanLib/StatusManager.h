@@ -313,6 +313,10 @@ public:
     // 魔法を使ったら脳の体力が減る
     void UseMagic();
 
+    void DrinkWordBress(const float playerX,
+                        const float playerY,
+                        const float playerZ);
+
     //-------------------------------------------------------
     // Statusクラスの同名の関数を呼ぶ
     //-------------------------------------------------------
