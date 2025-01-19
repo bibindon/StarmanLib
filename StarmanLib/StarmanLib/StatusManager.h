@@ -425,6 +425,14 @@ public:
     void SetMagicType(const eMagicType magicType);
     eMagicType GetMagicType() const;
 
+    bool GetLevelUpFire();
+    bool GetLevelUpIce();
+    bool GetLevelUpDark();
+
+    bool GetLevelDownFire();
+    bool GetLevelDownIce();
+    bool GetLevelDownDark();
+
 private:
 
     // シングルトンオブジェクト
@@ -488,6 +496,13 @@ private:
     int m_experienceIce = 0;
     int m_experienceDark = 0;
 
+    bool m_levelUpFire = false;
+    bool m_levelUpIce = false;
+    bool m_levelUpDark = false;
+
+    bool m_levelDownFire = false;
+    bool m_levelDownIce = false;
+    bool m_levelDownDark = false;
 };
 }
 

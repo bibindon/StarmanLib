@@ -619,6 +619,36 @@ void StatusManager::Init(const std::string& csvfile,
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetZ(value);
         }
+        else if (vvs.at(i).at(1) == "魔法の経験値（炎）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_experienceFire = value;
+        }
+        else if (vvs.at(i).at(1) == "魔法の経験値（氷）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_experienceIce = value;
+        }
+        else if (vvs.at(i).at(1) == "魔法の経験値（闇）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_experienceDark = value;
+        }
+        else if (vvs.at(i).at(1) == "魔法のレベル（炎）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_levelFire = value;
+        }
+        else if (vvs.at(i).at(1) == "魔法のレベル（氷）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_levelIce = value;
+        }
+        else if (vvs.at(i).at(1) == "魔法のレベル（闇）")
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_levelDark = value;
+        }
     }
 }
 
@@ -1389,6 +1419,48 @@ void StatusManager::Save(const std::string& csvfile,
     vs.push_back(work);
     vvs.push_back(vs);
 
+    vs.clear();
+    vs.push_back("35");
+    vs.push_back("魔法の経験値（炎）");
+    work = std::to_string(m_experienceFire);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("36");
+    vs.push_back("魔法の経験値（氷）");
+    work = std::to_string(m_experienceIce);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("37");
+    vs.push_back("魔法の経験値（闇）");
+    work = std::to_string(m_experienceDark);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("38");
+    vs.push_back("魔法のレベル（炎）");
+    work = std::to_string(m_levelFire);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("39");
+    vs.push_back("魔法のレベル（氷）");
+    work = std::to_string(m_levelIce);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("40");
+    vs.push_back("魔法のレベル（闇）");
+    work = std::to_string(m_levelDark);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
@@ -1846,6 +1918,17 @@ bool NSStarmanLib::StatusManager::Sleep()
             SetMuscleCurrent(work1);
         }
 
+        // 魔法レベルアップの初期化
+        {
+            m_levelUpFire = false;
+            m_levelUpIce = false;
+            m_levelUpDark = false;
+
+            m_levelDownFire = false;
+            m_levelDownIce = false;
+            m_levelDownDark = false;
+        }
+
         // 経験値の低下
         {
             m_experienceFire -= 10;
@@ -1864,6 +1947,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                 {
                     m_levelFire = 10;
                 }
+                else
+                {
+                    m_levelUpFire = true;
+                }
             }
 
             if (m_experienceIce >= 100)
@@ -1875,6 +1962,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                 {
                     m_levelIce = 10;
                 }
+                else
+                {
+                    m_levelUpIce = true;
+                }
             }
 
             if (m_experienceDark >= 100)
@@ -1885,6 +1976,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                 if (m_levelDark >= 10)
                 {
                     m_levelDark = 10;
+                }
+                else
+                {
+                    m_levelUpDark = true;
                 }
             }
         }
@@ -1902,6 +1997,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                     m_levelFire = 0;
                     m_experienceFire = 0;
                 }
+                else
+                {
+                    m_levelDownFire = true;
+                }
             }
 
             if (m_experienceIce < 0)
@@ -1915,6 +2014,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                     m_levelIce = 0;
                     m_experienceIce = 0;
                 }
+                else
+                {
+                    m_levelDownIce = true;
+                }
             }
 
             if (m_experienceDark < 0)
@@ -1927,6 +2030,10 @@ bool NSStarmanLib::StatusManager::Sleep()
                 {
                     m_levelDark = 0;
                     m_experienceDark = 0;
+                }
+                else
+                {
+                    m_levelDownDark = true;
                 }
             }
         }
@@ -2402,5 +2509,35 @@ void NSStarmanLib::StatusManager::SetMagicType(const eMagicType magicType)
 eMagicType NSStarmanLib::StatusManager::GetMagicType() const
 {
     return m_eMagicType;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelUpFire()
+{
+    return m_levelUpFire;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelUpIce()
+{
+    return m_levelUpIce;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelUpDark()
+{
+    return m_levelUpDark;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelDownFire()
+{
+    return m_levelDownFire;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelDownIce()
+{
+    return m_levelDownIce;
+}
+
+bool NSStarmanLib::StatusManager::GetLevelDownDark()
+{
+    return m_levelDownDark;
 }
 
