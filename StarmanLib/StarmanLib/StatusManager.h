@@ -475,6 +475,19 @@ private:
 
     // 装備中の魔法
     eMagicType m_eMagicType = eMagicType::None;
+
+    // 魔法の熟練度
+    // ・0~10までの11段階
+    // ・100回使ったら魔法のレベルが上がる。
+    // ・魔法のレベルは100回使った直後ではなく100回使った後に寝るとレベルアップする
+    // ・経験値は毎日-10される。つまり、10日魔法を使わなかったらレベルが下がるということ。
+    int m_levelFire = 0;
+    int m_levelIce = 0;
+    int m_levelDark = 0;
+    int m_experienceFire = 0;
+    int m_experienceIce = 0;
+    int m_experienceDark = 0;
+
 };
 }
 

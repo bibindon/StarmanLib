@@ -1846,6 +1846,91 @@ bool NSStarmanLib::StatusManager::Sleep()
             SetMuscleCurrent(work1);
         }
 
+        // 経験値の低下
+        {
+            m_experienceFire -= 10;
+            m_experienceIce -= 10;
+            m_experienceDark -= 10;
+        }
+
+        // 魔法レベルの上昇
+        {
+            if (m_experienceFire >= 100)
+            {
+                m_experienceFire = 0;
+                ++m_levelFire;
+
+                if (m_levelFire >= 10)
+                {
+                    m_levelFire = 10;
+                }
+            }
+
+            if (m_experienceIce >= 100)
+            {
+                m_experienceIce = 0;
+                ++m_levelIce;
+
+                if (m_levelIce >= 10)
+                {
+                    m_levelIce = 10;
+                }
+            }
+
+            if (m_experienceDark >= 100)
+            {
+                m_experienceDark = 0;
+                ++m_levelDark;
+
+                if (m_levelDark >= 10)
+                {
+                    m_levelDark = 10;
+                }
+            }
+        }
+
+        // 魔法のレベルダウン
+        {
+            if (m_experienceFire < 0)
+            {
+                // -5だったら95にする
+                m_experienceFire = 100 + m_experienceFire;
+                --m_levelFire;
+
+                if (m_levelFire < 0)
+                {
+                    m_levelFire = 0;
+                    m_experienceFire = 0;
+                }
+            }
+
+            if (m_experienceIce < 0)
+            {
+                // -5だったら95にする
+                m_experienceIce = 100 + m_experienceIce;
+                --m_levelIce;
+
+                if (m_levelIce < 0)
+                {
+                    m_levelIce = 0;
+                    m_experienceIce = 0;
+                }
+            }
+
+            if (m_experienceDark < 0)
+            {
+                // -5だったら95にする
+                m_experienceDark = 100 + m_experienceDark;
+                --m_levelDark;
+
+                if (m_levelDark < 0)
+                {
+                    m_levelDark = 0;
+                    m_experienceDark = 0;
+                }
+            }
+        }
+
         // 時間を7時間進める
         dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
     }
@@ -1905,6 +1990,19 @@ void NSStarmanLib::StatusManager::UseMagic()
 
     work -= 0.25f;
     SetBrainStaminaCurrent(work);
+
+    if (m_eMagicType == eMagicType::Fire)
+    {
+        ++m_experienceFire;
+    }
+    else if (m_eMagicType == eMagicType::Ice)
+    {
+        ++m_experienceIce;
+    }
+    else if (m_eMagicType == eMagicType::Dark)
+    {
+        ++m_experienceDark;
+    }
 }
 
 void NSStarmanLib::StatusManager::DrinkWordBress(const float playerX,
