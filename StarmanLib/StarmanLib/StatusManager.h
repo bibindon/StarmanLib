@@ -433,6 +433,10 @@ public:
     bool GetLevelDownIce();
     bool GetLevelDownDark();
 
+    int GetLevelFire() const;
+    int GetLevelIce() const;
+    int GetLevelDark() const;
+
 private:
 
     // シングルトンオブジェクト

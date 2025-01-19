@@ -2541,3 +2541,18 @@ bool NSStarmanLib::StatusManager::GetLevelDownDark()
     return m_levelDownDark;
 }
 
+int NSStarmanLib::StatusManager::GetLevelFire() const
+{
+    return m_levelFire;
+}
+
+int NSStarmanLib::StatusManager::GetLevelIce() const
+{
+    return m_levelIce;
+}
+
+int NSStarmanLib::StatusManager::GetLevelDark() const
+{
+    return m_levelDark;
+}
+
