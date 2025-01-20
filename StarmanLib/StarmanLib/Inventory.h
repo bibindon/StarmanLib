@@ -59,6 +59,8 @@ public:
 
     float GetWeight();
 
+    std::list<ItemInfo> GetAllItem();
+
 private:
     // 以下の4つの関数を宣言・定義するのが正しいが・・・なくても・・・別に・・・
     Inventory() {};

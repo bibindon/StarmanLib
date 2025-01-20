@@ -316,6 +316,11 @@ float Inventory::GetWeight()
     return m_weight;
 }
 
+std::list<ItemInfo> NSStarmanLib::Inventory::GetAllItem()
+{
+    return m_itemInfoList;
+}
+
 float Inventory::CalcWeight()
 {
     float result = 0.f;

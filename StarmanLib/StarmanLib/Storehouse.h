@@ -56,6 +56,8 @@ public:
 
     float GetWeight();
 
+    std::list<ItemInfo> GetAllItem();
+
 private:
 
     float CalcWeight();

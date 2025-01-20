@@ -317,6 +317,11 @@ float Storehouse::GetWeight()
     return m_weight;
 }
 
+std::list<ItemInfo> NSStarmanLib::Storehouse::GetAllItem()
+{
+    return m_itemInfoList;
+}
+
 float Storehouse::CalcWeight()
 {
     float result = 0.f;
