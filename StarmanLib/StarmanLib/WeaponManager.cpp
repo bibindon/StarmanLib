@@ -324,6 +324,17 @@ int WeaponManager::GetDurabilityMax(const std::string& weaponName, const int lev
     return it->GetDurabilityMax();
 }
 
+std::vector<std::string> NSStarmanLib::WeaponManager::GetWeaponNameList()
+{
+    std::vector<std::string> result;
+    for (auto it = m_weaponDefMap.begin(); it != m_weaponDefMap.end(); ++it)
+    {
+        result.push_back(it->first);
+    }
+
+    return result;
+}
+
 std::string NSStarmanLib::WeaponManager::GetItemName(const std::string& weaponName) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),

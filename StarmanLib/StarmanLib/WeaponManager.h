@@ -152,6 +152,8 @@ public:
     double GetFlightDistance(const std::string& weaponName, const int level) const;
     int GetDurabilityMax(const std::string& weaponName, const int level) const;
 
+    std::vector<std::string> GetWeaponNameList();
+
 private:
 
     std::string GetItemName(const std::string& weaponName) const;
