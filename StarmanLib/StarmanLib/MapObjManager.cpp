@@ -208,6 +208,11 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
 
         for (auto it = stMapObjList.begin(); it != stMapObjList.end(); ++it)
         {
+            // 表示済みフラグをオフにする
+            // セーブしたときは木や草を表示していたかもしれないが、ゲームを再起動したのだから
+            // 表示済みではない、ということ。
+            it->m_show = false;
+
             m_stMapObjMap[it->m_frameX][it->m_frameZ].emplace_back(*it);
         }
     }
