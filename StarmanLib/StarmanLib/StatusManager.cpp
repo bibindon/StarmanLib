@@ -649,6 +649,161 @@ void StatusManager::Init(const std::string& csvfile,
             int value = std::stoi(vvs.at(i).at(2));
             m_levelDark = value;
         }
+        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü1ID")
+        {
+            ItemInfo itemInfo;
+            if (vvs.at(i).at(2) == "")
+            {
+                itemInfo.SetId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                itemInfo.SetId(work);
+            }
+            m_BagMap[eBagPos::Back1] = itemInfo;
+        }
+        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü1SubID")
+        {
+            if (vvs.at(i).at(2) == "")
+            {
+                m_BagMap.at(eBagPos::Back1).SetSubId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                m_BagMap.at(eBagPos::Back1).SetSubId(work);
+
+                Inventory* inventory = Inventory::GetObj();
+                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back1).GetId(),
+                                                           m_BagMap.at(eBagPos::Back1).GetSubId());
+                m_BagMap.at(eBagPos::Back1).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+            }
+        }
+        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü2ID")
+        {
+            ItemInfo itemInfo;
+            if (vvs.at(i).at(2) == "")
+            {
+                itemInfo.SetId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                itemInfo.SetId(work);
+            }
+            m_BagMap[eBagPos::Back2] = itemInfo;
+        }
+        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü2SubID")
+        {
+            if (vvs.at(i).at(2) == "")
+            {
+                m_BagMap.at(eBagPos::Back2).SetSubId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                m_BagMap.at(eBagPos::Back2).SetSubId(work);
+
+                Inventory* inventory = Inventory::GetObj();
+                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back2).GetId(),
+                                                           m_BagMap.at(eBagPos::Back2).GetSubId());
+                m_BagMap.at(eBagPos::Back2).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+            }
+        }
+        else if (vvs.at(i).at(1) == "• ‚Ì‘ÜID")
+        {
+            ItemInfo itemInfo;
+            if (vvs.at(i).at(2) == "")
+            {
+                itemInfo.SetId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                itemInfo.SetId(work);
+            }
+            m_BagMap[eBagPos::Front] = itemInfo;
+        }
+        else if (vvs.at(i).at(1) == "• ‚Ì‘ÜSubID")
+        {
+            if (vvs.at(i).at(2) == "")
+            {
+                m_BagMap.at(eBagPos::Front).SetSubId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                m_BagMap.at(eBagPos::Front).SetSubId(work);
+
+                Inventory* inventory = Inventory::GetObj();
+                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Front).GetId(),
+                                                           m_BagMap.at(eBagPos::Front).GetSubId());
+                m_BagMap.at(eBagPos::Front).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+            }
+        }
+        else if (vvs.at(i).at(1) == "¶Žè‚Ì‘ÜID")
+        {
+            ItemInfo itemInfo;
+            if (vvs.at(i).at(2) == "")
+            {
+                itemInfo.SetId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                itemInfo.SetId(work);
+            }
+            m_BagMap[eBagPos::Left] = itemInfo;
+        }
+        else if (vvs.at(i).at(1) == "¶Žè‚Ì‘ÜSubID")
+        {
+            if (vvs.at(i).at(2) == "")
+            {
+                m_BagMap.at(eBagPos::Left).SetSubId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                m_BagMap.at(eBagPos::Left).SetSubId(work);
+
+                Inventory* inventory = Inventory::GetObj();
+                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Left).GetId(),
+                                                           m_BagMap.at(eBagPos::Left).GetSubId());
+                m_BagMap.at(eBagPos::Left).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+            }
+        }
+        else if (vvs.at(i).at(1) == "‰EŽè‚Ì‘ÜID")
+        {
+            ItemInfo itemInfo;
+            if (vvs.at(i).at(2) == "")
+            {
+                itemInfo.SetId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                itemInfo.SetId(work);
+            }
+            m_BagMap[eBagPos::Right] = itemInfo;
+        }
+        else if (vvs.at(i).at(1) == "‰EŽè‚Ì‘ÜSubID")
+        {
+            if (vvs.at(i).at(2) == "")
+            {
+                m_BagMap.at(eBagPos::Right).SetSubId(-1);
+            }
+            else
+            {
+                int work = std::stoi(vvs.at(i).at(2));
+                m_BagMap.at(eBagPos::Right).SetSubId(work);
+
+                Inventory* inventory = Inventory::GetObj();
+                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Right).GetId(),
+                                                           m_BagMap.at(eBagPos::Right).GetSubId());
+                m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+            }
+        }
     }
 }
 
@@ -1481,6 +1636,16 @@ void StatusManager::Save(const std::string& csvfile,
 
 float StatusManager::GetWalkSpeed()
 {
+    // Å‘åÏÚ—Ê‚ð’´‚¦‚Ä‚¢‚½‚ç•à‚­‚±‚Æ‚ª‚Å‚«‚È‚¢
+    {
+        float work1 = Inventory::GetObj()->GetVolume();
+        float work2 = Inventory::GetObj()->GetVolumeMax();
+        if (work1 > work2)
+        {
+            return 0.f;
+        }
+    }
+
     float walkSpeed = 1.f;
     float work = 0.f;
     bool work_b = false;
@@ -2490,6 +2655,125 @@ ItemInfo StatusManager::GetEquipWeapon() const
 void StatusManager::SetEquipWeapon(const ItemInfo& arg)
 {
     m_EquipWeapon = arg;
+}
+
+eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
+{
+    // ”w’†‚PA”w’†‚QA• A¶ŽèA‰EŽè‚Ì‡‚Å‘•”õ‚·‚éB
+    // • ‚É‘•”õ‚µ‚Ä”w’†‚P‚É‘•”õ‚µ‚È‚¢A‚Æ‚¢‚¤‚±‚Æ‚Í‚Å‚«‚È‚¢B
+
+    eBagPos result = eBagPos::None;
+
+    if (m_BagMap.at(eBagPos::Back1).GetId() == -1)
+    {
+        result = eBagPos::Back1;
+    }
+    else if (m_BagMap.at(eBagPos::Back2).GetId() == -1)
+    {
+        result = eBagPos::Back2;
+    }
+    else if (m_BagMap.at(eBagPos::Front).GetId() == -1)
+    {
+        result = eBagPos::Front;
+    }
+    else if (m_BagMap.at(eBagPos::Left).GetId() == -1)
+    {
+        result = eBagPos::Left;
+    }
+    else if (m_BagMap.at(eBagPos::Right).GetId() == -1)
+    {
+        result = eBagPos::Right;
+    }
+
+    if (result != eBagPos::None)
+    {
+        m_BagMap.at(result).SetId(bag.GetId());
+        m_BagMap.at(result).SetSubId(bag.GetSubId());
+        m_BagMap.at(result).SetDurabilityCurrent(bag.GetDurabilityCurrent());
+    }
+
+    // Å‘åÏÚ—Ê‚ÌÄŒvŽZ
+    Inventory::GetObj()->UpdateVolumeMax(m_BagMap);
+
+    return result;
+}
+
+eBagPos NSStarmanLib::StatusManager::UnequipBag()
+{
+    // ”w’†‚PA”w’†‚QA• A¶ŽèA‰EŽè‚Ì‡‚Å‘•”õ‚µA‹t‚Ì‡”Ô‚Å‘•”õ‚ðŠO‚·B
+    // • ‚É‘•”õ‚µ‚Ä”w’†‚P‚É‘•”õ‚µ‚È‚¢A‚Æ‚¢‚¤‚±‚Æ‚Í‚Å‚«‚È‚¢B
+
+    eBagPos result = eBagPos::None;
+
+    if (m_BagMap.at(eBagPos::Right).GetId() != -1)
+    {
+        result = eBagPos::Right;
+    }
+    else if (m_BagMap.at(eBagPos::Left).GetId() != -1)
+    {
+        result = eBagPos::Left;
+    }
+    else if (m_BagMap.at(eBagPos::Front).GetId() != -1)
+    {
+        result = eBagPos::Front;
+    }
+    else if (m_BagMap.at(eBagPos::Back2).GetId() != -1)
+    {
+        result = eBagPos::Back2;
+    }
+    else if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
+    {
+        result = eBagPos::Back1;
+    }
+
+    if (result != eBagPos::None)
+    {
+        m_BagMap.at(result).SetId(-1);
+        m_BagMap.at(result).SetSubId(-1);
+        m_BagMap.at(result).SetDurabilityCurrent(-1);
+    }
+
+    // Å‘åÏÚ—Ê‚ÌÄŒvŽZ
+    Inventory::GetObj()->UpdateVolumeMax(m_BagMap);
+
+    return result;
+}
+
+ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const
+{
+    return m_BagMap.at(bagPos);
+}
+
+std::vector<eBagPos> StatusManager::GetBagState()
+{
+    std::vector<eBagPos> result;
+
+    if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
+    {
+        result.push_back(eBagPos::Back1);
+    }
+
+    if (m_BagMap.at(eBagPos::Back2).GetId() != -1)
+    {
+        result.push_back(eBagPos::Back2);
+    }
+
+    if (m_BagMap.at(eBagPos::Front).GetId() != -1)
+    {
+        result.push_back(eBagPos::Front);
+    }
+
+    if (m_BagMap.at(eBagPos::Left).GetId() != -1)
+    {
+        result.push_back(eBagPos::Left);
+    }
+
+    if (m_BagMap.at(eBagPos::Right).GetId() != -1)
+    {
+        result.push_back(eBagPos::Right);
+    }
+
+    return result;
 }
 
 void StatusManager::SetSuperStress()

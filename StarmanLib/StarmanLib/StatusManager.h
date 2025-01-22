@@ -19,6 +19,16 @@ enum class eMagicType
     Dark,
 };
 
+enum class eBagPos
+{
+    None,
+    Back1,
+    Back2,
+    Front,
+    Left,
+    Right,
+};
+
 // PlayerのステータスとNPCのステータスは別のものとして用意する。
 // ここで扱うステータスはプレイヤーのStatus。
 
@@ -417,6 +427,18 @@ public:
     ItemInfo GetEquipWeapon() const;
     void SetEquipWeapon(const ItemInfo& arg);
 
+    // 袋を装備。戻り値としてどの個所に装着されたかが返される。
+    eBagPos EquipBag(const ItemInfo& bag);
+
+    // 袋を外す。戻り値としてどの個所の袋が外されたかが返される。
+    eBagPos UnequipBag();
+
+    // 袋を取得
+    ItemInfo GetBag(const eBagPos bagPos) const;
+
+    // 袋の装着状況
+    std::vector<eBagPos> GetBagState();
+
     // 強い精神ストレス
     void SetSuperStress();
 
@@ -460,6 +482,9 @@ private:
 
     // 装備武器
     ItemInfo m_EquipWeapon;
+
+    // 袋
+    std::unordered_map<eBagPos, ItemInfo> m_BagMap;
 
     // 風邪の完治にかかる秒数
     // 初期値は5日。身体を動かすと悪化する

@@ -57,6 +57,7 @@ void Inventory::Init(const std::string& csvfile,
     }
 
     m_weight = CalcWeight();
+    m_volumeCurrent = CalcVolume();
     m_inited = true;
 }
 
@@ -174,6 +175,7 @@ int Inventory::AddItem(const int id, const int durability)
     Sort();
 
     m_weight = CalcWeight();
+    m_volumeCurrent = CalcVolume();
     return newSubId;
 }
 
@@ -196,7 +198,9 @@ void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, co
     m_itemInfoList.push_back(itemInfo);
 
     Sort();
+
     m_weight = CalcWeight();
+    m_volumeCurrent = CalcVolume();
 }
 
 void Inventory::RemoveItem(const int id, const int subId)
@@ -209,7 +213,9 @@ void Inventory::RemoveItem(const int id, const int subId)
             break;
         }
     }
+
     m_weight = CalcWeight();
+    m_volumeCurrent = CalcVolume();
 }
 
 void NSStarmanLib::Inventory::RemoveItem(const std::string name,
@@ -319,6 +325,80 @@ float Inventory::GetWeight()
 std::list<ItemInfo> NSStarmanLib::Inventory::GetAllItem()
 {
     return m_itemInfoList;
+}
+
+float NSStarmanLib::Inventory::CalcVolume()
+{
+    float result = 0.f;
+    ItemManager* itemManager = ItemManager::GetObj();
+    for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
+    {
+        int id = it->GetId();
+        ItemDef itemDef = itemManager->GetItemDef(id);
+        if (itemDef.GetId() == 0)
+        {
+            continue;
+        }
+        result += itemDef.GetVolume();
+    }
+
+    m_volumeCurrent = result;
+    return result;
+}
+
+float NSStarmanLib::Inventory::GetVolume() const
+{
+    return m_volumeCurrent;
+}
+
+void NSStarmanLib::Inventory::UpdateVolumeMax(const std::unordered_map<eBagPos, ItemInfo>& bagMap)
+{
+    // 強化値0の袋→積載量3000mL
+    // 強化値1の袋→積載量4000mL
+    // 強化値2の袋→積載量5000mL
+    // 強化値3の袋→積載量6000mL
+    // 強化値4の袋→積載量7000mL
+    // 強化値5の袋→積載量8000mL
+
+    m_volumeMax = 0.f;
+
+    for (auto it = bagMap.begin(); it != bagMap.end(); ++it)
+    {
+        if (it->second.GetId() == -1)
+        {
+            continue;
+        }
+
+        if (it->second.GetItemDef().GetLevel() == -1)
+        {
+            m_volumeMax += 3000;
+        }
+        else if (it->second.GetItemDef().GetLevel() == 1)
+        {
+            m_volumeMax += 4000;
+        }
+        else if (it->second.GetItemDef().GetLevel() == 2)
+        {
+            m_volumeMax += 5000;
+        }
+        else if (it->second.GetItemDef().GetLevel() == 3)
+        {
+            m_volumeMax += 6000;
+        }
+        else if (it->second.GetItemDef().GetLevel() == 4)
+        {
+            m_volumeMax += 7000;
+        }
+        else if (it->second.GetItemDef().GetLevel() == 5)
+        {
+            m_volumeMax += 8000;
+        }
+    }
+}
+
+float NSStarmanLib::Inventory::GetVolumeMax() const
+{
+    return m_volumeMax;
 }
 
 float Inventory::CalcWeight()

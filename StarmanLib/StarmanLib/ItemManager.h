@@ -15,28 +15,6 @@ namespace NSStarmanLib
 // ItemInfoはInventoryクラス（インベントリ）やStorehouseクラス（倉庫）で使われる。
 // SubIdで個々のアイテムの識別を行うが、アイテムは削除できるので連番になるとは限らない
 
-class ItemInfo
-{
-public:
-
-    void SetId(const int arg);
-    int GetId() const;
-
-    void SetSubId(const int arg);
-    int GetSubId() const;
-
-    void SetDurabilityCurrent(const int arg);
-    int GetDurabilityCurrent() const;
-
-private:
-
-    int m_id = 0;
-
-    int m_subId = 0;
-
-    int m_durabilityCurrent = 0;
-};
-
 class ItemDef
 {
 public:
@@ -181,6 +159,30 @@ private:
     int m_durabilityMax = -1;
 };
 
+class ItemInfo
+{
+public:
+
+    void SetId(const int arg);
+    int GetId() const;
+
+    void SetSubId(const int arg);
+    int GetSubId() const;
+
+    void SetDurabilityCurrent(const int arg);
+    int GetDurabilityCurrent() const;
+
+    ItemDef GetItemDef() const;
+
+private:
+
+    int m_id = 0;
+
+    int m_subId = 0;
+
+    int m_durabilityCurrent = 0;
+};
+
 // ワールドマップ上のどこにアイテムが落ちているかの情報
 class ItemPos
 {
@@ -208,7 +210,7 @@ private:
 };
 
 // アイテム情報を管理するクラス
-// 「主人公はアイテムをいくつ持っているか？」は
+// 「主人公はどのアイテムをいくつ持っているか？」は
 // Inventoryクラスが担当するためこのクラスは関係ないことに注意。
 class ItemManager
 {

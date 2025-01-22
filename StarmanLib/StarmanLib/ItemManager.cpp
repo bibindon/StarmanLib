@@ -598,6 +598,11 @@ int NSStarmanLib::ItemInfo::GetDurabilityCurrent() const
     return m_durabilityCurrent;
 }
 
+ItemDef NSStarmanLib::ItemInfo::GetItemDef() const
+{
+    return ItemManager::GetObj()->GetItemDef(m_id);
+}
+
 void NSStarmanLib::ItemPos::SetItemPosId(const int id)
 {
     m_itemPosId = id;

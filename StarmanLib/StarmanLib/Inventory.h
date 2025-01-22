@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include "StatusManager.h"
 
 namespace NSStarmanLib
 {
@@ -61,6 +62,12 @@ public:
 
     std::list<ItemInfo> GetAllItem();
 
+    float CalcVolume();
+    float GetVolume() const;
+
+    void UpdateVolumeMax(const std::unordered_map<eBagPos, ItemInfo>& bagMap);
+    float GetVolumeMax() const;
+
 private:
     // 以下の4つの関数を宣言・定義するのが正しいが・・・なくても・・・別に・・・
     Inventory() {};
@@ -83,6 +90,10 @@ private:
     std::list<ItemInfo> m_itemInfoList;
     
     bool m_inited = false;
+
+    // 最大積載量
+    float m_volumeMax = 0.f;
+    float m_volumeCurrent = 0.f;
 };
 }
 
