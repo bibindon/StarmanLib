@@ -65,8 +65,11 @@ public:
     float CalcVolume();
     float GetVolume() const;
 
-    void UpdateVolumeMax(const std::unordered_map<eBagPos, ItemInfo>& bagMap);
+    void UpdateVolumeMax(const std::vector<ItemInfo>& bagMap);
     float GetVolumeMax() const;
+
+    // 装備中の袋の耐久値を減らす
+    void ReduceEquipBagDurability();
 
 private:
     // 以下の4つの関数を宣言・定義するのが正しいが・・・なくても・・・別に・・・

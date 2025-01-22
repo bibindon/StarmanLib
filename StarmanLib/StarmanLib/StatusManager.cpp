@@ -2692,7 +2692,7 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
     }
 
     // �ő�ύڗʂ̍Čv�Z
-    Inventory::GetObj()->UpdateVolumeMax(m_BagMap);
+    Inventory::GetObj()->UpdateVolumeMax(GetAllBag());
 
     return result;
 }
@@ -2763,7 +2763,7 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
     }
 
     // �ő�ύڗʂ̍Čv�Z
-    Inventory::GetObj()->UpdateVolumeMax(m_BagMap);
+    Inventory::GetObj()->UpdateVolumeMax(GetAllBag());
 }
 
 ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const

@@ -351,7 +351,7 @@ float NSStarmanLib::Inventory::GetVolume() const
     return m_volumeCurrent;
 }
 
-void NSStarmanLib::Inventory::UpdateVolumeMax(const std::unordered_map<eBagPos, ItemInfo>& bagMap)
+void NSStarmanLib::Inventory::UpdateVolumeMax(const std::vector<ItemInfo>& bagMap)
 {
     // ã≠âªíl0ÇÃë‹Å®êœç⁄ó 3000mL
     // ã≠âªíl1ÇÃë‹Å®êœç⁄ó 4000mL
@@ -364,32 +364,37 @@ void NSStarmanLib::Inventory::UpdateVolumeMax(const std::unordered_map<eBagPos, 
 
     for (auto it = bagMap.begin(); it != bagMap.end(); ++it)
     {
-        if (it->second.GetId() == -1)
+        if (it->GetId() == -1)
         {
             continue;
         }
 
-        if (it->second.GetItemDef().GetLevel() == -1)
+        if (it->GetDurabilityCurrent() < 0)
+        {
+            continue;
+        }
+
+        if (it->GetItemDef().GetLevel() == -1)
         {
             m_volumeMax += 3000;
         }
-        else if (it->second.GetItemDef().GetLevel() == 1)
+        else if (it->GetItemDef().GetLevel() == 1)
         {
             m_volumeMax += 4000;
         }
-        else if (it->second.GetItemDef().GetLevel() == 2)
+        else if (it->GetItemDef().GetLevel() == 2)
         {
             m_volumeMax += 5000;
         }
-        else if (it->second.GetItemDef().GetLevel() == 3)
+        else if (it->GetItemDef().GetLevel() == 3)
         {
             m_volumeMax += 6000;
         }
-        else if (it->second.GetItemDef().GetLevel() == 4)
+        else if (it->GetItemDef().GetLevel() == 4)
         {
             m_volumeMax += 7000;
         }
-        else if (it->second.GetItemDef().GetLevel() == 5)
+        else if (it->GetItemDef().GetLevel() == 5)
         {
             m_volumeMax += 8000;
         }
@@ -399,6 +404,28 @@ void NSStarmanLib::Inventory::UpdateVolumeMax(const std::unordered_map<eBagPos, 
 float NSStarmanLib::Inventory::GetVolumeMax() const
 {
     return m_volumeMax;
+}
+
+void NSStarmanLib::Inventory::ReduceEquipBagDurability()
+{
+    auto allBag = StatusManager::GetObj()->GetAllBag();
+
+    for (auto it = allBag.begin(); it != allBag.end(); ++it)
+    {
+        for (auto it2 = m_itemInfoList.begin(); it2 != m_itemInfoList.end(); ++it2)
+        {
+            if (it->GetId() == it2->GetId() && it->GetSubId() == it2->GetSubId())
+            {
+                auto dura = it2->GetDurabilityCurrent();
+                if (dura >= 1)
+                {
+                    it2->SetDurabilityCurrent(dura - 1);
+                }
+                break;
+            }
+        }
+    }
+    UpdateVolumeMax(allBag);
 }
 
 float Inventory::CalcWeight()
