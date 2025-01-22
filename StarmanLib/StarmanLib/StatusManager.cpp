@@ -805,6 +805,8 @@ void StatusManager::Init(const std::string& csvfile,
             }
         }
     }
+    auto inventory = Inventory::GetObj();
+    inventory->UpdateVolumeMax(GetAllBag());
 }
 
 void StatusManager::Update()
