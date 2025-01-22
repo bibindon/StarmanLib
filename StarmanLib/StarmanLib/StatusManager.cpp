@@ -2697,6 +2697,12 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
     return result;
 }
 
+void NSStarmanLib::StatusManager::UnequipBag(const int id, const int subId)
+{
+    auto bagPos = GetBag(id, subId);
+    UnequipBag(bagPos);
+}
+
 void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
 {
     // Žw’è‚µ‚½ˆÊ’u‚Ì‘Ü‚ðŠO‚·
@@ -2763,6 +2769,19 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
 ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const
 {
     return m_BagMap.at(bagPos);
+}
+
+NSStarmanLib::eBagPos NSStarmanLib::StatusManager::GetBag(const int id, const int subId) const
+{
+    eBagPos result = eBagPos::None;
+    for (auto it = m_BagMap.begin(); it != m_BagMap.end(); ++it)
+    {
+        if (it->second.GetId() == id && it->second.GetSubId() == subId)
+        {
+            result = it->first;
+        }
+    }
+    return result;
 }
 
 std::vector<ItemInfo> NSStarmanLib::StatusManager::GetAllBag()

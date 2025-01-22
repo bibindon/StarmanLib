@@ -430,11 +430,13 @@ public:
     // 袋を装備。戻り値としてどの個所に装着されたかが返される。
     eBagPos EquipBag(const ItemInfo& bag);
 
-    // 袋を外す。戻り値としてどの個所の袋が外されたかが返される。
+    // 袋を外す。
     void UnequipBag(const eBagPos bagPos);
+    void UnequipBag(const int id, const int subId);
 
     // 袋を取得
     ItemInfo GetBag(const eBagPos bagPos) const;
+    eBagPos GetBag(const int id, const int subId) const;
     std::vector<ItemInfo> GetAllBag();
 
     // 袋の装着状況
