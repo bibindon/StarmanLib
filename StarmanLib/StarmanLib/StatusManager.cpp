@@ -1792,6 +1792,12 @@ float StatusManager::GetAttackPower()
         result *= 0.5f;
     }
 
+    // 左手に袋を持っていたら攻撃力が半減する
+    if (GetBag(eBagPos::Left).GetId() != -1)
+    {
+        result *= 0.5f;
+    }
+
     // 攻撃力がマイナス、はありえない。
     if (result < 0.f)
     {
