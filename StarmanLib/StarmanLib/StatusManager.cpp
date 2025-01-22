@@ -299,52 +299,52 @@ void Status::SetLackOfSleep(bool mlackOfSleep)
     m_lackOfSleep = mlackOfSleep;
 }
 
-bool NSStarmanLib::Status::GetDead() const
+bool Status::GetDead() const
 {
     return m_dead;
 }
 
-void NSStarmanLib::Status::SetDead(const bool arg)
+void Status::SetDead(const bool arg)
 {
     m_dead = arg;
 }
 
-float NSStarmanLib::Status::GetSatiety() const
+float Status::GetSatiety() const
 {
     return m_satiety;
 }
 
-void NSStarmanLib::Status::SetSatiety(const float arg)
+void Status::SetSatiety(const float arg)
 {
     m_satiety = arg;
 }
 
-float NSStarmanLib::Status::GetX() const
+float Status::GetX() const
 {
     return m_x;
 }
 
-void NSStarmanLib::Status::SetX(const float arg)
+void Status::SetX(const float arg)
 {
     m_x = arg;
 }
 
-float NSStarmanLib::Status::GetY() const
+float Status::GetY() const
 {
     return m_y;
 }
 
-void NSStarmanLib::Status::SetY(const float arg)
+void Status::SetY(const float arg)
 {
     m_y = arg;
 }
 
-float NSStarmanLib::Status::GetZ() const
+float Status::GetZ() const
 {
     return m_z;
 }
 
-void NSStarmanLib::Status::SetZ(const float arg)
+void Status::SetZ(const float arg)
 {
     m_z = arg;
 }
@@ -871,6 +871,21 @@ void StatusManager::Update()
     //-----------------------------------------
     // 計算結果をセット
     //-----------------------------------------
+
+    // スタミナ消耗が速すぎるので1/10にしてみる
+    {
+        auto work1 = m_status.GetBodyStaminaCurrent();
+        auto work2 = m_status.GetBodyStaminaMaxSub();
+
+        auto work3 = m_status.GetBrainStaminaCurrent();
+        auto work4 = m_status.GetBrainStaminaMaxSub();
+
+        bodyStaminaCurrent = work1 - (work1 - bodyStaminaCurrent) * 0.1f;
+        bodyStaminaMaxSub = work2 - (work2 - bodyStaminaMaxSub) * 0.1f;
+
+        brainStaminaCurrent = work3 - (work3 - brainStaminaCurrent) * 0.1f;
+        brainStaminaMaxSub = work4 - (work4 - brainStaminaMaxSub) * 0.1f;
+    }
 
     m_status.SetBodyStaminaCurrent(bodyStaminaCurrent);
     m_status.SetBodyStaminaMaxSub(bodyStaminaMaxSub);
@@ -1621,7 +1636,7 @@ float StatusManager::GetAttackPower()
     return result;
 }
 
-void NSStarmanLib::StatusManager::ConsumeAttackCost()
+void StatusManager::ConsumeAttackCost()
 {
     //--------------------------------
     // 消耗
@@ -1709,7 +1724,7 @@ float StatusManager::GetDefensePower()
     return 1.0f;
 }
 
-bool NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
+bool StatusManager::Eat(const ItemDef& itemDef)
 {
     if (itemDef.GetType() != ItemDef::ItemType::FOOD)
     {
@@ -1759,7 +1774,7 @@ bool NSStarmanLib::StatusManager::Eat(const ItemDef& itemDef)
 }
 
 // TODO なんか変
-bool NSStarmanLib::StatusManager::Sleep()
+bool StatusManager::Sleep()
 {
     PowereggDateTime* dateTime = PowereggDateTime::GetObj();
 
@@ -2075,7 +2090,7 @@ bool NSStarmanLib::StatusManager::Sleep()
     return true;
 }
 
-void NSStarmanLib::StatusManager::Talk()
+void StatusManager::Talk()
 {
     float work = 0.f;
     work = GetBrainStaminaCurrent();
@@ -2087,7 +2102,7 @@ void NSStarmanLib::StatusManager::Talk()
     SetBrainStaminaCurrent(work);
 }
 
-void NSStarmanLib::StatusManager::UseMagic()
+void StatusManager::UseMagic()
 {
     float work = 0.f;
     work = GetBrainStaminaCurrent();
@@ -2112,7 +2127,7 @@ void NSStarmanLib::StatusManager::UseMagic()
     }
 }
 
-void NSStarmanLib::StatusManager::DrinkWordBress(const float playerX,
+void StatusManager::DrinkWordBress(const float playerX,
                                                  const float playerY,
                                                  const float playerZ)
 {
@@ -2457,27 +2472,27 @@ void StatusManager::SetPlayerAction(const PlayerState arg)
     m_playerState = arg;
 }
 
-bool NSStarmanLib::StatusManager::GetDead() const
+bool StatusManager::GetDead() const
 {
     return m_status.GetDead();
 }
 
-void NSStarmanLib::StatusManager::SetDead(const bool arg)
+void StatusManager::SetDead(const bool arg)
 {
     m_status.SetDead(arg);
 }
 
-ItemInfo NSStarmanLib::StatusManager::GetEquipWeapon() const
+ItemInfo StatusManager::GetEquipWeapon() const
 {
     return m_EquipWeapon;
 }
 
-void NSStarmanLib::StatusManager::SetEquipWeapon(const ItemInfo& arg)
+void StatusManager::SetEquipWeapon(const ItemInfo& arg)
 {
     m_EquipWeapon = arg;
 }
 
-void NSStarmanLib::StatusManager::SetSuperStress()
+void StatusManager::SetSuperStress()
 {
     // 強いストレスがあった場合、脳の体力が半分になる。現在地も最大値も半分になる。
     float work = 0.f;
@@ -2494,64 +2509,64 @@ void NSStarmanLib::StatusManager::SetSuperStress()
     SetBrainStaminaCurrent(work);
 }
 
-void NSStarmanLib::StatusManager::GetXYZ(float* x, float* y, float* z)
+void StatusManager::GetXYZ(float* x, float* y, float* z)
 {
     *x = m_status.GetX();
     *y = m_status.GetY();
     *z = m_status.GetZ();
 }
 
-void NSStarmanLib::StatusManager::SetMagicType(const eMagicType magicType)
+void StatusManager::SetMagicType(const eMagicType magicType)
 {
     m_eMagicType = magicType;
 }
 
-eMagicType NSStarmanLib::StatusManager::GetMagicType() const
+eMagicType StatusManager::GetMagicType() const
 {
     return m_eMagicType;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelUpFire()
+bool StatusManager::GetLevelUpFire()
 {
     return m_levelUpFire;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelUpIce()
+bool StatusManager::GetLevelUpIce()
 {
     return m_levelUpIce;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelUpDark()
+bool StatusManager::GetLevelUpDark()
 {
     return m_levelUpDark;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelDownFire()
+bool StatusManager::GetLevelDownFire()
 {
     return m_levelDownFire;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelDownIce()
+bool StatusManager::GetLevelDownIce()
 {
     return m_levelDownIce;
 }
 
-bool NSStarmanLib::StatusManager::GetLevelDownDark()
+bool StatusManager::GetLevelDownDark()
 {
     return m_levelDownDark;
 }
 
-int NSStarmanLib::StatusManager::GetLevelFire() const
+int StatusManager::GetLevelFire() const
 {
     return m_levelFire;
 }
 
-int NSStarmanLib::StatusManager::GetLevelIce() const
+int StatusManager::GetLevelIce() const
 {
     return m_levelIce;
 }
 
-int NSStarmanLib::StatusManager::GetLevelDark() const
+int StatusManager::GetLevelDark() const
 {
     return m_levelDark;
 }
