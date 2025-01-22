@@ -426,6 +426,8 @@ void NSStarmanLib::Inventory::ReduceEquipBagDurability()
         }
     }
     UpdateVolumeMax(allBag);
+
+    StatusManager::GetObj()->UpdateBagDurability();
 }
 
 float Inventory::CalcWeight()

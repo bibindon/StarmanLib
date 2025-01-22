@@ -442,6 +442,8 @@ public:
     // 袋の装着状況
     std::vector<eBagPos> GetBagState();
 
+    void UpdateBagDurability();
+
     // 強い精神ストレス
     void SetSuperStress();
 

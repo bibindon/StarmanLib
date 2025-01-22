@@ -2699,6 +2699,7 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
         m_BagMap.at(result).SetDurabilityCurrent(bag.GetDurabilityCurrent());
     }
 
+
     // �ő�ύڗʂ̍Čv�Z
     Inventory::GetObj()->UpdateVolumeMax(GetAllBag());
 
@@ -2832,6 +2833,22 @@ std::vector<eBagPos> StatusManager::GetBagState()
     }
 
     return result;
+}
+
+void NSStarmanLib::StatusManager::UpdateBagDurability()
+{
+    auto inventory = Inventory::GetObj();
+
+    for (auto it = m_BagMap.begin(); it != m_BagMap.end(); ++it)
+    {
+        if (it->second.GetId() == -1)
+        {
+            continue;
+        }
+
+        auto itemInfo = inventory->GetItemInfo(it->second.GetId(), it->second.GetSubId());
+        it->second.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+    }
 }
 
 void StatusManager::SetSuperStress()
