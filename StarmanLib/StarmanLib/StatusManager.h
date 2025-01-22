@@ -431,7 +431,7 @@ public:
     eBagPos EquipBag(const ItemInfo& bag);
 
     // 袋を外す。戻り値としてどの個所の袋が外されたかが返される。
-    eBagPos UnequipBag();
+    void UnequipBag(const eBagPos bagPos);
 
     // 袋を取得
     ItemInfo GetBag(const eBagPos bagPos) const;

@@ -2660,7 +2660,6 @@ void StatusManager::SetEquipWeapon(const ItemInfo& arg)
 eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
 {
     // ”w’†‚PA”w’†‚QA• A¶ŽèA‰EŽè‚Ì‡‚Å‘•”õ‚·‚éB
-    // • ‚É‘•”õ‚µ‚Ä”w’†‚P‚É‘•”õ‚µ‚È‚¢A‚Æ‚¢‚¤‚±‚Æ‚Í‚Å‚«‚È‚¢B
 
     eBagPos result = eBagPos::None;
 
@@ -2698,45 +2697,67 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
     return result;
 }
 
-eBagPos NSStarmanLib::StatusManager::UnequipBag()
+void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
 {
-    // ”w’†‚PA”w’†‚QA• A¶ŽèA‰EŽè‚Ì‡‚Å‘•”õ‚µA‹t‚Ì‡”Ô‚Å‘•”õ‚ðŠO‚·B
-    // • ‚É‘•”õ‚µ‚Ä”w’†‚P‚É‘•”õ‚µ‚È‚¢A‚Æ‚¢‚¤‚±‚Æ‚Í‚Å‚«‚È‚¢B
+    // Žw’è‚µ‚½ˆÊ’u‚Ì‘Ü‚ðŠO‚·
+    //
+    // ‚»‚ÌŒãA”w’†‚PA”w’†‚QA• A¶ŽèA‰EŽè‚Ì‡‚Å‘•”õ‚³‚ê‚é‚æ‚¤‚ÉAˆêŒÂ‚¸‚Â‚¸‚ç‚·
 
-    eBagPos result = eBagPos::None;
+    ItemInfo work = m_BagMap.at(bagPos);
 
-    if (m_BagMap.at(eBagPos::Right).GetId() != -1)
+    // ‚Ü‚¸A‘Ü‚ðŠO‚·
+    if (bagPos != eBagPos::None)
     {
-        result = eBagPos::Right;
-    }
-    else if (m_BagMap.at(eBagPos::Left).GetId() != -1)
-    {
-        result = eBagPos::Left;
-    }
-    else if (m_BagMap.at(eBagPos::Front).GetId() != -1)
-    {
-        result = eBagPos::Front;
-    }
-    else if (m_BagMap.at(eBagPos::Back2).GetId() != -1)
-    {
-        result = eBagPos::Back2;
-    }
-    else if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
-    {
-        result = eBagPos::Back1;
+        m_BagMap.at(bagPos).SetId(-1);
+        m_BagMap.at(bagPos).SetSubId(-1);
+        m_BagMap.at(bagPos).SetDurabilityCurrent(-1);
     }
 
-    if (result != eBagPos::None)
+    // ŽŸ‚ÉA‘Ü‚ðˆÚ“®
+    // ˆêŒÂ‚¸‚Â‚¸‚ç‚·
+
+    if (m_BagMap.at(eBagPos::Back1).GetId() == -1 &&
+        m_BagMap.at(eBagPos::Back2).GetId() != -1)
     {
-        m_BagMap.at(result).SetId(-1);
-        m_BagMap.at(result).SetSubId(-1);
-        m_BagMap.at(result).SetDurabilityCurrent(-1);
+        m_BagMap.at(eBagPos::Back1) = m_BagMap.at(eBagPos::Back2);
+
+        m_BagMap.at(eBagPos::Back2).SetId(-1);
+        m_BagMap.at(eBagPos::Back2).SetSubId(-1);
+        m_BagMap.at(eBagPos::Back2).SetDurabilityCurrent(-1);
+    }
+
+    if (m_BagMap.at(eBagPos::Back2).GetId() == -1 &&
+        m_BagMap.at(eBagPos::Front).GetId() != -1)
+    {
+        m_BagMap.at(eBagPos::Back2) = m_BagMap.at(eBagPos::Front);
+
+        m_BagMap.at(eBagPos::Front).SetId(-1);
+        m_BagMap.at(eBagPos::Front).SetSubId(-1);
+        m_BagMap.at(eBagPos::Front).SetDurabilityCurrent(-1);
+    }
+
+    if (m_BagMap.at(eBagPos::Front).GetId() == -1 &&
+        m_BagMap.at(eBagPos::Left).GetId() != -1)
+    {
+        m_BagMap.at(eBagPos::Front) = m_BagMap.at(eBagPos::Left);
+
+        m_BagMap.at(eBagPos::Left).SetId(-1);
+        m_BagMap.at(eBagPos::Left).SetSubId(-1);
+        m_BagMap.at(eBagPos::Left).SetDurabilityCurrent(-1);
+    }
+
+    if (m_BagMap.at(eBagPos::Left).GetId() == -1 &&
+        m_BagMap.at(eBagPos::Right).GetId() != -1)
+    {
+        m_BagMap.at(eBagPos::Left) = m_BagMap.at(eBagPos::Right);
+
+        m_BagMap.at(eBagPos::Right).SetId(-1);
+        m_BagMap.at(eBagPos::Right).SetSubId(-1);
+        m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(-1);
     }
 
     // Å‘åÏÚ—Ê‚ÌÄŒvŽZ
     Inventory::GetObj()->UpdateVolumeMax(m_BagMap);
-
-    return result;
 }
 
 ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const
