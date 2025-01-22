@@ -435,6 +435,7 @@ public:
 
     // ‘Ü‚ğæ“¾
     ItemInfo GetBag(const eBagPos bagPos) const;
+    std::vector<ItemInfo> GetAllBag();
 
     // ‘Ü‚Ì‘•’…ó‹µ
     std::vector<eBagPos> GetBagState();

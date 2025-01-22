@@ -2765,6 +2765,16 @@ ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const
     return m_BagMap.at(bagPos);
 }
 
+std::vector<ItemInfo> NSStarmanLib::StatusManager::GetAllBag()
+{
+    std::vector<ItemInfo> result;
+    for (auto it = m_BagMap.begin(); it != m_BagMap.end(); ++it)
+    {
+        result.push_back(it->second);
+    }
+    return result;
+}
+
 std::vector<eBagPos> StatusManager::GetBagState()
 {
     std::vector<eBagPos> result;
