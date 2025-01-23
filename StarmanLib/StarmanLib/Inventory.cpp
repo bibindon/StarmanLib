@@ -420,6 +420,7 @@ void NSStarmanLib::Inventory::ReduceEquipBagDurability()
                 if (dura >= 1)
                 {
                     it2->SetDurabilityCurrent(dura - 1);
+                    it->SetDurabilityCurrent(dura - 1);
                 }
                 break;
             }
