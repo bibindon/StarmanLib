@@ -369,7 +369,7 @@ void NSStarmanLib::Inventory::UpdateVolumeMax(const std::vector<ItemInfo>& bagMa
             continue;
         }
 
-        if (it->GetDurabilityCurrent() < 0)
+        if (it->GetDurabilityCurrent() <= 0)
         {
             continue;
         }
