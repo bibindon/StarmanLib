@@ -360,7 +360,7 @@ void NSStarmanLib::Inventory::UpdateVolumeMax(const std::vector<ItemInfo>& bagMa
     // 強化値4の袋→積載量7000mL
     // 強化値5の袋→積載量8000mL
 
-    m_volumeMax = 0.f;
+    m_volumeMax = 5000.f; // 袋がなくても5リットルまでは持てる
 
     for (auto it = bagMap.begin(); it != bagMap.end(); ++it)
     {
