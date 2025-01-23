@@ -2846,8 +2846,14 @@ void NSStarmanLib::StatusManager::UpdateBagDurability()
             continue;
         }
 
-        auto itemInfo = inventory->GetItemInfo(it->second.GetId(), it->second.GetSubId());
-        it->second.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+        // 袋を捨てた場合、捨てた袋の耐久値は下げようとすると
+        // インベントリに存在しないので例外が起きてしまう。
+        // 存在しないなら耐久値を下げない
+        if (inventory->ExistItem(it->second.GetId(), it->second.GetSubId()))
+        {
+            auto itemInfo = inventory->GetItemInfo(it->second.GetId(), it->second.GetSubId());
+            it->second.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+        }
     }
 }
 
