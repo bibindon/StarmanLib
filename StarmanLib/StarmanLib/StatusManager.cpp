@@ -2807,6 +2807,11 @@ std::vector<eBagPos> StatusManager::GetBagState()
 {
     std::vector<eBagPos> result;
 
+    if (m_BagMap.empty())
+    {
+        return result;
+    }
+
     if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
     {
         result.push_back(eBagPos::Back1);
