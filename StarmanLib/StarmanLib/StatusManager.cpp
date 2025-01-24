@@ -1633,6 +1633,76 @@ void StatusManager::Save(const std::string& csvfile,
     vs.push_back(work);
     vvs.push_back(vs);
 
+    vs.clear();
+    vs.push_back("41");
+    vs.push_back("îwíÜÇÃë‹1ID");
+    work = std::to_string(m_BagMap.at(eBagPos::Back1).GetId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("42");
+    vs.push_back("îwíÜÇÃë‹1SubID");
+    work = std::to_string(m_BagMap.at(eBagPos::Back1).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("43");
+    vs.push_back("îwíÜÇÃë‹2ID");
+    work = std::to_string(m_BagMap.at(eBagPos::Back2).GetId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("44");
+    vs.push_back("îwíÜÇÃë‹2SubID");
+    work = std::to_string(m_BagMap.at(eBagPos::Back2).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("45");
+    vs.push_back("ï†ÇÃë‹ID");
+    work = std::to_string(m_BagMap.at(eBagPos::Front).GetId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("46");
+    vs.push_back("ï†ÇÃë‹SubID");
+    work = std::to_string(m_BagMap.at(eBagPos::Front).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("47");
+    vs.push_back("ç∂éËÇÃë‹ID");
+    work = std::to_string(m_BagMap.at(eBagPos::Left).GetId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("48");
+    vs.push_back("ç∂éËÇÃë‹SubID");
+    work = std::to_string(m_BagMap.at(eBagPos::Left).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("49");
+    vs.push_back("âEéËÇÃë‹ID");
+    work = std::to_string(m_BagMap.at(eBagPos::Right).GetId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back("50");
+    vs.push_back("âEéËÇÃë‹SubID");
+    work = std::to_string(m_BagMap.at(eBagPos::Right).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
@@ -2806,11 +2876,6 @@ std::vector<ItemInfo> NSStarmanLib::StatusManager::GetAllBag()
 std::vector<eBagPos> StatusManager::GetBagState()
 {
     std::vector<eBagPos> result;
-
-    if (m_BagMap.empty())
-    {
-        return result;
-    }
 
     if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
     {
