@@ -1,5 +1,6 @@
 #include "Guide.h"
 #include "Util.h"
+#include <algorithm>
 
 using namespace NSStarmanLib;
 
@@ -89,8 +90,14 @@ std::vector<std::string> Guide::GetCategoryList()
     std::vector<std::string> vs;
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
-        vs.push_back(m_guideList.at(i).GetCategory());
+        auto result = std::find(vs.begin(), vs.end(), m_guideList.at(i).GetCategory());
+
+        if (result == vs.end())
+        {
+            vs.push_back(m_guideList.at(i).GetCategory());
+        }
     }
+
     return vs;
 }
 
