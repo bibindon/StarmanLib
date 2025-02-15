@@ -489,6 +489,19 @@ void NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
         throw std::exception();
     }
 
+    // ˆê“x‚ÉˆË—Š‚Å‚«‚é‚Ì‚Í‚R‰ñ‚Ü‚Å
+    auto notFinishCount =
+        std::count_if(m_PatchTestQue.begin(), m_PatchTestQue.end(),
+                      [](PatchTest patchTest)
+                      {
+                          return patchTest.GetState() != PatchTest::eState::FINISHED;
+                      });
+
+    if (notFinishCount >= 4)
+    {
+        return;
+    }
+
     PatchTest patchTest;
 
     patchTest.SetItemName(name);
