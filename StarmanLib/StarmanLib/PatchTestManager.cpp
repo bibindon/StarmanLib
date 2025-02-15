@@ -149,7 +149,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 }
 
                 {
-                    if (!vvs.at(i).at(4).empty())
+                    if (vvs.at(i).size() >= 5 || !vvs.at(i).at(4).empty())
                     {
                         auto vs = Util::split(vvs.at(i).at(4));
 
@@ -163,7 +163,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 }
 
                 {
-                    if (vvs.at(i).at(5).empty())
+                    if (vvs.at(i).size() <= 5 || vvs.at(i).at(5).empty())
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_YET);
                     }
@@ -432,7 +432,7 @@ void NSStarmanLib::PatchTestManager::Update()
             ++it;
             if (it != m_PatchTestQue.end())
             {
-                it->SetState(PatchTest::STARTED);
+                it->SetState(PatchTest::eState::STARTED);
                 it->SetDateTimeStart(dateTime->GetYear(),
                                      dateTime->GetMonth(),
                                      dateTime->GetDay(),
@@ -460,7 +460,7 @@ void NSStarmanLib::PatchTestManager::Update()
             // 未完了を見つけたら開始する
             if (patchTest.GetState() == PatchTest::eState::NOT_START)
             {
-                patchTest.SetState(PatchTest::STARTED);
+                patchTest.SetState(PatchTest::eState::STARTED);
                 patchTest.SetDateTimeStart(dateTime->GetYear(),
                                            dateTime->GetMonth(),
                                            dateTime->GetDay(),
@@ -481,8 +481,28 @@ void NSStarmanLib::PatchTestManager::Update()
     }
 }
 
-void NSStarmanLib::PatchTestManager::QueuePatchTest(const PatchTest& patchTest)
+void NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
 {
+    auto it = m_infoMap.find(name);
+    if (it == m_infoMap.end())
+    {
+        throw std::exception();
+    }
+
+    PatchTest patchTest;
+
+    patchTest.SetItemName(name);
+
+    auto dateTime = PowereggDateTime::GetObj();
+
+    patchTest.SetDateTimeReq(dateTime->GetYear(),
+                             dateTime->GetMonth(),
+                             dateTime->GetDay(),
+                             dateTime->GetHour(),
+                             dateTime->GetMinute(),
+                             dateTime->GetSecond()
+                             );
+
     m_PatchTestQue.push_back(patchTest);
 }
 
@@ -491,26 +511,21 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()
     return m_PatchTestQue;
 }
 
-std::array<PatchTest, 3> NSStarmanLib::PatchTestManager::GetResultList(const std::string& name)
+// 先頭が一番新しく、末尾に向かうほど古いテスト結果
+std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::string& name)
 {
-    std::array<PatchTest, 3> resultList;
-
-    std::vector<PatchTest> work;
+    std::vector<PatchTest> resultList;
 
     for (auto it = m_PatchTestQue.rbegin(); it != m_PatchTestQue.rend(); ++it)
     {
         if (it->GetItemName() == name)
         {
-            work.push_back(*it);
-
-            if (work.size() >= 3)
+            if (it->GetState() == PatchTest::eState::FINISHED)
             {
-                break;
+                resultList.push_back(*it);
             }
         }
     }
-
-    std::copy(work.begin(), work.end(), resultList.begin());
 
     return resultList;
 }

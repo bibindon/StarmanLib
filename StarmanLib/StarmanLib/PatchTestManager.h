@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <array>
 
 namespace NSStarmanLib
 {
@@ -12,14 +11,14 @@ class PatchTest
 {
 public:
 
-    enum eState
+    enum class eState
     {
         NOT_START,
         STARTED,
         FINISHED,
     };
 
-    enum eResult
+    enum class eResult
     {
         NOT_YET,
         POISON,
@@ -151,12 +150,12 @@ public:
     // 現実世界で1秒に一回呼ばれる想定
     void Update();
 
-    void QueuePatchTest(const PatchTest& patchTest);
+    void QueuePatchTest(const std::string& patchTest);
     std::vector<PatchTest> GetQueue();
 
     // 直近の3回のテスト結果を取得できると便利かもしれない。
     // GUIで表示したい。
-    std::array<PatchTest, 3> GetResultList(const std::string& name);
+    std::vector<PatchTest> GetResultList(const std::string& name);
 
 private:
 
@@ -170,9 +169,6 @@ private:
     // 毒、毒じゃない、はあらかじめ決まっていない。
     // ゲーム開始時にランダムで決まる
     std::map<std::string, PatchItemInfo> m_infoMap;
-
-    // TODO アイテムごとの熟練度
-
 };
 }
 
