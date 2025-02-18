@@ -136,6 +136,19 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\patchTestQueSave.csv");
         }
 
+        // Init関数でデータが読み込まれていることを確認する
+        TEST_METHOD(TestMethod05_3)
+        {
+            PatchTestManager::Destroy();
+            PatchTestManager* obj = PatchTestManager::Get();
+            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv",
+                      "..\\StarmanLibTest\\patchTestInfoSave.csv",
+                      "..\\StarmanLibTest\\patchTestQueSave.csv");
+
+            auto que = obj->GetQueue();
+            Assert::AreEqual(true, que.size() != 0);
+        }
+
         // Save関数で落ちないことを確認するテスト
         TEST_METHOD(TestMethod06)
         {

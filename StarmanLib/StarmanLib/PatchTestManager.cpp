@@ -189,6 +189,8 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                         throw std::exception();
                     }
                 }
+
+                m_PatchTestQue.push_back(patchTest);
             }
         }
     }
