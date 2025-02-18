@@ -126,6 +126,16 @@ namespace StarmanLibTest
             Assert::AreEqual(0, (int)resultList3.size());
         }
 
+        // Init関数で落ちないことを確認するテスト
+        TEST_METHOD(TestMethod05_2)
+        {
+            PatchTestManager::Destroy();
+            PatchTestManager* obj = PatchTestManager::Get();
+            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv",
+                      "..\\StarmanLibTest\\patchTestInfoSave.csv",
+                      "..\\StarmanLibTest\\patchTestQueSave.csv");
+        }
+
         // Save関数で落ちないことを確認するテスト
         TEST_METHOD(TestMethod06)
         {

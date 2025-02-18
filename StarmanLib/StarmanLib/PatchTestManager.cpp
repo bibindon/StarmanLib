@@ -149,7 +149,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 }
 
                 {
-                    if (vvs.at(i).size() >= 5 || !vvs.at(i).at(4).empty())
+                    if (vvs.at(i).size() >= 5 && !vvs.at(i).at(4).empty())
                     {
                         auto vs = Util::split(vvs.at(i).at(4));
 
@@ -163,7 +163,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 }
 
                 {
-                    if (vvs.at(i).size() <= 5 || vvs.at(i).at(5).empty())
+                    if (vvs.at(i).size() <= 6 && vvs.at(i).at(5).empty())
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_YET);
                     }
