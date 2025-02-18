@@ -30,6 +30,15 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                                           const std::string& saveFileInfo,
                                           const std::string& saveFileQue)
 {
+
+    {
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(originFile, false);
+        for (size_t i = 1; i < vvs.size(); ++i)
+        {
+            m_keyList.push_back(vvs.at(i).at(0));
+        }
+    }
+
     //-------------------------------------------------------------
     // 毒、毒ではない、という情報はあらかじめ決まっているわけではない。
     // ゲーム開始時にランダムで決まる
@@ -46,8 +55,6 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            m_keyList.push_back(vvs.at(i).at(0));
-
             m_infoMap[vvs.at(i).at(0)].SetName(vvs.at(i).at(0));
 
             int rnd = rand();
