@@ -386,6 +386,13 @@ void NSStarmanLib::PatchTestManager::Update()
             // Š®—¹ˆ—
             it->SetState(PatchTest::eState::FINISHED);
 
+            it->SetDateTimeEnd(dateTime->GetYear(),
+                               dateTime->GetMonth(),
+                               dateTime->GetDay(),
+                               dateTime->GetHour(),
+                               dateTime->GetMinute(),
+                               dateTime->GetSecond());
+
             auto name = it->GetItemName();
             auto accurate = m_infoMap[name].GetAccurate();
 
