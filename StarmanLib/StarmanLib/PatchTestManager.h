@@ -157,6 +157,8 @@ public:
     // GUIで表示したい。
     std::vector<PatchTest> GetResultList(const std::string& name);
 
+    std::vector<std::string> GetKeyList();
+
 private:
 
     static PatchTestManager* m_obj;
@@ -169,6 +171,8 @@ private:
     // 毒、毒じゃない、はあらかじめ決まっていない。
     // ゲーム開始時にランダムで決まる
     std::map<std::string, PatchItemInfo> m_infoMap;
+
+    std::vector<std::string> m_keyList;
 };
 }
 

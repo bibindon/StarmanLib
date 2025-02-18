@@ -46,6 +46,8 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
+            m_keyList.push_back(vvs.at(i).at(0));
+
             m_infoMap[vvs.at(i).at(0)].SetName(vvs.at(i).at(0));
 
             int rnd = rand();
@@ -541,6 +543,11 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::
     }
 
     return resultList;
+}
+
+std::vector<std::string> NSStarmanLib::PatchTestManager::GetKeyList()
+{
+    return m_keyList;
 }
 
 void NSStarmanLib::PatchTest::SetItemName(const std::string& arg)
