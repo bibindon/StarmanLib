@@ -492,7 +492,7 @@ void NSStarmanLib::PatchTestManager::Update()
     }
 }
 
-void NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
+bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
 {
     auto it = m_infoMap.find(name);
     if (it == m_infoMap.end())
@@ -510,7 +510,7 @@ void NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
 
     if (notFinishCount >= 4)
     {
-        return;
+        return false;
     }
 
     PatchTest patchTest;
@@ -528,6 +528,8 @@ void NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
                              );
 
     m_PatchTestQue.push_back(patchTest);
+
+    return true;
 }
 
 std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()

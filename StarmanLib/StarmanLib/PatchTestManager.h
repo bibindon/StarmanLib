@@ -150,7 +150,7 @@ public:
     // 現実世界で1秒に一回呼ばれる想定
     void Update();
 
-    void QueuePatchTest(const std::string& patchTest);
+    bool QueuePatchTest(const std::string& patchTest);
     std::vector<PatchTest> GetQueue();
 
     // 直近の3回のテスト結果を取得できると便利かもしれない。
