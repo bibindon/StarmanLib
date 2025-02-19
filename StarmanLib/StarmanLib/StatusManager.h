@@ -327,6 +327,12 @@ public:
                         const float playerY,
                         const float playerZ);
 
+    // –Ø‚Ì”°Ì
+    void CutTree(const std::string& weapon, const int level);
+
+    // A•¨Ìæ
+    void PickPlant();
+
     //-------------------------------------------------------
     // StatusƒNƒ‰ƒX‚Ì“¯–¼‚ÌŠÖ”‚ğŒÄ‚Ô
     //-------------------------------------------------------
