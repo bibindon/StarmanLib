@@ -632,10 +632,12 @@ void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
     it->m_visible = visible;
 }
 
-void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
-                                             const int frame_z,
-                                             const std::string name,
-                                             const bool visible)
+std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
+{
+    return m_XnameMap.at(id);
+}
+
+int NSStarmanLib::MapObjManager::GetModelId(const std::string& name)
 {
     int id = -1;
     for (auto it = m_XnameMap.begin(); it != m_XnameMap.end(); ++it)
@@ -646,12 +648,6 @@ void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
             break;
         }
     }
-
-    SetVisible(frame_x, frame_z, id, visible);
-}
-
-std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
-{
-    return m_XnameMap.at(id);
+    return id;
 }
 
