@@ -2379,6 +2379,171 @@ void StatusManager::DrinkWordBress(const float playerX,
     rynen->SetRevivePos(playerX, playerY, playerZ);
 }
 
+void StatusManager::CutTree(const std::string& weapon, const int level)
+{
+    //------------------------------------------------------
+    // 武器の種類や強化値によってスタミナ消耗が変わるようにする
+    //------------------------------------------------------
+
+    float magni = 0.f;
+
+    if (weapon == "縦長の石")
+    {
+        magni = 1.f;
+    }
+    else if (weapon == "石斧")
+    {
+        if (level == 0 || level == -1)
+        {
+            magni = 0.9f;
+        }
+        else if (level == 1)
+        {
+            magni = 0.8f;
+        }
+        else if (level == 2)
+        {
+            magni = 0.7f;
+        }
+        else if (level == 3)
+        {
+            magni = 0.6f;
+        }
+        else if (level == 4)
+        {
+            magni = 0.5f;
+        }
+        else if (level == 5)
+        {
+            magni = 0.4f;
+        }
+    }
+
+    // 身体のスタミナ
+    {
+        float work = 0.f;
+        work = GetBodyStaminaMaxSub();
+
+        work -= 15.f * magni;
+        SetBodyStaminaMaxSub(work);
+
+        work = GetBodyStaminaCurrent();
+
+        work -= 30.f * magni;
+        SetBodyStaminaCurrent(work);
+    }
+
+    // 脳のスタミナ
+    {
+        float work = 0.f;
+        work = GetBrainStaminaMaxSub();
+
+        work -= 20.f * magni;
+        SetBrainStaminaMaxSub(work);
+
+        work = GetBrainStaminaCurrent();
+
+        work -= 40.f * magni;
+        SetBrainStaminaCurrent(work);
+    }
+
+    // 水分
+    {
+        float work = 0.f;
+        work = GetWaterCurrent();
+
+        work -= 5.f * magni;
+        SetWaterCurrent(work);
+    }
+
+    // 肉体の損傷
+    {
+        auto work = GetMuscleCurrent();
+        if (weapon == "縦長の石")
+        {
+            SetMuscleCurrent(work - (20.f * magni));
+        }
+        else
+        {
+            SetMuscleCurrent(work - (15.f * magni));
+        }
+    }
+
+    // 状態異常の悪化
+    {
+        if (GetCold())
+        {
+            m_remainColdCure += 2;
+        }
+
+        if (GetFractureArm())
+        {
+            m_remainArmFracCure += 2;
+        }
+
+        if (GetFractureLeg())
+        {
+            m_remainLegFracCure += 2;
+        }
+
+        if (GetHeadache())
+        {
+            m_remainHeadacheCure += 1;
+        }
+
+        if (GetStomachache())
+        {
+            m_remainStomachacheCure += 1;
+        }
+    }
+}
+
+void StatusManager::PickPlant()
+{
+    // 身体のスタミナ
+    {
+        float work = 0.f;
+        work = GetBodyStaminaMaxSub();
+
+        work -= 5.f;
+        SetBodyStaminaMaxSub(work);
+
+        work = GetBodyStaminaCurrent();
+
+        work -= 10.f;
+        SetBodyStaminaCurrent(work);
+    }
+
+    // 脳のスタミナ
+    {
+        float work = 0.f;
+        work = GetBrainStaminaMaxSub();
+
+        work -= 5.f;
+        SetBrainStaminaMaxSub(work);
+
+        work = GetBrainStaminaCurrent();
+
+        work -= 10.f;
+        SetBrainStaminaCurrent(work);
+    }
+
+    // 水分
+    {
+        float work = 0.f;
+        work = GetWaterCurrent();
+
+        work -= 1.f;
+        SetWaterCurrent(work);
+    }
+
+    // 肉体の損傷
+    {
+        auto work = GetMuscleCurrent();
+        SetMuscleCurrent(work - 3.f);
+    }
+}
+
 float StatusManager::GetBodyStaminaCurrent() const
 {
     return m_status.GetBodyStaminaCurrent();

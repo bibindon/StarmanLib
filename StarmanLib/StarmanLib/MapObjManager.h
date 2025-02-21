@@ -143,6 +143,7 @@ public:
     void SetVisible(const int frame_x, const int frame_z, const int id, const bool visible);
 
     std::string GetModelName(const int id);
+    int GetModelId(const std::string& name);
 
 private:
 

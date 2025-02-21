@@ -637,3 +637,17 @@ std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
     return m_XnameMap.at(id);
 }
 
+int NSStarmanLib::MapObjManager::GetModelId(const std::string& name)
+{
+    int id = -1;
+    for (auto it = m_XnameMap.begin(); it != m_XnameMap.end(); ++it)
+    {
+        if (it->second.find(name) != std::string::npos)
+        {
+            id = it->first;
+            break;
+        }
+    }
+    return id;
+}
+
