@@ -50,7 +50,15 @@ void Inventory::Init(const std::string& csvfile,
         subId = std::stoi(vvs.at(i).at(2));
         itemInfo.SetSubId(subId);
 
-        durability = std::stoi(vvs.at(i).at(3));
+        if (vvs.at(i).at(3).empty())
+        {
+            durability = -1;
+        }
+        else
+        {
+            durability = std::stoi(vvs.at(i).at(3));
+        }
+
         itemInfo.SetDurabilityCurrent(durability);
 
         m_itemInfoList.push_back(itemInfo);
