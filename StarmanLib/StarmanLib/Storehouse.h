@@ -103,6 +103,8 @@ public:
     void Save(const std::string& managerFile,
               const std::string& csvDir);
 
+    std::vector<int> GetStorehouseIdList();
+
     Storehouse* GetStorehouse(const int id);
 
     // ƒTƒuID‚ð‚·‚×‚Ä‚Ì‘qŒÉ‚©‚çŽæ“¾‚·‚é

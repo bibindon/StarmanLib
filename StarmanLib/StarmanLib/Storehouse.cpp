@@ -502,6 +502,17 @@ void NSStarmanLib::StorehouseManager::Save(const std::string& managerFile,
     }
 }
 
+std::vector<int> NSStarmanLib::StorehouseManager::GetStorehouseIdList()
+{
+    std::vector<int> vi;
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        vi.push_back(it->first);
+    }
+
+    return vi;
+}
+
 Storehouse* NSStarmanLib::StorehouseManager::GetStorehouse(const int id)
 {
     return &m_StorehouseMap.at(id);
