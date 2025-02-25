@@ -8,23 +8,6 @@
 
 using namespace NSStarmanLib;
 
-Storehouse* Storehouse::obj { nullptr };
-
-Storehouse* Storehouse::GetObj()
-{
-    if (obj == nullptr)
-    {
-        obj = new Storehouse();
-    }
-    return obj;
-}
-
-void Storehouse::Destroy()
-{
-    delete Storehouse::obj;
-    Storehouse::obj = nullptr;
-}
-
 void Storehouse::Init(const std::string& csvfile,
                       const bool decrypt)
 {
@@ -58,12 +41,18 @@ void Storehouse::Init(const std::string& csvfile,
     }
 
     m_weight = CalcWeight();
-    m_inited = true;
-}
 
-bool NSStarmanLib::Storehouse::Inited()
-{
-    return m_inited;
+    // 保存するときのためにファイル名を保存
+    size_t pos = csvfile.find_last_of("/\\");
+
+    if (pos == std::string::npos)
+    {
+        m_csvfilename = csvfile;
+    }
+    else
+    {
+        m_csvfilename = csvfile.substr(pos + 1);
+    }
 }
 
 void Storehouse::Save(const std::string& csvfile,
@@ -322,6 +311,40 @@ std::list<ItemInfo> NSStarmanLib::Storehouse::GetAllItem()
     return m_itemInfoList;
 }
 
+void NSStarmanLib::Storehouse::SetXYZ(const float x, const float y, const float z)
+{
+    m_x = x;
+    m_y = y;
+    m_z = z;
+}
+
+void NSStarmanLib::Storehouse::GetXYZ(float* x, float* y, float* z)
+{
+    *x = m_x;
+    *y = m_y;
+    *z = m_z;
+}
+
+void NSStarmanLib::Storehouse::SetIsRaft(const bool arg)
+{
+    m_bRaft = arg;
+}
+
+bool NSStarmanLib::Storehouse::GetIsRaft() const
+{
+    return m_bRaft;
+}
+
+void NSStarmanLib::Storehouse::SetCsvFileName(const std::string arg)
+{
+    m_csvfilename = arg;
+}
+
+std::string NSStarmanLib::Storehouse::GetCsvFileName() const
+{
+    return m_csvfilename;
+}
+
 float Storehouse::CalcWeight()
 {
     float result = 0.f;
@@ -356,5 +379,172 @@ void NSStarmanLib::Storehouse::Sort()
                             }
                             return false;
                         });
+}
+
+StorehouseManager* NSStarmanLib::StorehouseManager::m_obj = nullptr;
+
+StorehouseManager* NSStarmanLib::StorehouseManager::Get()
+{
+    if (m_obj == nullptr)
+    {
+        m_obj = new StorehouseManager();
+    }
+    return m_obj;
+}
+
+void NSStarmanLib::StorehouseManager::Destroy()
+{
+    delete StorehouseManager::m_obj;
+    StorehouseManager::m_obj = nullptr;
+}
+
+void NSStarmanLib::StorehouseManager::Init(const std::string& csvfile)
+{
+    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, false);
+
+    int work_i = 0;
+    float work_f1 = 0;
+    float work_f2 = 0;
+    float work_f3 = 0;
+
+    for (size_t i = 1; i < vvs.size(); ++i)
+    {
+        Storehouse storehouse;
+        storehouse.Init(vvs.at(i).at(1));
+
+        if (vvs.at(i).at(5) == "y")
+        {
+            storehouse.SetIsRaft(true);
+        }
+        else if (vvs.at(i).at(5) == "n")
+        {
+            storehouse.SetIsRaft(false);
+
+            work_f1 = std::stof(vvs.at(i).at(2));
+            work_f2 = std::stof(vvs.at(i).at(3));
+            work_f3 = std::stof(vvs.at(i).at(4));
+
+            storehouse.SetXYZ(work_f1, work_f2, work_f3);
+        }
+        else
+        {
+            throw std::exception();
+        }
+
+        work_i = std::stoi(vvs.at(i).at(0));
+        m_StorehouseMap[work_i] = storehouse;
+    }
+
+    m_inited = true;
+}
+
+bool NSStarmanLib::StorehouseManager::Inited()
+{
+    return m_inited;
+}
+
+void NSStarmanLib::StorehouseManager::Save(const std::string& managerFile,
+                                           const std::string& csvDir)
+{
+    std::vector<std::vector<std::string>> vvs;
+    std::vector<std::string> vs;
+
+    vs.push_back("ID");
+    vs.push_back("倉庫ファイル");
+    vs.push_back("x");
+    vs.push_back("y");
+    vs.push_back("z");
+    vs.push_back("イカダ");
+
+    vvs.push_back(vs);
+    vs.clear();
+
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        vs.clear();
+
+        vs.push_back(std::to_string(it->first));
+
+        std::string work;
+        work = csvDir;
+        work += "/" + it->second.GetCsvFileName();
+
+        vs.push_back(work);
+
+        float x, y, z;
+
+        it->second.GetXYZ(&x, &y, &z);
+
+        vs.push_back(std::to_string(x));
+        vs.push_back(std::to_string(y));
+        vs.push_back(std::to_string(z));
+
+        if (it->second.GetIsRaft())
+        {
+            vs.push_back("y");
+        }
+        else
+        {
+            vs.push_back("n");
+        }
+        vvs.push_back(vs);
+    }
+
+    Util::WriteToCsv(managerFile, vvs, false);
+
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        std::string work;
+        work = csvDir;
+        work += "/" + it->second.GetCsvFileName();
+
+        it->second.Save(work);
+    }
+}
+
+Storehouse* NSStarmanLib::StorehouseManager::GetStorehouse(const int id)
+{
+    return &m_StorehouseMap.at(id);
+}
+
+std::vector<int> NSStarmanLib::StorehouseManager::GetSubIdListFromAllStorehouse(const int id)
+{
+    std::vector<int> vi;
+
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        auto work = it->second.GetSubIdList(id);
+        vi.insert(vi.end(), work.begin(), work.end());
+    }
+
+    std::sort(vi.begin(), vi.end());
+
+    return vi;
+}
+
+void NSStarmanLib::StorehouseManager::AddStorehouse()
+{
+    Storehouse storehouse;
+
+    storehouse.SetIsRaft(true);
+
+    // "storehouseRaft1.csv"のようなファイル名を作る
+    std::string work;
+
+    int RaftNum = 0;
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        if (it->second.GetIsRaft())
+        {
+            ++RaftNum;
+        }
+    }
+
+    work = "storehouseRaft" + std::to_string(RaftNum+1) + ".csv";
+
+    storehouse.SetCsvFileName(work);
+
+    size_t size_ = m_StorehouseMap.size();
+    m_StorehouseMap[size_] = storehouse;
 }
 

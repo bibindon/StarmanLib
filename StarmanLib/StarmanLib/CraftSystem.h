@@ -57,6 +57,9 @@ public:
     int GetFinishSecond() const;
     void SetFinishSecond(int mfinishSecond);
 
+    int GetStorehouseId() const;
+    void SetStorehouseId(const int id);
+
     CraftInfo GetCraftInfo() const;
     void SetCraftInfo(const CraftInfo& arg);
 
@@ -67,19 +70,24 @@ private:
 
     bool m_crafting = false;
 
-    int m_startYear { 0 };
-    int m_startMonth { 0 };
-    int m_startDay { 0 };
-    int m_startHour { 0 };
-    int m_startMinute { 0 };
-    int m_startSecond { 0 };
+    int m_startYear = 0;
+    int m_startMonth = 0;
+    int m_startDay = 0;
+    int m_startHour = 0;
+    int m_startMinute = 0;
+    int m_startSecond = 0;
 
-    int m_finishYear { 0 };
-    int m_finishMonth { 0 };
-    int m_finishDay { 0 };
-    int m_finishHour { 0 };
-    int m_finishMinute { 0 };
-    int m_finishSecond { 0 };
+    int m_finishYear = 0;
+    int m_finishMonth = 0;
+    int m_finishDay = 0;
+    int m_finishHour = 0;
+    int m_finishMinute = 0;
+    int m_finishSecond = 0;
+
+    // Ši”[æ‚Ì‘qŒÉID
+    // ƒQ[ƒ€“à‚É‘qŒÉ‚Í•¡”‘¶İ‚·‚éB
+    // ˆË—Š‚µ‚½“_‚ÅŠm’è‚·‚é
+    int m_storehouseId = -1;
 
     CraftInfo m_craftInfo;
 
@@ -157,7 +165,8 @@ public:
     //
     // El‚ª‹­‰»’l{‚Q‚ÌÎ•€‚ªì‚ê‚é‚È‚ç‚»‚ê‚ğì‚éB
     // ‹­‰»’l{‚Q‚ÌÎ•€‚ªì‚ê‚é‚Ì‚É{‚P‚ÌÎ•€‚ğì‚é•û–@‚Í’ñ‹Ÿ‚µ‚È‚¢B
-    bool QueueCraftRequest(const std::string& craftItem);
+    bool QueueCraftRequest(const std::string& craftItem,
+                           const int storehouseId);
 
     // ˆË—Š‚ğƒLƒƒƒ“ƒZƒ‹
     bool CancelCraftStart(const int index);

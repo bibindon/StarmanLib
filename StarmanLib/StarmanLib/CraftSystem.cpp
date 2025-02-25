@@ -170,6 +170,8 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
                 craftRequest.SetFinishSecond(-1);
             }
 
+            craftRequest.SetStorehouseId(std::stoi(vvs.at(i).at(15)));
+
             m_craftRequestList.push_back(craftRequest);
         }
     }
@@ -255,6 +257,7 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
         vs.push_back("Š®—¹Žž");
         vs.push_back("Š®—¹•ª");
         vs.push_back("Š®—¹•b");
+        vs.push_back("Žû”[æ‘qŒÉID");
         vvs.push_back(vs);
         vs.clear();
 
@@ -314,6 +317,8 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
                 vs.push_back("");
             }
 
+            vs.push_back(std::to_string(it->GetStorehouseId()));
+
             vvs.push_back(vs);
             vs.clear();
         }
@@ -354,7 +359,8 @@ int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem)
     return level;
 }
 
-bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem)
+bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
+                                                  const int storehouseId)
 {
     // —\–ñ‚Í5Œ‚Ü‚Å
     if (m_craftRequestList.size() >= 4)
@@ -437,6 +443,9 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem)
     craftRequest.SetCraftInfo(craftInfo);
     craftRequest.SetCrafting(false);
 
+    // Š®¬‚µ‚½Û‚ÌŠi”[æ‚Ì‘qŒÉ
+    craftRequest.SetStorehouseId(storehouseId);
+
     m_craftRequestList.push_back(craftRequest);
 
     return true;
@@ -498,7 +507,10 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
         {
             // Š®¬‚µ‚½ƒAƒCƒeƒ€‚ð‘qŒÉ‚É”z’u‚·‚é
             CraftOutput output = m_craftRequestList.front().GetCraftInfo().GetOutput();
-            Storehouse* storehouse = Storehouse::GetObj();
+
+            int storehouseId = m_craftRequestList.front().GetStorehouseId();
+            Storehouse* storehouse = StorehouseManager::Get()->GetStorehouse(storehouseId);
+
             for (int i = 0; i < output.GetNumber(); ++i)
             {
                 storehouse->AddItem(output.GetName(), output.GetLevel());
@@ -792,6 +804,16 @@ int CraftRequest::GetFinishSecond() const
 void CraftRequest::SetFinishSecond(int mfinishSecond)
 {
     m_finishSecond = mfinishSecond;
+}
+
+int NSStarmanLib::CraftRequest::GetStorehouseId() const
+{
+    return m_storehouseId;
+}
+
+void NSStarmanLib::CraftRequest::SetStorehouseId(const int id)
+{
+    m_storehouseId = id;
 }
 
 CraftInfo NSStarmanLib::CraftRequest::GetCraftInfo() const

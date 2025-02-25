@@ -123,9 +123,8 @@ int Inventory::AddItem(const int id, const int durability)
     std::vector<int> subIdList = GetSubIdList(id);
 
     // 倉庫のSubID
-    Storehouse* storehouse = Storehouse::GetObj();
-
-    std::vector<int> subIdList2 = storehouse->GetSubIdList(id);
+    // 倉庫はゲーム内に複数存在することに注意
+    std::vector<int> subIdList2 = StorehouseManager::Get()->GetSubIdListFromAllStorehouse(id);
 
     // インベントリと倉庫で被っているSubIDがあるなら異常終了させる
     {

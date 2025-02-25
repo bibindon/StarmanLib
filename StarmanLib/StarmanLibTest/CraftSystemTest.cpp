@@ -28,8 +28,8 @@ namespace StarmanLibTest
             Inventory* inventory = Inventory::GetObj();
             inventory->Init("..\\StarmanLibTest\\inventory.csv");
 
-            Storehouse* storehouse = Storehouse::GetObj();
-            storehouse->Init("..\\StarmanLibTest\\storehouse.csv");
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
 
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
             craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
@@ -42,7 +42,7 @@ namespace StarmanLibTest
         {
             PowereggDateTime::Destroy();
             CraftInfoManager::Destroy();
-            Storehouse::Destroy();
+            StorehouseManager::Destroy();
             Inventory::Destroy();
             ItemManager::Destroy();
         }
@@ -150,7 +150,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueue.csv");
-            obj->QueueCraftRequest("イカダ");
+            obj->QueueCraftRequest("イカダ", 1);
 
             CraftSystem::Destroy();
         }
@@ -161,7 +161,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            bool result = obj->QueueCraftRequest("イカダ");
+            bool result = obj->QueueCraftRequest("イカダ", 1);
 
             Assert::AreEqual(result, false);
 
@@ -179,7 +179,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("アトラトル");
+            obj->QueueCraftRequest("アトラトル", 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -209,7 +209,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -245,7 +245,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -268,7 +268,9 @@ namespace StarmanLibTest
         // キューイングしてスタートして完了して倉庫に完成品が追加される
         TEST_METHOD(TestMethod11)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
             work = storehouse->CountItem("石槍");
 
@@ -277,7 +279,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -298,7 +300,9 @@ namespace StarmanLibTest
         // 複数キューイングしてスタートして完了して倉庫に完成品が現れる
         TEST_METHOD(TestMethod12)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
             work = storehouse->CountItem("石槍");
 
@@ -307,8 +311,8 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -338,7 +342,9 @@ namespace StarmanLibTest
         // 複数キューイングしてスタートして完了して倉庫に完成品が現れる(2)
         TEST_METHOD(TestMethod13)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
 
             work = storehouse->CountItem("石槍");
@@ -350,8 +356,8 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
-            obj->QueueCraftRequest("アトラトル");
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("アトラトル", 1);
 
             obj->UpdateCraftStatus();
 
@@ -388,7 +394,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -413,7 +419,7 @@ namespace StarmanLibTest
                 CraftSystem* obj = CraftSystem::GetObj();
                 obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                           "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-                obj->QueueCraftRequest("石槍");
+                obj->QueueCraftRequest("石槍", 1);
 
                 obj->UpdateCraftStatus();
 
@@ -466,7 +472,7 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -492,9 +498,9 @@ namespace StarmanLibTest
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            obj->QueueCraftRequest("石槍");
-            obj->QueueCraftRequest("石槍");
-            obj->QueueCraftRequest("石槍");
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -518,7 +524,9 @@ namespace StarmanLibTest
         // 規定回数、クラフトを行うと強化値の高いアイテムがクラフトされるようになる。
         TEST_METHOD(TestMethod18)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
             bool work_b = false;
             work = storehouse->CountItem("石槍", -1);
@@ -532,8 +540,8 @@ namespace StarmanLibTest
             work = obj->GetCraftsmanSkill("石槍");
             Assert::AreEqual(work, -1);
 
-            work_b = obj->QueueCraftRequest("石槍");
-            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍", 1);
+            work_b = obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -571,7 +579,9 @@ namespace StarmanLibTest
         // ダークソウルのような古い武器を素材に使う、ということはしない。
         TEST_METHOD(TestMethod19)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
             bool work_b = false;
 
@@ -579,13 +589,13 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
-            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍", 1);
 
             // 職人に石槍の製造を依頼すると、この時点では強化値なしの石槍を作り始める。
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
             Assert::AreEqual(work, -1);
 
-            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍", 1);
 
             obj->UpdateCraftStatus();
 
@@ -603,7 +613,7 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             // ここで石槍を予約したら＋１の石槍が作られる
-            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍", 1);
 
             // ＋１の石槍が予約されているか？
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
@@ -615,7 +625,9 @@ namespace StarmanLibTest
         // 武器を作り、武器管理クラスが更新されるかテスト
         TEST_METHOD(TestMethod20)
         {
-            Storehouse* storehouse = Storehouse::GetObj();
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
             int work = 0;
             bool work_b = false;
 
@@ -623,7 +635,7 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
-            work_b = obj->QueueCraftRequest("石槍");
+            work_b = obj->QueueCraftRequest("石槍", 1);
 
             // 武器の制作を開始
             obj->UpdateCraftStatus();

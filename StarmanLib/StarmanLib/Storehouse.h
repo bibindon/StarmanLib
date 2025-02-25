@@ -18,13 +18,9 @@ class Storehouse
 {
 public:
 
-    static Storehouse* GetObj();
-
-    static void Destroy();
-
     void Init(const std::string& csvfile,
               const bool decrypt = false);
-    bool Inited();
+
     void Save(const std::string& csvfile,
               const bool encrypt = false);
 
@@ -58,14 +54,20 @@ public:
 
     std::list<ItemInfo> GetAllItem();
 
+    void SetXYZ(const float x, const float y, const float z);
+    void GetXYZ(float* x, float* y, float* z);
+
+    void SetIsRaft(const bool arg);
+    bool GetIsRaft() const;
+
+    void SetCsvFileName(const std::string arg);
+    std::string GetCsvFileName() const;
+
 private:
 
     float CalcWeight();
 
     void Sort();
-
-    // シングルトンオブジェクト
-    static Storehouse* obj;
 
     // 所持品の重量（武器は含めない）
     float m_weight;
@@ -73,8 +75,52 @@ private:
     // 所持品リスト
     // 同じアイテムを複数所持できることに注意
     std::list<ItemInfo> m_itemInfoList;
-    
+
+    float m_x = 0.f;
+    float m_y = 0.f;
+    float m_z = 0.f;
+
+    // イカダの上に配置された倉庫か否か。
+    bool m_bRaft = false;
+
+    // ディレクトリを除いた、ファイル名。
+    std::string m_csvfilename;
+};
+
+// 倉庫管理クラス
+// 倉庫は複数持つことができる
+// イカダを作ると倉庫は増える
+class StorehouseManager
+{
+public:
+
+    static StorehouseManager* Get();
+    static void Destroy();
+
+    void Init(const std::string& csvfile);
+    bool Inited();
+
+    void Save(const std::string& managerFile,
+              const std::string& csvDir);
+
+    Storehouse* GetStorehouse(const int id);
+
+    // サブIDをすべての倉庫から取得する
+    std::vector<int> GetSubIdListFromAllStorehouse(const int id);
+
+    // 倉庫を増やす
+    // イカダに乗せる倉庫についてのみ増やすことができる
+    void AddStorehouse();
+
+private:
+
+    // シングルトンオブジェクト
+    static StorehouseManager* m_obj;
+
+    std::map<int, Storehouse> m_StorehouseMap;
+
     bool m_inited = false;
 };
+
 }
 

@@ -30,6 +30,9 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                                           const std::string& saveFileInfo,
                                           const std::string& saveFileQue)
 {
+    m_keyList.clear();
+    m_infoMap.clear();
+    m_PatchTestQue.clear();
 
     {
         std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(originFile, false);
@@ -172,7 +175,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 }
 
                 {
-                    if (vvs.at(i).size() <= 6 && vvs.at(i).at(5).empty())
+                    if (vvs.at(i).size() <= 5 || vvs.at(i).at(5).empty())
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_YET);
                     }

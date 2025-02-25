@@ -28,8 +28,8 @@ namespace StarmanLibTest
             Inventory* inventory = Inventory::GetObj();
             inventory->Init("..\\StarmanLibTest\\inventory.csv");
 
-            Storehouse* storehouse = Storehouse::GetObj();
-            storehouse->Init("..\\StarmanLibTest\\storehouse.csv");
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
 
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
             craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
@@ -38,7 +38,7 @@ namespace StarmanLibTest
         TEST_METHOD_CLEANUP(CleanUp)
         {
             CraftInfoManager::Destroy();
-            Storehouse::Destroy();
+            StorehouseManager::Destroy();
             Inventory::Destroy();
             ItemManager::Destroy();
         }
