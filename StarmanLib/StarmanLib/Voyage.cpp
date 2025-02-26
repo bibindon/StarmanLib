@@ -281,6 +281,9 @@ bool Voyage::GetRaftMode() const
 
 void Voyage::AddRaft(const Raft& arg)
 {
+    Raft raft(arg);
+    raft.SetId(m_raftList.size());
+
     m_raftList.push_back(arg);
 }
 

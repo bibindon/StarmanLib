@@ -4,6 +4,7 @@
 #include "ItemManager.h"
 #include "Storehouse.h"
 #include "Util.h"
+#include "Voyage.h"
 
 using namespace NSStarmanLib;
 
@@ -513,7 +514,31 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
             for (int i = 0; i < output.GetNumber(); ++i)
             {
-                storehouse->AddItem(output.GetName(), output.GetLevel());
+                // イカダの場合は倉庫に入れない。
+                if (output.GetName() == "イカダ")
+                {
+                    auto voyage = Voyage::Get();
+                    Raft raft;
+                    // TODO イカダの座標はどこを設定する？
+                    // raft.SetXYZ();
+                    auto itemManager = ItemManager::GetObj();
+                    auto itemDef = itemManager->GetItemDef(output.GetName(), output.GetLevel());
+
+                    auto dura = itemDef.GetDurabilityMax();
+                    raft.SetDurability(dura);
+
+                    // TODO イカダの場所タイプはどこを設定する？
+                    // raft.SetPosType();
+
+                    auto storehouseList = StorehouseManager::Get()->GetStorehouseIdList();
+                    raft.SetStorehouseId(storehouseList.size());
+
+                    voyage->AddRaft(raft);
+                }
+                else
+                {
+                    storehouse->AddItem(output.GetName(), output.GetLevel());
+                }
             }
 
             // 職人の熟練度の更新
