@@ -232,7 +232,7 @@ void Voyage::Update()
         {
             int rnd = rand() % 200;
             rnd -= 100;
-            float rnd_f = rnd;
+            float rnd_f = (float)rnd;
             rnd_f /= 10.f;
             m_windX = rnd_f;
         }
@@ -240,7 +240,7 @@ void Voyage::Update()
 
             int rnd = rand() % 200;
             rnd -= 100;
-            float rnd_f = rnd;
+            float rnd_f = (float)rnd;
             rnd_f /= 10.f;
             m_windZ = rnd_f;
         }
@@ -254,7 +254,7 @@ void Voyage::Update()
         {
             int rnd = rand() % 200;
             rnd -= 100;
-            float rnd_f = rnd;
+            float rnd_f = (float)rnd;
             rnd_f /= 10.f;
             m_tideX = rnd_f;
         }
@@ -262,7 +262,7 @@ void Voyage::Update()
 
             int rnd = rand() % 200;
             rnd -= 100;
-            float rnd_f = rnd;
+            float rnd_f = (float)rnd;
             rnd_f /= 10.f;
             m_tideZ = rnd_f;
         }
