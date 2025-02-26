@@ -60,3 +60,47 @@ std::vector<std::string> Util::split(const std::string& s, char delim)
 
     return result;
 }
+
+bool Util::HitByBoundingBox(const float x1,
+                            const float y1,
+                            const float z1,
+                            const float x2,
+                            const float y2,
+                            const float z2,
+                            const float length)
+{
+    float work = 0.f;
+    work = std::abs(x1 - x2);
+    if (work <= length)
+    {
+        work = std::abs(y1 - y2);
+        if (work <= length)
+        {
+            work = std::abs(z1 - z2);
+            if (work <= length)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Util::HitByBoundingBoxWithoutY(const float x1,
+                                    const float z1,
+                                    const float x2,
+                                    const float z2,
+                                    const float length)
+{
+    float work = 0.f;
+    work = std::abs(x1 - x2);
+    if (work <= length)
+    {
+        work = std::abs(z1 - z2);
+        if (work <= length)
+        {
+            return true;
+        }
+    }
+    return false;
+}

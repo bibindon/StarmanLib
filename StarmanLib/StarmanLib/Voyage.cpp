@@ -1,4 +1,10 @@
 #include "Voyage.h"
+#include "Inventory.h"
+#include "StatusManager.h"
+#include "PowereggDateTime.h"
+#include "Util.h"
+
+using namespace NSStarmanLib;
 
 Voyage* Voyage::m_single = nullptr;
 
@@ -12,17 +18,207 @@ Voyage* Voyage::Get()
     return m_single;
 }
 
-void Voyage::Init(const std::string& csvFile)
+void Voyage::Init(const std::string& csvVoyage, const std::string& csvRaft)
 {
+    {
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvVoyage, false);
+
+        if (vvs.at(0).at(1) == "y")
+        {
+            m_bRaftMode = true;
+        }
+        else if (vvs.at(0).at(1) == "n")
+        {
+            m_bRaftMode = false;
+        }
+        else
+        {
+            throw std::exception();
+        }
+
+        int raftId = -1;
+
+        if (!vvs.at(1).at(1).empty())
+        {
+            raftId = std::stoi(vvs.at(1).at(1));
+        }
+
+        m_currentRaftId = raftId;
+    }
+
+    {
+        if (csvRaft.empty())
+        {
+            return;
+        }
+
+        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvRaft, false);
+        for (size_t i = 1; i < vvs.size(); ++i)
+        {
+            Raft raft;
+
+            int raftId = std::stoi(vvs.at(i).at(0));
+            raft.SetId(raftId);
+
+            if (vvs.at(i).at(1) == "y")
+            {
+                raft.SetSail(true);
+            }
+            else if (vvs.at(i).at(1) == "n")
+            {
+                raft.SetSail(false);
+            }
+            else
+            {
+                throw std::exception();
+            }
+
+            float work1, work2, work3;
+
+            work1 = std::stof(vvs.at(i).at(2));
+            work2 = std::stof(vvs.at(i).at(3));
+            work3 = std::stof(vvs.at(i).at(4));
+
+            raft.SetXYZ(work1, work2, work3);
+
+            int work_i = 0;
+            work_i = std::stoi(vvs.at(i).at(5));
+            raft.SetDurability(work_i);
+
+            if (vvs.at(i).at(6) == "Sea")
+            {
+                raft.SetPosType(Raft::ePosType::Sea);
+            }
+            else if (vvs.at(i).at(6) == "River")
+            {
+                raft.SetPosType(Raft::ePosType::River);
+            }
+            else
+            {
+                throw std::exception();
+            }
+
+            work_i = std::stoi(vvs.at(i).at(7));
+            raft.SetStorehouseId(work_i);
+
+            m_raftList.push_back(raft);
+        }
+    }
 }
 
-void Voyage::Save(const std::string& csvFile)
+void Voyage::Save(const std::string& csvVoyage, const std::string& csvRaft)
 {
+    {
+        std::vector<std::vector<std::string> > vvs;
+        std::vector<std::string> vs;
+        std::string work_str;
+
+        vs.push_back("イカダを使用中か");
+
+        if (m_bRaftMode)
+        {
+            vs.push_back("y");
+        }
+        else
+        {
+            vs.push_back("n");
+        }
+
+        vvs.push_back(vs);
+
+        vs.clear();
+        vs.push_back("現在使用中のイカダ");
+        vs.push_back(std::to_string(m_currentRaftId));
+
+        vvs.push_back(vs);
+
+        Util::WriteToCsv(csvVoyage, vvs, false);
+    }
+
+    {
+        std::vector<std::vector<std::string> > vvs;
+        std::vector<std::string> vs;
+        std::string work_str;
+
+        vs.push_back("ID");
+        vs.push_back("帆の展開");
+        vs.push_back("x");
+        vs.push_back("y");
+        vs.push_back("z");
+        vs.push_back("耐久値");
+        vs.push_back("場所タイプ");
+        vs.push_back("倉庫ID");
+        vvs.push_back(vs);
+
+        for (auto it = m_raftList.begin(); it != m_raftList.end(); ++it)
+        {
+            vs.clear();
+
+            work_str = std::to_string(it->GetId());
+            vs.push_back(work_str);
+
+            if (it->GetSail())
+            {
+                work_str = "y";
+            }
+            else
+            {
+                work_str = "n";
+            }
+
+            vs.push_back(work_str);
+
+            float x, y, z;
+            it->GetXYZ(&x, &y, &z);
+
+            work_str = std::to_string(x);
+            vs.push_back(work_str);
+
+            work_str = std::to_string(y);
+            vs.push_back(work_str);
+
+            work_str = std::to_string(z);
+            vs.push_back(work_str);
+
+            work_str = std::to_string(it->GetDurability());
+            vs.push_back(work_str);
+
+            if (it->GetPosType() == Raft::ePosType::River)
+            {
+                vs.push_back("River");
+            }
+            else
+            {
+                vs.push_back("Sea");
+            }
+
+            work_str = std::to_string(it->GetStorehouseId());
+            vs.push_back(work_str);
+            vvs.push_back(vs);
+        }
+
+        Util::WriteToCsv(csvRaft, vvs, false);
+    }
 }
 
+// 毎フレーム呼ばれる想定
+// 潮や風によって流される処理はライブラリの利用者側で行う
 void Voyage::Update()
 {
-    // 潮や風によって流される処理はライブラリの利用者側で行う
+    // 10秒ごとに耐久度が1減る
+    // 10秒＝120秒
+    static int counter = 0;
+    ++counter;
+
+    if (counter >= 600)
+    {
+        counter = 0;
+        auto raft = GetRaftCurrentPriv();
+        auto dura = raft->GetDurability();
+        raft->SetDurability(dura - 1);
+    }
+
+
 }
 
 void Voyage::SetRaftMode(const bool arg)
@@ -58,17 +254,38 @@ Raft Voyage::GetRaftCurrent()
 
 void Voyage::PullRightOar()
 {
-    // do nothing
+    // 耐久度を減らす
+    auto raft = GetRaftCurrentPriv();
+    auto dura = raft->GetDurability();
+    raft->SetDurability(dura - 1);
+
+    // 体力を消耗させる
+    auto status = StatusManager::GetObj();
+    status->PullOar();
 }
 
 void Voyage::PullLeftOar()
 {
-    // do nothing
+    // 耐久度を減らす
+    auto raft = GetRaftCurrentPriv();
+    auto dura = raft->GetDurability();
+    raft->SetDurability(dura - 1);
+
+    // 体力を消耗させる
+    auto status = StatusManager::GetObj();
+    status->PullOar();
 }
 
 void Voyage::PullBothOar()
 {
-    // do nothing
+    // 耐久度を減らす
+    auto raft = GetRaftCurrentPriv();
+    auto dura = raft->GetDurability();
+    raft->SetDurability(dura - 1);
+
+    // 体力を消耗させる
+    auto status = StatusManager::GetObj();
+    status->PullOarBoth();
 }
 
 void Voyage::SetCurrentRaftCoord(const float x, const float y, const float z)
@@ -83,18 +300,49 @@ void Voyage::GetCurrentRaftCoord(float* x, float* y, float* z)
     it->GetXYZ(x, y, z);
 }
 
-void Voyage::Set3HoursAuto()
+bool Voyage::Set3HoursAuto()
 {
     // 川ではなく海にいるときじゃないと使えない。
     auto it = GetRaftCurrentPriv();
     if (it->GetPosType() == Raft::ePosType::River)
     {
-        throw std::exception();
+        return false;
     }
 
     // 3時間経過
-    // 3時間分移動
+    auto datetime = PowereggDateTime::GetObj();
+    datetime->IncreaseDateTime(0, 0, 3, 0, 0);
+
+    // 3時間分、耐久度低下
+    // ゲーム時間で120秒ごとに耐久度が1減るので
+    // 3600秒 * 3時間 / 120秒で90減る
+    auto dura = it->GetDurability();
+    dura -= (3600 * 3) / 120;
+    it->SetDurability(dura);
+
+    // 3時間分、移動
+    // 移動処理はライブラリ側ではやらない
+
     // 3時間分、体力消費
+    // 10秒に一回オールを漕ぐ、を3時間続けたものとする
+    auto status = StatusManager::GetObj();
+    status->Voyage3Hours();
+
+    return true;
+}
+
+bool Voyage::Enable3HoursAuto()
+{
+    bool result = true;
+
+    // 川ではなく海にいるときじゃないと使えない。
+    auto it = GetRaftCurrentPriv();
+    if (it->GetPosType() == Raft::ePosType::River)
+    {
+        result = false;
+    }
+
+    return result;
 }
 
 void Voyage::SetSailCurrentRaft(const bool arg)
@@ -131,6 +379,54 @@ void Voyage::GetWindXZ(float* x, float* z)
 {
     *x = m_windX;
     *z = m_windZ;
+}
+
+bool Voyage::CheckNearRaft(const float x, const float y, const float z, int* id)
+{
+    bool result = false;
+
+    for (auto it = m_raftList.begin(); it != m_raftList.end(); ++it)
+    {
+        float x2, y2, z2;
+        it->GetXYZ(&x2, &y2, &z2);
+
+        result = Util::HitByBoundingBox(x, y, z, x2, y2, z2, 2);
+        if (result)
+        {
+            if (id != nullptr)
+            {
+                *id = it->GetId();
+            }
+
+            break;
+        }
+    }
+
+    return result;
+}
+
+bool Voyage::CheckRaftEnable()
+{
+    // 袋を装備していたらイカダに乗ることはできない。
+
+    auto status = StatusManager::GetObj();
+    auto bagState = status->GetBagState();
+
+    if (bagState.empty())
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Voyage::CheckRaftBroken()
+{
+    auto raft = GetRaftCurrentPriv()->GetDurability();
+    if (raft <= 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 Raft* Voyage::GetRaftCurrentPriv() const

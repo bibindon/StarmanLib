@@ -2544,6 +2544,108 @@ void StatusManager::PickPlant()
     }
 }
 
+void StatusManager::PullOar()
+{
+    // 身体のスタミナ
+    {
+        float work = 0.f;
+        work = GetBodyStaminaMaxSub();
+
+        work -= 0.01f;
+        SetBodyStaminaMaxSub(work);
+
+        work = GetBodyStaminaCurrent();
+
+        work -= 0.02f;
+        SetBodyStaminaCurrent(work);
+    }
+
+    // 脳のスタミナ
+    {
+        float work = 0.f;
+        work = GetBrainStaminaMaxSub();
+
+        work -= 0.01f;
+        SetBrainStaminaMaxSub(work);
+
+        work = GetBrainStaminaCurrent();
+
+        work -= 0.02f;
+        SetBrainStaminaCurrent(work);
+    }
+
+    // 水分
+    {
+        float work = 0.f;
+        work = GetWaterCurrent();
+
+        work -= 0.002f;
+        SetWaterCurrent(work);
+    }
+
+    // 肉体の損傷
+    {
+        auto work = GetMuscleCurrent();
+        SetMuscleCurrent(work - 0.01f);
+    }
+}
+
+void StatusManager::PullOarBoth()
+{
+    // 身体のスタミナ
+    {
+        float work = 0.f;
+        work = GetBodyStaminaMaxSub();
+
+        work -= 0.02f;
+        SetBodyStaminaMaxSub(work);
+
+        work = GetBodyStaminaCurrent();
+
+        work -= 0.04f;
+        SetBodyStaminaCurrent(work);
+    }
+
+    // 脳のスタミナ
+    {
+        float work = 0.f;
+        work = GetBrainStaminaMaxSub();
+
+        work -= 0.02f;
+        SetBrainStaminaMaxSub(work);
+
+        work = GetBrainStaminaCurrent();
+
+        work -= 0.04f;
+        SetBrainStaminaCurrent(work);
+    }
+
+    // 水分
+    {
+        float work = 0.f;
+        work = GetWaterCurrent();
+
+        work -= 0.004f;
+        SetWaterCurrent(work);
+    }
+
+    // 肉体の損傷
+    {
+        auto work = GetMuscleCurrent();
+        SetMuscleCurrent(work - 0.02f);
+    }
+}
+
+void StatusManager::Voyage3Hours()
+{
+    // 10秒に一回オールを漕ぐ、を3時間続けたものとする
+    int count = 3600 * 3 / 10;
+    for (int i = 0; i < count; ++i)
+    {
+        PullOarBoth();
+    }
+}
+
 float StatusManager::GetBodyStaminaCurrent() const
 {
     return m_status.GetBodyStaminaCurrent();

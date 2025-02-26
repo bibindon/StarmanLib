@@ -15,6 +15,14 @@ public:
 
     static std::vector<std::string> split(const std::string& s, char delim = ':');
 
+    static bool HitByBoundingBox(const float x1, const float y1, const float z1,
+                                 const float x2, const float y2, const float z2,
+                                 const float length);
+
+    static bool HitByBoundingBoxWithoutY(const float x1, const float z1,
+                                         const float x2, const float z2,
+                                         const float length);
+
     template <typename T>
     static void EraseRemove(std::vector<T>& vec, const T& value)
     {

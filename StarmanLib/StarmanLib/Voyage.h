@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 
+namespace NSStarmanLib
+{
 // イカダ
 class Raft
 {
@@ -69,8 +71,8 @@ public:
 
     static Voyage* Get();
 
-    void Init(const std::string& csvFile);
-    void Save(const std::string& csvFile);
+    void Init(const std::string& csvVoyage, const std::string& csvRaft);
+    void Save(const std::string& csvVoyage, const std::string& csvRaft);
 
     // 毎フレーム呼ばれる想定
     void Update();
@@ -106,7 +108,10 @@ public:
     void GetCurrentRaftCoord(float* x, float* y, float* z);
 
     // 現在の方向に向かって3時間漕ぐ
-    void Set3HoursAuto();
+    bool Set3HoursAuto();
+
+    // 3時間の自動走行が可能か
+    bool Enable3HoursAuto();
 
     // 現在乗っているイカダの帆の状態を取得
     void SetSailCurrentRaft(const bool arg);
@@ -119,6 +124,16 @@ public:
     void GetTideXZ(float* x, float* z);
 
     void GetWindXZ(float* x, float* z);
+
+    // イカダが2メートル以内にあるか？
+    bool CheckNearRaft(const float x, const float y, const float z, int* id = nullptr);
+
+    // イカダに乗ることが可能か？
+    // 袋を装備していたらイカダに乗ることはできない。
+    bool CheckRaftEnable();
+
+    // イカダが壊れていないか。
+    bool CheckRaftBroken();
 
 private:
 
@@ -146,3 +161,5 @@ private:
     float m_tideX = 0.f;
     float m_tideZ = 0.f;
 };
+}
+
