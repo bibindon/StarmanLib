@@ -199,6 +199,8 @@ void Voyage::Save(const std::string& csvVoyage, const std::string& csvRaft)
 
         Util::WriteToCsv(csvRaft, vvs, false);
     }
+    
+    srand((unsigned int)time(NULL));
 }
 
 // 毎フレーム呼ばれる想定
@@ -206,19 +208,65 @@ void Voyage::Save(const std::string& csvVoyage, const std::string& csvRaft)
 void Voyage::Update()
 {
     // 10秒ごとに耐久度が1減る
-    // 10秒＝120秒
+    // 10秒（現実時間）＝120秒（ゲーム時間）
     static int counter = 0;
     ++counter;
 
-    if (counter >= 600)
+    if (counter >= 60 * 60 * 60)
     {
         counter = 0;
+    }
+
+    if (counter % (60 * 10) == 0)
+    {
         auto raft = GetRaftCurrentPriv();
         auto dura = raft->GetDurability();
         raft->SetDurability(dura - 1);
     }
 
+    // 1時間おきに風の向きと強さが変わる
+    // 1時間（ゲーム時間）＝5分（現実時間）
+    // 強さ：-10.0 m/s ~ 10.0 m/s
+    if (counter % (60 * 60 * 5) == 0)
+    {
+        {
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = rnd;
+            rnd_f /= 10.f;
+            m_windX = rnd_f;
+        }
+        {
 
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = rnd;
+            rnd_f /= 10.f;
+            m_windZ = rnd_f;
+        }
+    }
+
+    // 1時間おきに潮の向きと強さが変わる
+    // 1時間（ゲーム時間）＝5分（現実時間）
+    // 強さ：0m/s ~ 3m/s
+    if (counter % (60 * 60 * 5) == 0)
+    {
+        {
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = rnd;
+            rnd_f /= 10.f;
+            m_tideX = rnd_f;
+        }
+        {
+
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = rnd;
+            rnd_f /= 10.f;
+            m_tideZ = rnd_f;
+        }
+    }
 }
 
 void Voyage::SetRaftMode(const bool arg)

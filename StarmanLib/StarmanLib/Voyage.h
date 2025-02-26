@@ -121,9 +121,11 @@ public:
     void SetPosTypeCurrentRaft(const Raft::ePosType arg);
     Raft::ePosType GetPosTypeCurrentRaft() const;
 
-    void GetTideXZ(float* x, float* z);
-
+    // 風の向きと強さ（秒速）
     void GetWindXZ(float* x, float* z);
+
+    // 潮の向きと強さ（秒速）
+    void GetTideXZ(float* x, float* z);
 
     // イカダが2メートル以内にあるか？
     bool CheckNearRaft(const float x, const float y, const float z, int* id = nullptr);
@@ -149,13 +151,13 @@ private:
 
     std::vector<Raft> m_raftList;
 
-    // 風の向きと強さ
+    // 風の向きと強さ（秒速）
     // 1時間おきに変わる
     // 自動走行中は変わらない
     float m_windX = 0.f;
     float m_windZ = 0.f;
 
-    // 潮の向きと強さ
+    // 潮の向きと強さ（秒速）
     // 1時間おきに変わる
     // 自動走行中は変わらない
     float m_tideX = 0.f;
