@@ -84,8 +84,8 @@ public:
     std::vector<Raft> GetRaftList();
 
     // 乗船中のイカダ
-    // ないときはIDが-1
     Raft GetRaftCurrent();
+    int GetRaftCurrentId() const;
 
     // 右のオールを引く
     // 衝突判定はライブラリ内ではできないので

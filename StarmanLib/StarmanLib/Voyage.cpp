@@ -300,7 +300,17 @@ Raft Voyage::GetRaftCurrent()
                                return x.GetId() == m_currentRaftId;
                            });
 
+    if (it == m_raftList.end())
+    {
+        throw std::exception();
+    }
+
     return *it;
+}
+
+int NSStarmanLib::Voyage::GetRaftCurrentId() const
+{
+    return m_currentRaftId;
 }
 
 void Voyage::PullRightOar()
