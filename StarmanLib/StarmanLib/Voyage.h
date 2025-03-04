@@ -83,6 +83,8 @@ public:
     void AddRaft(const Raft& arg);
     std::vector<Raft> GetRaftList();
 
+    Raft GetRaft(const int id);
+
     // 乗船中のイカダ
     Raft GetRaftCurrent();
     int GetRaftCurrentId() const;

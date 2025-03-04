@@ -292,6 +292,22 @@ std::vector<Raft> Voyage::GetRaftList()
     return m_raftList;
 }
 
+Raft NSStarmanLib::Voyage::GetRaft(const int id)
+{
+    auto it = std::find_if(m_raftList.begin(), m_raftList.end(),
+                           [&](const Raft& raft)
+                           {
+                               return raft.GetId() == id;
+                           });
+
+    if (it == m_raftList.end())
+    {
+        throw std::exception();
+    }
+
+    return *it;
+}
+
 Raft Voyage::GetRaftCurrent()
 {
     auto it = std::find_if(m_raftList.begin(), m_raftList.end(),
