@@ -104,6 +104,8 @@ public:
 
     // 衝突判定はライブラリ内ではできないので
     // イカダを進める処理をライブラリ内で行うことはできない。
+    // この座標はセーブ・ロード時に使うものであって、
+    // リアルタイムに使用するものではない。
     void SetCurrentRaftCoord(const float x, const float y, const float z);
     void GetCurrentRaftCoord(float* x, float* y, float* z);
 
