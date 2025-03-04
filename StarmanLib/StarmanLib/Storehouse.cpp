@@ -518,6 +518,26 @@ Storehouse* NSStarmanLib::StorehouseManager::GetStorehouse(const int id)
     return &m_StorehouseMap.at(id);
 }
 
+Storehouse* NSStarmanLib::StorehouseManager::GetNearStorehouse(const float x, const float z)
+{
+    Storehouse* result = nullptr;
+    for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
+    {
+        float x2, y2, z2;
+
+        it->second.GetXYZ(&x2, &y2, &z2);
+
+        auto hit = Util::HitByBoundingBoxWithoutY(x, z, x2, z2, 3.f);
+        if (hit)
+        {
+            result = &it->second;
+            break;
+        }
+    }
+
+    return result;
+}
+
 std::vector<int> NSStarmanLib::StorehouseManager::GetSubIdListFromAllStorehouse(const int id)
 {
     std::vector<int> vi;

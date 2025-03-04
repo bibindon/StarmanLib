@@ -107,6 +107,10 @@ public:
 
     Storehouse* GetStorehouse(const int id);
 
+    // 3メートル以内の倉庫を取得。
+    // なければNULL
+    Storehouse* GetNearStorehouse(const float x, const float z);
+
     // サブIDをすべての倉庫から取得する
     std::vector<int> GetSubIdListFromAllStorehouse(const int id);
 
