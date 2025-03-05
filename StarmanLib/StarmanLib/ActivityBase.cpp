@@ -11,7 +11,11 @@ NSStarmanLib::ActivityBase* NSStarmanLib::ActivityBase::Get()
         m_obj = new ActivityBase();
     }
 
-    return nullptr;
+    return m_obj;
+}
+
+NSStarmanLib::ActivityBase::ActivityBase()
+{
 }
 
 void NSStarmanLib::ActivityBase::Init(const std::string& csvfile)
@@ -22,7 +26,7 @@ void NSStarmanLib::ActivityBase::Init(const std::string& csvfile)
     {
         m_eBaseType = eBaseType::Precision;
     }
-    else if (vvs.at(0).at(1) == "Precision")
+    else if (vvs.at(0).at(1) == "DirectNex")
     {
         m_eBaseType = eBaseType::DirectNex;
     }
