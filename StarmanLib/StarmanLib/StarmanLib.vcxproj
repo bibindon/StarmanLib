@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionManager.h" />
+    <ClInclude Include="ActivityBase.h" />
     <ClInclude Include="CaesarCipher.h" />
     <ClInclude Include="CraftInfoManager.h" />
     <ClInclude Include="CraftSystem.h" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionManager.cpp" />
+    <ClCompile Include="ActivityBase.cpp" />
     <ClCompile Include="CraftInfoManager.cpp" />
     <ClCompile Include="CraftSystem.cpp" />
     <ClCompile Include="EnemyInfoManager.cpp" />
