@@ -530,19 +530,17 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     // 現在の活動拠点によってイカダが配置される場所が異なる
                     auto baseType = ActivityBase::Get()->GetBaseType();
 
+                    float x, y, z;
+                    ActivityBase::Get()->GetPierPos(baseType, &x, &y, &z);
+                    raft.SetXYZ(x, y, z);
+
                     if (baseType == eBaseType::Precision)
                     {
-                        // TODO イカダの座標
-                        raft.SetXYZ(-305, 11, 540);
-
                         // TODO イカダの場所タイプ
                          raft.SetPosType(Raft::ePosType::Sea);
                     }
                     else if (baseType == eBaseType::DirectNex)
                     {
-                        // TODO イカダの座標
-                        raft.SetXYZ(-305, 11, 540);
-
                         // TODO イカダの場所タイプ
                          raft.SetPosType(Raft::ePosType::Sea);
                     }

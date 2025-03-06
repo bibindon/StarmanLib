@@ -68,3 +68,28 @@ void NSStarmanLib::ActivityBase::Finalize()
     ActivityBase::m_obj = nullptr;
 }
 
+void NSStarmanLib::ActivityBase::GetPierPos(const eBaseType baseType, float* x, float* y, float* z)
+{
+    if (baseType == eBaseType::Precision)
+    {
+        *x = -305.f;
+        *y = 11.f;
+        *z = 540.f;
+    }
+    else if (baseType == eBaseType::DirectNex)
+    {
+        // TODO ê≥ÇµÇ¢ç¿ïW
+        *x = -305.f;
+        *y = 11.f;
+        *z = 540.f;
+    }
+}
+
+bool NSStarmanLib::ActivityBase::CheckRaftNearPier(const float x, const float y, const float z)
+{
+    float x2, y2, z2;
+    GetPierPos(m_eBaseType, &x2, &y2, &z2);
+
+    return Util::HitByBoundingBox(x, y, z, x2, y2, z2, 5.f);
+}
+

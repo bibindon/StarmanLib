@@ -26,6 +26,13 @@ public:
     eBaseType GetBaseType() const;
     void Finalize();
 
+    // 船着き場の座標
+    // クラフトされたイカダが配置される場所
+    void GetPierPos(const eBaseType baseType, float* x, float* y, float* z);
+
+    // イカダが船着き場にあるか。5メートル以内にある場合は、イカダがあると見なされる
+    bool CheckRaftNearPier(const float x, const float y, const float z);
+
 private:
 
     ActivityBase();
