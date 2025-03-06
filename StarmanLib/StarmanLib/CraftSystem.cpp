@@ -3,8 +3,9 @@
 #include "Inventory.h"
 #include "ItemManager.h"
 #include "Storehouse.h"
-#include "Util.h"
 #include "Voyage.h"
+#include "ActivityBase.h"
+#include "Util.h"
 
 using namespace NSStarmanLib;
 
@@ -519,16 +520,32 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 {
                     auto voyage = Voyage::Get();
                     Raft raft;
-                    // TODO イカダの座標はどこを設定する？
-                    // raft.SetXYZ();
+
                     auto itemManager = ItemManager::GetObj();
                     auto itemDef = itemManager->GetItemDef(output.GetName(), output.GetLevel());
 
                     auto dura = itemDef.GetDurabilityMax();
                     raft.SetDurability(dura);
 
-                    // TODO イカダの場所タイプはどこを設定する？
-                    // raft.SetPosType();
+                    // 現在の活動拠点によってイカダが配置される場所が異なる
+                    auto baseType = ActivityBase::Get()->GetBaseType();
+
+                    if (baseType == eBaseType::Precision)
+                    {
+                        // TODO イカダの座標
+                        raft.SetXYZ(-305, 11, 540);
+
+                        // TODO イカダの場所タイプ
+                         raft.SetPosType(Raft::ePosType::Sea);
+                    }
+                    else if (baseType == eBaseType::DirectNex)
+                    {
+                        // TODO イカダの座標
+                        raft.SetXYZ(-305, 11, 540);
+
+                        // TODO イカダの場所タイプ
+                         raft.SetPosType(Raft::ePosType::Sea);
+                    }
 
                     auto storehouseList = StorehouseManager::Get()->GetStorehouseIdList();
                     raft.SetStorehouseId(storehouseList.size());

@@ -2,6 +2,7 @@
 #include "Inventory.h"
 #include "StatusManager.h"
 #include "PowereggDateTime.h"
+#include "ActivityBase.h"
 #include "Util.h"
 
 using namespace NSStarmanLib;
@@ -229,6 +230,8 @@ bool Voyage::GetRaftMode() const
 void Voyage::AddRaft(const Raft& arg)
 {
     Raft raft(arg);
+
+    // ID以外はあらかじめargで設定済みなのでidだけセットする
     raft.SetId(m_raftList.size());
 
     m_raftList.push_back(arg);
