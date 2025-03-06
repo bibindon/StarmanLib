@@ -18,34 +18,8 @@ Voyage* Voyage::Get()
     return m_single;
 }
 
-void Voyage::Init(const std::string& csvVoyage, const std::string& csvRaft)
+void Voyage::Init(const std::string& csvRaft)
 {
-    {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvVoyage, false);
-
-        if (vvs.at(0).at(1) == "y")
-        {
-            m_bRaftMode = true;
-        }
-        else if (vvs.at(0).at(1) == "n")
-        {
-            m_bRaftMode = false;
-        }
-        else
-        {
-            throw std::exception();
-        }
-
-        int raftId = -1;
-
-        if (!vvs.at(1).at(1).empty())
-        {
-            raftId = std::stoi(vvs.at(1).at(1));
-        }
-
-        m_currentRaftId = raftId;
-    }
-
     {
         if (csvRaft.empty())
         {
@@ -106,35 +80,8 @@ void Voyage::Init(const std::string& csvVoyage, const std::string& csvRaft)
     }
 }
 
-void Voyage::Save(const std::string& csvVoyage, const std::string& csvRaft)
+void Voyage::Save(const std::string& csvRaft)
 {
-    {
-        std::vector<std::vector<std::string> > vvs;
-        std::vector<std::string> vs;
-        std::string work_str;
-
-        vs.push_back("イカダを使用中か");
-
-        if (m_bRaftMode)
-        {
-            vs.push_back("y");
-        }
-        else
-        {
-            vs.push_back("n");
-        }
-
-        vvs.push_back(vs);
-
-        vs.clear();
-        vs.push_back("現在使用中のイカダ");
-        vs.push_back(std::to_string(m_currentRaftId));
-
-        vvs.push_back(vs);
-
-        Util::WriteToCsv(csvVoyage, vvs, false);
-    }
-
     {
         std::vector<std::vector<std::string> > vvs;
         std::vector<std::string> vs;

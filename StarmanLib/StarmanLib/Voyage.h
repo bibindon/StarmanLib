@@ -71,8 +71,8 @@ public:
 
     static Voyage* Get();
 
-    void Init(const std::string& csvVoyage, const std::string& csvRaft);
-    void Save(const std::string& csvVoyage, const std::string& csvRaft);
+    void Init(const std::string& csvRaft);
+    void Save(const std::string& csvRaft);
 
     // –ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é‘z’è
     void Update();
