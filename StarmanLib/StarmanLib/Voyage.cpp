@@ -276,6 +276,11 @@ int NSStarmanLib::Voyage::GetRaftCurrentId() const
     return m_currentRaftId;
 }
 
+void NSStarmanLib::Voyage::SetRaftCurrentId(const int arg)
+{
+    m_currentRaftId = arg;
+}
+
 void Voyage::PullRightOar()
 {
     // ‘Ï‹v“x‚ðŒ¸‚ç‚·

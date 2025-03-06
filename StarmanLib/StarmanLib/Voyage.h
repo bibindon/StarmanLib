@@ -88,6 +88,7 @@ public:
     // 乗船中のイカダ
     Raft GetRaftCurrent();
     int GetRaftCurrentId() const;
+    void SetRaftCurrentId(const int arg);
 
     // 右のオールを引く
     // 衝突判定はライブラリ内ではできないので
