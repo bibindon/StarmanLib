@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include "Inventory.h"
+#include "Voyage.h"
 
 #include "Util.h"
 
@@ -523,15 +524,38 @@ Storehouse* NSStarmanLib::StorehouseManager::GetNearStorehouse(const float x, co
     Storehouse* result = nullptr;
     for (auto it = m_StorehouseMap.begin(); it != m_StorehouseMap.end(); ++it)
     {
-        float x2, y2, z2;
-
-        it->second.GetXYZ(&x2, &y2, &z2);
-
-        auto hit = Util::HitByBoundingBoxWithoutY(x, z, x2, z2, 3.f);
-        if (hit)
+        if (!it->second.GetIsRaft())
         {
-            result = &it->second;
-            break;
+            float x2, y2, z2;
+
+            it->second.GetXYZ(&x2, &y2, &z2);
+
+            auto hit = Util::HitByBoundingBoxWithoutY(x, z, x2, z2, 3.f);
+            if (hit)
+            {
+                result = &it->second;
+                break;
+            }
+        }
+    }
+
+    if (result == nullptr)
+    {
+        // イカダの袋
+        // イカダの袋は移動できるのでこの関数が呼ばれたタイミングで座標を取得する必要がある
+        for (auto& raft : Voyage::Get()->GetRaftList())
+        {
+            float x2, y2, z2;
+
+            raft.GetXYZ(&x2, &y2, &z2);
+
+            auto hit = Util::HitByBoundingBoxWithoutY(x, z, x2, z2, 3.f);
+            if (hit)
+            {
+                auto id = raft.GetStorehouseId();
+                result = &m_StorehouseMap.at(id);
+                break;
+            }
         }
     }
 
