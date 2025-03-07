@@ -33,6 +33,9 @@ public:
     // イカダが船着き場にあるか。5メートル以内にある場合は、イカダがあると見なされる
     bool CheckRaftNearPier(const float x, const float y, const float z);
 
+    // 現在の活動拠点にイカダがあるか
+    bool CheckRaftExist();
+
 private:
 
     ActivityBase();

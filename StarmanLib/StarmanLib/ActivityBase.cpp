@@ -1,6 +1,7 @@
 #include "ActivityBase.h"
 #include <vector>
 #include "Util.h"
+#include "Voyage.h"
 
 NSStarmanLib::ActivityBase* NSStarmanLib::ActivityBase::m_obj = nullptr;
 
@@ -91,5 +92,26 @@ bool NSStarmanLib::ActivityBase::CheckRaftNearPier(const float x, const float y,
     GetPierPos(m_eBaseType, &x2, &y2, &z2);
 
     return Util::HitByBoundingBox(x, y, z, x2, y2, z2, 5.f);
+}
+
+bool NSStarmanLib::ActivityBase::CheckRaftExist()
+{
+    auto raftList = Voyage::Get()->GetRaftList();
+
+    bool bExist = false;
+
+    for (auto& raft : raftList)
+    {
+        float x, y, z;
+        raft.GetXYZ(&x, &y, &z);
+
+        bExist = CheckRaftNearPier(x, y, z);
+        if (bExist)
+        {
+            break;
+        }
+    }
+
+    return bExist;
 }
 
