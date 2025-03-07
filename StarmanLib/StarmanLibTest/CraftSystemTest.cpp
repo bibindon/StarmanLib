@@ -492,6 +492,78 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
+        // キューイングしてキャンセル
+        // 開始していないクラフトをキャンセルしたら素材が返ってくる
+        TEST_METHOD(TestMethod16_2)
+        {
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("石槍", 1);
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 12時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto inventory = Inventory::GetObj();
+            auto mat1 = inventory->CountItem("細い木の幹");
+            auto mat2 = inventory->CountItem("いい形の石（槍）");
+
+            Assert::AreEqual(8, mat1);
+            Assert::AreEqual(8, mat2);
+
+            obj->CancelCraftStart(1);
+
+            mat1 = inventory->CountItem("細い木の幹");
+            mat2 = inventory->CountItem("いい形の石（槍）");
+            Assert::AreEqual(9, mat1);
+            Assert::AreEqual(9, mat2);
+
+            CraftSystem::Destroy();
+        }
+
+        // キューイングしてキャンセル
+        // 開始したクラフトをキャンセルしたら素材が返ってこない
+        TEST_METHOD(TestMethod16_3)
+        {
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->QueueCraftRequest("石槍", 1);
+            obj->QueueCraftRequest("石槍", 1);
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 12時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto inventory = Inventory::GetObj();
+            auto mat1 = inventory->CountItem("細い木の幹");
+            auto mat2 = inventory->CountItem("いい形の石（槍）");
+
+            Assert::AreEqual(8, mat1);
+            Assert::AreEqual(8, mat2);
+
+            obj->CancelCraftStart(0);
+
+            mat1 = inventory->CountItem("細い木の幹");
+            mat2 = inventory->CountItem("いい形の石（槍）");
+            Assert::AreEqual(8, mat1);
+            Assert::AreEqual(8, mat2);
+
+            CraftSystem::Destroy();
+        }
+
         // 複数キューイングしてキャンセル
         TEST_METHOD(TestMethod17)
         {

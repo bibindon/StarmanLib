@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "ItemManager.h"
 
 namespace NSStarmanLib
 {
@@ -72,15 +73,23 @@ public:
     void SetOutput(const CraftOutput& arg);
     CraftOutput GetOutput() const;
 
-    void SetCraftMaterial(const int index, const CraftMaterial& arg);
-    CraftMaterial GetCraftMaterial(const int index);
-    std::vector<CraftMaterial> GetCraftMaterial();
+    // 必要素材の定義情報
+    void SetCraftMaterialDef(const int index, const CraftMaterial& arg);
+    CraftMaterial GetCraftMaterialDef(const int index);
+    std::vector<CraftMaterial> GetCraftMaterialDef();
+
+    // 預けたアイテム
+    // クラフト開始前にキャンセルしたら素材が返ってくるので、IDとSubIDを保存しておく必要がある。
+    void SetCraftMaterial(std::vector<ItemInfo> items);
+    std::vector<ItemInfo> GetCraftMaterial();
 
 private:
 
     CraftOutput m_output;
 
-    std::unordered_map<int, CraftMaterial> m_materialList;
+    std::unordered_map<int, CraftMaterial> m_materialDefList;
+
+    std::vector<ItemInfo> m_materialList;
 };
 
 // クラフト情報の管理クラス

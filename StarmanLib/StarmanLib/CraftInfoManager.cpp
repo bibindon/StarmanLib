@@ -83,7 +83,7 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 
             craftMaterial.SetId(itemDef.GetId());
 
-            craftInfo.SetCraftMaterial(j, craftMaterial);
+            craftInfo.SetCraftMaterialDef(j, craftMaterial);
         }
         m_craftInfoList.push_back(craftInfo);
     }
@@ -230,23 +230,33 @@ CraftOutput CraftInfo::GetOutput() const
     return m_output;
 }
 
-void CraftInfo::SetCraftMaterial(const int index, const CraftMaterial& arg)
+void CraftInfo::SetCraftMaterialDef(const int index, const CraftMaterial& arg)
 {
-    m_materialList[index] = arg;
+    m_materialDefList[index] = arg;
 }
 
-CraftMaterial CraftInfo::GetCraftMaterial(const int index)
+CraftMaterial CraftInfo::GetCraftMaterialDef(const int index)
 {
-    return m_materialList.at(index);
+    return m_materialDefList.at(index);
 }
 
-std::vector<CraftMaterial> NSStarmanLib::CraftInfo::GetCraftMaterial()
+std::vector<CraftMaterial> NSStarmanLib::CraftInfo::GetCraftMaterialDef()
 {
     std::vector<CraftMaterial> result;
     
-    for (auto it = m_materialList.begin(); it != m_materialList.end(); ++it)
+    for (auto it = m_materialDefList.begin(); it != m_materialDefList.end(); ++it)
     {
         result.push_back(it->second);
     }
     return result;
+}
+
+void NSStarmanLib::CraftInfo::SetCraftMaterial(std::vector<ItemInfo> items)
+{
+    m_materialList = items;
+}
+
+std::vector<ItemInfo> NSStarmanLib::CraftInfo::GetCraftMaterial()
+{
+    return m_materialList;
 }

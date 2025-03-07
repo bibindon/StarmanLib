@@ -121,23 +121,23 @@ namespace StarmanLibTest
                 int work_i = 0;
 
                 // ëfçﬁÇP
-                work_sz = craftInfo.GetCraftMaterial(0).GetName();
+                work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
                 Assert::AreEqual(work_sz == "ç◊Ç¢ñÿÇÃä≤", true);
 
-                work_i = craftInfo.GetCraftMaterial(0).GetNumber();
+                work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
 
-                work_i = craftInfo.GetCraftMaterial(0).GetLevel();
+                work_i = craftInfo.GetCraftMaterialDef(0).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
                 // ëfçﬁÇQ
-                work_sz = craftInfo.GetCraftMaterial(1).GetName();
+                work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
                 Assert::AreEqual(work_sz == "ÉcÉ^", true);
 
-                work_i = craftInfo.GetCraftMaterial(1).GetNumber();
+                work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
 
-                work_i = craftInfo.GetCraftMaterial(1).GetLevel();
+                work_i = craftInfo.GetCraftMaterialDef(1).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
             }
             {
@@ -146,33 +146,33 @@ namespace StarmanLibTest
                 int work_i = 0;
 
                 // ëfçﬁÇP
-                work_sz = craftInfo.GetCraftMaterial(0).GetName();
+                work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
                 Assert::AreEqual(work_sz == "ñÿÇÃé}", true);
 
-                work_i = craftInfo.GetCraftMaterial(0).GetNumber();
+                work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
 
-                work_i = craftInfo.GetCraftMaterial(0).GetLevel();
+                work_i = craftInfo.GetCraftMaterialDef(0).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
                 // ëfçﬁÇQ
-                work_sz = craftInfo.GetCraftMaterial(1).GetName();
+                work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
                 Assert::AreEqual(work_sz == "Ç¢Ç¢å`ÇÃêŒÅiëÑÅj", true);
 
-                work_i = craftInfo.GetCraftMaterial(1).GetNumber();
+                work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
 
-                work_i = craftInfo.GetCraftMaterial(1).GetLevel();
+                work_i = craftInfo.GetCraftMaterialDef(1).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
                 // ëfçﬁÇR
-                work_sz = craftInfo.GetCraftMaterial(2).GetName();
+                work_sz = craftInfo.GetCraftMaterialDef(2).GetName();
                 Assert::AreEqual(work_sz == "ÉcÉ^", true);
 
-                work_i = craftInfo.GetCraftMaterial(2).GetNumber();
+                work_i = craftInfo.GetCraftMaterialDef(2).GetNumber();
                 Assert::AreEqual(work_i == 2, true);
 
-                work_i = craftInfo.GetCraftMaterial(2).GetLevel();
+                work_i = craftInfo.GetCraftMaterialDef(2).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
             }
             CraftInfoManager::Destroy();

@@ -382,7 +382,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     // 素材を消費する
     // 素材が足りないときはfalseを返す
     ItemManager* itemManager = ItemManager::GetObj();
-    std::vector<CraftMaterial> craftMaterialList = craftInfo.GetCraftMaterial();
+    std::vector<CraftMaterial> craftMaterialList = craftInfo.GetCraftMaterialDef();
 
     Inventory* inventory = Inventory::GetObj();
     bool materialShortage = false;
@@ -414,11 +414,12 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     }
 
     // インベントリ内の素材を削除
-    // クラフト要求はキューイングされるため、一見、この時点で素材を削除する必要はないように思える。
-    // しかし、実際にクラフトが開始されたときにアイテムを削除する、というやり方にすると、
-    // 非常に難解なプログラムを書く必要がある。そのため、この時点で素材は削除することにする。
+    // （クラフト開始前にキャンセルしたら素材が返ってくる）
+    std::vector<ItemInfo> items;
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
+        ItemInfo item;
+
         std::string name;
         int materialNum = 0;
         int materialLevel = 0;
@@ -427,15 +428,26 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         materialNum = craftMaterialList.at(i).GetNumber();
         materialLevel = craftMaterialList.at(i).GetLevel();
 
+        int id = craftMaterialList.at(i).GetId();
+        item.SetId(id);
+
         // 素材の必要数分削除する
         // subIdは数値が若いものから順に使う
 
         std::vector<int> subIdList = inventory->GetSubIdList(craftMaterialList.at(i).GetId());
         for (int j = 0; j < materialNum; ++j)
         {
+            // subIdは返却時に新規で割り当てる。再利用しない。
+            item.SetSubId(-1);
+            auto info = inventory->GetItemInfo(id, subIdList.at(i));
+            auto dura = info.GetDurabilityCurrent();
+            item.SetDurabilityCurrent(dura);
+            items.push_back(item);
+
             inventory->RemoveItem(name, subIdList.at(i), materialLevel);
         }
     }
+    craftInfo.SetCraftMaterial(items);
 
     // クラフト中のアイテム情報
     CraftRequest craftRequest;
@@ -476,6 +488,23 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
     {
         return false;
     }
+
+    auto inventory = Inventory::GetObj();
+
+    // 開始していないクラフトをキャンセルしたら素材が返ってくる
+    if (index != 0)
+    {
+        auto it = std::next(m_craftRequestList.begin(), index);
+        auto craftInfo = it->GetCraftInfo();
+        auto craftMaterials = craftInfo.GetCraftMaterial();
+        for (auto& material : craftMaterials)
+        {
+            int id = material.GetId();
+            int dura = material.GetDurabilityCurrent();
+            inventory->AddItem(id, dura);
+        }
+    }
+
     m_craftRequestList.erase(std::next(m_craftRequestList.begin(), index));
     return true;
 }
