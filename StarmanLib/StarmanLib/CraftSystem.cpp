@@ -438,12 +438,12 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         {
             // subIdは返却時に新規で割り当てる。再利用しない。
             item.SetSubId(-1);
-            auto info = storehouse->GetItemInfo(id, subIdList.at(i));
+            auto info = storehouse->GetItemInfo(id, subIdList.at(j));
             auto dura = info.GetDurabilityCurrent();
             item.SetDurabilityCurrent(dura);
             items.push_back(item);
 
-            storehouse->RemoveItem(name, subIdList.at(i), materialLevel);
+            storehouse->RemoveItem(name, subIdList.at(j), materialLevel);
         }
     }
     craftInfo.SetCraftMaterial(items);
@@ -456,23 +456,34 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     craftRequest.SetCraftInfo(craftInfo);
     craftRequest.SetCrafting(false);
 
+    //----------------------------------------------------------
     // 完成した際の格納先の倉庫
-    if (storehouseId != -1)
+    //----------------------------------------------------------
+
+    // イカダをクラフトする場合は倉庫に入らないので-1
+    if (craftItem == "イカダ")
     {
-        craftRequest.SetStorehouseId(storehouseId);
+        craftRequest.SetStorehouseId(2);
     }
-    // -1なら現在の拠点の倉庫
     else
     {
-        auto baseType = ActivityBase::Get()->GetBaseType();
-
-        if (baseType == eBaseType::Precision)
+        if (storehouseId != -1)
         {
-            craftRequest.SetStorehouseId(1);
+            craftRequest.SetStorehouseId(storehouseId);
         }
-        else if (baseType == eBaseType::DirectNex)
+        // -1なら現在の拠点の倉庫
+        else
         {
-            craftRequest.SetStorehouseId(2);
+            auto baseType = ActivityBase::Get()->GetBaseType();
+
+            if (baseType == eBaseType::Precision)
+            {
+                craftRequest.SetStorehouseId(1);
+            }
+            else if (baseType == eBaseType::DirectNex)
+            {
+                craftRequest.SetStorehouseId(2);
+            }
         }
     }
 

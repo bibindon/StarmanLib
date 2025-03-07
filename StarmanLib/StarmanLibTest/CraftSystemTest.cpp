@@ -8,6 +8,7 @@
 #include <iterator>
 #include <string>
 #include "../StarmanLib/PowereggDateTime.h"
+#include "../StarmanLib/Voyage.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -762,5 +763,45 @@ namespace StarmanLibTest
         //    CraftSystem::Destroy();
         //}
 
+        // イカダのクラフト
+        // 完成しても倉庫に格納されず、拠点の近くに配置される
+        TEST_METHOD(TestMethod21)
+        {
+            auto raftNum1 = (int)Voyage::Get()->GetRaftList().size();
+
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
+            for (int i = 0; i < 200; ++i)
+            {
+                storehouse->AddItem("細い木の幹");
+                storehouse->AddItem("ツタ");
+            }
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
+                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+
+            obj->QueueCraftRequest("イカダ");
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto raftCount = storehouse->CountItem("イカダ");
+
+            Assert::AreEqual(0, raftCount);
+
+            auto raftNum2 = (int)Voyage::Get()->GetRaftList().size();
+
+            Assert::AreEqual(1, raftNum2 - raftNum1);
+
+            CraftSystem::Destroy();
+        }
     };
 }
