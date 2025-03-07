@@ -181,6 +181,7 @@
     <ClCompile Include="RynenTest.cpp" />
     <ClCompile Include="SkillManagerTest.cpp" />
     <ClCompile Include="StatusManagerTest.cpp" />
+    <ClCompile Include="StorehouseTest.cpp" />
     <ClCompile Include="WeaponManagerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +191,9 @@
     <ProjectReference Include="..\StarmanLib\StarmanLib.vcxproj">
       <Project>{24dae9b9-fb40-4d0d-abcb-7a01cfcffdb7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
