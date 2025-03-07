@@ -446,7 +446,24 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     craftRequest.SetCrafting(false);
 
     // Š®¬‚µ‚½Û‚ÌŠi”[æ‚Ì‘qŒÉ
-    craftRequest.SetStorehouseId(storehouseId);
+    if (storehouseId != -1)
+    {
+        craftRequest.SetStorehouseId(storehouseId);
+    }
+    // -1‚È‚çŒ»Ý‚Ì‹’“_‚Ì‘qŒÉ
+    else
+    {
+        auto baseType = ActivityBase::Get()->GetBaseType();
+
+        if (baseType == eBaseType::Precision)
+        {
+            craftRequest.SetStorehouseId(1);
+        }
+        else if (baseType == eBaseType::DirectNex)
+        {
+            craftRequest.SetStorehouseId(2);
+        }
+    }
 
     m_craftRequestList.push_back(craftRequest);
 
