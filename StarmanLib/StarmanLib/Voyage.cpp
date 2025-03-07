@@ -153,10 +153,8 @@ void Voyage::Save(const std::string& csvRaft)
 
 // 毎フレーム呼ばれる想定
 // 潮や風によって流される処理はライブラリの利用者側で行う
-void Voyage::Update()
+void Voyage::Update(const float x, const float y, const float z)
 {
-    // 10秒ごとに耐久度が1減る
-    // 10秒（現実時間）＝120秒（ゲーム時間）
     static int counter = 0;
     ++counter;
 
@@ -165,6 +163,25 @@ void Voyage::Update()
         counter = 0;
     }
 
+    // 1秒ごとに乗船中のイカダの座標を更新
+    if (counter % 60 == 0)
+    {
+        if (m_currentRaftId != -1)
+        {
+            auto it = std::find_if(m_raftList.begin(), m_raftList.end(),
+                                   [&](const Raft& raft)
+                                   {
+                                       return raft.GetId() == m_currentRaftId;
+                                   });
+            if (it != m_raftList.end())
+            {
+                it->SetXYZ(x, y, z);
+            }
+        }
+    }
+    
+    // 10秒ごとに耐久度が1減る
+    // 10秒（現実時間）＝120秒（ゲーム時間）
     if (counter % (60 * 10) == 0)
     {
         auto raft = GetRaftCurrentPriv();

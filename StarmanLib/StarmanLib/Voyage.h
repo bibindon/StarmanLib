@@ -75,7 +75,8 @@ public:
     void Save(const std::string& csvRaft);
 
     // 毎フレーム呼ばれる想定
-    void Update();
+    // 主人公のXYZ座標を引数として受け取る。
+    void Update(const float x, const float y, const float z);
 
     void SetRaftMode(const bool arg);
     bool GetRaftMode() const;
