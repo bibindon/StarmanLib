@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Inventory.h"
 #include "Voyage.h"
+#include "ActivityBase.h"
 
 #include "Util.h"
 
@@ -560,6 +561,18 @@ Storehouse* NSStarmanLib::StorehouseManager::GetNearStorehouse(const float x, co
     }
 
     return result;
+}
+
+Storehouse* NSStarmanLib::StorehouseManager::GetCurrentActiveStorehouse()
+{
+    if (ActivityBase::Get()->GetBaseType() == eBaseType::Precision)
+    {
+        return &m_StorehouseMap.at(1);
+    }
+    else
+    {
+        return &m_StorehouseMap.at(2);
+    }
 }
 
 std::vector<int> NSStarmanLib::StorehouseManager::GetSubIdListFromAllStorehouse(const int id)

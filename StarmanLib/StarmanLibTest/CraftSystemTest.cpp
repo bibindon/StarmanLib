@@ -2,7 +2,6 @@
 #include "CppUnitTest.h"
 #include "../StarmanLib/CraftSystem.h"
 #include "../StarmanLib/ItemManager.h"
-#include "../StarmanLib/Inventory.h"
 #include "../StarmanLib/Storehouse.h"
 #include <fstream>
 #include <sstream>
@@ -25,9 +24,6 @@ namespace StarmanLibTest
             ItemManager* itemManager = ItemManager::GetObj();
             itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
-            Inventory* inventory = Inventory::GetObj();
-            inventory->Init("..\\StarmanLibTest\\inventory.csv");
-
             StorehouseManager* storehouseManager = StorehouseManager::Get();
             storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
 
@@ -43,7 +39,6 @@ namespace StarmanLibTest
             PowereggDateTime::Destroy();
             CraftInfoManager::Destroy();
             StorehouseManager::Destroy();
-            Inventory::Destroy();
             ItemManager::Destroy();
         }
 
@@ -200,10 +195,10 @@ namespace StarmanLibTest
         // キューイングした時点でクラフト用素材がインベントリからなくなる
         TEST_METHOD(TestMethod09)
         {
-            Inventory* inventory = Inventory::GetObj();
+            auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
             int temp = 0;
 
-            temp = inventory->CountItem("細い木の幹");
+            temp = storehouse->CountItem("細い木の幹");
             Assert::AreEqual(temp, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -217,10 +212,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
 
-            temp = inventory->CountItem("細い木の幹");
+            temp = storehouse->CountItem("細い木の幹");
             Assert::AreEqual(temp, 9);
 
-            temp = inventory->CountItem("いい形の石（槍）");
+            temp = storehouse->CountItem("いい形の石（槍）");
             Assert::AreEqual(temp, 9);
 
             obj->UpdateCraftStatus();
@@ -230,10 +225,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
 
-            temp = inventory->CountItem("細い木の幹");
+            temp = storehouse->CountItem("細い木の幹");
             Assert::AreEqual(temp, 9);
 
-            temp = inventory->CountItem("いい形の石（槍）");
+            temp = storehouse->CountItem("いい形の石（槍）");
             Assert::AreEqual(temp, 9);
 
             CraftSystem::Destroy();
@@ -260,7 +255,7 @@ namespace StarmanLibTest
             craftRequestList = obj->GetCraftRequestList();
 
             // クラフト要求がなくなっていること
-            Assert::AreEqual((int)craftRequestList.size() == 0, true);
+            Assert::AreEqual(true, (int)craftRequestList.size() == 0);
 
             CraftSystem::Destroy();
         }
@@ -511,17 +506,17 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            auto inventory = Inventory::GetObj();
-            auto mat1 = inventory->CountItem("細い木の幹");
-            auto mat2 = inventory->CountItem("いい形の石（槍）");
+            auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
+            auto mat1 = storehouse->CountItem("細い木の幹");
+            auto mat2 = storehouse->CountItem("いい形の石（槍）");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(1);
 
-            mat1 = inventory->CountItem("細い木の幹");
-            mat2 = inventory->CountItem("いい形の石（槍）");
+            mat1 = storehouse->CountItem("細い木の幹");
+            mat2 = storehouse->CountItem("いい形の石（槍）");
             Assert::AreEqual(9, mat1);
             Assert::AreEqual(9, mat2);
 
@@ -547,17 +542,17 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            auto inventory = Inventory::GetObj();
-            auto mat1 = inventory->CountItem("細い木の幹");
-            auto mat2 = inventory->CountItem("いい形の石（槍）");
+            auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
+            auto mat1 = storehouse->CountItem("細い木の幹");
+            auto mat2 = storehouse->CountItem("いい形の石（槍）");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(0);
 
-            mat1 = inventory->CountItem("細い木の幹");
-            mat2 = inventory->CountItem("いい形の石（槍）");
+            mat1 = storehouse->CountItem("細い木の幹");
+            mat2 = storehouse->CountItem("いい形の石（槍）");
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 

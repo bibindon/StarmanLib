@@ -111,6 +111,9 @@ public:
     // なければNULL
     Storehouse* GetNearStorehouse(const float x, const float z);
 
+    // 現在の活動拠点の倉庫
+    Storehouse* GetCurrentActiveStorehouse();
+
     // サブIDをすべての倉庫から取得する
     std::vector<int> GetSubIdListFromAllStorehouse(const int id);
 

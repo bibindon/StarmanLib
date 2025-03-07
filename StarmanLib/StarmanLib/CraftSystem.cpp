@@ -1,6 +1,5 @@
 #include "CraftSystem.h"
 #include "PowereggDateTime.h"
-#include "Inventory.h"
 #include "ItemManager.h"
 #include "Storehouse.h"
 #include "Voyage.h"
@@ -384,10 +383,10 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     ItemManager* itemManager = ItemManager::GetObj();
     std::vector<CraftMaterial> craftMaterialList = craftInfo.GetCraftMaterialDef();
 
-    Inventory* inventory = Inventory::GetObj();
+    auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
     bool materialShortage = false;
 
-    // インベントリ内に必要なだけの素材があるかのチェック
+    // 倉庫内に必要なだけの素材があるかのチェック
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
         std::string name;
@@ -398,7 +397,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         materialNum = craftMaterialList.at(i).GetNumber();
         materialLevel = craftMaterialList.at(i).GetLevel();
 
-        int materialNumCurrent = inventory->CountItem(name, materialLevel);
+        int materialNumCurrent = storehouse->CountItem(name, materialLevel);
 
         // 素材が足りない
         if (materialNumCurrent < materialNum)
@@ -434,17 +433,17 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         // 素材の必要数分削除する
         // subIdは数値が若いものから順に使う
 
-        std::vector<int> subIdList = inventory->GetSubIdList(craftMaterialList.at(i).GetId());
+        std::vector<int> subIdList = storehouse->GetSubIdList(craftMaterialList.at(i).GetId());
         for (int j = 0; j < materialNum; ++j)
         {
             // subIdは返却時に新規で割り当てる。再利用しない。
             item.SetSubId(-1);
-            auto info = inventory->GetItemInfo(id, subIdList.at(i));
+            auto info = storehouse->GetItemInfo(id, subIdList.at(i));
             auto dura = info.GetDurabilityCurrent();
             item.SetDurabilityCurrent(dura);
             items.push_back(item);
 
-            inventory->RemoveItem(name, subIdList.at(i), materialLevel);
+            storehouse->RemoveItem(name, subIdList.at(i), materialLevel);
         }
     }
     craftInfo.SetCraftMaterial(items);
@@ -489,7 +488,7 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
         return false;
     }
 
-    auto inventory = Inventory::GetObj();
+    auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
 
     // 開始していないクラフトをキャンセルしたら素材が返ってくる
     if (index != 0)
@@ -501,7 +500,7 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
         {
             int id = material.GetId();
             int dura = material.GetDurabilityCurrent();
-            inventory->AddItem(id, dura);
+            storehouse->AddItem(id, dura);
         }
     }
 
