@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "CppUnitTest.h"
 #include "../StarmanLib/CraftSystem.h"
 #include "../StarmanLib/ItemManager.h"
