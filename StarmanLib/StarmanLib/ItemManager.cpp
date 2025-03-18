@@ -1,6 +1,7 @@
 #include "ItemManager.h"
 #include <vector>
 #include "Util.h"
+#include "WeaponManager.h"
 
 using namespace NSStarmanLib;
 
@@ -38,7 +39,15 @@ void ItemDef::SetDetail(std::string arg)
 
 std::string ItemDef::GetImagePath() const
 {
-    return m_imagePath;
+    if (m_eType != ItemType::WEAPON)
+    {
+        return m_imagePath;
+    }
+    else
+    {
+        auto weapon = WeaponManager::GetObj();
+        return weapon->GetImageName(m_name);
+    }
 }
 
 void ItemDef::SetImagePath(std::string arg)
