@@ -365,7 +365,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
                                                   const int storehouseId)
 {
     // —\–ñ‚Í5Œ‚Ü‚Å
-    if (m_craftRequestList.size() >= 4)
+    if (m_craftRequestList.size() >= 5)
     {
         *errMsg = "—\–ñ‚Í‚TŒ‚Ü‚Å‚É‚µ‚Ä‚¨‚±‚¤";
         return false;
