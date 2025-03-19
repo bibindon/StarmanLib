@@ -26,6 +26,11 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 {
     ItemManager* itemManager = ItemManager::GetObj();
 
+    if (!itemManager->Inited())
+    {
+        throw std::exception("not inited");
+    }
+
     std::vector<std::vector<std::string> > vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
