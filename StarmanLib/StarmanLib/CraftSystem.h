@@ -167,6 +167,7 @@ public:
     // 強化値＋２の石斧が作れるのに＋１の石斧を作る方法は提供しない。
     // 倉庫IDが-1なら、現在の拠点の倉庫を使う
     bool QueueCraftRequest(const std::string& craftItem,
+                           std::string* errMsg,
                            const int storehouseId = -1);
 
     // 依頼をキャンセル

@@ -361,11 +361,13 @@ int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem)
 }
 
 bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
+                                                  std::string* errMsg,
                                                   const int storehouseId)
 {
     // —\–ñ‚Í5Œ‚Ü‚Å
     if (m_craftRequestList.size() >= 4)
     {
+        *errMsg = "—\–ñ‚Í‚TŒ‚Ü‚Å‚É‚µ‚Ä‚¨‚±‚¤";
         return false;
     }
 
@@ -409,6 +411,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
 
     if (materialShortage)
     {
+        *errMsg = "‘fŞ‚ª‘«‚è‚È‚¢";
         return false;
     }
 
