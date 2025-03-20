@@ -73,9 +73,9 @@ void NSStarmanLib::ActivityBase::GetPierPos(const eBaseType baseType, float* x, 
 {
     if (baseType == eBaseType::Precision)
     {
-        *x = -305.f;
+        *x = -317.f;
         *y = 11.f;
-        *z = 540.f;
+        *z = 539.f;
     }
     else if (baseType == eBaseType::DirectNex)
     {
