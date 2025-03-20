@@ -570,7 +570,15 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             CraftOutput output = m_craftRequestList.front().GetCraftInfo().GetOutput();
 
             int storehouseId = m_craftRequestList.front().GetStorehouseId();
-            Storehouse* storehouse = StorehouseManager::Get()->GetStorehouse(storehouseId);
+
+            Storehouse* storehouse = nullptr;
+
+            // イカダの場合は倉庫に入れないため
+            // 倉庫IDが-1にセットされている。-1の時は倉庫の取得をしない
+            if (storehouseId != -1)
+            {
+                storehouse = StorehouseManager::Get()->GetStorehouse(storehouseId);
+            }
 
             for (int i = 0; i < output.GetNumber(); ++i)
             {
