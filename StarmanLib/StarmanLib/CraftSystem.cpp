@@ -705,6 +705,26 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
 void NSStarmanLib::CraftSystem::StartCraft()
 {
+    //-----------------------------------------------
+    // 袋のクラフトを3件予約したとする。
+    // 袋は2回作成すると、熟練度が上がり、強化値の高い袋をクラフトできるようになる。
+    // そのため、3個目の袋は１，２個目の袋より高い強化値の袋が作られなくてはいけない。
+    // これに対応するため、クラフト開始時に熟練度を確認する
+    //-----------------------------------------------
+    {
+        auto req = m_craftRequestList.front();
+        auto output = req.GetCraftInfo().GetOutput();
+
+        int level = GetCraftsmanSkill(output.GetName());
+        if (level != output.GetLevel())
+        {
+            output.SetLevel(level);
+            auto craftInfo = m_craftRequestList.front().GetCraftInfo();
+            craftInfo.SetOutput(output);
+            m_craftRequestList.front().SetCraftInfo(craftInfo);
+        }
+    }
+
     m_craftRequestList.front().SetCrafting(true);
 
     // パワーエッグ星での現在時刻とクラフト完了時刻を設定する
