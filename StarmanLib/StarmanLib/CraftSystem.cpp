@@ -466,7 +466,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     // イカダをクラフトする場合は倉庫に入らないので-1
     if (craftItem == "イカダ")
     {
-        craftRequest.SetStorehouseId(2);
+        craftRequest.SetStorehouseId(-1);
     }
     else
     {
