@@ -771,10 +771,22 @@ int NSStarmanLib::CraftSystem::GetProgress()
         elapsedHour = currentHour - finishHour;
     }
     // Œ»İ‚ª0‚ğ’´‚¦‚½‚ç24‚ğ‘«‚µ‚Ä‚©‚çˆø‚­
-    else
+    else if (currentHour < finishHour)
     {
         elapsedHour = (currentHour+24) - finishHour;
     }
+    else if (currentHour == finishHour)
+    {
+        if (obj->GetDay() == m_craftRequestList.front().GetStartDay())
+        {
+            elapsedHour = 0;
+        }
+        else
+        {
+            elapsedHour = 24;
+        }
+    }
+
     return elapsedHour * 100 / 24;
 }
 
