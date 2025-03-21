@@ -192,7 +192,7 @@ void Voyage::Update(const float x, const float y, const float z)
     // 1時間おきに風の向きと強さが変わる
     // 1時間（ゲーム時間）＝5分（現実時間）
     // 強さ：-10.0 m/s ~ 10.0 m/s
-    if (counter % (60 * 60 * 5) == 0)
+    if (counter % (60 * 60 * 5) == 1)
     {
         {
             int rnd = rand() % 200;
@@ -214,7 +214,7 @@ void Voyage::Update(const float x, const float y, const float z)
     // 1時間おきに潮の向きと強さが変わる
     // 1時間（ゲーム時間）＝5分（現実時間）
     // 強さ：0m/s ~ 3m/s
-    if (counter % (60 * 60 * 5) == 0)
+    if (counter % (60 * 60 * 5) == 1)
     {
         {
             int rnd = rand() % 200;
