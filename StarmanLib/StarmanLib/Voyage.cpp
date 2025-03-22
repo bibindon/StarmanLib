@@ -163,8 +163,8 @@ void Voyage::Update(const float x, const float y, const float z)
         counter = 0;
     }
 
-    // 1秒ごとに乗船中のイカダの座標を更新
-    if (counter % 60 == 0)
+    // 0.05秒ごとに乗船中のイカダの座標を更新
+    if (counter % 3 == 0)
     {
         if (m_currentRaftId != -1)
         {
@@ -439,7 +439,7 @@ bool Voyage::CheckNearRaft(const float x, const float y, const float z, int* id)
         float x2, y2, z2;
         it->GetXYZ(&x2, &y2, &z2);
 
-        result = Util::HitByBoundingBox(x, y, z, x2, y2, z2, 2);
+        result = Util::HitByBoundingBox(x, y, z, x2, y2, z2, 3);
         if (result)
         {
             if (id != nullptr)
