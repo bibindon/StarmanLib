@@ -470,12 +470,18 @@ bool Voyage::CheckRaftEnable()
 
 bool Voyage::CheckRaftBroken()
 {
-    auto raft = GetRaftCurrentPriv()->GetDurability();
-    if (raft <= 0)
+    auto dura = GetRaftCurrentPriv()->GetDurability();
+    if (dura <= 0)
     {
         return true;
     }
     return false;
+}
+
+void NSStarmanLib::Voyage::CollideGround()
+{
+    auto dura = GetRaftCurrentPriv()->GetDurability();
+    GetRaftCurrentPriv()->SetDurability(dura - 100);
 }
 
 Raft* Voyage::GetRaftCurrentPriv() const

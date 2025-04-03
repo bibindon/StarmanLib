@@ -143,6 +143,8 @@ public:
     // イカダが壊れていないか。
     bool CheckRaftBroken();
 
+    void CollideGround();
+
 private:
 
     // GetRaftCurrentと違い、こちらはポインタを使う。
