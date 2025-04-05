@@ -19,6 +19,12 @@ Voyage* Voyage::Get()
     return m_single;
 }
 
+void NSStarmanLib::Voyage::Destroy()
+{
+    delete Voyage::m_single;
+    Voyage::m_single = nullptr;
+}
+
 void Voyage::Init(const std::string& csvRaft)
 {
     {

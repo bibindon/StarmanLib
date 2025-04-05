@@ -70,6 +70,7 @@ class Voyage
 public:
 
     static Voyage* Get();
+    static void Destroy();
 
     void Init(const std::string& csvRaft);
     void Save(const std::string& csvRaft);
