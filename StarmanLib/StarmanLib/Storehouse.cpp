@@ -155,7 +155,7 @@ void Storehouse::AddItem(const int id, const int durability)
     // Œ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID‚ª‚È‚©‚Á‚½i˜A”Ô‚¾‚Á‚½j‚È‚ç––”ö‚É’Ç‰Á‚·‚é
     else
     {
-        newSubId = subIdList.size() + 1;
+        newSubId = (int)subIdList.size() + 1;
     }
 
 
@@ -613,6 +613,6 @@ void NSStarmanLib::StorehouseManager::AddStorehouse()
     storehouse.SetCsvFileName(work);
 
     size_t size_ = m_StorehouseMap.size();
-    m_StorehouseMap[size_] = storehouse;
+    m_StorehouseMap[(int)size_] = storehouse;
 }
 

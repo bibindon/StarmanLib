@@ -88,7 +88,7 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 
             craftMaterial.SetId(itemDef.GetId());
 
-            craftInfo.SetCraftMaterialDef(j, craftMaterial);
+            craftInfo.SetCraftMaterialDef((int)j, craftMaterial);
         }
         m_craftInfoList.push_back(craftInfo);
     }

@@ -457,13 +457,13 @@ namespace StarmanLibTest
                 obj->Init("..\\StarmanLibTest\\craftsmanSkillSave.csv",
                           "..\\StarmanLibTest\\craftsmanQueueSave.csv");
 
-                int work = 0;
+                size_t work = 0;
 
                 work = obj->GetCraftRequestList().size();
-                Assert::AreEqual(work, 1);
+                Assert::AreEqual<size_t>(work, 1u);
 
                 work = obj->GetProgress();
-                Assert::AreEqual(work, 50);
+                Assert::AreEqual<size_t>(work, 50u);
 
                 CraftRequest craftRequest = obj->GetCraftRequestList().front();
                 Assert::AreEqual(craftRequest.GetCrafting(), true);
@@ -501,9 +501,9 @@ namespace StarmanLibTest
 
             obj->CancelCraftStart(0);
 
-            int size = obj->GetCraftRequestList().size();
+            size_t size = obj->GetCraftRequestList().size();
 
-            Assert::AreEqual(size, 0);
+            Assert::AreEqual<size_t>(size, 0u);
 
             CraftSystem::Destroy();
         }
@@ -606,9 +606,9 @@ namespace StarmanLibTest
             obj->CancelCraftStart(0);
             obj->CancelCraftStart(0);
 
-            int size = obj->GetCraftRequestList().size();
+            size_t size = obj->GetCraftRequestList().size();
 
-            Assert::AreEqual(size, 1);
+            Assert::AreEqual<size_t>(size, 1u);
 
             CraftSystem::Destroy();
         }

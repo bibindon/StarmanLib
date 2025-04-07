@@ -255,7 +255,7 @@ void Voyage::AddRaft(const Raft& arg)
     Raft raft(arg);
 
     // ID以外はあらかじめargで設定済みなのでidだけセットする
-    raft.SetId(m_raftList.size());
+    raft.SetId((int)m_raftList.size());
 
     m_raftList.push_back(arg);
 }

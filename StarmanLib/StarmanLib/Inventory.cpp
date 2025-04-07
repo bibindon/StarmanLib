@@ -171,7 +171,7 @@ int Inventory::AddItem(const int id, const int durability)
     // Œ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID‚ª‚È‚©‚Á‚½i˜A”Ô‚¾‚Á‚½j‚È‚ç––”ö‚É’Ç‰Á‚·‚é
     else
     {
-        newSubId = subIdList.size() + 1;
+        newSubId = (int)subIdList.size() + 1;
     }
 
     ItemInfo itemInfo;

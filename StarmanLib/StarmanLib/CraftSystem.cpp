@@ -613,7 +613,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     }
 
                     auto storehouseList = StorehouseManager::Get()->GetStorehouseIdList();
-                    raft.SetStorehouseId(storehouseList.size());
+                    raft.SetStorehouseId((int)storehouseList.size());
 
                     voyage->AddRaft(raft);
                 }
