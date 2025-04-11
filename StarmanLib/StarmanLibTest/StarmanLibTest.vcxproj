@@ -172,6 +172,7 @@
     <ClCompile Include="NpcStatusManager.cpp" />
     <ClCompile Include="PatchTestManagerTest.cpp" />
     <ClCompile Include="PowereggDateTimeTest.cpp" />
+    <ClCompile Include="RainTest.cpp" />
     <ClCompile Include="RynenTest.cpp" />
     <ClCompile Include="SkillManagerTest.cpp" />
     <ClCompile Include="StatusManagerTest.cpp" />
