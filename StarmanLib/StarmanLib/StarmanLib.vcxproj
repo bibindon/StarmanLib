@@ -159,7 +159,7 @@
     <ClInclude Include="NpcStatusManager.h" />
     <ClInclude Include="PatchTestManager.h" />
     <ClInclude Include="PowereggDateTime.h" />
-    <ClInclude Include="Rain.h" />
+    <ClInclude Include="RainModel.h" />
     <ClInclude Include="Voyage.h" />
     <ClInclude Include="Rynen.h" />
     <ClInclude Include="SkillManager.h" />
@@ -183,7 +183,7 @@
     <ClCompile Include="NpcStatusManager.cpp" />
     <ClCompile Include="PatchTestManager.cpp" />
     <ClCompile Include="PowereggDateTime.cpp" />
-    <ClCompile Include="Rain.cpp" />
+    <ClCompile Include="RainModel.cpp" />
     <ClCompile Include="Voyage.cpp" />
     <ClCompile Include="Rynen.cpp" />
     <ClCompile Include="SkillManager.cpp" />

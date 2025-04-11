@@ -1,5 +1,5 @@
 #include "CppUnitTest.h"
-#include "../StarmanLib/Rain.h"
+#include "../StarmanLib/RainModel.h"
 
 #include "../StarmanLib/PowereggDateTime.h"
 
@@ -17,7 +17,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod01)
         {
             // Target
-            Rain* obj = Rain::Get();
+            RainModel* obj = RainModel::Get();
 
             Assert::AreEqual(true, obj != nullptr);
             obj->Destroy();
@@ -26,7 +26,7 @@ namespace StarmanLibTest
         // 単純にPublic関数を呼んで落ちないことを確認するテスト
         TEST_METHOD(TestMethod02)
         {
-            Rain* obj = Rain::Get();
+            RainModel* obj = RainModel::Get();
 
             // Target
             obj->Update();
@@ -37,7 +37,7 @@ namespace StarmanLibTest
         // 単純にPublic関数を呼んで落ちないことを確認するテスト
         TEST_METHOD(TestMethod03)
         {
-            Rain* obj = Rain::Get();
+            RainModel* obj = RainModel::Get();
             obj->Update();
 
             // Target
@@ -49,7 +49,7 @@ namespace StarmanLibTest
         // 単純にPublic関数を呼んで落ちないことを確認するテスト
         TEST_METHOD(TestMethod04)
         {
-            Rain* obj = Rain::Get();
+            RainModel* obj = RainModel::Get();
 
             // Target
             obj->Destroy();
@@ -60,7 +60,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             auto datetime = PowereggDateTime::GetObj();
-            Rain* obj = Rain::Get();
+            RainModel* obj = RainModel::Get();
 
             // 試行回数
             int tryCount = 0;

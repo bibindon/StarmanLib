@@ -21,18 +21,18 @@ namespace NSStarmanLib
 //      Ç∆Ç…Ç©Ç≠ÇªÇÒÇ»ä¥Ç∂Ç≈åvéZÇ∑ÇÈÅB
 //------------------------------------------------------
 
-class Rain
+class RainModel
 {
 public:
     
-    static Rain* Get();
+    static RainModel* Get();
     void Destroy();
     void Update();
     bool IsRain() const;
 
 private:
 
-    static Rain* m_rain;
+    static RainModel* m_rain;
     bool m_bRain = false;
 
     int m_previousYear = 0;

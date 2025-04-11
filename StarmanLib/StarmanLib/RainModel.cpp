@@ -1,15 +1,15 @@
-#include "Rain.h"
+#include "RainModel.h"
 
 #include "PowereggDateTime.h"
 #include <time.h>
 
-NSStarmanLib::Rain* NSStarmanLib::Rain::m_rain = nullptr;
+NSStarmanLib::RainModel* NSStarmanLib::RainModel::m_rain = nullptr;
 
-NSStarmanLib::Rain* NSStarmanLib::Rain::Get()
+NSStarmanLib::RainModel* NSStarmanLib::RainModel::Get()
 {
     if (m_rain == nullptr)
     {
-        m_rain = new Rain();
+        m_rain = new RainModel();
 
         // 0 ~ 99の乱数
         srand((unsigned int)time(NULL));
@@ -18,14 +18,14 @@ NSStarmanLib::Rain* NSStarmanLib::Rain::Get()
     return m_rain;
 }
 
-void NSStarmanLib::Rain::Destroy()
+void NSStarmanLib::RainModel::Destroy()
 {
     delete m_rain;
     m_rain = nullptr;
 }
 
 // 雨の状態を更新。詳細はヘッダーファイル。
-void NSStarmanLib::Rain::Update()
+void NSStarmanLib::RainModel::Update()
 {
     auto datetime = PowereggDateTime::GetObj();
     if (datetime == nullptr)
@@ -102,7 +102,7 @@ void NSStarmanLib::Rain::Update()
     m_previousHour = currentHour;
 }
 
-bool NSStarmanLib::Rain::IsRain() const
+bool NSStarmanLib::RainModel::IsRain() const
 {
     return m_bRain;
 }
