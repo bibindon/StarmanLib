@@ -4,6 +4,7 @@
 #include "ItemManager.h"
 #include "Rynen.h"
 #include "WeaponManager.h"
+#include "RainModel.h"
 
 #include "Util.h"
 
@@ -1026,6 +1027,20 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------
+    // 雨が降っていたら体力の消費速度が上昇
+    //-----------------------------------------
+    {
+        if (RainModel::Get()->IsRain())
+        {
+            bodyStaminaCurrent *= 0.9999f;
+            bodyStaminaMaxSub *= 0.9999f;
+
+            brainStaminaCurrent *= 0.9999f;
+            brainStaminaMaxSub *= 0.9999f;
+        }
+    }
+
+    //-----------------------------------------
     // 計算結果をセット
     //-----------------------------------------
 
@@ -1757,6 +1772,16 @@ float StatusManager::GetWalkSpeed()
         walkSpeed *= 0.1f;
     }
 
+    //-----------------------------------------
+    // 雨が降っていたら移動速度25％ダウン
+    //-----------------------------------------
+    {
+        if (RainModel::Get()->IsRain())
+        {
+            walkSpeed *= 0.75f;
+        }
+    }
+
     // 微調整
     walkSpeed *= 3.f;
 
@@ -1868,6 +1893,16 @@ float StatusManager::GetAttackPower()
     if (GetBag(eBagPos::Left).GetId() != -1)
     {
         result *= 0.5f;
+    }
+
+    //-----------------------------------------
+    // 雨が降っていたら攻撃力25％ダウン
+    //-----------------------------------------
+    {
+        if (RainModel::Get()->IsRain())
+        {
+            result *= 0.75f;
+        }
     }
 
     // 攻撃力がマイナス、はありえない。
