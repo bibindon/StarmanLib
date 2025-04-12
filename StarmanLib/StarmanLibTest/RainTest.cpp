@@ -96,5 +96,48 @@ namespace StarmanLibTest
             obj->Destroy();
             datetime->Destroy();
         }
+
+        // ‰J‚ª~‚Á‚Ä‚¢‚é‚Æ‚«A1ŠÔŒã‚É‰J‚ª~‚Ş‚©A‚ğ10000‰ñŠm”F‚µ‚Ä
+        // ‰J‚ª‚â‚ŞŠm—¦‚ª10“’ö“x‚Å‚ ‚é‚±‚Æ‚ğŠm”F‚·‚é
+        TEST_METHOD(TestMethod06)
+        {
+            auto datetime = PowereggDateTime::GetObj();
+            RainModel* obj = RainModel::Get();
+
+            // s‰ñ”
+            int tryCount = 0;
+
+            // ‰J‚ª~‚ñ‚¾‰ñ”
+            int rainStopCount = 0;
+
+            for (int i = 0; i < 10000; ++i)
+            {
+                bool isRain1 = obj->IsRain();
+
+                // ‰J‚¾‚Á‚½‚ç‰J‚ª~‚Ş‚©Šm”F‚·‚éƒ`ƒƒƒ“ƒX
+                if (isRain1)
+                {
+                    ++tryCount;
+                }
+
+                datetime->IncreaseDateTime(0, 0, 1, 0, 0);
+                obj->Update();
+
+                bool isRain2 = obj->IsRain();
+
+                if (isRain1 && !isRain2)
+                {
+                    rainStopCount++;
+                }
+            }
+
+            double stopRainRate = (double)rainStopCount / tryCount;
+            Assert::AreEqual(true, stopRainRate <= 0.15);
+            Assert::AreEqual(true, stopRainRate >= 0.05);
+            Assert::AreEqual(true, stopRainRate != 0.0);
+
+            obj->Destroy();
+            datetime->Destroy();
+        }
     };
 }
