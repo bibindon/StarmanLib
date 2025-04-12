@@ -600,9 +600,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_EquipWeapon.SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
-                m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                // ‘Ï‹v’l‚ð•Û‘¶
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+                    m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
         else if (vvs.at(i).at(1) == "x")
