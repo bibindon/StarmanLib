@@ -679,10 +679,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_BagMap.at(eBagPos::Back1).SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back1).GetId(),
-                                                           m_BagMap.at(eBagPos::Back1).GetSubId());
-                m_BagMap.at(eBagPos::Back1).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back1).GetId(),
+                                                               m_BagMap.at(eBagPos::Back1).GetSubId());
+                    m_BagMap.at(eBagPos::Back1).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
         else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü2ID")
@@ -710,10 +713,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_BagMap.at(eBagPos::Back2).SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back2).GetId(),
-                                                           m_BagMap.at(eBagPos::Back2).GetSubId());
-                m_BagMap.at(eBagPos::Back2).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Back2).GetId(),
+                                                               m_BagMap.at(eBagPos::Back2).GetSubId());
+                    m_BagMap.at(eBagPos::Back2).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
         else if (vvs.at(i).at(1) == "• ‚Ì‘ÜID")
@@ -741,10 +747,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_BagMap.at(eBagPos::Front).SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Front).GetId(),
-                                                           m_BagMap.at(eBagPos::Front).GetSubId());
-                m_BagMap.at(eBagPos::Front).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Front).GetId(),
+                                                               m_BagMap.at(eBagPos::Front).GetSubId());
+                    m_BagMap.at(eBagPos::Front).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
         else if (vvs.at(i).at(1) == "¶Žè‚Ì‘ÜID")
@@ -772,10 +781,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_BagMap.at(eBagPos::Left).SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Left).GetId(),
-                                                           m_BagMap.at(eBagPos::Left).GetSubId());
-                m_BagMap.at(eBagPos::Left).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Left).GetId(),
+                                                               m_BagMap.at(eBagPos::Left).GetSubId());
+                    m_BagMap.at(eBagPos::Left).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
         else if (vvs.at(i).at(1) == "‰EŽè‚Ì‘ÜID")
@@ -803,10 +815,13 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_BagMap.at(eBagPos::Right).SetSubId(work);
 
-                Inventory* inventory = Inventory::GetObj();
-                ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Right).GetId(),
-                                                           m_BagMap.at(eBagPos::Right).GetSubId());
-                m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                if (work != -1)
+                {
+                    Inventory* inventory = Inventory::GetObj();
+                    ItemInfo itemInfo = inventory->GetItemInfo(m_BagMap.at(eBagPos::Right).GetId(),
+                                                               m_BagMap.at(eBagPos::Right).GetSubId());
+                    m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                }
             }
         }
     }
