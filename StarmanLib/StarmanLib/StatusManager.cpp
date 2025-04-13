@@ -2425,8 +2425,8 @@ void StatusManager::UseMagic()
 }
 
 void StatusManager::DrinkWordBress(const float playerX,
-                                                 const float playerY,
-                                                 const float playerZ)
+                                   const float playerY,
+                                   const float playerZ)
 {
     auto rynen = Rynen::GetObj();
     rynen->SetReviveEnable(true);
