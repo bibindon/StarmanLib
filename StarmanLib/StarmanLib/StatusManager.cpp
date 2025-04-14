@@ -2001,9 +2001,9 @@ void StatusManager::ConsumeAttackCost()
     {
         auto inventory = Inventory::GetObj();
         auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
-        work_i = itemInfo.GetDurabilityCurrent();
-        --work_i;
-        itemInfo.SetDurabilityCurrent(work_i);
+        auto dura = itemInfo.GetDurabilityCurrent();
+        inventory->SetItemDurability(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId(), dura - 1);
+        m_EquipWeapon.SetDurabilityCurrent(dura - 1);
     }
 
     // …•ª
