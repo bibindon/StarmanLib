@@ -155,8 +155,9 @@ public:
     std::vector<std::string> GetWeaponNameList();
 
     // 松明に火がついているか否か。火がついている・いないはセーブしない。ゲームを再起動したら消えている。
-    bool IsTorchLit(const int subId);
-    bool SetTorchLit(const bool lit, const int subId);
+    // 火が付いた松明は一つしか存在できないのでsubIdは管理不要
+    bool IsTorchLit();
+    void SetTorchLit(const bool lit);
 
 private:
 
@@ -168,7 +169,7 @@ private:
     std::unordered_map<std::string, WeaponDef> m_weaponDefMap;
     std::vector<WeaponDefSub> m_weaponDefSubList;
 
-    std::unordered_map<int, bool> m_torchLitMap;
+    bool m_torchLit = false;
 };
 
 }

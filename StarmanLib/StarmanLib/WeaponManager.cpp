@@ -335,14 +335,14 @@ std::vector<std::string> NSStarmanLib::WeaponManager::GetWeaponNameList()
     return result;
 }
 
-bool NSStarmanLib::WeaponManager::IsTorchLit(const int subId)
+bool NSStarmanLib::WeaponManager::IsTorchLit()
 {
-    return m_torchLitMap.at(subId);
+    return m_torchLit;
 }
 
-bool NSStarmanLib::WeaponManager::SetTorchLit(const bool lit, const int subId)
+void NSStarmanLib::WeaponManager::SetTorchLit(const bool lit)
 {
-    return m_torchLitMap[subId] = lit;
+    m_torchLit = lit;
 }
 
 std::string NSStarmanLib::WeaponManager::GetItemName(const std::string& weaponName) const
