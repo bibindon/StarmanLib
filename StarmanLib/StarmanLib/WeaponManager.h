@@ -154,6 +154,10 @@ public:
 
     std::vector<std::string> GetWeaponNameList();
 
+    // 松明に火がついているか否か。火がついている・いないはセーブしない。ゲームを再起動したら消えている。
+    bool IsTorchLit(const int subId);
+    bool SetTorchLit(const bool lit, const int subId);
+
 private:
 
     std::string GetItemName(const std::string& weaponName) const;
@@ -163,5 +167,8 @@ private:
 
     std::unordered_map<std::string, WeaponDef> m_weaponDefMap;
     std::vector<WeaponDefSub> m_weaponDefSubList;
+
+    std::unordered_map<int, bool> m_torchLitMap;
 };
+
 }
