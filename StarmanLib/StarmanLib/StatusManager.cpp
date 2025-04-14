@@ -831,36 +831,70 @@ void StatusManager::Init(const std::string& csvfile,
 
 void StatusManager::Update()
 {
-    // プレイヤーの状態により、徐々にスタミナが低下
+    //-----------------------------------------------
+    // プレイヤーの状態により、徐々にスタミナを低下させる。
+    //
+    // 何もしていない場合
+    //
+    // 体の体力
+    //      12時間で50％消費
+    //
+    // 体の体力の回復可能値
+    //      12時間で25％消費
+    //
+    // 脳の体力
+    //      12時間で100％消費
+    //
+    // 脳の体力の回復可能値
+    //      12時間で50％消費
+    //
+    //-----------------------------------------------
+
     float bodyStaminaCurrent = m_status.GetBodyStaminaCurrent();
     float bodyStaminaMaxSub = m_status.GetBodyStaminaMaxSub();
+    float bodyStaminaMax = m_status.GetBodyStaminaMax();
 
     float brainStaminaCurrent = m_status.GetBrainStaminaCurrent();
     float brainStaminaMaxSub = m_status.GetBrainStaminaMaxSub();
+    float brainStaminaMax = m_status.GetBrainStaminaMax();
+
+    // 体の体力と体の体力の回復可能値は12時間で50％減少する
+    float reduce12hourInGame = bodyStaminaMax * 0.5f;
+
+    // そのため体の体力と体の体力の回復可能値は1時間で5％減少する
+    float reduce1hourInGame = reduce12hourInGame / 12.f;
+
+    // そのため体の体力と体の体力の回復可能値は1秒で5％/ 3600 減少する
+    float reduce1secondInGame = reduce1hourInGame / (60.f * 60.f);
+
+    // ゲームプレイ1秒でゲーム内で12秒経過する。
+    // そのため、体の体力と体の体力の回復可能値は
+    // ゲームプレイ1秒で(5％/ 3600) * 12減少する
+    float reduce1secondInReal = reduce1secondInGame * 12.f;
+
+    // 1秒は60FPSであるとしているので
+    // ゲームプレイ1フレームで(5％/ 3600) * 12 / 60減少する
+    float reduce1FPSInReal = reduce1secondInReal / 60.f;
+
+    float reduceBodyStamina1FPSInReal = reduce1FPSInReal;
+    float reduceBodyStaminaMaxSub1FPSInReal = reduce1FPSInReal / 2.f;
+
+    float reduceBrainStamina1FPSInReal = reduce1FPSInReal * 2.f;
+    float reduceBrainStaminaMaxSub1FPSInReal = reduce1FPSInReal * 2.f / 2.f;
 
     if (m_playerState == PlayerState::STAND)
     {
-        bodyStaminaCurrent -= 0.0001f;
-        bodyStaminaMaxSub  -= 0.00002f;
-
-        brainStaminaCurrent -= 0.0002f;
-        brainStaminaMaxSub  -= 0.00004f;
+        // Do nothing
     }
     else if (m_playerState == PlayerState::WALK)
     {
-        bodyStaminaCurrent -= 0.0001f;
-        bodyStaminaMaxSub  -= 0.00002f;
-
-        brainStaminaCurrent -= 0.0002f;
-        brainStaminaMaxSub  -= 0.00004f;
+        // Do nothing
     }
     else if (m_playerState == PlayerState::SIT)
     {
-        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.01f;
-        bodyStaminaMaxSub  -= 0.00002f;
-
-        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.02f;
-        brainStaminaMaxSub  -= 0.00004f;
+        // 通常時の消費スピードの5倍の速度で逆に回復していく
+        reduceBodyStamina1FPSInReal *= -5.f;
+        reduceBrainStamina1FPSInReal *= -5.f;
 
         // 脳の体力が20％以下で座ると寝てしまう
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.2f)
@@ -870,11 +904,9 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::LYING_DOWN)
     {
-        bodyStaminaCurrent += (bodyStaminaMaxSub - bodyStaminaCurrent) * 0.02f;
-        bodyStaminaMaxSub  += 0.00002f;
-
-        brainStaminaCurrent += (brainStaminaMaxSub - brainStaminaCurrent) * 0.04f;
-        brainStaminaMaxSub  -= 0.00008f;
+        // 通常時の消費スピードの10倍の速度で逆に回復していく
+        reduceBodyStamina1FPSInReal *= -10.f;
+        reduceBrainStamina1FPSInReal *= -10.f;
 
         // 脳の体力が50％以下で横になると寝てしまう
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.5f)
@@ -884,19 +916,21 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::IDLE_WATER)
     {
-        bodyStaminaCurrent -= 0.001f;
-        bodyStaminaMaxSub  -= 0.0002f;
+        // 体力消費3倍
+        reduceBodyStamina1FPSInReal *= 3.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 3.f;
 
-        brainStaminaCurrent -= 0.002f;
-        brainStaminaMaxSub  -= 0.0004f;
+        reduceBrainStamina1FPSInReal *= 3.f;
+        reduceBrainStaminaMaxSub1FPSInReal *= 3.f;
     }
     else if (m_playerState == PlayerState::SWIM)
     {
-        bodyStaminaCurrent -= 0.001f;
-        bodyStaminaMaxSub  -= 0.0002f;
+        // 体力消費10倍
+        reduceBodyStamina1FPSInReal *= 10.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 10.f;
 
-        brainStaminaCurrent -= 0.002f;
-        brainStaminaMaxSub  -= 0.0004f;
+        reduceBrainStamina1FPSInReal *= 10.f;
+        reduceBrainStaminaMaxSub1FPSInReal *= 10.f;
     }
 
     //------------------------------------
@@ -904,129 +938,146 @@ void StatusManager::Update()
     // 1％でも下がるとスタミナの下がりやすさが悪化する
     // 1％下がるたびにさらに悪化する
     // 水分が90％になると死亡する
-    // 99％だったら0.9999をかける
-    // 98％だったら0.9998をかける
-    // 97％だったら0.9997をかける
+    // 99％だったら1.2倍
+    // 98％だったら1.4倍
+    // 97％だったら1.6倍
     //------------------------------------
-    float work1 = 0.f;
-    float work2 = 0.f;
-    float work3 = 0.f;
-    work1 = m_status.GetWaterCurrent();
-    work2 = m_status.GetWaterMax();
-
-    // 現在が99で最大が100だったら0.99、を得る
-    work3 = work1 / work2;
-
-    if (work3 <= 0.90f)
     {
-        m_status.SetDead(true);
+        float work1 = 0.f;
+        float work2 = 0.f;
+        float work3 = 0.f;
+        work1 = m_status.GetWaterCurrent();
+        work2 = m_status.GetWaterMax();
+
+        // 現在が99で最大が100だったら0.99、を得る
+        work3 = work1 / work2;
+
+        if (work3 <= 0.90f)
+        {
+            m_status.SetDead(true);
+        }
+
+        // 0.99を1.2にする
+        work3 *= 100.f;
+        work3 = 100.f - work3;
+        work3 *= 2.f;
+        work3 /= 10.f;
+        work3 += 1.f;
+
+        reduceBodyStamina1FPSInReal *= work3;
+        reduceBodyStaminaMaxSub1FPSInReal *= work3;
+
+        reduceBrainStamina1FPSInReal *= work3;
+        reduceBrainStaminaMaxSub1FPSInReal *= work3;
     }
-
-    // 0.99 を0.0099にする
-    work3 /= 100;
-
-    // 0.0099を0.9999にする
-    work3 += 0.99f;
-
-    bodyStaminaCurrent *= work3;
 
     //------------------------------------
     // 糖質
     // 不足していたら、スタミナの下がりやすさが悪化する
-    // 40%を下回ったら0.9998倍
-    // 20%になったら0.9996倍
+    // 40%を下回ったら1.2倍
+    // 20%になったら1.4倍
     // 0%になっても餓死はしない。脂肪が消費される。脂肪も0なら餓死。
-    // 80%以上あると
+    // 80%以上あると逆にスタミナを消費しやすくなる
     //------------------------------------
-    work1 = m_status.GetCarboCurrent();
-    work2 = m_status.GetCarboMax();
-    work3 = work1 / work2;
-    if (0.2f <= work3 && work3 <= 0.4f)
     {
-        bodyStaminaCurrent *= 0.9998f;
-        bodyStaminaMaxSub *= 0.9998f;
-
-        brainStaminaCurrent *= 0.9998f;
-        brainStaminaMaxSub *= 0.9998f;
-    }
-    else if (0.f < work3 && work3 <= 0.2f)
-    {
-        bodyStaminaCurrent *= 0.9996f;
-        bodyStaminaMaxSub *= 0.9996f;
-
-        brainStaminaCurrent *= 0.9996f;
-        brainStaminaMaxSub *= 0.9996f;
-    }
-    else if (work3 <= 0.f)
-    {
-        if (m_status.GetLipidCurrent() <= 0.f)
+        float work1 = m_status.GetCarboCurrent();
+        float work2 = m_status.GetCarboMax();
+        float work3 = work1 / work2;
+        if (0.2f <= work3 && work3 <= 0.4f)
         {
-            m_status.SetDead(true);
+            reduceBodyStamina1FPSInReal *= 1.2f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.2f;
+
+            reduceBrainStamina1FPSInReal *= 1.2f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.2f;
+        }
+        else if (0.f < work3 && work3 <= 0.2f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.4f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.4f;
+
+            reduceBrainStamina1FPSInReal *= 1.4f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.4f;
+        }
+        else if (work3 >= 0.8f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.4f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.4f;
+
+            reduceBrainStamina1FPSInReal *= 1.4f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.4f;
+        }
+        else if (work3 <= 0.f)
+        {
+            if (m_status.GetLipidCurrent() <= 0.f)
+            {
+                m_status.SetDead(true);
+            }
         }
     }
 
     //------------------------------------
     // ビタミン
     // 不足していたら、スタミナの下がりやすさが悪化する
-    // 40%を下回ったら0.9999倍
-    // 20%になったら0.9998倍
+    // 40%を下回ったら1.4倍
+    // 20%になったら1.2倍
     //------------------------------------
-    work1 = m_status.GetVitaminCurrent();
-    work2 = m_status.GetVitaminMax();
-    work3 = work1 / work2;
-    if (work3 <= 0.2f)
     {
-        bodyStaminaCurrent *= 0.9999f;
-        bodyStaminaMaxSub *= 0.9999f;
+        float work1 = m_status.GetVitaminCurrent();
+        float work2 = m_status.GetVitaminMax();
+        float work3 = work1 / work2;
+        if (work3 <= 0.2f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.2f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.2f;
 
-        brainStaminaCurrent *= 0.9999f;
-        brainStaminaMaxSub *= 0.9999f;
-    }
-    else if (work3 <= 0.4f)
-    {
-        bodyStaminaCurrent *= 0.9998f;
-        bodyStaminaMaxSub *= 0.9998f;
+            reduceBrainStamina1FPSInReal *= 1.2f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.2f;
+        }
+        else if (work3 <= 0.4f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.4f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.4f;
 
-        brainStaminaCurrent *= 0.9998f;
-        brainStaminaMaxSub *= 0.9998f;
+            reduceBrainStamina1FPSInReal *= 1.4f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.4f;
+        }
     }
 
     //------------------------------------
     // ミネラル
     // 不足していたら、スタミナの下がりやすさが悪化する
-    // 20%を下回ったら0.9999倍
-    // 0%になったら0.9998倍
+    // 20%を下回ったら1.2倍
+    // 0%になったら1.4倍
     //------------------------------------
-    work1 = m_status.GetMineralCurrent();
-    work2 = m_status.GetMineralMax();
-    work3 = work1 / work2;
-    if (work3 <= 0.f)
     {
-        bodyStaminaCurrent *= 0.9999f;
-        bodyStaminaMaxSub *= 0.9999f;
+        float work1 = m_status.GetMineralCurrent();
+        float work2 = m_status.GetMineralMax();
+        float work3 = work1 / work2;
+        if (work3 <= 0.f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.4f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.4f;
 
-        brainStaminaCurrent *= 0.9999f;
-        brainStaminaMaxSub *= 0.9999f;
-    }
-    else if (work3 <= 0.2f)
-    {
-        bodyStaminaCurrent *= 0.9998f;
-        bodyStaminaMaxSub *= 0.9998f;
+            reduceBrainStamina1FPSInReal *= 1.4f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.4f;
+        }
+        else if (work3 <= 0.2f)
+        {
+            reduceBodyStamina1FPSInReal *= 1.2f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.2f;
 
-        brainStaminaCurrent *= 0.9998f;
-        brainStaminaMaxSub *= 0.9998f;
+            reduceBrainStamina1FPSInReal *= 1.2f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.2f;
+        }
     }
 
     //------------------------------------
     // インベントリの重量
     // インベントリの重量によってスタミナの下がりやすさが悪化する
     // 0kgだったら1倍
-    // 10kgだったら0.999倍
-    // 100㎏だったら0.99倍
-    // 1万を足して、1万をその数で割る
-    // 例
-    //   10kgだったら0.999倍
-    //   10000 / (10 + 10000) = 0.999
+    // 10kgだったら1.2倍
+    // 20㎏だったら1.4倍
     //------------------------------------
     {
         // 座っていたり、横になっていたら無視。
@@ -1035,27 +1086,29 @@ void StatusManager::Update()
         {
             Inventory* inventory = Inventory::GetObj();
             float weight = inventory->GetWeight();
-            work1 = 10000 / (weight + 10000);
 
-            bodyStaminaCurrent *= work1;
-            bodyStaminaMaxSub *= work1;
+            weight *= 0.02f;
+            weight += 1.0f;
 
-            brainStaminaCurrent *= work1;
-            brainStaminaMaxSub *= work1;
+            reduceBodyStamina1FPSInReal *= weight;
+            reduceBodyStaminaMaxSub1FPSInReal *= weight;
+
+            reduceBrainStamina1FPSInReal *= weight;
+            reduceBrainStaminaMaxSub1FPSInReal *= weight;
         }
     }
 
     //-----------------------------------------
-    // 雨が降っていたら体力の消費速度が上昇
+    // 雨が降っていたら体力の消費速度が1.5倍
     //-----------------------------------------
     {
         if (RainModel::Get()->IsRain())
         {
-            bodyStaminaCurrent *= 0.9999f;
-            bodyStaminaMaxSub *= 0.9999f;
+            reduceBodyStamina1FPSInReal *= 1.5f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 1.5f;
 
-            brainStaminaCurrent *= 0.9999f;
-            brainStaminaMaxSub *= 0.9999f;
+            reduceBrainStamina1FPSInReal *= 1.5f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 1.5f;
         }
     }
 
@@ -1063,7 +1116,6 @@ void StatusManager::Update()
     // 計算結果をセット
     //-----------------------------------------
 
-    // スタミナ消耗が速すぎるので1/10にしてみる
     {
         auto work1 = m_status.GetBodyStaminaCurrent();
         auto work2 = m_status.GetBodyStaminaMaxSub();
@@ -1071,11 +1123,11 @@ void StatusManager::Update()
         auto work3 = m_status.GetBrainStaminaCurrent();
         auto work4 = m_status.GetBrainStaminaMaxSub();
 
-        bodyStaminaCurrent = work1 - (work1 - bodyStaminaCurrent) * 0.1f;
-        bodyStaminaMaxSub = work2 - (work2 - bodyStaminaMaxSub) * 0.1f;
+        bodyStaminaCurrent = work1 - reduceBodyStamina1FPSInReal;
+        bodyStaminaMaxSub = work2 - reduceBodyStaminaMaxSub1FPSInReal;
 
-        brainStaminaCurrent = work3 - (work3 - brainStaminaCurrent) * 0.1f;
-        brainStaminaMaxSub = work4 - (work4 - brainStaminaMaxSub) * 0.1f;
+        brainStaminaCurrent = work3 - reduceBrainStamina1FPSInReal;
+        brainStaminaMaxSub = work4 - reduceBrainStaminaMaxSub1FPSInReal;
     }
 
     m_status.SetBodyStaminaCurrent(bodyStaminaCurrent);
@@ -1093,6 +1145,7 @@ void StatusManager::Update()
     //------------------------------------------------------
     // 体内の五大栄養素と水分を減らす
     //------------------------------------------------------
+    float work1 = 0.f;
     // 一日何も食べなければ体内の糖質が0になってもおかしくはないはず。
     work1 = m_status.GetCarboCurrent();
     work1 -= 0.02f;
