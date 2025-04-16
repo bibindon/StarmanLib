@@ -2153,11 +2153,11 @@ bool StatusManager::Sleep()
         {
             // 睡眠不足でもなく、トレーニングもしていないなら
             // 7~23時の間に寝ようとしても寝ることができない。
-            if (m_training == false &&
-                m_status.GetLackOfSleep() == false)
-            {
-                return false;
-            }
+//            if (m_training == false &&
+//                m_status.GetLackOfSleep() == false)
+//            {
+//                return false;
+//            }
         }
     }
 
