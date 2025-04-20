@@ -151,6 +151,7 @@
     <ClInclude Include="EnemyInfoManager.h" />
     <ClInclude Include="Guide.h" />
     <ClInclude Include="HeaderOnlyCsv.hpp" />
+    <ClInclude Include="Help.h" />
     <ClInclude Include="HumanInfoManager.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemManager.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="CraftSystem.cpp" />
     <ClCompile Include="EnemyInfoManager.cpp" />
     <ClCompile Include="Guide.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="HumanInfoManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemManager.cpp" />
