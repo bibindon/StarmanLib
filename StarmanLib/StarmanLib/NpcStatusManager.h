@@ -9,10 +9,14 @@ namespace NSStarmanLib
 // 糖質が0になったら餓死、それ以外が0になったら病死する。
 // 倉庫にワードブレスがあればライネンの契約をし復活する。
 
+// NPCはクラフト、パッチテスト、お手伝い機能を持つ。
+// クラフトとパッチテストができるNPCがいる
 enum class eNpcFeature
 {
-    STOREHOUSE,
     CRAFTMAN,
+    PATCH_TEST,
+    CRAFTMAN_AND_PATCH_TEST,
+    HELP,
     NONE,
 };
 

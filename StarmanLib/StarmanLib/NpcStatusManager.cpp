@@ -283,9 +283,17 @@ void NpcStatusManager::Init(const std::string& csvfile,
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN);
         }
-        else if (vvs.at(i).at(16) == "倉庫")
+        else if (vvs.at(i).at(16) == "パッチテスト")
         {
-            npcStatus.SetNpcFeature(eNpcFeature::STOREHOUSE);
+            npcStatus.SetNpcFeature(eNpcFeature::PATCH_TEST);
+        }
+        else if (vvs.at(i).at(16) == "クラフトとパッチテスト")
+        {
+            npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN_AND_PATCH_TEST);
+        }
+        else if (vvs.at(i).at(16) == "お手伝い")
+        {
+            npcStatus.SetNpcFeature(eNpcFeature::HELP);
         }
         else
         {
@@ -416,9 +424,17 @@ void NpcStatusManager::Save(const std::string& csvfile,
         {
             vs.push_back("クラフト");
         }
-        else if (it->second.GetNpcFeature() == eNpcFeature::STOREHOUSE)
+        else if (it->second.GetNpcFeature() == eNpcFeature::PATCH_TEST)
         {
-            vs.push_back("倉庫");
+            vs.push_back("パッチテスト");
+        }
+        else if (it->second.GetNpcFeature() == eNpcFeature::CRAFTMAN_AND_PATCH_TEST)
+        {
+            vs.push_back("クラフトとパッチテスト");
+        }
+        else if (it->second.GetNpcFeature() == eNpcFeature::HELP)
+        {
+            vs.push_back("お手伝い");
         }
         else
         {
