@@ -164,6 +164,7 @@
     <ClCompile Include="CraftSystemTest.cpp" />
     <ClCompile Include="EnemyInfoManagerTest.cpp" />
     <ClCompile Include="GuideTest.cpp" />
+    <ClCompile Include="HelpTest.cpp" />
     <ClCompile Include="HumanInfoManagerTest.cpp" />
     <ClCompile Include="InventoryTest.cpp" />
     <ClCompile Include="ItemManagerTest.cpp" />

@@ -3,6 +3,7 @@
 #include "PowereggDateTime.h"
 #include <time.h>
 #include "Util.h"
+#include <cassert>
 
 using namespace NSStarmanLib;
 
@@ -25,6 +26,8 @@ void NSStarmanLib::Help::Destroy()
 
 void NSStarmanLib::Help::Init(const std::string& filepath)
 {
+    assert(ItemManager::GetObj()->Inited());
+
     // 拾ってよいアイテムのリスト
     // 3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,25,33,34,35,38,39,40,41,42,
     // 54, 55, 56, 57
@@ -64,15 +67,25 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
 
     m_presentMap["サンカクマン"] = std::vector<ItemDef>();
     m_presentMap["シカクマン"] = std::vector<ItemDef>();
+    
+    m_presented["サンカクマン"] = false;
+    m_presented["シカクマン"] = false;
 
     std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(filepath, false);
 
     auto itemManager = ItemManager::GetObj();
-    for (auto& helper : vvs)
+
+    for (int i = 1; i < vvs.size(); ++i)
     {
-        auto name = helper.at(0);
-        for (auto& itemId : helper)
+        auto name = vvs.at(i).at(0);
+        for (int j = 1; j < vvs.at(i).size(); ++j)
         {
+            if (vvs.at(i).at(j).empty())
+            {
+                break;
+            }
+
+            int itemId = std::stoi(vvs.at(i).at(j));
             auto itemDef = itemManager->GetItemDef(itemId);
             m_presentMap.at(name).push_back(itemDef);
         }
@@ -109,6 +122,8 @@ void NSStarmanLib::Help::Update()
 
     if (crossOver)
     {
+        srand((unsigned int)time(NULL));
+
         for (auto& x : m_presentMap)
         {
             // アイテムをランダムに10個以下で選択
@@ -116,6 +131,8 @@ void NSStarmanLib::Help::Update()
 
             // 受け取らずに翌日の16時になったら新しいアイテムになり、古いものは消失
             x.second = items;
+
+            m_presented.at(x.first) = false;
         }
     }
 
@@ -166,6 +183,7 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName
     auto present = m_presentMap.at(npcName);
 
     m_presentMap.at(npcName).clear();
+    m_presented.at(npcName) = true;
 
     return present;
 }
@@ -181,7 +199,6 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem()
 {
     int rnd = 0;
     int work = 0;
-    srand((unsigned int)time(NULL));
 
     // 個数をランダムで決める(1~10)
     int itemNum = 1;
