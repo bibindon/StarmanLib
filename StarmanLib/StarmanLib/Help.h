@@ -50,7 +50,7 @@ private:
     // ƒAƒCƒeƒ€‚ğ“n‚µÏ‚İ‚©
     std::map<std::string, bool> m_presented;
 
-    std::vector<ItemDef> GetRandomItem();
+    std::vector<ItemDef> GetRandomItem(const std::string& npcName);
 
     bool CrossOver16();
 

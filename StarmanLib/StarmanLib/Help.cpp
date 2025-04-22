@@ -1,8 +1,11 @@
 #include "Help.h"
 
-#include "PowereggDateTime.h"
-#include <time.h>
 #include "Util.h"
+#include "PowereggDateTime.h"
+#include "CraftSystem.h"
+#include "NpcStatusManager.h"
+
+#include <time.h>
 #include <cassert>
 
 using namespace NSStarmanLib;
@@ -92,6 +95,7 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
     }
 }
 
+// TODO NPCの健康状態を考慮
 void NSStarmanLib::Help::Update()
 {
     auto datetime = PowereggDateTime::GetObj();
@@ -122,17 +126,30 @@ void NSStarmanLib::Help::Update()
 
     if (crossOver)
     {
-        srand((unsigned int)time(NULL));
-
-        for (auto& x : m_presentMap)
+        // イカダをクラフトしているならアイテム収集はナシ。
+        auto request = CraftSystem::GetObj()->GetCraftRequestList();
+        if (request.empty() || request.front().GetName() != "イカダ")
         {
-            // アイテムをランダムに10個以下で選択
-            auto items = GetRandomItem();
+            srand((unsigned int)time(NULL));
 
-            // 受け取らずに翌日の16時になったら新しいアイテムになり、古いものは消失
-            x.second = items;
+            for (auto& x : m_presentMap)
+            {
+                // アイテムをランダムに10個以下で選択
+                auto items = GetRandomItem(x.first);
 
-            m_presented.at(x.first) = false;
+                // 受け取らずに翌日の16時になったら新しいアイテムになり、古いものは消失
+                x.second = items;
+
+                m_presented.at(x.first) = false;
+            }
+        }
+        else
+        {
+            for (auto& x : m_presentMap)
+            {
+                x.second.clear();
+                m_presented.at(x.first) = false;
+            }
         }
     }
 
@@ -180,6 +197,13 @@ void NSStarmanLib::Help::Save(const std::string& filepath)
 
 std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName)
 {
+    // イカダをクラフトしていたらアイテム収集はナシ。
+    auto request = CraftSystem::GetObj()->GetCraftRequestList();
+    if (!request.empty() && request.front().GetName() == "イカダ")
+    {
+        m_presentMap.at(npcName).clear();
+    }
+
     auto present = m_presentMap.at(npcName);
 
     m_presentMap.at(npcName).clear();
@@ -195,7 +219,7 @@ bool NSStarmanLib::Help::Received(const std::string& npcName)
     return received;
 }
 
-std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem()
+std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::string& npcName)
 {
     int rnd = 0;
     int work = 0;
@@ -203,8 +227,21 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem()
     // 個数をランダムで決める(1~10)
     int itemNum = 1;
     {
-        rnd = rand();
-        work = rnd % 10 + 1;
+        // TODO 一番低い栄養素をもとに最大取得個数を求める
+        auto carbo = NpcStatusManager::GetObj()->GetNpcStatus(npcName).GetCarbo();
+
+        int maxNum = (int)(carbo / 10);
+
+        if (maxNum != 0)
+        {
+            rnd = rand();
+            work = rnd % maxNum + 1;
+        }
+        else
+        {
+            work = 1;
+        }
+
         itemNum = work;
     }
 
