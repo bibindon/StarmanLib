@@ -235,7 +235,7 @@ bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
     }
 
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (request.empty() || request.front().GetName() == "イカダ")
+    if (!request.empty() && request.front().GetName() == "イカダ")
     {
         m_presentMap.at(npcName).clear();
         return false;
