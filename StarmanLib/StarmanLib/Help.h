@@ -34,6 +34,7 @@ public:
     std::vector<ItemDef> ReceiveItems(const std::string& npcName);
 
     bool Received(const std::string& npcName);
+    bool CanReceive(const std::string& npcName);
 
 private:
 

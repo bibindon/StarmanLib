@@ -219,6 +219,31 @@ bool NSStarmanLib::Help::Received(const std::string& npcName)
     return received;
 }
 
+bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
+{
+    // 渡した後、もしくは一つもないなら受け取り出来ない。
+    auto empty = m_presentMap.at(npcName).empty();
+    if (empty)
+    {
+        return false;
+    }
+
+    auto presented = m_presented.at(npcName);
+    if (presented)
+    {
+        return false;
+    }
+
+    auto request = CraftSystem::GetObj()->GetCraftRequestList();
+    if (request.empty() || request.front().GetName() == "イカダ")
+    {
+        m_presentMap.at(npcName).clear();
+        return false;
+    }
+
+    return true;
+}
+
 std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::string& npcName)
 {
     int rnd = 0;
