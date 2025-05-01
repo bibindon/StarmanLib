@@ -651,3 +651,17 @@ int NSStarmanLib::MapObjManager::GetModelId(const std::string& name)
     return id;
 }
 
+void NSStarmanLib::MapObjManager::ResetShow()
+{
+    for (auto& line : m_stMapObjMap)
+    {
+        for (auto& item : line.second)
+        {
+            for (auto& mapObj : item.second)
+            {
+                mapObj.m_show = false;
+            }
+        }
+    }
+}
+

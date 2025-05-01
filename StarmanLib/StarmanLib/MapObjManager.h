@@ -145,6 +145,9 @@ public:
     std::string GetModelName(const int id);
     int GetModelId(const std::string& name);
 
+    // Show/Hide‚ð‚·‚×‚ÄƒŠƒZƒbƒg
+    void ResetShow();
+
 private:
 
     static MapObjManager* obj;
