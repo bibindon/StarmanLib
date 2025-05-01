@@ -93,6 +93,8 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
             m_presentMap.at(name).push_back(itemDef);
         }
     }
+
+    m_bLoaded = true;
 }
 
 // TODO NPCの健康状態を考慮
@@ -221,6 +223,11 @@ bool NSStarmanLib::Help::Received(const std::string& npcName)
 
 bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
 {
+    if (!m_bLoaded)
+    {
+        return false;
+    }
+
     // 渡した後、もしくは一つもないなら受け取り出来ない。
     auto empty = m_presentMap.at(npcName).empty();
     if (empty)

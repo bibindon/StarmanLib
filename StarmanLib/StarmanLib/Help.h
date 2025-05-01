@@ -61,6 +61,7 @@ private:
     // 拾うことが可能なアイテムのIDのリスト
     // 拾えるはずのないアイテムを拾えないようにするため。
     std::vector<int> m_enableItemIdList;
+    bool m_bLoaded = false;
 };
 }
 
