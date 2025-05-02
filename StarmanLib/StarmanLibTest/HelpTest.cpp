@@ -38,7 +38,7 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             // Target
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
 
             ItemManager::Destroy();
             Help::Destroy();
@@ -50,7 +50,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
 
             // Target
             help->Save("..\\StarmanLibTest\\helpSave.csv");
@@ -66,7 +66,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
@@ -85,7 +85,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
@@ -103,7 +103,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems = help->ReceiveItems("サンカクマン");
@@ -125,7 +125,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems = help->ReceiveItems("シカクマン");
@@ -145,7 +145,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems1 = help->ReceiveItems("サンカクマン");
@@ -178,7 +178,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems1 = help->ReceiveItems("サンカクマン");
@@ -210,7 +210,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems1 = help->ReceiveItems("サンカクマン");
@@ -245,7 +245,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
             auto receiveItems1 = help->ReceiveItems("サンカクマン");
@@ -286,7 +286,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init("..\\StarmanLibTest\\help.csv", false);
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
