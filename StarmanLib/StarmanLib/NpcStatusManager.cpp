@@ -228,12 +228,12 @@ void NpcStatusManager::Init(const std::string& csvfile,
         work_f = std::stof(vvs.at(i).at(5));
         npcStatus.SetMineral(work_f);
 
-        if (vvs.at(i).at(6) == "○")
+        if (vvs.at(i).at(6) == "y")
         {
             npcStatus.SetRynenContract();
         }
 
-        if (vvs.at(i).at(7) == "○")
+        if (vvs.at(i).at(7) == "y")
         {
             npcStatus.SetDrinkWordbress(true);
         }
@@ -242,7 +242,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetDrinkWordbress(false);
         }
 
-        if (vvs.at(i).at(8) == "○")
+        if (vvs.at(i).at(8) == "y")
         {
             npcStatus.SetDead();
         }
@@ -259,7 +259,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
         work_f = std::stof(vvs.at(i).at(12));
         npcStatus.SetRotY(work_f);
 
-        if (vvs.at(i).at(13) == "○")
+        if (vvs.at(i).at(13) == "y")
         {
             npcStatus.SetHasTalk(true);
         }
@@ -270,7 +270,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
 
         npcStatus.SetTalkCsv(vvs.at(i).at(14));
 
-        if (vvs.at(i).at(15) == "○")
+        if (vvs.at(i).at(15) == "y")
         {
             npcStatus.SetFeatureEnable(true);
         }
@@ -279,19 +279,19 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetFeatureEnable(false);
         }
 
-        if (vvs.at(i).at(16) == "クラフト")
+        if (vvs.at(i).at(16) == "CRAFTMAN")
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN);
         }
-        else if (vvs.at(i).at(16) == "パッチテスト")
+        else if (vvs.at(i).at(16) == "PATCH_TEST")
         {
             npcStatus.SetNpcFeature(eNpcFeature::PATCH_TEST);
         }
-        else if (vvs.at(i).at(16) == "クラフトとパッチテスト")
+        else if (vvs.at(i).at(16) == "CRAFTMAN_AND_PATCH_TEST")
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN_AND_PATCH_TEST);
         }
-        else if (vvs.at(i).at(16) == "お手伝い")
+        else if (vvs.at(i).at(16) == "HELP")
         {
             npcStatus.SetNpcFeature(eNpcFeature::HELP);
         }
@@ -300,7 +300,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetNpcFeature(eNpcFeature::NONE);
         }
 
-        if (vvs.at(i).at(17) == "○")
+        if (vvs.at(i).at(17) == "y")
         {
             npcStatus.SetMenuShow(true);
         }
@@ -363,29 +363,29 @@ void NpcStatusManager::Save(const std::string& csvfile,
 
         if (it->second.GetRynenContract())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         if (it->second.GetDrinkWordbress())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         if (it->second.GetDead())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         work = std::to_string(it->second.GetX());
@@ -402,39 +402,39 @@ void NpcStatusManager::Save(const std::string& csvfile,
 
         if (it->second.GetHasTalk())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         vs.push_back(it->second.GetTalkCsv());
 
         if (it->second.GetFeatureEnable())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         if (it->second.GetNpcFeature() == eNpcFeature::CRAFTMAN)
         {
-            vs.push_back("クラフト");
+            vs.push_back("CRAFTMAN");
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::PATCH_TEST)
         {
-            vs.push_back("パッチテスト");
+            vs.push_back("PATCH_TEST");
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::CRAFTMAN_AND_PATCH_TEST)
         {
-            vs.push_back("クラフトとパッチテスト");
+            vs.push_back("CRAFTMAN_AND_PATCH_TEST");
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::HELP)
         {
-            vs.push_back("お手伝い");
+            vs.push_back("HELP");
         }
         else
         {
@@ -443,11 +443,11 @@ void NpcStatusManager::Save(const std::string& csvfile,
 
         if (it->second.GetMenuShow())
         {
-            vs.push_back("○");
+            vs.push_back("y");
         }
         else
         {
-            vs.push_back("");
+            vs.push_back("n");
         }
 
         vvs.push_back(vs);
