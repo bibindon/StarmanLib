@@ -27,7 +27,7 @@ void NSStarmanLib::Help::Destroy()
     m_obj = nullptr;
 }
 
-void NSStarmanLib::Help::Init(const std::string& filepath, const bool bEnglish)
+void NSStarmanLib::Help::Init(const std::string& filepath)
 {
     assert(ItemManager::GetObj()->Inited());
 
@@ -68,22 +68,11 @@ void NSStarmanLib::Help::Init(const std::string& filepath, const bool bEnglish)
     m_enableItemIdList.push_back(56);
     m_enableItemIdList.push_back(57);
 
-    if (!bEnglish)
-    {
-        m_presentMap["サンカクマン"] = std::vector<ItemDef>();
-        m_presentMap["シカクマン"] = std::vector<ItemDef>();
-        
-        m_presented["サンカクマン"] = false;
-        m_presented["シカクマン"] = false;
-    }
-    else
-    {
-        m_presentMap["Triangle Man"] = std::vector<ItemDef>();
-        m_presentMap["Square Man"] = std::vector<ItemDef>();
-        
-        m_presented["Triangle Man"] = false;
-        m_presented["Square Man"] = false;
-    }
+	m_presentMap["sankakuman"] = std::vector<ItemDef>();
+	m_presentMap["shikakuman"] = std::vector<ItemDef>();
+	
+	m_presented["sankakuman"] = false;
+	m_presented["shikakuman"] = false;
 
     std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(filepath, false);
 

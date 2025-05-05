@@ -38,7 +38,7 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
 
             // Target
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
 
             ItemManager::Destroy();
             Help::Destroy();
@@ -50,7 +50,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
 
             // Target
             help->Save("..\\StarmanLibTest\\helpSave.csv");
@@ -66,7 +66,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
@@ -85,12 +85,12 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
             // Target
-            auto receiveItems = help->ReceiveItems("サンカクマン");
+            auto receiveItems = help->ReceiveItems("sankakuman");
 
             ItemManager::Destroy();
             PowereggDateTime::Destroy();
@@ -103,10 +103,10 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems = help->ReceiveItems("サンカクマン");
+            auto receiveItems = help->ReceiveItems("sankakuman");
 
             // Target
             Assert::AreEqual<size_t>(3, receiveItems.size());
@@ -125,10 +125,10 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems = help->ReceiveItems("シカクマン");
+            auto receiveItems = help->ReceiveItems("shikakuman");
 
             // Target
             Assert::AreEqual<size_t>(0, receiveItems.size());
@@ -145,17 +145,17 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("サンカクマン");
-            auto receiveItems2 = help->ReceiveItems("シカクマン");
+            auto receiveItems1 = help->ReceiveItems("sankakuman");
+            auto receiveItems2 = help->ReceiveItems("shikakuman");
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("サンカクマン");
-            auto receiveItems4 = help->ReceiveItems("シカクマン");
+            auto receiveItems3 = help->ReceiveItems("sankakuman");
+            auto receiveItems4 = help->ReceiveItems("shikakuman");
 
             // Target
             Assert::AreEqual(false,
@@ -178,20 +178,20 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("サンカクマン");
-            auto receiveItems2 = help->ReceiveItems("シカクマン");
+            auto receiveItems1 = help->ReceiveItems("sankakuman");
+            auto receiveItems2 = help->ReceiveItems("shikakuman");
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("サンカクマン");
-            auto receiveItems4 = help->ReceiveItems("シカクマン");
+            auto receiveItems3 = help->ReceiveItems("sankakuman");
+            auto receiveItems4 = help->ReceiveItems("shikakuman");
 
-            receiveItems3 = help->ReceiveItems("サンカクマン");
-            receiveItems4 = help->ReceiveItems("シカクマン");
+            receiveItems3 = help->ReceiveItems("sankakuman");
+            receiveItems4 = help->ReceiveItems("shikakuman");
 
             // Target
             Assert::AreEqual(true, receiveItems3.empty());
@@ -210,23 +210,23 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("サンカクマン");
-            auto receiveItems2 = help->ReceiveItems("シカクマン");
+            auto receiveItems1 = help->ReceiveItems("sankakuman");
+            auto receiveItems2 = help->ReceiveItems("shikakuman");
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("サンカクマン");
-            auto receiveItems4 = help->ReceiveItems("シカクマン");
+            auto receiveItems3 = help->ReceiveItems("sankakuman");
+            auto receiveItems4 = help->ReceiveItems("shikakuman");
 
             datetime->IncreaseDateTime(0, 0, 1, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("サンカクマン");
-            receiveItems4 = help->ReceiveItems("シカクマン");
+            receiveItems3 = help->ReceiveItems("sankakuman");
+            receiveItems4 = help->ReceiveItems("shikakuman");
 
             // Target
             Assert::AreEqual(true, receiveItems3.empty());
@@ -245,29 +245,29 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("サンカクマン");
-            auto receiveItems2 = help->ReceiveItems("シカクマン");
+            auto receiveItems1 = help->ReceiveItems("sankakuman");
+            auto receiveItems2 = help->ReceiveItems("shikakuman");
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("サンカクマン");
-            auto receiveItems4 = help->ReceiveItems("シカクマン");
+            auto receiveItems3 = help->ReceiveItems("sankakuman");
+            auto receiveItems4 = help->ReceiveItems("shikakuman");
 
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("サンカクマン");
-            receiveItems4 = help->ReceiveItems("シカクマン");
+            receiveItems3 = help->ReceiveItems("sankakuman");
+            receiveItems4 = help->ReceiveItems("shikakuman");
 
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("サンカクマン");
-            receiveItems4 = help->ReceiveItems("シカクマン");
+            receiveItems3 = help->ReceiveItems("sankakuman");
+            receiveItems4 = help->ReceiveItems("shikakuman");
 
             // Target
             Assert::AreEqual(false, receiveItems3.empty());
@@ -286,7 +286,7 @@ namespace StarmanLibTest
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv", false);
+            help->Init("..\\StarmanLibTest\\help.csv");
             auto datetime = PowereggDateTime::GetObj();
             datetime->Init("..\\StarmanLibTest\\datetime.csv");
 
@@ -299,8 +299,8 @@ namespace StarmanLibTest
             std::string err;
             CraftSystem::GetObj()->QueueCraftRequest("イカダ", &err);
 
-            auto receiveItems1 = help->ReceiveItems("サンカクマン");
-            auto receiveItems2 = help->ReceiveItems("シカクマン");
+            auto receiveItems1 = help->ReceiveItems("sankakuman");
+            auto receiveItems2 = help->ReceiveItems("shikakuman");
 
             Assert::AreEqual(true, receiveItems1.empty());
             Assert::AreEqual(true, receiveItems2.empty());
@@ -309,8 +309,8 @@ namespace StarmanLibTest
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("サンカクマン");
-            auto receiveItems4 = help->ReceiveItems("シカクマン");
+            auto receiveItems3 = help->ReceiveItems("sankakuman");
+            auto receiveItems4 = help->ReceiveItems("shikakuman");
 
             Assert::AreEqual(true, receiveItems1.empty());
             Assert::AreEqual(true, receiveItems2.empty());

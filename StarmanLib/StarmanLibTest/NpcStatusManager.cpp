@@ -34,7 +34,7 @@ namespace StarmanLibTest
         {
             NpcStatusManager* obj = NpcStatusManager::GetObj();
             obj->Init("..\\StarmanLibTest\\npcStatus.csv");
-            NpcStatus npc = obj->GetNpcStatus("サンカクマン");
+            NpcStatus npc = obj->GetNpcStatus("sankakuman");
             float work = 0.f;
 
             work = npc.GetCarbo();
@@ -59,7 +59,7 @@ namespace StarmanLibTest
         {
             NpcStatusManager* obj = NpcStatusManager::GetObj();
             obj->Init("..\\StarmanLibTest\\npcStatus.csv");
-            NpcStatus npc = obj->GetNpcStatus("シカクマン");
+            NpcStatus npc = obj->GetNpcStatus("shikakuman");
             bool work = false;
 
             work = npc.GetRynenContract();
@@ -79,7 +79,7 @@ namespace StarmanLibTest
             {
                 NpcStatusManager* obj = NpcStatusManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\npcStatus.csv");
-                NpcStatus npc = obj->GetNpcStatus("ダイケイマン");
+                NpcStatus npc = obj->GetNpcStatus("daikeiman");
                 bool work = false;
 
                 npc.SetCarbo(1.f);
@@ -90,14 +90,14 @@ namespace StarmanLibTest
                 npc.SetRynenContract();
                 npc.SetDrinkWordbress(true);
                 npc.SetDead();
-                obj->SetNpcStatus("ダイケイマン", npc);
+                obj->SetNpcStatus("daikeiman", npc);
                 obj->Save("..\\StarmanLibTest\\npcStatusSave.csv");
                 NpcStatusManager::Destroy();
             }
             {
                 NpcStatusManager* obj = NpcStatusManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\npcStatusSave.csv");
-                NpcStatus npc = obj->GetNpcStatus("ダイケイマン");
+                NpcStatus npc = obj->GetNpcStatus("daikeiman");
                 bool work_b = false;
                 float work_f = 0.f;
 

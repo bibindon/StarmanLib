@@ -23,7 +23,7 @@ public:
     static Help* Get();
     static void Destroy();
 
-    void Init(const std::string& filepath, const bool bEnglish);
+    void Init(const std::string& filepath);
     void Update();
     void Save(const std::string& filepath);
 
