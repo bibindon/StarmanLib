@@ -249,6 +249,26 @@ private:
 
 };
 
+enum class eDeadReason
+{
+    NONE,
+
+    // 肉体の修復度が0になった。全身打撲的な
+    MUSCLE_ZERO,
+
+    // 体内の水分が90％以下になった
+    WATER_90,
+
+    // 糖質と脂質がゼロになった。餓死
+    STARVATION,
+
+    // 体のスタミナがゼロになった。
+    KAROSHI,
+
+    // ライネンの契約で1年経過した。
+    RYNEN_1_YEAR,
+};
+
 class StatusManager
 {
 public:
@@ -482,7 +502,12 @@ public:
     int GetLevelIce() const;
     int GetLevelDark() const;
 
+    void SetDeadReason(const eDeadReason reason);
+    eDeadReason GetDeadReason() const;
+
 private:
+
+    eDeadReason m_eDeadReason = eDeadReason::NONE;
 
     // シングルトンオブジェクト
     static StatusManager* obj;

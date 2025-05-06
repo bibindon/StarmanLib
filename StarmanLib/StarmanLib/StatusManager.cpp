@@ -955,6 +955,7 @@ void StatusManager::Update()
         if (work3 <= 0.90f)
         {
             m_status.SetDead(true);
+            m_eDeadReason = eDeadReason::WATER_90;
         }
 
         // 0.99‚ð1.2‚É‚·‚é
@@ -1012,6 +1013,7 @@ void StatusManager::Update()
             if (m_status.GetLipidCurrent() <= 0.f)
             {
                 m_status.SetDead(true);
+                m_eDeadReason = eDeadReason::STARVATION;
             }
         }
     }
@@ -1140,6 +1142,7 @@ void StatusManager::Update()
     if (bodyStaminaCurrent <= 0.f)
     {
         m_status.SetDead(true);
+        m_eDeadReason = eDeadReason::KAROSHI;
     }
 
     //------------------------------------------------------
@@ -1282,6 +1285,7 @@ void StatusManager::Update()
         if (deadline)
         {
             m_status.SetDead(true);
+            m_eDeadReason = eDeadReason::RYNEN_1_YEAR;
         }
     }
 
@@ -2977,6 +2981,7 @@ void StatusManager::SetMuscleCurrent(float arg)
     {
         arg = 0.f;
         m_status.SetDead(true);
+        m_eDeadReason = eDeadReason::MUSCLE_ZERO;
     }
     m_status.SetMuscleCurrent(arg);
 }
@@ -3515,5 +3520,15 @@ int StatusManager::GetLevelIce() const
 int StatusManager::GetLevelDark() const
 {
     return m_levelDark;
+}
+
+void NSStarmanLib::StatusManager::SetDeadReason(const eDeadReason reason)
+{
+    m_eDeadReason = reason;
+}
+
+eDeadReason NSStarmanLib::StatusManager::GetDeadReason() const
+{
+    return m_eDeadReason;
 }
 
