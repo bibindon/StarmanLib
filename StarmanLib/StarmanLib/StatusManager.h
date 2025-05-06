@@ -267,6 +267,12 @@ enum class eDeadReason
 
     // ライネンの契約で1年経過した。
     RYNEN_1_YEAR,
+
+    // 溺死。水中で睡眠した。
+    DROWNING,
+
+    // 睡眠中に攻撃された
+    ATTACK_ON_SLEEP,
 };
 
 class StatusManager
