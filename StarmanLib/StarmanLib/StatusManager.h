@@ -513,7 +513,7 @@ public:
 
 private:
 
-    void SetZeroIfNegative();
+    void Clamp();
 
     eDeadReason m_eDeadReason = eDeadReason::NONE;
 

@@ -1379,7 +1379,7 @@ void StatusManager::Update()
         }
     }
 
-    SetZeroIfNegative();
+    Clamp();
 }
 
 void StatusManager::Save(const std::string& csvfile,
@@ -3534,14 +3534,21 @@ eDeadReason NSStarmanLib::StatusManager::GetDeadReason() const
     return m_eDeadReason;
 }
 
-void NSStarmanLib::StatusManager::SetZeroIfNegative()
+void NSStarmanLib::StatusManager::Clamp()
 {
     float work1 = 0.f;
+    float work2 = 0.f;
 
     work1 = m_status.GetBodyStaminaCurrent();
+    work2 = m_status.GetBodyStaminaMax();
+
     if (work1 < 0.f)
     {
         m_status.SetBodyStaminaCurrent(0.f);
+    }
+    else if (work1 > work2)
+    {
+        m_status.SetBodyStaminaCurrent(work2);
     }
 
     work1 = m_status.GetBodyStaminaMaxSub();
@@ -3549,17 +3556,31 @@ void NSStarmanLib::StatusManager::SetZeroIfNegative()
     {
         m_status.SetBodyStaminaMaxSub(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetBodyStaminaMaxSub(work2);
+    }
 
     work1 = m_status.GetBrainStaminaCurrent();
+    work2 = m_status.GetBrainStaminaMax();
+
     if (work1 < 0.f)
     {
         m_status.SetBrainStaminaCurrent(0.f);
+    }
+    else if (work1 > work2)
+    {
+        m_status.SetBrainStaminaCurrent(work2);
     }
 
     work1 = m_status.GetBrainStaminaMaxSub();
     if (work1 < 0.f)
     {
         m_status.SetBrainStaminaMaxSub(0.f);
+    }
+    else if (work1 > work2)
+    {
+        m_status.SetBrainStaminaMaxSub(work2);
     }
 
     work1 = m_status.GetExplosivePower();
@@ -3569,45 +3590,80 @@ void NSStarmanLib::StatusManager::SetZeroIfNegative()
     }
 
     work1 = m_status.GetMuscleCurrent();
+    work2 = m_status.GetMuscleMax();
     if (work1 < 0.f)
     {
         m_status.SetMuscleCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetMuscleCurrent(work2);
+    }
 
     work1 = m_status.GetCarboCurrent();
+    work2 = m_status.GetCarboMax();
     if (work1 < 0.f)
     {
         m_status.SetCarboCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetCarboCurrent(work2);
+    }
 
     work1 = m_status.GetProteinCurrent();
+    work2 = m_status.GetProteinMax();
     if (work1 < 0.f)
     {
         m_status.SetProteinCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetProteinCurrent(work2);
+    }
 
     work1 = m_status.GetLipidCurrent();
+    work2 = m_status.GetLipidMax();
     if (work1 < 0.f)
     {
         m_status.SetLipidCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetLipidCurrent(work2);
+    }
 
     work1 = m_status.GetVitaminCurrent();
+    work2 = m_status.GetVitaminMax();
     if (work1 < 0.f)
     {
         m_status.SetVitaminCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetVitaminCurrent(work2);
+    }
 
     work1 = m_status.GetMineralCurrent();
+    work2 = m_status.GetMineralMax();
     if (work1 < 0.f)
     {
         m_status.SetMineralCurrent(0.f);
     }
+    else if (work1 > work2)
+    {
+        m_status.SetMineralCurrent(work2);
+    }
 
     work1 = m_status.GetWaterCurrent();
+    work2 = m_status.GetWaterMax();
     if (work1 < 0.f)
     {
         m_status.SetWaterCurrent(0.f);
+    }
+    else if (work1 > work2)
+    {
+        m_status.SetWaterCurrent(work2);
     }
 }
 
