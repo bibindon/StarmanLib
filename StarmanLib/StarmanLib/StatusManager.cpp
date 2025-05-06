@@ -1378,6 +1378,8 @@ void StatusManager::Update()
             m_status.SetDehydration(false);
         }
     }
+
+    SetZeroIfNegative();
 }
 
 void StatusManager::Save(const std::string& csvfile,
@@ -3530,5 +3532,82 @@ void NSStarmanLib::StatusManager::SetDeadReason(const eDeadReason reason)
 eDeadReason NSStarmanLib::StatusManager::GetDeadReason() const
 {
     return m_eDeadReason;
+}
+
+void NSStarmanLib::StatusManager::SetZeroIfNegative()
+{
+    float work1 = 0.f;
+
+    work1 = m_status.GetBodyStaminaCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetBodyStaminaCurrent(0.f);
+    }
+
+    work1 = m_status.GetBodyStaminaMaxSub();
+    if (work1 < 0.f)
+    {
+        m_status.SetBodyStaminaMaxSub(0.f);
+    }
+
+    work1 = m_status.GetBrainStaminaCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetBrainStaminaCurrent(0.f);
+    }
+
+    work1 = m_status.GetBrainStaminaMaxSub();
+    if (work1 < 0.f)
+    {
+        m_status.SetBrainStaminaMaxSub(0.f);
+    }
+
+    work1 = m_status.GetExplosivePower();
+    if (work1 < 0.f)
+    {
+        m_status.SetExplosivePower(0.f);
+    }
+
+    work1 = m_status.GetMuscleCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetMuscleCurrent(0.f);
+    }
+
+    work1 = m_status.GetCarboCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetCarboCurrent(0.f);
+    }
+
+    work1 = m_status.GetProteinCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetProteinCurrent(0.f);
+    }
+
+    work1 = m_status.GetLipidCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetLipidCurrent(0.f);
+    }
+
+    work1 = m_status.GetVitaminCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetVitaminCurrent(0.f);
+    }
+
+    work1 = m_status.GetMineralCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetMineralCurrent(0.f);
+    }
+
+    work1 = m_status.GetWaterCurrent();
+    if (work1 < 0.f)
+    {
+        m_status.SetWaterCurrent(0.f);
+    }
 }
 

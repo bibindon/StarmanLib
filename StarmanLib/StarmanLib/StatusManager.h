@@ -513,6 +513,8 @@ public:
 
 private:
 
+    void SetZeroIfNegative();
+
     eDeadReason m_eDeadReason = eDeadReason::NONE;
 
     // シングルトンオブジェクト
