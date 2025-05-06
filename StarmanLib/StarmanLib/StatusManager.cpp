@@ -2615,8 +2615,11 @@ void StatusManager::DrinkWordBress(const float playerX,
                                    const float playerZ)
 {
     auto rynen = Rynen::GetObj();
-    rynen->SetReviveEnable(true);
-    rynen->SetRevivePos(playerX, playerY, playerZ);
+    if (rynen->GetContracted())
+    {
+        rynen->SetReviveEnable(true);
+        rynen->SetRevivePos(playerX, playerY, playerZ);
+    }
 }
 
 // TODO ‰pŒê‰»‘Î‰ž
