@@ -315,6 +315,9 @@ public:
     // Q‚é
     bool Sleep();
 
+    // 3ŠÔ‹xŒe
+    bool Rest3Hours();
+
     // ‰ï˜b‚·‚é
     // ‰ï˜b‚µ‚½‚ç”]‚Ì‘Ì—Í‚ªŒ¸‚éB
     void Talk();

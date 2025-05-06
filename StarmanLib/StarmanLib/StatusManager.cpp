@@ -2440,6 +2440,110 @@ bool StatusManager::Sleep()
     return true;
 }
 
+bool NSStarmanLib::StatusManager::Rest3Hours()
+{
+    float magni = 1.0f;
+
+    // 身体のスタミナ
+    {
+        float work = 0.f;
+        work = GetBodyStaminaMaxSub();
+
+        work += 15.f * magni;
+        SetBodyStaminaMaxSub(work);
+
+        work = GetBodyStaminaCurrent();
+
+        work += 30.f * magni;
+        SetBodyStaminaCurrent(work);
+    }
+
+    // 脳のスタミナ
+    {
+        float work = 0.f;
+        work = GetBrainStaminaMaxSub();
+
+        work += 20.f * magni;
+        SetBrainStaminaMaxSub(work);
+
+        work = GetBrainStaminaCurrent();
+
+        work += 40.f * magni;
+        SetBrainStaminaCurrent(work);
+    }
+
+    // 水分
+    {
+        float work = 0.f;
+        work = GetWaterCurrent();
+
+        work += -5.f * magni;
+        SetWaterCurrent(work);
+    }
+
+    // 肉体の損傷
+    {
+        auto work = GetMuscleCurrent();
+        work += 5.f * magni;
+		SetMuscleCurrent(work);
+    }
+
+    // 五大栄養素を消費
+    {
+        float work1 = 0.f;
+        float work2 = 0.f;
+
+        // 糖質
+        work1 = GetCarboCurrent();
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            // 糖質が0なら、脂質が減る
+            work2 = work1;
+            work1 = 0.f;
+        }
+        SetCarboCurrent(work1);
+
+        // タンパク質
+        work1 = GetProteinCurrent();
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetProteinCurrent(work1);
+
+        // 脂質
+        work1 = GetLipidCurrent();
+        work1 += work2;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetLipidCurrent(work1);
+
+        // ビタミン
+        work1 = GetVitaminCurrent();
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetVitaminCurrent(work1);
+
+        // ミネラル
+        work1 = GetMineralCurrent();
+        work1 -= 5.f;
+        if (work1 < 0.f)
+        {
+            work1 = 0.f;
+        }
+        SetMineralCurrent(work1);
+    }
+
+    return true;
+}
+
 void StatusManager::Talk()
 {
     float work = 0.f;
@@ -2486,6 +2590,7 @@ void StatusManager::DrinkWordBress(const float playerX,
     rynen->SetRevivePos(playerX, playerY, playerZ);
 }
 
+// TODO 英語化対応
 void StatusManager::CutTree(const std::string& weapon, const int level)
 {
     //------------------------------------------------------
