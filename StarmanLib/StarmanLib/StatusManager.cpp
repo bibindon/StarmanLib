@@ -2447,28 +2447,51 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
     // 身体のスタミナ
     {
         float work = 0.f;
+        float work2 = 0.f;
         work = GetBodyStaminaMaxSub();
+        work2 = GetBodyStaminaMax();
 
         work += 15.f * magni;
+        if (work > work2)
+        {
+            work = work2;
+        }
+
         SetBodyStaminaMaxSub(work);
 
         work = GetBodyStaminaCurrent();
 
         work += 30.f * magni;
+        if (work > work2)
+        {
+            work = work2;
+        }
+
         SetBodyStaminaCurrent(work);
     }
 
     // 脳のスタミナ
     {
         float work = 0.f;
+        float work2 = 0.f;
+
         work = GetBrainStaminaMaxSub();
+        work2 = GetBrainStaminaMax();
 
         work += 20.f * magni;
+        if (work > work2)
+        {
+            work = work2;
+        }
         SetBrainStaminaMaxSub(work);
 
         work = GetBrainStaminaCurrent();
 
         work += 40.f * magni;
+        if (work > work2)
+        {
+            work = work2;
+        }
         SetBrainStaminaCurrent(work);
     }
 
@@ -2484,7 +2507,13 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
     // 肉体の損傷
     {
         auto work = GetMuscleCurrent();
+        auto work2 = GetMuscleMax();
         work += 5.f * magni;
+        if (work > work2)
+        {
+            work = work2;
+        }
+
 		SetMuscleCurrent(work);
     }
 
