@@ -2174,15 +2174,15 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     if (bPoison)
     {
         work_f = GetBodyStaminaCurrent();
-        work_f += itemDef.GetBodyStaminaDebuff();
+        work_f -= itemDef.GetBodyStaminaDebuff();
         SetBodyStaminaCurrent(work_f);
 
         work_f = GetBrainStaminaCurrent();
-        work_f += itemDef.GetBrainStaminaDebuff();
+        work_f -= itemDef.GetBrainStaminaDebuff();
         SetBrainStaminaCurrent(work_f);
 
         work_f = GetMuscleCurrent();
-        work_f += itemDef.GetMuscleDebuff();
+        work_f -= itemDef.GetMuscleDebuff();
         SetMuscleCurrent(work_f);
 
         bool work_b1 = false;
