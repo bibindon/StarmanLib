@@ -370,6 +370,8 @@ void StatusManager::Destroy()
 void StatusManager::Init(const std::string& csvfile,
                          const bool decrypt)
 {
+    srand((unsigned int)time(NULL));
+
     {
         ItemManager* itemManager = ItemManager::GetObj();
         if (itemManager->Inited() == false)
@@ -2080,11 +2082,54 @@ float StatusManager::GetDefensePower()
     return 1.0f;
 }
 
+// ニラorスイセン・・・50％ではずれ
+// 赤い実・・・100％はずれ
+// きのこ・・・90％はずれ
+// 大きいどんぐり・・・100％はずれ
 bool StatusManager::Eat(const ItemDef& itemDef)
 {
     if (itemDef.GetType() != ItemDef::ItemType::FOOD)
     {
         throw std::exception();
+    }
+
+    bool bPoison = false;
+
+    int rnd = rand();
+
+    // 赤い実
+    if (itemDef.GetId() == 3)
+    {
+        bPoison = true;
+    }
+    // 大きいどんぐり
+    else if (itemDef.GetId() == 9)
+    {
+        bPoison = true;
+    }
+    // ニラ or スイセン
+    else if (itemDef.GetId() == 21)
+    {
+        if (rnd % 2 == 0)
+        {
+            bPoison = true;
+        }
+        else
+        {
+            bPoison = false;
+        }
+    }
+    // キノコ
+    else if (itemDef.GetId() == 22)
+    {
+        if (rnd % 10 == 0)
+        {
+            bPoison = false;
+        }
+        else
+        {
+            bPoison = true;
+        }
     }
 
     float work_f = 0.f;
@@ -2125,6 +2170,36 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     work_f = GetWaterCurrent();
     work_f += itemDef.GetWater();
     SetWaterCurrent(work_f);
+
+    if (bPoison)
+    {
+        work_f = GetBodyStaminaCurrent();
+        work_f += itemDef.GetBodyStaminaDebuff();
+        SetBodyStaminaCurrent(work_f);
+
+        work_f = GetBrainStaminaCurrent();
+        work_f += itemDef.GetBrainStaminaDebuff();
+        SetBrainStaminaCurrent(work_f);
+
+        work_f = GetMuscleCurrent();
+        work_f += itemDef.GetMuscleDebuff();
+        SetMuscleCurrent(work_f);
+
+        bool work_b1 = false;
+        bool work_b2 = false;
+
+        work_b2 = itemDef.GetHeadache();
+        if (work_b2)
+        {
+            SetHeadache(true);
+        }
+
+        work_b2 = itemDef.GetStomachache();
+        if (work_b2)
+        {
+            SetStomachache(true);
+        }
+    }
 
     return true;
 }
