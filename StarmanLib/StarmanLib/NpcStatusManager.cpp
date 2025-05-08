@@ -599,6 +599,11 @@ void NSStarmanLib::NpcStatusManager::Update()
     {
         for (auto& npc : m_NpcStatusMap)
         {
+            if (npc.second.GetDead())
+            {
+                continue;
+            }
+
             if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 98.f)
             {
                 auto storageManager = StorehouseManager::Get();
@@ -657,6 +662,11 @@ void NSStarmanLib::NpcStatusManager::Update()
         {
             for (auto& npc : m_NpcStatusMap)
             {
+                if (npc.second.GetDead())
+                {
+                    continue;
+                }
+
                 if (npc.second.GetCarbo() <= 5.f ||
                     npc.second.GetProtein() <= 5.f ||
                     npc.second.GetLipid() <= 5.f ||
@@ -686,6 +696,11 @@ void NSStarmanLib::NpcStatusManager::Update()
     {
         for (auto& npc : m_NpcStatusMap)
         {
+            if (npc.second.GetDead())
+            {
+                continue;
+            }
+
             if (npc.second.GetLipid() <= 0.f || npc.second.GetWater() <= 0.f)
             {
                 if (npc.second.GetDrinkWordbress())
