@@ -364,9 +364,20 @@ void NpcStatusManager::Init(const std::string& csvfile,
             int work2 = 0;
             int work3 = 0;
 
-            work1 = std::stoi(vvs.at(i).at(20));
-            work2 = std::stoi(vvs.at(i).at(21));
-            work3 = std::stoi(vvs.at(i).at(22));
+            if (!vvs.at(i).at(20).empty())
+            {
+                work1 = std::stoi(vvs.at(i).at(20));
+            }
+
+            if (!vvs.at(i).at(21).empty())
+            {
+                work2 = std::stoi(vvs.at(i).at(21));
+            }
+
+            if (!vvs.at(i).at(22).empty())
+            {
+                work3 = std::stoi(vvs.at(i).at(22));
+            }
 
             npcStatus.SetRedManDay(work1, work2, work3);
         }
