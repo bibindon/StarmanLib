@@ -176,6 +176,9 @@ public:
 
     std::vector<std::string> GetNameList();
 
+    // シカクマンがレッドマンになってから1週間が経過したか。
+    bool OneWeekAfterRedman();
+
 private:
 
     // シングルトンオブジェクト

@@ -2,6 +2,7 @@
 #include "Storehouse.h"
 #include "Rynen.h"
 #include "Util.h"
+#include "PowereggDateTime.h"
 
 using namespace NSStarmanLib;
 
@@ -728,6 +729,78 @@ std::vector<std::string> NSStarmanLib::NpcStatusManager::GetNameList()
         vs.push_back(it->first);
     }
     return vs;
+}
+
+bool NSStarmanLib::NpcStatusManager::OneWeekAfterRedman()
+{
+    bool result = false;
+
+    auto datetime = PowereggDateTime::GetObj();
+
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    m_NpcStatusMap.at("shikakuman").GetRedManDay(&year, &month, &day);
+
+    // レッドマンになってからの1週間後とは何月何日であるか。
+    int limitYear = 0;
+    int limitMonth = 0;
+    int limitDay = 0;
+
+    limitDay = day + 7;
+    limitMonth = month;
+    limitYear = year;
+
+    int dayOfMonth[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    if (limitDay > dayOfMonth[limitMonth])
+    {
+        limitDay = limitDay - dayOfMonth[limitMonth];
+
+        limitMonth++;
+        if (limitMonth == 13)
+        {
+            limitMonth = 1;
+            limitYear++;
+        }
+    }
+
+    if (datetime->GetYear() > limitYear)
+    {
+        result = true;
+    }
+    else if (datetime->GetYear() < limitYear)
+    {
+        result = false;
+    }
+    else
+    {
+        if (datetime->GetMonth() > limitMonth)
+        {
+            result = true;
+        }
+        else if (datetime->GetMonth() < limitMonth)
+        {
+            result = false;
+        }
+        else
+        {
+            if (datetime->GetDay() > limitDay)
+            {
+                result = true;
+            }
+            else if (datetime->GetDay() < limitDay)
+            {
+                result = false;
+            }
+            else
+            {
+                result = false;
+            }
+        }
+    }
+
+    return false;
 }
 
 void NSStarmanLib::NpcStatusManager::Clamp()
