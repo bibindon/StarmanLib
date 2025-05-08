@@ -1,5 +1,6 @@
 #include "NpcStatusManager.h"
 #include "Storehouse.h"
+#include "Rynen.h"
 #include "Util.h"
 
 using namespace NSStarmanLib;
@@ -650,27 +651,31 @@ void NSStarmanLib::NpcStatusManager::Update()
 
     // 瀕死だったらワードブレスを飲む
     {
-        for (auto& npc : m_NpcStatusMap)
+        // 主人公が契約した後、NPCも使用可能になる。たまたまだけど・・・。
+        if (Rynen::GetObj()->GetContracted())
         {
-            if (npc.second.GetCarbo() <= 5.f ||
-                npc.second.GetProtein() <= 5.f ||
-                npc.second.GetLipid() <= 5.f ||
-                npc.second.GetVitamin() <= 5.f ||
-                npc.second.GetMineral() <= 5.f ||
-                npc.second.GetWater() <= 92.f)
+            for (auto& npc : m_NpcStatusMap)
             {
-                // ワードブレスがあれば消費
-                auto storageManager = StorehouseManager::Get();
-                auto storage = storageManager->GetCurrentActiveStorehouse();
-
-                auto subidlist = storage->GetSubIdList(35);
-
-                if (!subidlist.empty())
+                if (npc.second.GetCarbo() <= 5.f ||
+                    npc.second.GetProtein() <= 5.f ||
+                    npc.second.GetLipid() <= 5.f ||
+                    npc.second.GetVitamin() <= 5.f ||
+                    npc.second.GetMineral() <= 5.f ||
+                    npc.second.GetWater() <= 92.f)
                 {
-                    storage->RemoveItem(35, subidlist.at(0));
+                    // ワードブレスがあれば消費
+                    auto storageManager = StorehouseManager::Get();
+                    auto storage = storageManager->GetCurrentActiveStorehouse();
 
-                    npc.second.SetRynenContract();
-                    npc.second.SetDrinkWordbress(true);
+                    auto subidlist = storage->GetSubIdList(35);
+
+                    if (!subidlist.empty())
+                    {
+                        storage->RemoveItem(35, subidlist.at(0));
+
+                        npc.second.SetRynenContract();
+                        npc.second.SetDrinkWordbress(true);
+                    }
                 }
             }
         }
