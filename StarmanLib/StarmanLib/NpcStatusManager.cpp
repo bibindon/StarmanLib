@@ -1,4 +1,5 @@
 #include "NpcStatusManager.h"
+#include "Storehouse.h"
 #include "Util.h"
 
 using namespace NSStarmanLib;
@@ -63,6 +64,16 @@ void NpcStatus::SetMineral(const float arg)
 float NpcStatus::GetMineral()
 {
     return m_mineral;
+}
+
+void NpcStatus::SetWater(const float arg)
+{
+    m_water = arg;
+}
+
+float NpcStatus::GetWater()
+{
+    return m_water;
 }
 
 void NpcStatus::SetRynenContract()
@@ -185,6 +196,30 @@ bool NSStarmanLib::NpcStatus::GetMenuShow() const
     return m_bMenuShow;
 }
 
+void NSStarmanLib::NpcStatus::SetRedMan(const bool arg)
+{
+    m_bRedman = arg;
+}
+
+bool NSStarmanLib::NpcStatus::IsRedMan() const
+{
+    return m_bRedman;
+}
+
+void NSStarmanLib::NpcStatus::SetRedManDay(const int year, const int month, const int day)
+{
+    m_redManYear = year;
+    m_redManMonth = month;
+    m_redManDay = day;
+}
+
+void NSStarmanLib::NpcStatus::GetRedManDay(int* year, int* month, int* day)
+{
+    *year = m_redManYear;
+    *month = m_redManMonth;
+    *day = m_redManDay;
+}
+
 NpcStatusManager* NpcStatusManager::GetObj()
 {
     if (obj == nullptr)
@@ -228,12 +263,15 @@ void NpcStatusManager::Init(const std::string& csvfile,
         work_f = std::stof(vvs.at(i).at(5));
         npcStatus.SetMineral(work_f);
 
-        if (vvs.at(i).at(6) == "y")
+        work_f = std::stof(vvs.at(i).at(6));
+        npcStatus.SetWater(work_f);
+
+        if (vvs.at(i).at(7) == "y")
         {
             npcStatus.SetRynenContract();
         }
 
-        if (vvs.at(i).at(7) == "y")
+        if (vvs.at(i).at(8) == "y")
         {
             npcStatus.SetDrinkWordbress(true);
         }
@@ -242,24 +280,24 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetDrinkWordbress(false);
         }
 
-        if (vvs.at(i).at(8) == "y")
+        if (vvs.at(i).at(9) == "y")
         {
             npcStatus.SetDead();
         }
 
-        work_f = std::stof(vvs.at(i).at(9));
+        work_f = std::stof(vvs.at(i).at(10));
         npcStatus.SetX(work_f);
 
-        work_f = std::stof(vvs.at(i).at(10));
+        work_f = std::stof(vvs.at(i).at(11));
         npcStatus.SetY(work_f);
 
-        work_f = std::stof(vvs.at(i).at(11));
+        work_f = std::stof(vvs.at(i).at(12));
         npcStatus.SetZ(work_f);
 
-        work_f = std::stof(vvs.at(i).at(12));
+        work_f = std::stof(vvs.at(i).at(13));
         npcStatus.SetRotY(work_f);
 
-        if (vvs.at(i).at(13) == "y")
+        if (vvs.at(i).at(14) == "y")
         {
             npcStatus.SetHasTalk(true);
         }
@@ -268,9 +306,9 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetHasTalk(false);
         }
 
-        npcStatus.SetTalkCsv(vvs.at(i).at(14));
+        npcStatus.SetTalkCsv(vvs.at(i).at(15));
 
-        if (vvs.at(i).at(15) == "y")
+        if (vvs.at(i).at(16) == "y")
         {
             npcStatus.SetFeatureEnable(true);
         }
@@ -279,19 +317,19 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetFeatureEnable(false);
         }
 
-        if (vvs.at(i).at(16) == "CRAFTMAN")
+        if (vvs.at(i).at(17) == "CRAFTMAN")
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN);
         }
-        else if (vvs.at(i).at(16) == "PATCH_TEST")
+        else if (vvs.at(i).at(17) == "PATCH_TEST")
         {
             npcStatus.SetNpcFeature(eNpcFeature::PATCH_TEST);
         }
-        else if (vvs.at(i).at(16) == "CRAFTMAN_AND_PATCH_TEST")
+        else if (vvs.at(i).at(17) == "CRAFTMAN_AND_PATCH_TEST")
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN_AND_PATCH_TEST);
         }
-        else if (vvs.at(i).at(16) == "HELP")
+        else if (vvs.at(i).at(17) == "HELP")
         {
             npcStatus.SetNpcFeature(eNpcFeature::HELP);
         }
@@ -300,13 +338,34 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetNpcFeature(eNpcFeature::NONE);
         }
 
-        if (vvs.at(i).at(17) == "y")
+        if (vvs.at(i).at(18) == "y")
         {
             npcStatus.SetMenuShow(true);
         }
         else
         {
             npcStatus.SetMenuShow(false);
+        }
+
+        if (vvs.at(i).at(19) == "y")
+        {
+            npcStatus.SetRedMan(true);
+        }
+        else
+        {
+            npcStatus.SetRedMan(false);
+        }
+
+        {
+            int work1 = 0;
+            int work2 = 0;
+            int work3 = 0;
+
+            work1 = std::stoi(vvs.at(i).at(20));
+            work2 = std::stoi(vvs.at(i).at(21));
+            work3 = std::stoi(vvs.at(i).at(22));
+
+            npcStatus.SetRedManDay(work1, work2, work3);
         }
 
         m_NpcStatusMap[npcStatus.GetName()] = npcStatus;
@@ -326,6 +385,7 @@ void NpcStatusManager::Save(const std::string& csvfile,
     vs.push_back("脂質");
     vs.push_back("ビタミン");
     vs.push_back("ミネラル");
+    vs.push_back("水分");
     vs.push_back("ライネンの契約をしている");
     vs.push_back("ワードブレスを飲んでいる");
     vs.push_back("死んでいる");
@@ -338,6 +398,10 @@ void NpcStatusManager::Save(const std::string& csvfile,
     vs.push_back("機能解禁");
     vs.push_back("機能種別");
     vs.push_back("メニュー表示");
+    vs.push_back("レッドマン");
+    vs.push_back("レッドマンになった年");
+    vs.push_back("レッドマンになった月");
+    vs.push_back("レッドマンになった日");
     vvs.push_back(vs);
     vs.clear();
 
@@ -359,6 +423,9 @@ void NpcStatusManager::Save(const std::string& csvfile,
         vs.push_back(work);
 
         work = std::to_string(it->second.GetMineral());
+        vs.push_back(work);
+
+        work = std::to_string(it->second.GetWater());
         vs.push_back(work);
 
         if (it->second.GetRynenContract())
@@ -450,11 +517,129 @@ void NpcStatusManager::Save(const std::string& csvfile,
             vs.push_back("n");
         }
 
+        if (it->second.IsRedMan())
+        {
+            vs.push_back("y");
+        }
+        else
+        {
+            vs.push_back("n");
+        }
+
+        {
+            int year = 0;
+            int month = 0;
+            int day = 0;
+            it->second.GetRedManDay(&year, &month, &day);
+
+            vs.push_back(std::to_string(year));
+            vs.push_back(std::to_string(month));
+            vs.push_back(std::to_string(day));
+        }
+
         vvs.push_back(vs);
         vs.clear();
     }
 
     Util::WriteToCsv(csvfile, vvs, encrypt);
+}
+
+void NSStarmanLib::NpcStatusManager::Update()
+{
+    // １秒に１回呼ばれる想定
+    {
+        // 暫定的に、糖質、脂質、タンパク質、ミネラル、ビタミン、水分はどれも５日で０になることとする。
+        // １秒での消費量は100/5/24/60/60
+        // 水分は90で死亡なので、5日で10減るようにする
+        float work_f = 100.f;
+        work_f /= 5;
+        work_f /= 24;
+        work_f /= 60;
+        work_f /= 60;
+
+        for (auto& npc : m_NpcStatusMap)
+        {
+            // ビムは体力を消費しない
+            if (npc.first == "vim")
+            {
+                continue;
+            }
+
+            float work_f2 = 0.f;
+            work_f2 = npc.second.GetCarbo();
+            npc.second.SetCarbo(work_f2 - work_f);
+
+            work_f2 = npc.second.GetProtein();
+            npc.second.SetProtein(work_f2 - work_f);
+
+            // 糖質が０になったら脂質が減る
+            if (npc.second.GetCarbo() <= 0.f)
+            {
+                work_f2 = npc.second.GetLipid();
+                npc.second.SetLipid(work_f2 - work_f);
+            }
+
+            work_f2 = npc.second.GetMineral();
+            npc.second.SetMineral(work_f2 - work_f);
+
+            work_f2 = npc.second.GetVitamin();
+            npc.second.SetVitamin(work_f2 - work_f);
+
+            // 水分は減少量を1/10にする。
+            work_f2 = npc.second.GetWater();
+            npc.second.SetWater(work_f2 - (work_f/10.f));
+        }
+    }
+
+    // 瀕死だったらワードブレスを飲む
+    {
+        for (auto& npc : m_NpcStatusMap)
+        {
+            if (npc.second.GetLipid() <= 5.f || npc.second.GetWater() <= 92.f)
+            {
+                // ワードブレスがあれば消費
+                // 体力が全快する
+                auto storageManager = StorehouseManager::Get();
+                auto storage = storageManager->GetCurrentActiveStorehouse();
+
+                auto subidlist = storage->GetSubIdList(35);
+
+                if (!subidlist.empty())
+                {
+                    storage->RemoveItem(35, subidlist.at(0));
+
+                    npc.second.SetRynenContract();
+                    npc.second.SetDrinkWordbress(true);
+                }
+            }
+        }
+    }
+
+    // 死亡判定
+    {
+        for (auto& npc : m_NpcStatusMap)
+        {
+            if (npc.second.GetLipid() <= 0.f || npc.second.GetWater() <= 0.f)
+            {
+                if (npc.second.GetDrinkWordbress())
+                {
+                    npc.second.SetDrinkWordbress(false);
+                    npc.second.SetCarbo(100.f);
+                    npc.second.SetProtein(100.f);
+                    npc.second.SetLipid(20.f);
+                    npc.second.SetMineral(100.f);
+                    npc.second.SetVitamin(100.f);
+                }
+                else
+                {
+                    npc.second.SetDead();
+                }
+            }
+        }
+    }
+
+    // ステータスがマイナスや１００以上にならないように丸め処理をする
+    Clamp();
 }
 
 NpcStatus NpcStatusManager::GetNpcStatus(const std::string& name)
@@ -475,4 +660,72 @@ std::vector<std::string> NSStarmanLib::NpcStatusManager::GetNameList()
         vs.push_back(it->first);
     }
     return vs;
+}
+
+void NSStarmanLib::NpcStatusManager::Clamp()
+{
+    for (auto& npc : m_NpcStatusMap)
+    {
+        float work_f = 0.f;
+
+        work_f = npc.second.GetCarbo();
+        if (work_f < 0.f)
+        {
+            npc.second.SetCarbo(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetCarbo(100.f);
+        }
+
+        work_f = npc.second.GetProtein();
+        if (work_f < 0.f)
+        {
+            npc.second.SetProtein(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetProtein(100.f);
+        }
+
+        work_f = npc.second.GetLipid();
+        if (work_f < 0.f)
+        {
+            npc.second.SetLipid(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetLipid(100.f);
+        }
+
+        work_f = npc.second.GetVitamin();
+        if (work_f < 0.f)
+        {
+            npc.second.SetVitamin(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetVitamin(100.f);
+        }
+
+        work_f = npc.second.GetMineral();
+        if (work_f < 0.f)
+        {
+            npc.second.SetMineral(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetMineral(100.f);
+        }
+
+        work_f = npc.second.GetWater();
+        if (work_f < 0.f)
+        {
+            npc.second.SetWater(0.f);
+        }
+        else if (work_f > 100.f)
+        {
+            npc.second.SetWater(100.f);
+        }
+    }
 }

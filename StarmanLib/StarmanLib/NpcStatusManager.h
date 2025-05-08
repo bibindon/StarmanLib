@@ -42,6 +42,9 @@ public:
     void SetMineral(const float arg);
     float GetMineral();
 
+    void SetWater(const float arg);
+    float GetWater();
+
     void SetRynenContract();
     float GetRynenContract();
 
@@ -78,6 +81,12 @@ public:
     void SetMenuShow(const bool arg);
     bool GetMenuShow() const;
 
+    void SetRedMan(const bool arg);
+    bool IsRedMan() const;
+
+    void SetRedManDay(const int year, const int month, const int day);
+    void GetRedManDay(int* year, int* month, int* day);
+
 private:
 
     // 名前
@@ -97,6 +106,9 @@ private:
 
     // ミネラル
     float m_mineral { 0.f };
+
+    // 水分
+    float m_water { 0.f };
 
     // ライネンの契約をしているか否か
     bool m_rynenContract { false };
@@ -130,6 +142,14 @@ private:
 
     // NPCをメニュー画面で表示するか
     bool m_bMenuShow = false;
+
+    // レッドマンになっているか。
+    bool m_bRedman = false;
+
+    // レッドマンになった日
+    int m_redManYear = 0;
+    int m_redManMonth = 0;
+    int m_redManDay = 0;
 };
 
 
@@ -144,8 +164,11 @@ public:
 
     void Init(const std::string& csvfile,
               const bool decrypt = false);
+
     void Save(const std::string& csvfile,
               const bool encrypt = false);
+
+    void Update();
 
     NpcStatus GetNpcStatus(const std::string& name);
     void SetNpcStatus(const std::string& key, const NpcStatus& value);
@@ -158,6 +181,8 @@ private:
     static NpcStatusManager* obj;
 
     std::unordered_map<std::string, NpcStatus> m_NpcStatusMap;
+
+    void Clamp();
 
 };
 }
