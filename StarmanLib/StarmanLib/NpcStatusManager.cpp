@@ -566,6 +566,11 @@ void NSStarmanLib::NpcStatusManager::Update()
                 continue;
             }
 
+            if (npc.second.GetDead())
+            {
+                continue;
+            }
+
             float work_f2 = 0.f;
             work_f2 = npc.second.GetCarbo();
             npc.second.SetCarbo(work_f2 - work_f);
