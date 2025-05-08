@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include "ItemManager.h"
 
 namespace NSStarmanLib
 {
@@ -184,6 +185,7 @@ private:
 
     void Clamp();
 
+    void Eat(const std::string npcKey, const ItemDef& itemDef);
 };
 }
 
