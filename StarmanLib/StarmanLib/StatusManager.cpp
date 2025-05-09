@@ -1197,6 +1197,31 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------------------
+    // トレーニング不足 or トレーニング十分
+    //-----------------------------------------------------
+    {
+        float work1 = GetBodyStaminaCurrent();
+        float work2 = GetBodyStaminaMax();
+
+        work2 *= 0.7f;
+
+        if (work1 < work2)
+        {
+            m_training70 = true;
+        }
+
+        work2 = GetBodyStaminaMax();
+        work2 *= 0.3f;
+        if (work1 < work2)
+        {
+            m_training70 = true;
+            m_training30 = true;
+        }
+    }
+
+
+
+    //-----------------------------------------------------
     // 朝8時になったらいくつかのステータスを更新
     //-----------------------------------------------------
     PowereggDateTime* dateTime = PowereggDateTime::GetObj();
@@ -1245,8 +1270,9 @@ void StatusManager::Update()
 
         // 体のスタミナが70％以下になったことが一日に1度もなかったら
         // 体のスタミナの最大値が1％下がる
+        // 瞬発力の最大値が1％下がる
         // トレーニング不足
-        if (m_training == false)
+        if (!m_training70)
         {
             float work = GetBodyStaminaMax();
             work *= 0.99f;
@@ -1257,12 +1283,38 @@ void StatusManager::Update()
             {
                 SetBodyStaminaMaxSub(work);
             }
+
+            float work = GetExplosivePower();
+            work *= 0.99f;
+            SetExplosivePower(work);
+        }
+        // 身体のスタミナが30％以下になったことが一日に1度でもあれば
+        // 身体のスタミナの最大値が1％上がる
+        // 瞬発力の最大値が1％上がる
+        else if (m_training30)
+        {
+            float work = GetBodyStaminaMax();
+            work *= 1.01f;
+            SetBodyStaminaMax(work);
+
+            // 回復可能値が最大値を超えてはならない。
+            if (GetBodyStaminaMaxSub() > work)
+            {
+                SetBodyStaminaMaxSub(work);
+            }
+
+            float work = GetExplosivePower();
+            work *= 1.01f;
+            SetExplosivePower(work);
         }
 
-        if (m_status.GetSleep() == false)
+        if (!m_status.GetSleep())
         {
             m_status.SetSleep(true);
         }
+
+        m_training70 = false;
+        m_training30 = false;
     }
 
     //-----------------------------------------------------------
@@ -1847,7 +1899,7 @@ float StatusManager::GetWalkSpeed()
     // 瞬発力が高ければ歩くのが早くなる
     // 100だったら1.0倍。110だったら1.1倍
     work = m_status.GetExplosivePower();
-    walkSpeed *= work / 100;
+    walkSpeed *= work / 100.f;
 
     // インベントリの重量によって歩行速度を遅くする
     // 反比例の式にしたいので

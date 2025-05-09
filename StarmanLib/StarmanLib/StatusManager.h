@@ -525,7 +525,10 @@ private:
     PlayerState m_playerState { PlayerState::STAND };
 
     // 体のスタミナが70％以下になったことが一日に1度でもあった
-    bool m_training = false;
+    bool m_training70 = false;
+
+    // 体のスタミナが30％以下になったことが一日に1度でもあった
+    bool m_training30 = false;
 
     // 前回日時をチェックした時の日
     int m_previousDay = 0;
