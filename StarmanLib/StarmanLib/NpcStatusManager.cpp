@@ -571,6 +571,9 @@ void NSStarmanLib::NpcStatusManager::Update()
         work_f /= 60;
         work_f /= 60;
 
+        // 1秒で、ゲーム内では12秒経過する
+        work_f *= 12;
+
         for (auto& npc : m_NpcStatusMap)
         {
             // ビムは体力を消費しない

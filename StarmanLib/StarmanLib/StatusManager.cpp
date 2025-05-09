@@ -1149,36 +1149,52 @@ void StatusManager::Update()
 
     //------------------------------------------------------
     // 体内の五大栄養素と水分を減らす
+    // めんどうなので一律、24時間で20％減少
+    // 水は24時間で2％減少
     //------------------------------------------------------
-    float work1 = 0.f;
-    // 一日何も食べなければ体内の糖質が0になってもおかしくはないはず。
-    work1 = m_status.GetCarboCurrent();
-    work1 -= 0.02f;
-    m_status.SetCarboCurrent(work1);
-
-    work1 = m_status.GetProteinCurrent();
-    work1 -= 0.01f;
-    m_status.SetProteinCurrent(work1);
-
-    // 糖質がなくなったら脂肪が消費される
-    if (m_status.GetCarboCurrent() <= 0.f)
     {
-        work1 = m_status.GetLipidCurrent();
-        work1 -= 0.01f;
-        m_status.SetLipidCurrent(work1);
+        float work1 = 0.f;
+
+        float work2 = 0.f;
+        work2 = 20.f;
+        work2 /= 24.f;
+        work2 /= 3600.f;
+
+        // 1秒で、ゲーム内では12秒経過する
+        work2 *= 12.f;
+
+        work1 = m_status.GetCarboCurrent();
+        work1 -= work2;
+        m_status.SetCarboCurrent(work1);
+
+        work1 = m_status.GetProteinCurrent();
+        work1 -= work2;
+        m_status.SetProteinCurrent(work1);
+
+        // 糖質がなくなったら脂肪とタンパク質が消費される
+        if (m_status.GetCarboCurrent() <= 0.f)
+        {
+            work1 = m_status.GetLipidCurrent();
+            work1 -= work2;
+            m_status.SetLipidCurrent(work1);
+
+            work1 = m_status.GetProteinCurrent();
+            work1 -= work2;
+            m_status.SetProteinCurrent(work1);
+        }
+
+        work1 = m_status.GetVitaminCurrent();
+        work1 -= work2;
+        m_status.SetVitaminCurrent(work1);
+
+        work1 = m_status.GetMineralCurrent();
+        work1 -= work2;
+        m_status.SetMineralCurrent(work1);
+
+        work1 = m_status.GetWaterCurrent();
+        work1 -= work2;
+        m_status.SetWaterCurrent(work1);
     }
-
-    work1 = m_status.GetVitaminCurrent();
-    work1 -= 0.01f;
-    m_status.SetVitaminCurrent(work1);
-
-    work1 = m_status.GetMineralCurrent();
-    work1 -= 0.01f;
-    m_status.SetMineralCurrent(work1);
-
-    work1 = m_status.GetWaterCurrent();
-    work1 -= 0.01f;
-    m_status.SetWaterCurrent(work1);
 
     //-----------------------------------------------------
     // 朝8時になったらいくつかのステータスを更新
