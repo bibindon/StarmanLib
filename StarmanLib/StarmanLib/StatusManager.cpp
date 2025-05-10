@@ -1284,7 +1284,7 @@ void StatusManager::Update()
                 SetBodyStaminaMaxSub(work);
             }
 
-            float work = GetExplosivePower();
+            work = GetExplosivePower();
             work *= 0.99f;
             SetExplosivePower(work);
         }
@@ -1303,9 +1303,9 @@ void StatusManager::Update()
                 SetBodyStaminaMaxSub(work);
             }
 
-            float work = GetExplosivePower();
-            work *= 1.01f;
-            SetExplosivePower(work);
+			work = GetExplosivePower();
+			work *= 1.01f;
+			SetExplosivePower(work);
         }
 
         if (!m_status.GetSleep())

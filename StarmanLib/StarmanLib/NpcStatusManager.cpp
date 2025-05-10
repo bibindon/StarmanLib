@@ -715,8 +715,14 @@ void NSStarmanLib::NpcStatusManager::Update()
                 continue;
             }
 
-            // TODO ŠÔˆá‚¢
-            if (npc.second.GetLipid() <= 0.f || npc.second.GetWater() <= 0.f)
+            // …•ª‚Í90“A‚»‚êˆÈŠO‚Í0“‚É‚È‚Á‚½‚çŽ€–SB
+            // ‰¼ŽÀ‘•
+            if (npc.second.GetCarbo() <= 0.f ||
+                npc.second.GetProtein() <= 0.f ||
+                npc.second.GetLipid() <= 0.f ||
+                npc.second.GetVitamin() <= 0.f ||
+                npc.second.GetMineral() <= 0.f ||
+                npc.second.GetWater() <= 90.f)
             {
                 if (npc.second.GetDrinkWordbress())
                 {
