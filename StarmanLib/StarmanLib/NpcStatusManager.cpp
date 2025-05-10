@@ -715,6 +715,7 @@ void NSStarmanLib::NpcStatusManager::Update()
                 continue;
             }
 
+            // TODO �ԈႢ
             if (npc.second.GetLipid() <= 0.f || npc.second.GetWater() <= 0.f)
             {
                 if (npc.second.GetDrinkWordbress())
