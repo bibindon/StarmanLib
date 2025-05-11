@@ -3677,6 +3677,72 @@ eDeadReason NSStarmanLib::StatusManager::GetDeadReason() const
     return m_eDeadReason;
 }
 
+void NSStarmanLib::StatusManager::ConsumeJumpCost()
+{
+    //--------------------------------
+    // 消耗
+    // スタミナを消耗する
+    //--------------------------------
+
+    int work_i = 0;
+    float work_f = 0;
+
+    // 水分
+    work_f = m_status.GetWaterCurrent();
+    m_status.SetWaterCurrent(work_f - 0.01f);
+
+    // 身体のスタミナ
+    work_f = m_status.GetBodyStaminaCurrent();
+    m_status.SetBodyStaminaCurrent(work_f - 0.01f);
+
+    // 肉体の修復度
+    work_f = m_status.GetMuscleCurrent();
+    if (m_EquipWeapon.GetId() != -1)
+    {
+        m_status.SetMuscleCurrent(work_f - 0.01f);
+    }
+
+    //---------------------------------------------
+    // 状態異常を悪化
+    //---------------------------------------------
+
+    // 風邪
+    if (m_status.GetCold())
+    {
+        ++m_remainColdCure;
+    }
+
+    // 腕の骨折
+    if (m_status.GetFractureArm())
+    {
+        ++m_remainArmFracCure;
+    }
+
+    // 足の骨折
+    if (m_status.GetFractureLeg())
+    {
+        ++m_remainLegFracCure;
+    }
+
+    // 脱水症状
+    if (m_status.GetDehydration())
+    {
+        ++m_remainDehydration;
+    }
+
+    // 頭痛
+    if (m_status.GetHeadache())
+    {
+        ++m_remainHeadacheCure;
+    }
+
+    // 腹痛
+    if (m_status.GetStomachache())
+    {
+        ++m_remainStomachacheCure;
+    }
+}
+
 void NSStarmanLib::StatusManager::Clamp()
 {
     float work1 = 0.f;

@@ -511,6 +511,8 @@ public:
     void SetDeadReason(const eDeadReason reason);
     eDeadReason GetDeadReason() const;
 
+    void ConsumeJumpCost();
+
 private:
 
     void Clamp();
