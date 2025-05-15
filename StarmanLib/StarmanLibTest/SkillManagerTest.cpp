@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/SkillManager.h"
 #include <fstream>
 #include <sstream>
@@ -37,13 +37,13 @@ namespace StarmanLibTest
 
             int level = 0;
 
-            level = obj->GetSkillLevel("‰Š‚Ì–‚–@");
+            level = obj->GetSkillLevel("ç‚ã®é­”æ³•");
             Assert::AreEqual(level, 1);
 
-            level = obj->GetSkillLevel("•X‚Ì–‚–@");
+            level = obj->GetSkillLevel("æ°·ã®é­”æ³•");
             Assert::AreEqual(level, 2);
 
-            level = obj->GetSkillLevel("ˆÅ‚Ì–‚–@");
+            level = obj->GetSkillLevel("é—‡ã®é­”æ³•");
             Assert::AreEqual(level, 3);
 
             SkillManager::Destroy();
@@ -56,8 +56,8 @@ namespace StarmanLibTest
 
             std::string temp;
 
-            temp = obj->GetDetail("‰Š‚Ì–‚–@");
-            Assert::AreEqual(temp.find("•‰‚µ‚Ä‚µ‚Ü‚¤") != std::string::npos, true);
+            temp = obj->GetDetail("ç‚ã®é­”æ³•");
+            Assert::AreEqual(temp.find("è² å‚·ã—ã¦ã—ã¾ã†") != std::string::npos, true);
 
             SkillManager::Destroy();
         }
@@ -67,7 +67,7 @@ namespace StarmanLibTest
             SkillManager* obj = SkillManager::GetObj();
             obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
-            float temp = obj->GetDamage("‰Š‚Ì–‚–@", 5);
+            float temp = obj->GetDamage("ç‚ã®é­”æ³•", 5);
             Assert::AreEqual(temp, 60.f);
 
             SkillManager::Destroy();
@@ -78,7 +78,7 @@ namespace StarmanLibTest
             SkillManager* obj = SkillManager::GetObj();
             obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
-            float temp = obj->GetRange("ˆÅ‚Ì–‚–@", 5);
+            float temp = obj->GetRange("é—‡ã®é­”æ³•", 5);
             Assert::AreEqual(temp, 60.f);
 
             SkillManager::Destroy();
@@ -90,7 +90,7 @@ namespace StarmanLibTest
                 SkillManager* obj = SkillManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
 
-                obj->SetSkillLevel("ˆÅ‚Ì–‚–@", 5);
+                obj->SetSkillLevel("é—‡ã®é­”æ³•", 5);
                 obj->Save("..\\StarmanLibTest\\skillSubSave.csv");
 
                 SkillManager::Destroy();
@@ -99,7 +99,7 @@ namespace StarmanLibTest
                 SkillManager* obj = SkillManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSubSave.csv");
 
-                int level = obj->GetSkillLevel("ˆÅ‚Ì–‚–@");
+                int level = obj->GetSkillLevel("é—‡ã®é­”æ³•");
                 Assert::AreEqual(level, 5);
 
                 SkillManager::Destroy();

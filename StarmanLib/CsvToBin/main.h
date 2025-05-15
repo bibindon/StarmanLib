@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -52,10 +52,10 @@ static void WriteBinary(const std::string& csvFile)
     {
         size_t size = stMapObjList.size();
 
-        // ƒxƒNƒ^[ƒTƒCƒY‚ğ‘‚«‚Ş
+        // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’æ›¸ãè¾¼ã‚€
         outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
 
-        // ƒf[ƒ^–{‘Ì‚ğ‘‚«‚Ş
+        // ãƒ‡ãƒ¼ã‚¿æœ¬ä½“ã‚’æ›¸ãè¾¼ã‚€
         outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 

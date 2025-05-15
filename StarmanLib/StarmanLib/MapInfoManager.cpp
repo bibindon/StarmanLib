@@ -1,4 +1,4 @@
-#include "MapInfoManager.h"
+ï»¿#include "MapInfoManager.h"
 
 #include "Util.h"
 
@@ -20,7 +20,7 @@ void MapInfo::SetDetail(const std::string& detail)
 {
     m_detail = detail;
 
-    // u"v‹L†‚Íæ‚èœ‚­
+    // ã€Œ"ã€è¨˜å·ã¯å–ã‚Šé™¤ã
     m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
@@ -79,7 +79,7 @@ void MapInfoManager::Init(const std::string& csvfile,
     {
         MapInfo mapInfo;
         mapInfo.SetName(vvs.at(i).at(1));
-        if (vvs.at(i).at(2) == "›")
+        if (vvs.at(i).at(2) == "â—‹")
         {
             mapInfo.SetDiscovered(true);
         }
@@ -164,12 +164,12 @@ void MapInfoManager::Save(const std::string& csvfile,
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
-    vs.push_back("’n–¼");
-    vs.push_back("”­Œ©Ï‚İ");
-    vs.push_back("à–¾•¶");
+    vs.push_back("åœ°å");
+    vs.push_back("ç™ºè¦‹æ¸ˆã¿");
+    vs.push_back("èª¬æ˜æ–‡");
     vs.push_back("X");
     vs.push_back("Y");
-    vs.push_back("‰æ‘œƒtƒ@ƒCƒ‹–¼");
+    vs.push_back("ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å");
     vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
@@ -178,7 +178,7 @@ void MapInfoManager::Save(const std::string& csvfile,
         vs.push_back(m_mapInfoList.at(i).GetName());
         if (m_mapInfoList.at(i).IsDiscovered())
         {
-            vs.push_back("›");
+            vs.push_back("â—‹");
         }
         else
         {

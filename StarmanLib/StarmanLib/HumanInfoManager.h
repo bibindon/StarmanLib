@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "HeaderOnlyCsv.hpp"
 
@@ -30,8 +30,8 @@ private:
     std::string m_detail;
     std::string m_imagePath;
 
-    // l•¨î•ñ‚Íƒƒjƒ…[‰æ–Ê‚Å•\¦‚³‚êA
-    // ƒQ[ƒ€‚Ìis“x‚É‚æ‚Á‚Ä•\¦‚³‚ê‚él‚Æ•\¦‚³‚ê‚È‚¢l‚ª‚¢‚é‘z’è
+    // äººç‰©æƒ…å ±ã¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã§è¡¨ç¤ºã•ã‚Œã€
+    // ã‚²ãƒ¼ãƒ ã®é€²è¡Œåº¦ã«ã‚ˆã£ã¦è¡¨ç¤ºã•ã‚Œã‚‹äººã¨è¡¨ç¤ºã•ã‚Œãªã„äººãŒã„ã‚‹æƒ³å®š
     bool m_bVisible;
 };
 
@@ -56,7 +56,7 @@ public:
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static HumanInfoManager* obj;
 
     std::unordered_map<std::string, HumanInfo> m_humanInfoMap;

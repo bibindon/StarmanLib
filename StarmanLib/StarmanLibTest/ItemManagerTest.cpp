@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+Ôªø#include "CppUnitTest.h"
 #include "../StarmanLib/ItemManager.h"
 #include <fstream>
 #include <sstream>
@@ -33,7 +33,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("ÉXÉ}Éz");
+            ItemDef itemDef = obj->GetItemDef("„Çπ„Éû„Éõ");
             Assert::AreEqual(itemDef.GetImagePath() == "sumaho.png", true);
             ItemManager::Destroy();
         }
@@ -42,7 +42,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("çïÇ¢äL");
+            ItemDef itemDef = obj->GetItemDef("Èªí„ÅÑË≤ù");
             Assert::AreEqual(itemDef.GetImagePath() == "mussels.png", true);
             ItemManager::Destroy();
         }
@@ -51,7 +51,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("çïÇ¢äL");
+            ItemDef itemDef = obj->GetItemDef("Èªí„ÅÑË≤ù");
             Assert::AreEqual(itemDef.GetType() == ItemDef::ItemType::FOOD, true);
             ItemManager::Destroy();
         }
@@ -60,7 +60,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("çïÇ¢äL");
+            ItemDef itemDef = obj->GetItemDef("Èªí„ÅÑË≤ù");
             Assert::AreEqual(itemDef.GetWater(), 10.f);
             ItemManager::Destroy();
         }

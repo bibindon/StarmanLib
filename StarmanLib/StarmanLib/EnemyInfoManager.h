@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -6,8 +6,8 @@
 namespace NSStarmanLib
 {
 
-// “G‚Ì’è‹`î•ñ
-// “Gˆêí—Ş‚É‚Â‚«A1ƒCƒ“ƒXƒ^ƒ“ƒX
+// æ•µã®å®šç¾©æƒ…å ±
+// æ•µä¸€ç¨®é¡ã«ã¤ãã€1ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 class EnemyDef
 {
 public:
@@ -29,27 +29,27 @@ public:
 
 private:
 
-    // “Gˆêí—Ş‚²‚Æ‚ÉŠ„‚èU‚ç‚ê‚éID
+    // æ•µä¸€ç¨®é¡ã”ã¨ã«å‰²ã‚ŠæŒ¯ã‚‰ã‚Œã‚‹ID
     int m_idDef = 0;
 
-    // à–¾•¶
+    // èª¬æ˜æ–‡
     std::string m_name;
 
-    // à–¾•¶
+    // èª¬æ˜æ–‡
     std::string m_detail;
 
-    // ƒtƒ@ƒCƒ‹ƒpƒX
+    // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
     std::string m_imagePath;
 
-    // ƒƒjƒ…[‚Å‚Ì•\¦E”ñ•\¦
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã§ã®è¡¨ç¤ºãƒ»éè¡¨ç¤º
     bool m_visible;
 };
 
-// “GŠÇ—ƒNƒ‰ƒXB
-// “G1‘Ì‚É‚Â‚«A1ƒCƒ“ƒXƒ^ƒ“ƒX
-// CSVƒtƒ@ƒCƒ‹‚É‹LÚ‚³‚ê‚½“G‚ÌÀ•W‚âHP‚È‚Ç‚ğ’ñ‹Ÿ‚·‚é‚Ì‚İ‚Å‚ ‚éB
-// “G‚Ìs“®ƒpƒ^[ƒ“‚¾‚Æ‚©Õ“Ë”»’èAƒWƒƒƒ“ƒv‚Ì‹O“¹‚È‚ÇÚ×‚È‚±‚Æ‚Í‚±‚±‚Å‚Í‚â‚ç‚È‚¢B
-// iƒ‰ƒCƒuƒ‰ƒŠ‚Ìg—pÒ‚ªƒQ[ƒ€“à‚Å“Æ©‚ÌÀ‘•‚ğs‚¤‚×‚«j
+// æ•µç®¡ç†ã‚¯ãƒ©ã‚¹ã€‚
+// æ•µ1ä½“ã«ã¤ãã€1ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+// CSVãƒ•ã‚¡ã‚¤ãƒ«ã«è¨˜è¼‰ã•ã‚ŒãŸæ•µã®åº§æ¨™ã‚„HPãªã©ã‚’æä¾›ã™ã‚‹ã®ã¿ã§ã‚ã‚‹ã€‚
+// æ•µã®è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã ã¨ã‹è¡çªåˆ¤å®šã€ã‚¸ãƒ£ãƒ³ãƒ—ã®è»Œé“ãªã©è©³ç´°ãªã“ã¨ã¯ã“ã“ã§ã¯ã‚„ã‚‰ãªã„ã€‚
+// ï¼ˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ä½¿ç”¨è€…ãŒã‚²ãƒ¼ãƒ å†…ã§ç‹¬è‡ªã®å®Ÿè£…ã‚’è¡Œã†ã¹ãï¼‰
 class EnemyInfo
 {
 public:
@@ -89,13 +89,13 @@ public:
 
 private:
 
-    // “Gˆê‘Ì‚²‚Æ‚ÉŠ„‚èU‚ç‚ê‚éID
+    // æ•µä¸€ä½“ã”ã¨ã«å‰²ã‚ŠæŒ¯ã‚‰ã‚Œã‚‹ID
     int m_id = 0;
 
-    // “Gˆêí—Ş‚²‚Æ‚ÉŠ„‚èU‚ç‚ê‚éID
+    // æ•µä¸€ç¨®é¡ã”ã¨ã«å‰²ã‚ŠæŒ¯ã‚‰ã‚Œã‚‹ID
     int m_idDef = 0;
 
-    // ƒ‚ƒ“ƒXƒ^[‚Ìí‘°
+    // ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®ç¨®æ—
     std::string m_breed;
 
     float m_x { 0.f };
@@ -106,7 +106,7 @@ private:
     float m_rotY { 0.f };
     float m_rotZ { 0.f };
 
-    // c‚èHP
+    // æ®‹ã‚ŠHP
     int m_HP { 0 };
     bool m_bDefeated { false };
 
@@ -129,7 +129,7 @@ public:
               const std::string& csvEnemyVisible,
               const bool encrypt = false);
 
-    // ˆø”‚Å¦‚·À•W‚Æ”¼Œa‚Ì“à‘¤‚É‚¢‚é“G‚ğæ“¾
+    // å¼•æ•°ã§ç¤ºã™åº§æ¨™ã¨åŠå¾„ã®å†…å´ã«ã„ã‚‹æ•µã‚’å–å¾—
     std::vector<EnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
 
     void UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo);
@@ -144,7 +144,7 @@ public:
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static EnemyInfoManager* obj;
 
     std::unordered_map<int, EnemyDef> m_enemyDefMap;

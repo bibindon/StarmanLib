@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 #include <map>
@@ -6,14 +6,14 @@
 #include "ItemManager.h"
 
 //-------------------------------------------------
-// ����`���@�\
+// お手伝い機能
 //
-// �q���������E���Ă����A�C�e�����󂯎���B
-// �u�b����������󂯎���v�ł��邱�Ƃɒ��ӁB
-// �˗���w���͂ł��Ȃ��B
-// �����J���@�ɐG��邽�߁B
-// �N���t�g���͎󂯎��Ȃ��B
-// 16���ȍ~�ɘb����������󂯎���B
+// 子供たちが拾ってきたアイテムを受け取れる。
+// 「話しかけたら受け取れる」であることに注意。
+// 依頼や指示はできない。
+// 児童労働法に触れるため。
+// クラフト中は受け取れない。
+// 16時以降に話しかけたら受け取れる。
 //-------------------------------------------------
 namespace NSStarmanLib
 {
@@ -27,10 +27,10 @@ public:
     void Update();
     void Save(const std::string& filepath);
 
-    // 16���ȍ~�ɘb����������󂯎���B
-    // �󂯎����������B
-    // �󂯎�炸�ɗ�����16���ɂȂ�����V�����A�C�e���ɂȂ�A�Â����̂͏���
-    // 10�܂�
+    // 16時以降に話しかけたら受け取れる。
+    // 受け取ったら消失。
+    // 受け取らずに翌日の16時になったら新しいアイテムになり、古いものは消失
+    // 10個まで
     std::vector<ItemDef> ReceiveItems(const std::string& npcName);
 
     bool Received(const std::string& npcName);
@@ -42,24 +42,24 @@ private:
 
     std::map<std::string, std::vector<ItemDef>> m_presentMap;
 
-    // 16���𒴂����痂���̓��t��ۑ����A���݂̓��t�Ƃ���
+    // 16時を超えたら翌日の日付を保存し、現在の日付とする
     int m_previousYear = 0;
     int m_previousMonth = 0;
     int m_previousDay = 0;
     int m_previousHour = 0;
 
-    // �A�C�e����n���ς݂�
+    // アイテムを渡し済みか
     std::map<std::string, bool> m_presented;
 
     std::vector<ItemDef> GetRandomItem(const std::string& npcName);
 
     bool CrossOver16();
 
-    // �ߋ��ɂ����̂ڂ��Ă���H
+    // 過去にさかのぼっている？
     bool BackTime();
 
-    // �E�����Ƃ��\�ȃA�C�e����ID�̃��X�g
-    // �E����͂��̂Ȃ��A�C�e�����E���Ȃ��悤�ɂ��邽�߁B
+    // 拾うことが可能なアイテムのIDのリスト
+    // 拾えるはずのないアイテムを拾えないようにするため。
     std::vector<int> m_enableItemIdList;
     bool m_bLoaded = false;
 };

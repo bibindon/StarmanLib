@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/StatusManager.h"
 #include <fstream>
 #include <sstream>
@@ -124,8 +124,8 @@ namespace StarmanLibTest
             StatusManager::Destroy();
         }
 
-        // ƒeƒXƒg‚µ‚½‚¢‚±‚Æ
-        // •Ší‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢ó‘Ô‚Å—‚¿‚È‚¢‚±‚Æ
+        // ãƒ†ã‚¹ãƒˆã—ãŸã„ã“ã¨
+        // æ­¦å™¨ã‚’è£…å‚™ã—ã¦ã„ãªã„çŠ¶æ…‹ã§è½ã¡ãªã„ã“ã¨
         TEST_METHOD(TestMethod10)
         {
             StatusManager* obj = StatusManager::GetObj();

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <vector>
 
@@ -21,20 +21,20 @@ public:
 
 private:
 
-    // ‘å•ª—Ş
+    // å¤§åˆ†é¡
     std::string m_category;
 
-    // ¬•ª—Ş
+    // å°åˆ†é¡
     std::string m_subCategory;
 
-    // à–¾•¶
+    // èª¬æ˜æ–‡
     std::string m_text;
 
-    // •\¦Ï‚İ‚©”Û‚©
+    // è¡¨ç¤ºæ¸ˆã¿ã‹å¦ã‹
     bool m_bVisible { false };
 };
 
-// ‘€ìà–¾
+// æ“ä½œèª¬æ˜
 class Guide
 {
 public:

@@ -1,13 +1,13 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include "ItemManager.h"
 
-// ��ʓI�ɁA�u�U�����󂯂��Ƃ��A�ŏI�I�ɕ����_���[�W�������ɂȂ邩�v��
-// ����Ȃ�ɕ��G�ȃR�[�h�ɂȂ�B
-// �Q�[���{�̂ɂ��̕��G�����������܂Ȃ��Ă悢�悤�ɂ������B
+// 一般的に、「攻撃を受けたとき、最終的に負うダメージがいくつになるか」は
+// それなりに複雑なコードになる。
+// ゲーム本体にその複雑さを持ち込まなくてよいようにしたい。
 
-// ����𑕔����Ă��Ȃ��ꍇ�A�A�C�e��ID��-1�������Ă���B
+// 武器を装備していない場合、アイテムIDに-1が入っている。
 
 namespace NSStarmanLib
 {
@@ -29,8 +29,8 @@ enum class eBagPos
     Right,
 };
 
-// Player�̃X�e�[�^�X��NPC�̃X�e�[�^�X�͕ʂ̂��̂Ƃ��ėp�ӂ���B
-// �����ň����X�e�[�^�X�̓v���C���[��Status�B
+// PlayerのステータスとNPCのステータスは別のものとして用意する。
+// ここで扱うステータスはプレイヤーのStatus。
 
 class Status
 {
@@ -140,107 +140,107 @@ public:
 
 private:
 
-    // �̂̃X�^�~�i�i���ݒl�j
+    // 体のスタミナ（現在値）
     float m_bodyStaminaCurrent { 0.f };
 
-    // �̂̃X�^�~�i�i�ő�l�j
+    // 体のスタミナ（最大値）
     float m_bodyStaminaMax { 0.f };
 
-    // �̂̃X�^�~�i�i�񕜉\�l�j
-    // �������E�ł͑�������A����Ƃ�����x�̗͂��񕜂ł��邪
-    // �ǂꂾ�����葱���Ă��S������킯�ł͂Ȃ��B
-    // ���̂Ƃ��́A�񕜂ł���ő��\���l�B
+    // 体のスタミナ（回復可能値）
+    // 現実世界では走った後、座るとある程度体力を回復できるが
+    // どれだけ座り続けても全快するわけではない。
+    // このときの、回復できる最大を表す値。
     float m_bodyStaminaMaxSub { 0.f };
 
-    // �]�̃X�^�~�i�i���ݒl�j
+    // 脳のスタミナ（現在値）
     float m_brainStaminaCurrent { 0.f };
 
-    // �]�̃X�^�~�i�i�ő�l�j
+    // 脳のスタミナ（最大値）
     float m_brainStaminaMax { 0.f };
 
-    // �]�̃X�^�~�i�i�񕜉\�l�j
-    // �������E�ł͓����g������A�{�[���Ƃ���΂�����x�A�]�̗̑͂��񕜂ł��邪
-    // �ǂꂾ���x�ݑ����Ă��S������킯�ł͂Ȃ��B
-    // ���̂Ƃ��́A�񕜂ł���ő��\���l�B
+    // 脳のスタミナ（回復可能値）
+    // 現実世界では頭を使った後、ボーっとすればある程度、脳の体力を回復できるが
+    // どれだけ休み続けても全快するわけではない。
+    // このときの、回復できる最大を表す値。
     float m_brainStaminaMaxSub { 0.f };
 
-    // �u����
-    // ���؂̑���
+    // 瞬発力
+    // 速筋の太さ
     float m_explosivePower { 0.f };
 
-    // ���̂̏C���x�i���ݒl�j
-    // �����E��J�ɂ���Ēቺ����
-    // ���l���傫���قǁA�����E��J���Ă��Ȃ�
+    // 肉体の修復度（現在値）
+    // 損傷・疲労によって低下する
+    // 数値が大きいほど、損傷・疲労していない
     float m_muscleCurrent { 0.f };
 
-    // ���̂̏C���x�i�ő�l�j
-    // �����E��J�ɂ���Ēቺ����B
+    // 肉体の修復度（最大値）
+    // 損傷・疲労によって低下する。
     float m_muscleMax { 0.f };
 
-    // �����i���ݒl�j
+    // 糖質（現在値）
     float m_carboCurrent { 0.f };
 
-    // �����i�ő�l�j
+    // 糖質（最大値）
     float m_carboMax { 0.f };
 
-    // �^���p�N���i���ݒl�j
+    // タンパク質（現在値）
     float m_proteinCurrent { 0.f };
 
-    // �^���p�N���i�ő�l�j
+    // タンパク質（最大値）
     float m_proteinMax { 0.f };
 
-    // �����i���ݒl�j
+    // 脂質（現在値）
     float m_lipidCurrent { 0.f };
 
-    // �����i�ő�l�j
+    // 脂質（最大値）
     float m_lipidMax { 0.f };
 
-    // �r�^�~���i���ݒl�j
+    // ビタミン（現在値）
     float m_vitaminCurrent { 0.f };
 
-    // �r�^�~���i�ő�l�j
+    // ビタミン（最大値）
     float m_vitaminMax { 0.f };
 
-    // �~�l�����i���ݒl�j
+    // ミネラル（現在値）
     float m_mineralCurrent { 0.f };
 
-    // �~�l�����i�ő�l�j
+    // ミネラル（最大値）
     float m_mineralMax { 0.f };
 
-    // �����i���ݒl�j
+    // 水分（現在値）
     float m_waterCurrent { 0.f };
 
-    // �����i�ő�l�j
+    // 水分（最大値）
     float m_waterMax { 0.f };
 
-    // �r����
+    // 腕骨折
     bool m_fractureArm { false };
 
-    // ������
+    // 足骨折
     bool m_fractureLeg { false };
 
-    // ����
+    // 頭痛
     bool m_headache { false };
 
-    // ����
+    // 風邪
     bool m_cold { false };
 
-    // ����
+    // 腹痛
     bool m_stomachache { false };
 
-    // ����
+    // 睡眠
     bool m_sleep { false };
 
-    // �E���Ǐ�
+    // 脱水症状
     bool m_dehydration { false };
 
-    // �����s��
+    // 睡眠不足
     bool m_lackOfSleep { false };
 
-    // ���S
+    // 死亡
     bool m_dead = false;
 
-    // �����x
+    // 満腹度
     float m_satiety = 0.f;
 
     float m_x = 0.f;
@@ -253,25 +253,25 @@ enum class eDeadReason
 {
     NONE,
 
-    // ���̂̏C���x��0�ɂȂ����B�S�g�Ŗo�I��
+    // 肉体の修復度が0になった。全身打撲的な
     MUSCLE_ZERO,
 
-    // �̓��̐�����90���ȉ��ɂȂ���
+    // 体内の水分が90％以下になった
     WATER_90,
 
-    // �����Ǝ������[���ɂȂ����B�쎀
+    // 糖質と脂質がゼロになった。餓死
     STARVATION,
 
-    // �̂̃X�^�~�i���[���ɂȂ����B
+    // 体のスタミナがゼロになった。
     KAROSHI,
 
-    // ���C�l���̌_���1�N�o�߂����B
+    // ライネンの契約で1年経過した。
     RYNEN_1_YEAR,
 
-    // �M���B�����Ő��������B
+    // 溺死。水中で睡眠した。
     DROWNING,
 
-    // �������ɍU�����ꂽ
+    // 睡眠中に攻撃された
     ATTACK_ON_SLEEP,
 };
 
@@ -281,29 +281,29 @@ public:
 
     enum class PlayerState
     {
-        // ������Ԃƕ�����Ԃ͓������炢����ׂ�
-        // �������
+        // 立ち状態と歩き状態は同じくらい疲れるべき
+        // 立ち状態
         STAND,
 
-        // �������
+        // 歩き状態
         WALK,
 
-        // ������
+        // 座り状態
         SIT,
 
-        // �Q���ׂ�
+        // 寝そべり
         LYING_DOWN,
 
-        // �W���M���O
+        // ジョギング
         JOGGING,
 
-        // �S�͎���
+        // 全力疾走
         SPRINTING,
 
-        // �����ŐÎ~
+        // 水中で静止
         IDLE_WATER,
 
-        // �j�����
+        // 泳ぎ状態
         SWIM,
     };
 
@@ -314,7 +314,7 @@ public:
     void Init(const std::string& csvfile,
               const bool decrypt = false);
 
-    // 1�b�Ɉ�x�Ă΂��z��
+    // 1秒に一度呼ばれる想定
     void Update();
 
     void Save(const std::string& csvfile,
@@ -323,56 +323,56 @@ public:
               const float player_z,
               const bool encrypt = false);
 
-    // ���s���x�B�d�ʂ⌒�N�x�A�ؗ͂Ȃǂ���Ƃ�����p�����[�^�[���e������
+    // 歩行速度。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetWalkSpeed();
 
-    // �U���́B�d�ʂ⌒�N�x�A�ؗ͂Ȃǂ���Ƃ�����p�����[�^�[���e������
+    // 攻撃力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetAttackPower();
 
-    // �U�������Ƃ��ɃX�^�~�i�═��̑ϋv�x�Ȃǂ����炷
+    // 攻撃したときにスタミナや武器の耐久度などを減らす
     void ConsumeAttackCost();
 
-    // �h��́B�d�ʂ⌒�N�x�A�ؗ͂Ȃǂ���Ƃ�����p�����[�^�[���e������
+    // 防御力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetDefensePower();
 
-    // �H�ނ�H�ׂ�
+    // 食材を食べる
     bool Eat(const ItemDef& food);
 
-    // �Q��
+    // 寝る
     bool Sleep();
 
-    // 3���ԋx�e
+    // 3時間休憩
     bool Rest3Hours();
 
-    // ��b����
-    // ��b������]�̗̑͂�����B
+    // 会話する
+    // 会話したら脳の体力が減る。
     void Talk();
 
-    // ���@���g��
-    // ���@���g������]�̗̑͂�����
+    // 魔法を使う
+    // 魔法を使ったら脳の体力が減る
     void UseMagic();
 
     void DrinkWordBress(const float playerX,
                         const float playerY,
                         const float playerZ);
 
-    // �؂̔���
+    // 木の伐採
     void CutTree(const std::string& weapon, const int level);
 
-    // �A���̎�
+    // 植物採取
     void PickPlant();
 
-    // �I�[���𑆂�
+    // オールを漕ぐ
     void PullOar();
 
-    // ���E�̃I�[���𑆂�
+    // 左右のオールを漕ぐ
     void PullOarBoth();
 
-    // 3���ԁA�����q�C���s��
+    // 3時間、自動航海を行う
     void Voyage3Hours();
 
     //-------------------------------------------------------
-    // Status�N���X�̓����̊֐����Ă�
+    // Statusクラスの同名の関数を呼ぶ
     //-------------------------------------------------------
 
     float GetBodyStaminaCurrent() const;
@@ -467,28 +467,28 @@ public:
     bool GetDead() const;
     void SetDead(const bool arg);
 
-    // ��������
+    // 装備武器
     ItemInfo GetEquipWeapon() const;
     void SetEquipWeapon(const ItemInfo& arg);
 
-    // �܂𑕔��B�߂�l�Ƃ��Ăǂ̌��ɑ������ꂽ�����Ԃ����B
+    // 袋を装備。戻り値としてどの個所に装着されたかが返される。
     eBagPos EquipBag(const ItemInfo& bag);
 
-    // �܂��O���B
+    // 袋を外す。
     void UnequipBag(const eBagPos bagPos);
     void UnequipBag(const int id, const int subId);
 
-    // �܂��擾
+    // 袋を取得
     ItemInfo GetBag(const eBagPos bagPos) const;
     eBagPos GetBag(const int id, const int subId) const;
     std::vector<ItemInfo> GetAllBag();
 
-    // �܂̑�����
+    // 袋の装着状況
     std::vector<eBagPos> GetBagState();
 
     void UpdateBagDurability();
 
-    // �������_�X�g���X
+    // 強い精神ストレス
     void SetSuperStress();
 
     void GetXYZ(float* x, float* y, float* z);
@@ -519,66 +519,66 @@ private:
 
     eDeadReason m_eDeadReason = eDeadReason::NONE;
 
-    // �V���O���g���I�u�W�F�N�g
+    // シングルトンオブジェクト
     static StatusManager* obj;
 
     Status m_status;
 
     PlayerState m_playerState { PlayerState::STAND };
 
-    // �̂̃X�^�~�i��70���ȉ��ɂȂ������Ƃ������1�x�ł�������
+    // 体のスタミナが70％以下になったことが一日に1度でもあった
     bool m_training70 = false;
 
-    // �̂̃X�^�~�i��30���ȉ��ɂȂ������Ƃ������1�x�ł�������
+    // 体のスタミナが30％以下になったことが一日に1度でもあった
     bool m_training30 = false;
 
-    // �O��������`�F�b�N�������̓�
+    // 前回日時をチェックした時の日
     int m_previousDay = 0;
 
-    // �O��������`�F�b�N�������̎���
+    // 前回日時をチェックした時の時刻
     int m_previousHour = 0;
 
-    // ��8�����܂�����
+    // 朝8時をまたいだ
     bool m_over8clock = false;
 
-    // ��������
+    // 装備武器
     ItemInfo m_EquipWeapon;
 
-    // ��
+    // 袋
     std::unordered_map<eBagPos, ItemInfo> m_BagMap;
 
-    // ���ׂ̊����ɂ�����b��
-    // �����l��5���B�g�̂𓮂����ƈ�������
+    // 風邪の完治にかかる秒数
+    // 初期値は5日。身体を動かすと悪化する
     int m_remainColdCure = 0;
 
-    // �r���܂̊����ɂ�����b��
-    // �����l��90���B�ܑ�h�{�f�������ȉ��̎��͉񕜂��~�܂�
+    // 腕骨折の完治にかかる秒数
+    // 初期値は90日。五大栄養素が半分以下の時は回復が止まる
     int m_remainArmFracCure = 0;
 
-    // �����܂̊����ɂ�����b��
-    // �����l��90���B�ܑ�h�{�f�������ȉ��̎��͉񕜂��~�܂�
+    // 足骨折の完治にかかる秒数
+    // 初期値は90日。五大栄養素が半分以下の時は回復が止まる
     int m_remainLegFracCure = 0;
 
-    // ���ɂ̊����ɂ�����b��
-    // 1���i��24���ԁj�B�������ނƈ�������
+    // 頭痛の完治にかかる秒数
+    // 1日（＝24時間）。水を飲むと悪化する
     int m_remainHeadacheCure = 0;
 
-    // ���ɂ̊����ɂ�����b��
-    // 1���i��24���ԁj�B�H�ׂ�ƈ�������
+    // 腹痛の完治にかかる秒数
+    // 1日（＝24時間）。食べると悪化する
     int m_remainStomachacheCure = 0;
 
-    // �E���Ǐ�̊����ɂ�����b��
-    // 1���i��24���ԁj�B�ܑ�h�{�f�E�����s������Ɖ񕜂��~�܂�
+    // 脱水症状の完治にかかる秒数
+    // 1日（＝24時間）。五大栄養素・水が不足すると回復が止まる
     int m_remainDehydration = 0;
 
-    // �������̖��@
+    // 装備中の魔法
     eMagicType m_eMagicType = eMagicType::None;
 
-    // ���@�̏n���x
-    // �E0~10�܂ł�11�i�K
-    // �E100��g�����疂�@�̃��x�����オ��B
-    // �E���@�̃��x����100��g��������ł͂Ȃ�100��g������ɐQ��ƃ��x���A�b�v����
-    // �E�o���l�͖���-10�����B�܂�A10�����@���g��Ȃ������烌�x����������Ƃ������ƁB
+    // 魔法の熟練度
+    // ・0~10までの11段階
+    // ・100回使ったら魔法のレベルが上がる。
+    // ・魔法のレベルは100回使った直後ではなく100回使った後に寝るとレベルアップする
+    // ・経験値は毎日-10される。つまり、10日魔法を使わなかったらレベルが下がるということ。
     int m_levelFire = 0;
     int m_levelIce = 0;
     int m_levelDark = 0;

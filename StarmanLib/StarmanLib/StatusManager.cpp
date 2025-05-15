@@ -1,4 +1,4 @@
-#include "StatusManager.h"
+ï»¿#include "StatusManager.h"
 #include "PowereggDateTime.h"
 #include "Inventory.h"
 #include "ItemManager.h"
@@ -384,114 +384,114 @@ void StatusManager::Init(const std::string& csvfile,
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
-        if (vvs.at(i).at(1) == "‘Ì‚ÌƒXƒ^ƒ~ƒiiŒ»İ’lj")
+        if (vvs.at(i).at(1) == "ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "‘Ì‚ÌƒXƒ^ƒ~ƒiiÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMax(value);
         }
-        else if (vvs.at(i).at(1) == "‘Ì‚ÌƒXƒ^ƒ~ƒii‰ñ•œ‰Â”\’lj")
+        else if (vvs.at(i).at(1) == "ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆå›å¾©å¯èƒ½å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMaxSub(value);
         }
-        else if (vvs.at(i).at(1) == "”]‚ÌƒXƒ^ƒ~ƒiiŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "”]‚ÌƒXƒ^ƒ~ƒiiÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMax(value);
         }
-        else if (vvs.at(i).at(1) == "”]‚ÌƒXƒ^ƒ~ƒii‰ñ•œ‰Â”\’lj")
+        else if (vvs.at(i).at(1) == "è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆå›å¾©å¯èƒ½å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMaxSub(value);
         }
-        else if (vvs.at(i).at(1) == "u”­—Í")
+        else if (vvs.at(i).at(1) == "ç¬ç™ºåŠ›")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetExplosivePower(value);
         }
-        else if (vvs.at(i).at(1) == "“÷‘Ì‚ÌC•œ“xiŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "è‚‰ä½“ã®ä¿®å¾©åº¦ï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "“÷‘Ì‚ÌC•œ“xiÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "è‚‰ä½“ã®ä¿®å¾©åº¦ï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleMax(value);
         }
-        else if (vvs.at(i).at(1) == "“œ¿iŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "ç³–è³ªï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "“œ¿iÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "ç³–è³ªï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboMax(value);
         }
-        else if (vvs.at(i).at(1) == "ƒ^ƒ“ƒpƒN¿iŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "ã‚¿ãƒ³ãƒ‘ã‚¯è³ªï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "ƒ^ƒ“ƒpƒN¿iÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "ã‚¿ãƒ³ãƒ‘ã‚¯è³ªï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinMax(value);
         }
-        else if (vvs.at(i).at(1) == "‰¿iŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "è„‚è³ªï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "‰¿iÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "è„‚è³ªï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidMax(value);
         }
-        else if (vvs.at(i).at(1) == "ƒrƒ^ƒ~ƒ“iŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "ãƒ“ã‚¿ãƒŸãƒ³ï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "ƒrƒ^ƒ~ƒ“iÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "ãƒ“ã‚¿ãƒŸãƒ³ï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminMax(value);
         }
-        else if (vvs.at(i).at(1) == "ƒ~ƒlƒ‰ƒ‹iŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "ãƒŸãƒãƒ©ãƒ«ï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "ƒ~ƒlƒ‰ƒ‹iÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "ãƒŸãƒãƒ©ãƒ«ï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralMax(value);
         }
-        else if (vvs.at(i).at(1) == "…•ªiŒ»İ’lj")
+        else if (vvs.at(i).at(1) == "æ°´åˆ†ï¼ˆç¾åœ¨å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "…•ªiÅ‘å’lj")
+        else if (vvs.at(i).at(1) == "æ°´åˆ†ï¼ˆæœ€å¤§å€¤ï¼‰")
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterMax(value);
         }
-        else if (vvs.at(i).at(1) == "˜rœÜ")
+        else if (vvs.at(i).at(1) == "è…•éª¨æŠ˜")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetFractureArm(true);
             }
@@ -500,9 +500,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureArm(false);
             }
         }
-        else if (vvs.at(i).at(1) == "‘«œÜ")
+        else if (vvs.at(i).at(1) == "è¶³éª¨æŠ˜")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetFractureLeg(true);
             }
@@ -511,9 +511,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureLeg(false);
             }
         }
-        else if (vvs.at(i).at(1) == "“ª’É")
+        else if (vvs.at(i).at(1) == "é ­ç—›")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetHeadache(true);
             }
@@ -522,9 +522,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetHeadache(false);
             }
         }
-        else if (vvs.at(i).at(1) == "•—×")
+        else if (vvs.at(i).at(1) == "é¢¨é‚ª")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetCold(true);
             }
@@ -533,9 +533,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetCold(false);
             }
         }
-        else if (vvs.at(i).at(1) == "• ’É")
+        else if (vvs.at(i).at(1) == "è…¹ç—›")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetStomachache(true);
             }
@@ -544,9 +544,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetStomachache(false);
             }
         }
-        else if (vvs.at(i).at(1) == "‡–°")
+        else if (vvs.at(i).at(1) == "ç¡çœ ")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetSleep(true);
             }
@@ -555,9 +555,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetSleep(false);
             }
         }
-        else if (vvs.at(i).at(1) == "’E…Çó")
+        else if (vvs.at(i).at(1) == "è„±æ°´ç—‡çŠ¶")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetDehydration(true);
             }
@@ -566,9 +566,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetDehydration(false);
             }
         }
-        else if (vvs.at(i).at(1) == "‡–°•s‘«")
+        else if (vvs.at(i).at(1) == "ç¡çœ ä¸è¶³")
         {
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_status.SetLackOfSleep(true);
             }
@@ -577,7 +577,7 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetLackOfSleep(false);
             }
         }
-        else if (vvs.at(i).at(1) == "‘•”õ•ŠíID")
+        else if (vvs.at(i).at(1) == "è£…å‚™æ­¦å™¨ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -591,7 +591,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_EquipWeapon = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "‘•”õ•ŠíSubID")
+        else if (vvs.at(i).at(1) == "è£…å‚™æ­¦å™¨SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -602,7 +602,7 @@ void StatusManager::Init(const std::string& csvfile,
                 int work = std::stoi(vvs.at(i).at(2));
                 m_EquipWeapon.SetSubId(work);
 
-                // ‘Ï‹v’l‚ğ•Û‘¶
+                // è€ä¹…å€¤ã‚’ä¿å­˜
                 if (work != -1)
                 {
                     Inventory* inventory = Inventory::GetObj();
@@ -626,37 +626,37 @@ void StatusManager::Init(const std::string& csvfile,
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetZ(value);
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌŒoŒ±’li‰Šj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®çµŒé¨“å€¤ï¼ˆç‚ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceFire = value;
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌŒoŒ±’li•Xj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®çµŒé¨“å€¤ï¼ˆæ°·ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceIce = value;
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌŒoŒ±’liˆÅj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®çµŒé¨“å€¤ï¼ˆé—‡ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceDark = value;
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌƒŒƒxƒ‹i‰Šj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆç‚ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelFire = value;
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌƒŒƒxƒ‹i•Xj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆæ°·ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelIce = value;
         }
-        else if (vvs.at(i).at(1) == "–‚–@‚ÌƒŒƒxƒ‹iˆÅj")
+        else if (vvs.at(i).at(1) == "é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆé—‡ï¼‰")
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelDark = value;
         }
-        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü1ID")
+        else if (vvs.at(i).at(1) == "èƒŒä¸­ã®è¢‹1ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -670,7 +670,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Back1] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü1SubID")
+        else if (vvs.at(i).at(1) == "èƒŒä¸­ã®è¢‹1SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -690,7 +690,7 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü2ID")
+        else if (vvs.at(i).at(1) == "èƒŒä¸­ã®è¢‹2ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -704,7 +704,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Back2] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "”w’†‚Ì‘Ü2SubID")
+        else if (vvs.at(i).at(1) == "èƒŒä¸­ã®è¢‹2SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -724,7 +724,7 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "• ‚Ì‘ÜID")
+        else if (vvs.at(i).at(1) == "è…¹ã®è¢‹ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -738,7 +738,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Front] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "• ‚Ì‘ÜSubID")
+        else if (vvs.at(i).at(1) == "è…¹ã®è¢‹SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -758,7 +758,7 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "¶è‚Ì‘ÜID")
+        else if (vvs.at(i).at(1) == "å·¦æ‰‹ã®è¢‹ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -772,7 +772,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Left] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "¶è‚Ì‘ÜSubID")
+        else if (vvs.at(i).at(1) == "å·¦æ‰‹ã®è¢‹SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -792,7 +792,7 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "‰Eè‚Ì‘ÜID")
+        else if (vvs.at(i).at(1) == "å³æ‰‹ã®è¢‹ID")
         {
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == "")
@@ -806,7 +806,7 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Right] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "‰Eè‚Ì‘ÜSubID")
+        else if (vvs.at(i).at(1) == "å³æ‰‹ã®è¢‹SubID")
         {
             if (vvs.at(i).at(2) == "")
             {
@@ -834,21 +834,21 @@ void StatusManager::Init(const std::string& csvfile,
 void StatusManager::Update()
 {
     //-----------------------------------------------
-    // ƒvƒŒƒCƒ„[‚Ìó‘Ô‚É‚æ‚èA™X‚ÉƒXƒ^ƒ~ƒi‚ğ’á‰º‚³‚¹‚éB
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã«ã‚ˆã‚Šã€å¾ã€…ã«ã‚¹ã‚¿ãƒŸãƒŠã‚’ä½ä¸‹ã•ã›ã‚‹ã€‚
     //
-    // ‰½‚à‚µ‚Ä‚¢‚È‚¢ê‡
+    // ä½•ã‚‚ã—ã¦ã„ãªã„å ´åˆ
     //
-    // ‘Ì‚Ì‘Ì—Í
-    //      12ŠÔ‚Å50“Á”ï
+    // ä½“ã®ä½“åŠ›
+    //      12æ™‚é–“ã§50ï¼…æ¶ˆè²»
     //
-    // ‘Ì‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l
-    //      12ŠÔ‚Å25“Á”ï
+    // ä½“ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤
+    //      12æ™‚é–“ã§25ï¼…æ¶ˆè²»
     //
-    // ”]‚Ì‘Ì—Í
-    //      12ŠÔ‚Å100“Á”ï
+    // è„³ã®ä½“åŠ›
+    //      12æ™‚é–“ã§100ï¼…æ¶ˆè²»
     //
-    // ”]‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l
-    //      12ŠÔ‚Å50“Á”ï
+    // è„³ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤
+    //      12æ™‚é–“ã§50ï¼…æ¶ˆè²»
     //
     //-----------------------------------------------
 
@@ -860,22 +860,22 @@ void StatusManager::Update()
     float brainStaminaMaxSub = m_status.GetBrainStaminaMaxSub();
     float brainStaminaMax = m_status.GetBrainStaminaMax();
 
-    // ‘Ì‚Ì‘Ì—Í‚Æ‘Ì‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l‚Í12ŠÔ‚Å50“Œ¸­‚·‚é
+    // ä½“ã®ä½“åŠ›ã¨ä½“ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤ã¯12æ™‚é–“ã§50ï¼…æ¸›å°‘ã™ã‚‹
     float reduce12hourInGame = bodyStaminaMax * 0.5f;
 
-    // ‚»‚Ì‚½‚ß‘Ì‚Ì‘Ì—Í‚Æ‘Ì‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l‚Í1ŠÔ‚Å5“Œ¸­‚·‚é
+    // ãã®ãŸã‚ä½“ã®ä½“åŠ›ã¨ä½“ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤ã¯1æ™‚é–“ã§5ï¼…æ¸›å°‘ã™ã‚‹
     float reduce1hourInGame = reduce12hourInGame / 12.f;
 
-    // ‚»‚Ì‚½‚ß‘Ì‚Ì‘Ì—Í‚Æ‘Ì‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l‚Í1•b‚Å5“/ 3600 Œ¸­‚·‚é
+    // ãã®ãŸã‚ä½“ã®ä½“åŠ›ã¨ä½“ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤ã¯1ç§’ã§5ï¼…/ 3600 æ¸›å°‘ã™ã‚‹
     float reduce1secondInGame = reduce1hourInGame / (60.f * 60.f);
 
-    // ƒQ[ƒ€ƒvƒŒƒC1•b‚ÅƒQ[ƒ€“à‚Å12•bŒo‰ß‚·‚éB
-    // ‚»‚Ì‚½‚ßA‘Ì‚Ì‘Ì—Í‚Æ‘Ì‚Ì‘Ì—Í‚Ì‰ñ•œ‰Â”\’l‚Í
-    // ƒQ[ƒ€ƒvƒŒƒC1•b‚Å(5“/ 3600) * 12Œ¸­‚·‚é
+    // ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤1ç§’ã§ã‚²ãƒ¼ãƒ å†…ã§12ç§’çµŒéã™ã‚‹ã€‚
+    // ãã®ãŸã‚ã€ä½“ã®ä½“åŠ›ã¨ä½“ã®ä½“åŠ›ã®å›å¾©å¯èƒ½å€¤ã¯
+    // ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤1ç§’ã§(5ï¼…/ 3600) * 12æ¸›å°‘ã™ã‚‹
     float reduce1secondInReal = reduce1secondInGame * 12.f;
 
-    // 1•b‚Í60FPS‚Å‚ ‚é‚Æ‚µ‚Ä‚¢‚é‚Ì‚Å
-    // ƒQ[ƒ€ƒvƒŒƒC1ƒtƒŒ[ƒ€‚Å(5“/ 3600) * 12 / 60Œ¸­‚·‚é
+    // 1ç§’ã¯60FPSã§ã‚ã‚‹ã¨ã—ã¦ã„ã‚‹ã®ã§
+    // ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤1ãƒ•ãƒ¬ãƒ¼ãƒ ã§(5ï¼…/ 3600) * 12 / 60æ¸›å°‘ã™ã‚‹
     float reduce1FPSInReal = reduce1secondInReal / 60.f;
 
     float reduceBodyStamina1FPSInReal = reduce1FPSInReal;
@@ -894,11 +894,11 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::SIT)
     {
-        // ’Êí‚ÌÁ”ïƒXƒs[ƒh‚Ì5”{‚Ì‘¬“x‚Å‹t‚É‰ñ•œ‚µ‚Ä‚¢‚­
+        // é€šå¸¸æ™‚ã®æ¶ˆè²»ã‚¹ãƒ”ãƒ¼ãƒ‰ã®5å€ã®é€Ÿåº¦ã§é€†ã«å›å¾©ã—ã¦ã„ã
         reduceBodyStamina1FPSInReal *= -5.f;
         reduceBrainStamina1FPSInReal *= -5.f;
 
-        // ”]‚Ì‘Ì—Í‚ª20“ˆÈ‰º‚ÅÀ‚é‚ÆQ‚Ä‚µ‚Ü‚¤
+        // è„³ã®ä½“åŠ›ãŒ20ï¼…ä»¥ä¸‹ã§åº§ã‚‹ã¨å¯ã¦ã—ã¾ã†
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.2f)
         {
             m_status.SetSleep(true);
@@ -906,11 +906,11 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::LYING_DOWN)
     {
-        // ’Êí‚ÌÁ”ïƒXƒs[ƒh‚Ì10”{‚Ì‘¬“x‚Å‹t‚É‰ñ•œ‚µ‚Ä‚¢‚­
+        // é€šå¸¸æ™‚ã®æ¶ˆè²»ã‚¹ãƒ”ãƒ¼ãƒ‰ã®10å€ã®é€Ÿåº¦ã§é€†ã«å›å¾©ã—ã¦ã„ã
         reduceBodyStamina1FPSInReal *= -10.f;
         reduceBrainStamina1FPSInReal *= -10.f;
 
-        // ”]‚Ì‘Ì—Í‚ª50“ˆÈ‰º‚Å‰¡‚É‚È‚é‚ÆQ‚Ä‚µ‚Ü‚¤
+        // è„³ã®ä½“åŠ›ãŒ50ï¼…ä»¥ä¸‹ã§æ¨ªã«ãªã‚‹ã¨å¯ã¦ã—ã¾ã†
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.5f)
         {
             m_status.SetSleep(true);
@@ -918,7 +918,7 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::IDLE_WATER)
     {
-        // ‘Ì—ÍÁ”ï3”{
+        // ä½“åŠ›æ¶ˆè²»3å€
         reduceBodyStamina1FPSInReal *= 3.f;
         reduceBodyStaminaMaxSub1FPSInReal *= 3.f;
 
@@ -927,7 +927,7 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::SWIM)
     {
-        // ‘Ì—ÍÁ”ï10”{
+        // ä½“åŠ›æ¶ˆè²»10å€
         reduceBodyStamina1FPSInReal *= 10.f;
         reduceBodyStaminaMaxSub1FPSInReal *= 10.f;
 
@@ -936,13 +936,13 @@ void StatusManager::Update()
     }
 
     //------------------------------------
-    // …•ª
-    // 1“‚Å‚à‰º‚ª‚é‚ÆƒXƒ^ƒ~ƒi‚Ì‰º‚ª‚è‚â‚·‚³‚ªˆ«‰»‚·‚é
-    // 1“‰º‚ª‚é‚½‚Ñ‚É‚³‚ç‚Éˆ«‰»‚·‚é
-    // …•ª‚ª90“‚É‚È‚é‚Æ€–S‚·‚é
-    // 99“‚¾‚Á‚½‚ç1.2”{
-    // 98“‚¾‚Á‚½‚ç1.4”{
-    // 97“‚¾‚Á‚½‚ç1.6”{
+    // æ°´åˆ†
+    // 1ï¼…ã§ã‚‚ä¸‹ãŒã‚‹ã¨ã‚¹ã‚¿ãƒŸãƒŠã®ä¸‹ãŒã‚Šã‚„ã™ã•ãŒæ‚ªåŒ–ã™ã‚‹
+    // 1ï¼…ä¸‹ãŒã‚‹ãŸã³ã«ã•ã‚‰ã«æ‚ªåŒ–ã™ã‚‹
+    // æ°´åˆ†ãŒ90ï¼…ã«ãªã‚‹ã¨æ­»äº¡ã™ã‚‹
+    // 99ï¼…ã ã£ãŸã‚‰1.2å€
+    // 98ï¼…ã ã£ãŸã‚‰1.4å€
+    // 97ï¼…ã ã£ãŸã‚‰1.6å€
     //------------------------------------
     {
         float work1 = 0.f;
@@ -951,7 +951,7 @@ void StatusManager::Update()
         work1 = m_status.GetWaterCurrent();
         work2 = m_status.GetWaterMax();
 
-        // Œ»İ‚ª99‚ÅÅ‘å‚ª100‚¾‚Á‚½‚ç0.99A‚ğ“¾‚é
+        // ç¾åœ¨ãŒ99ã§æœ€å¤§ãŒ100ã ã£ãŸã‚‰0.99ã€ã‚’å¾—ã‚‹
         work3 = work1 / work2;
 
         if (work3 <= 0.90f)
@@ -960,7 +960,7 @@ void StatusManager::Update()
             m_eDeadReason = eDeadReason::WATER_90;
         }
 
-        // 0.99‚ğ1.2‚É‚·‚é
+        // 0.99ã‚’1.2ã«ã™ã‚‹
         work3 *= 100.f;
         work3 = 100.f - work3;
         work3 *= 2.f;
@@ -975,12 +975,12 @@ void StatusManager::Update()
     }
 
     //------------------------------------
-    // “œ¿
-    // •s‘«‚µ‚Ä‚¢‚½‚çAƒXƒ^ƒ~ƒi‚Ì‰º‚ª‚è‚â‚·‚³‚ªˆ«‰»‚·‚é
-    // 40%‚ğ‰º‰ñ‚Á‚½‚ç1.2”{
-    // 20%‚É‚È‚Á‚½‚ç1.4”{
-    // 0%‚É‚È‚Á‚Ä‚à‰ì€‚Í‚µ‚È‚¢B‰–b‚ªÁ”ï‚³‚ê‚éB‰–b‚à0‚È‚ç‰ì€B
-    // 80%ˆÈã‚ ‚é‚Æ‹t‚ÉƒXƒ^ƒ~ƒi‚ğÁ”ï‚µ‚â‚·‚­‚È‚é
+    // ç³–è³ª
+    // ä¸è¶³ã—ã¦ã„ãŸã‚‰ã€ã‚¹ã‚¿ãƒŸãƒŠã®ä¸‹ãŒã‚Šã‚„ã™ã•ãŒæ‚ªåŒ–ã™ã‚‹
+    // 40%ã‚’ä¸‹å›ã£ãŸã‚‰1.2å€
+    // 20%ã«ãªã£ãŸã‚‰1.4å€
+    // 0%ã«ãªã£ã¦ã‚‚é¤“æ­»ã¯ã—ãªã„ã€‚è„‚è‚ªãŒæ¶ˆè²»ã•ã‚Œã‚‹ã€‚è„‚è‚ªã‚‚0ãªã‚‰é¤“æ­»ã€‚
+    // 80%ä»¥ä¸Šã‚ã‚‹ã¨é€†ã«ã‚¹ã‚¿ãƒŸãƒŠã‚’æ¶ˆè²»ã—ã‚„ã™ããªã‚‹
     //------------------------------------
     {
         float work1 = m_status.GetCarboCurrent();
@@ -1021,10 +1021,10 @@ void StatusManager::Update()
     }
 
     //------------------------------------
-    // ƒrƒ^ƒ~ƒ“
-    // •s‘«‚µ‚Ä‚¢‚½‚çAƒXƒ^ƒ~ƒi‚Ì‰º‚ª‚è‚â‚·‚³‚ªˆ«‰»‚·‚é
-    // 40%‚ğ‰º‰ñ‚Á‚½‚ç1.4”{
-    // 20%‚É‚È‚Á‚½‚ç1.2”{
+    // ãƒ“ã‚¿ãƒŸãƒ³
+    // ä¸è¶³ã—ã¦ã„ãŸã‚‰ã€ã‚¹ã‚¿ãƒŸãƒŠã®ä¸‹ãŒã‚Šã‚„ã™ã•ãŒæ‚ªåŒ–ã™ã‚‹
+    // 40%ã‚’ä¸‹å›ã£ãŸã‚‰1.4å€
+    // 20%ã«ãªã£ãŸã‚‰1.2å€
     //------------------------------------
     {
         float work1 = m_status.GetVitaminCurrent();
@@ -1049,10 +1049,10 @@ void StatusManager::Update()
     }
 
     //------------------------------------
-    // ƒ~ƒlƒ‰ƒ‹
-    // •s‘«‚µ‚Ä‚¢‚½‚çAƒXƒ^ƒ~ƒi‚Ì‰º‚ª‚è‚â‚·‚³‚ªˆ«‰»‚·‚é
-    // 20%‚ğ‰º‰ñ‚Á‚½‚ç1.2”{
-    // 0%‚É‚È‚Á‚½‚ç1.4”{
+    // ãƒŸãƒãƒ©ãƒ«
+    // ä¸è¶³ã—ã¦ã„ãŸã‚‰ã€ã‚¹ã‚¿ãƒŸãƒŠã®ä¸‹ãŒã‚Šã‚„ã™ã•ãŒæ‚ªåŒ–ã™ã‚‹
+    // 20%ã‚’ä¸‹å›ã£ãŸã‚‰1.2å€
+    // 0%ã«ãªã£ãŸã‚‰1.4å€
     //------------------------------------
     {
         float work1 = m_status.GetMineralCurrent();
@@ -1077,14 +1077,14 @@ void StatusManager::Update()
     }
 
     //------------------------------------
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Ìd—Ê
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Ìd—Ê‚É‚æ‚Á‚ÄƒXƒ^ƒ~ƒi‚Ì‰º‚ª‚è‚â‚·‚³‚ªˆ«‰»‚·‚é
-    // 0kg‚¾‚Á‚½‚ç1”{
-    // 10kg‚¾‚Á‚½‚ç1.2”{
-    // 20‡s‚¾‚Á‚½‚ç1.4”{
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã®é‡é‡
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã®é‡é‡ã«ã‚ˆã£ã¦ã‚¹ã‚¿ãƒŸãƒŠã®ä¸‹ãŒã‚Šã‚„ã™ã•ãŒæ‚ªåŒ–ã™ã‚‹
+    // 0kgã ã£ãŸã‚‰1å€
+    // 10kgã ã£ãŸã‚‰1.2å€
+    // 20ãã ã£ãŸã‚‰1.4å€
     //------------------------------------
     {
-        // À‚Á‚Ä‚¢‚½‚èA‰¡‚É‚È‚Á‚Ä‚¢‚½‚ç–³‹B
+        // åº§ã£ã¦ã„ãŸã‚Šã€æ¨ªã«ãªã£ã¦ã„ãŸã‚‰ç„¡è¦–ã€‚
         if (m_playerState != PlayerState::LYING_DOWN &&
             m_playerState != PlayerState::SIT)
         {
@@ -1103,7 +1103,7 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------
-    // ‰J‚ª~‚Á‚Ä‚¢‚½‚ç‘Ì—Í‚ÌÁ”ï‘¬“x‚ª1.5”{
+    // é›¨ãŒé™ã£ã¦ã„ãŸã‚‰ä½“åŠ›ã®æ¶ˆè²»é€Ÿåº¦ãŒ1.5å€
     //-----------------------------------------
     {
         if (RainModel::Get()->IsRain())
@@ -1117,7 +1117,7 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------
-    // ŒvZŒ‹‰Ê‚ğƒZƒbƒg
+    // è¨ˆç®—çµæœã‚’ã‚»ãƒƒãƒˆ
     //-----------------------------------------
 
     {
@@ -1140,7 +1140,7 @@ void StatusManager::Update()
     m_status.SetBrainStaminaCurrent(brainStaminaCurrent);
     m_status.SetBrainStaminaMaxSub(brainStaminaMaxSub);
 
-    // €–S
+    // æ­»äº¡
     if (bodyStaminaCurrent <= 0.f)
     {
         m_status.SetDead(true);
@@ -1148,9 +1148,9 @@ void StatusManager::Update()
     }
 
     //------------------------------------------------------
-    // ‘Ì“à‚ÌŒÜ‘å‰h—{‘f‚Æ…•ª‚ğŒ¸‚ç‚·
-    // ‚ß‚ñ‚Ç‚¤‚È‚Ì‚Åˆê—¥A24ŠÔ‚Å20“Œ¸­
-    // …‚Í24ŠÔ‚Å2“Œ¸­
+    // ä½“å†…ã®äº”å¤§æ „é¤Šç´ ã¨æ°´åˆ†ã‚’æ¸›ã‚‰ã™
+    // ã‚ã‚“ã©ã†ãªã®ã§ä¸€å¾‹ã€24æ™‚é–“ã§20ï¼…æ¸›å°‘
+    // æ°´ã¯24æ™‚é–“ã§2ï¼…æ¸›å°‘
     //------------------------------------------------------
     {
         float work1 = 0.f;
@@ -1160,7 +1160,7 @@ void StatusManager::Update()
         work2 /= 24.f;
         work2 /= 3600.f;
 
-        // 1•b‚ÅAƒQ[ƒ€“à‚Å‚Í12•bŒo‰ß‚·‚é
+        // 1ç§’ã§ã€ã‚²ãƒ¼ãƒ å†…ã§ã¯12ç§’çµŒéã™ã‚‹
         work2 *= 12.f;
 
         work1 = m_status.GetCarboCurrent();
@@ -1171,7 +1171,7 @@ void StatusManager::Update()
         work1 -= work2;
         m_status.SetProteinCurrent(work1);
 
-        // “œ¿‚ª‚È‚­‚È‚Á‚½‚ç‰–b‚Æƒ^ƒ“ƒpƒN¿‚ªÁ”ï‚³‚ê‚é
+        // ç³–è³ªãŒãªããªã£ãŸã‚‰è„‚è‚ªã¨ã‚¿ãƒ³ãƒ‘ã‚¯è³ªãŒæ¶ˆè²»ã•ã‚Œã‚‹
         if (m_status.GetCarboCurrent() <= 0.f)
         {
             work1 = m_status.GetLipidCurrent();
@@ -1197,7 +1197,7 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------------------
-    // ƒgƒŒ[ƒjƒ“ƒO•s‘« or ƒgƒŒ[ƒjƒ“ƒO\•ª
+    // ãƒˆãƒ¬ãƒ¼ãƒ‹ãƒ³ã‚°ä¸è¶³ or ãƒˆãƒ¬ãƒ¼ãƒ‹ãƒ³ã‚°ååˆ†
     //-----------------------------------------------------
     {
         float work1 = GetBodyStaminaCurrent();
@@ -1222,24 +1222,24 @@ void StatusManager::Update()
 
 
     //-----------------------------------------------------
-    // ’©8‚É‚È‚Á‚½‚ç‚¢‚­‚Â‚©‚ÌƒXƒe[ƒ^ƒX‚ğXV
+    // æœ8æ™‚ã«ãªã£ãŸã‚‰ã„ãã¤ã‹ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’æ›´æ–°
     //-----------------------------------------------------
     PowereggDateTime* dateTime = PowereggDateTime::GetObj();
     int currentDay = dateTime->GetDay();
     int currentHour = dateTime->GetHour();
 
     //--------------------------------------------------
-    // 1. ‘O‰ñ‚ª7‚Å¡‰ñ‚ª8‚È‚ç’©8‚ğ‰z‚¦‚Ä‚¢‚éB
-    // 2. ‘O‰ñA7‚Å¡‰ñ‚ª1‚ÌA”š‚Í¬‚³‚­‚È‚Á‚Ä‚¢‚é‚ª’©8‚ğ‰z‚¦‚Ä‚¢‚éB
-    // 3. ‚ª19‚©‚ç20‚É‚È‚Á‚Ä‚¢‚½‚ç’©8‚ğ‰z‚¦‚½‚Æ‚Í‚È‚ç‚È‚¢‚æ‚¤‚Év‚¦‚é‚ª
-    //    “ú•t‚ª1“ú‚©‚ç2“ú‚É‘ã‚í‚Á‚Ä‚¢‚½‚ç’©8‚ğ‰z‚¦‚Ä‚¢‚éB
-    // ˆê“x‚É24ŠÔˆÈãA‚ªi‚Ş‚±‚Æ‚Í‚È‚¢—\’è
+    // 1. å‰å›ãŒ7æ™‚ã§ä»Šå›ãŒ8æ™‚ãªã‚‰æœ8æ™‚ã‚’è¶Šãˆã¦ã„ã‚‹ã€‚
+    // 2. å‰å›ã€7æ™‚ã§ä»Šå›ãŒ1æ™‚ã®æ™‚ã€æ•°å­—ã¯å°ã•ããªã£ã¦ã„ã‚‹ãŒæœ8æ™‚ã‚’è¶Šãˆã¦ã„ã‚‹ã€‚
+    // 3. æ™‚åˆ»ãŒ19æ™‚ã‹ã‚‰20æ™‚ã«ãªã£ã¦ã„ãŸã‚‰æœ8æ™‚ã‚’è¶ŠãˆãŸã¨ã¯ãªã‚‰ãªã„ã‚ˆã†ã«æ€ãˆã‚‹ãŒ
+    //    æ—¥ä»˜ãŒ1æ—¥ã‹ã‚‰2æ—¥ã«ä»£ã‚ã£ã¦ã„ãŸã‚‰æœ8æ™‚ã‚’è¶Šãˆã¦ã„ã‚‹ã€‚
+    // ä¸€åº¦ã«24æ™‚é–“ä»¥ä¸Šã€æ™‚ãŒé€²ã‚€ã“ã¨ã¯ãªã„äºˆå®š
     //--------------------------------------------------
 
-    // “ú•t‚ª0‚È‚çˆ—‚µ‚È‚¢
+    // æ—¥ä»˜ãŒ0ãªã‚‰å‡¦ç†ã—ãªã„
     if (m_previousDay != 0)
     {
-        // “ú•t‚ª•Ï‚í‚Á‚Ä‚¢‚È‚¢ƒpƒ^[ƒ“
+        // æ—¥ä»˜ãŒå¤‰ã‚ã£ã¦ã„ãªã„ãƒ‘ã‚¿ãƒ¼ãƒ³
         if (m_previousDay == currentDay)
         {
             if (m_previousHour <= 7 && currentHour >= 8)
@@ -1247,10 +1247,10 @@ void StatusManager::Update()
                 m_over8clock = true;
             }
         }
-        // “ú•t‚ªi‚ñ‚Å‚¢‚éƒpƒ^[ƒ“
+        // æ—¥ä»˜ãŒé€²ã‚“ã§ã„ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³
         else if (m_previousDay < currentDay)
         {
-            // ‘O‰ñ‚ª7‚æ‚è‘O‚È‚ç8‚ğ‚Ü‚½‚¢‚Å‚¢‚é
+            // å‰å›ãŒ7æ™‚ã‚ˆã‚Šå‰ãªã‚‰8æ™‚ã‚’ã¾ãŸã„ã§ã„ã‚‹
             if (m_previousHour <= 7)
             {
                 m_over8clock = true;
@@ -1268,17 +1268,17 @@ void StatusManager::Update()
     {
         m_over8clock = false;
 
-        // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ª70“ˆÈ‰º‚É‚È‚Á‚½‚±‚Æ‚ªˆê“ú‚É1“x‚à‚È‚©‚Á‚½‚ç
-        // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ÌÅ‘å’l‚ª1“‰º‚ª‚é
-        // u”­—Í‚ÌÅ‘å’l‚ª1“‰º‚ª‚é
-        // ƒgƒŒ[ƒjƒ“ƒO•s‘«
+        // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠãŒ70ï¼…ä»¥ä¸‹ã«ãªã£ãŸã“ã¨ãŒä¸€æ—¥ã«1åº¦ã‚‚ãªã‹ã£ãŸã‚‰
+        // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠã®æœ€å¤§å€¤ãŒ1ï¼…ä¸‹ãŒã‚‹
+        // ç¬ç™ºåŠ›ã®æœ€å¤§å€¤ãŒ1ï¼…ä¸‹ãŒã‚‹
+        // ãƒˆãƒ¬ãƒ¼ãƒ‹ãƒ³ã‚°ä¸è¶³
         if (!m_training70)
         {
             float work = GetBodyStaminaMax();
             work *= 0.99f;
             SetBodyStaminaMax(work);
 
-            // ‰ñ•œ‰Â”\’l‚ªÅ‘å’l‚ğ’´‚¦‚Ä‚Í‚È‚ç‚È‚¢B
+            // å›å¾©å¯èƒ½å€¤ãŒæœ€å¤§å€¤ã‚’è¶…ãˆã¦ã¯ãªã‚‰ãªã„ã€‚
             if (GetBodyStaminaMaxSub() > work)
             {
                 SetBodyStaminaMaxSub(work);
@@ -1288,16 +1288,16 @@ void StatusManager::Update()
             work *= 0.99f;
             SetExplosivePower(work);
         }
-        // g‘Ì‚ÌƒXƒ^ƒ~ƒi‚ª30“ˆÈ‰º‚É‚È‚Á‚½‚±‚Æ‚ªˆê“ú‚É1“x‚Å‚à‚ ‚ê‚Î
-        // g‘Ì‚ÌƒXƒ^ƒ~ƒi‚ÌÅ‘å’l‚ª1“ã‚ª‚é
-        // u”­—Í‚ÌÅ‘å’l‚ª1“ã‚ª‚é
+        // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠãŒ30ï¼…ä»¥ä¸‹ã«ãªã£ãŸã“ã¨ãŒä¸€æ—¥ã«1åº¦ã§ã‚‚ã‚ã‚Œã°
+        // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠã®æœ€å¤§å€¤ãŒ1ï¼…ä¸ŠãŒã‚‹
+        // ç¬ç™ºåŠ›ã®æœ€å¤§å€¤ãŒ1ï¼…ä¸ŠãŒã‚‹
         else if (m_training30)
         {
             float work = GetBodyStaminaMax();
             work *= 1.01f;
             SetBodyStaminaMax(work);
 
-            // ‰ñ•œ‰Â”\’l‚ªÅ‘å’l‚ğ’´‚¦‚Ä‚Í‚È‚ç‚È‚¢B
+            // å›å¾©å¯èƒ½å€¤ãŒæœ€å¤§å€¤ã‚’è¶…ãˆã¦ã¯ãªã‚‰ãªã„ã€‚
             if (GetBodyStaminaMaxSub() > work)
             {
                 SetBodyStaminaMaxSub(work);
@@ -1318,7 +1318,7 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------------------------
-    // Œ_–ñ‚µ‚Ä1”NŒo‰ß‚µ‚Ä‚¢‚½‚ç€–S
+    // å¥‘ç´„ã—ã¦1å¹´çµŒéã—ã¦ã„ãŸã‚‰æ­»äº¡
     //-----------------------------------------------------------
     Rynen* rynen = Rynen::GetObj();
     if (rynen->GetContracted())
@@ -1360,11 +1360,11 @@ void StatusManager::Update()
     }
 
     //----------------------------------------------------
-    // ó‘ÔˆÙí‚Ì¡—Ã
-    // ŠÔŒo‰ß‚Å‚µ‚©¡‚ç‚È‚¢B
-    // •—×F5“ú
-    // ˜rœÜE‘«œÜF90“ú
-    // “ª’ÉE• ’ÉF1“úi24ŠÔj
+    // çŠ¶æ…‹ç•°å¸¸ã®æ²»ç™‚
+    // æ™‚é–“çµŒéã§ã—ã‹æ²»ã‚‰ãªã„ã€‚
+    // é¢¨é‚ªï¼š5æ—¥
+    // è…•éª¨æŠ˜ãƒ»è¶³éª¨æŠ˜ï¼š90æ—¥
+    // é ­ç—›ãƒ»è…¹ç—›ï¼š1æ—¥ï¼ˆï¼24æ™‚é–“ï¼‰
     //----------------------------------------------------
     if (m_status.GetCold())
     {
@@ -1377,7 +1377,7 @@ void StatusManager::Update()
 
     if (m_status.GetFractureArm())
     {
-        // ŒÜ‘å‰h—{‘f‚ª”¼•ªˆÈ‰º‚Ì‚Í‰ñ•œ‚ª~‚Ü‚é
+        // äº”å¤§æ „é¤Šç´ ãŒåŠåˆ†ä»¥ä¸‹ã®æ™‚ã¯å›å¾©ãŒæ­¢ã¾ã‚‹
         if (m_status.GetCarboCurrent() / m_status.GetCarboMax() >= 0.5f &&
             m_status.GetProteinCurrent() / m_status.GetProteinMax() >= 0.5f &&
             m_status.GetLipidCurrent() / m_status.GetLipidMax() >= 0.5f &&
@@ -1395,7 +1395,7 @@ void StatusManager::Update()
 
     if (m_status.GetFractureLeg())
     {
-        // ŒÜ‘å‰h—{‘f‚ª”¼•ªˆÈ‰º‚Ì‚Í‰ñ•œ‚ª~‚Ü‚é
+        // äº”å¤§æ „é¤Šç´ ãŒåŠåˆ†ä»¥ä¸‹ã®æ™‚ã¯å›å¾©ãŒæ­¢ã¾ã‚‹
         if (m_status.GetCarboCurrent() / m_status.GetCarboMax() >= 0.5f &&
             m_status.GetProteinCurrent() / m_status.GetProteinMax() >= 0.5f &&
             m_status.GetLipidCurrent() / m_status.GetLipidMax() >= 0.5f &&
@@ -1464,163 +1464,163 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("ID");
-    vs.push_back("ƒXƒe[ƒ^ƒX–¼");
-    vs.push_back("’l");
+    vs.push_back("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å");
+    vs.push_back("å€¤");
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("1");
-    vs.push_back("‘Ì‚ÌƒXƒ^ƒ~ƒiiŒ»İ’lj");
+    vs.push_back("ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetBodyStaminaCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("2");
-    vs.push_back("‘Ì‚ÌƒXƒ^ƒ~ƒiiÅ‘å’lj");
+    vs.push_back("ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetBodyStaminaMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("3");
-    vs.push_back("‘Ì‚ÌƒXƒ^ƒ~ƒii‰ñ•œ‰Â”\’lj");
+    vs.push_back("ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆå›å¾©å¯èƒ½å€¤ï¼‰");
     work = std::to_string(m_status.GetBodyStaminaMaxSub());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("4");
-    vs.push_back("”]‚ÌƒXƒ^ƒ~ƒiiŒ»İ’lj");
+    vs.push_back("è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetBrainStaminaCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("5");
-    vs.push_back("”]‚ÌƒXƒ^ƒ~ƒiiÅ‘å’lj");
+    vs.push_back("è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetBrainStaminaMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("6");
-    vs.push_back("”]‚ÌƒXƒ^ƒ~ƒii‰ñ•œ‰Â”\’lj");
+    vs.push_back("è„³ã®ã‚¹ã‚¿ãƒŸãƒŠï¼ˆå›å¾©å¯èƒ½å€¤ï¼‰");
     work = std::to_string(m_status.GetBrainStaminaMaxSub());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("7");
-    vs.push_back("u”­—Í");
+    vs.push_back("ç¬ç™ºåŠ›");
     work = std::to_string(m_status.GetExplosivePower());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("8");
-    vs.push_back("“÷‘Ì‚ÌC•œ“xiŒ»İ’lj");
+    vs.push_back("è‚‰ä½“ã®ä¿®å¾©åº¦ï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetMuscleCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("9");
-    vs.push_back("“÷‘Ì‚ÌC•œ“xiÅ‘å’lj");
+    vs.push_back("è‚‰ä½“ã®ä¿®å¾©åº¦ï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetMuscleMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("10");
-    vs.push_back("“œ¿iŒ»İ’lj");
+    vs.push_back("ç³–è³ªï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetCarboCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("11");
-    vs.push_back("“œ¿iÅ‘å’lj");
+    vs.push_back("ç³–è³ªï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetCarboMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("12");
-    vs.push_back("ƒ^ƒ“ƒpƒN¿iŒ»İ’lj");
+    vs.push_back("ã‚¿ãƒ³ãƒ‘ã‚¯è³ªï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetProteinCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("13");
-    vs.push_back("ƒ^ƒ“ƒpƒN¿iÅ‘å’lj");
+    vs.push_back("ã‚¿ãƒ³ãƒ‘ã‚¯è³ªï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetProteinMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("14");
-    vs.push_back("‰¿iŒ»İ’lj");
+    vs.push_back("è„‚è³ªï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetLipidCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("15");
-    vs.push_back("‰¿iÅ‘å’lj");
+    vs.push_back("è„‚è³ªï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetLipidMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("16");
-    vs.push_back("ƒrƒ^ƒ~ƒ“iŒ»İ’lj");
+    vs.push_back("ãƒ“ã‚¿ãƒŸãƒ³ï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetVitaminCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("17");
-    vs.push_back("ƒrƒ^ƒ~ƒ“iÅ‘å’lj");
+    vs.push_back("ãƒ“ã‚¿ãƒŸãƒ³ï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetVitaminMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("18");
-    vs.push_back("ƒ~ƒlƒ‰ƒ‹iŒ»İ’lj");
+    vs.push_back("ãƒŸãƒãƒ©ãƒ«ï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetMineralCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("19");
-    vs.push_back("ƒ~ƒlƒ‰ƒ‹iÅ‘å’lj");
+    vs.push_back("ãƒŸãƒãƒ©ãƒ«ï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetMineralMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("20");
-    vs.push_back("…•ªiŒ»İ’lj");
+    vs.push_back("æ°´åˆ†ï¼ˆç¾åœ¨å€¤ï¼‰");
     work = std::to_string(m_status.GetWaterCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("21");
-    vs.push_back("…•ªiÅ‘å’lj");
+    vs.push_back("æ°´åˆ†ï¼ˆæœ€å¤§å€¤ï¼‰");
     work = std::to_string(m_status.GetWaterMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("22");
-    vs.push_back("˜rœÜ");
+    vs.push_back("è…•éª¨æŠ˜");
     if (m_status.GetFractureArm())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1630,10 +1630,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("23");
-    vs.push_back("‘«œÜ");
+    vs.push_back("è¶³éª¨æŠ˜");
     if (m_status.GetFractureLeg())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1643,10 +1643,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("24");
-    vs.push_back("“ª’É");
+    vs.push_back("é ­ç—›");
     if (m_status.GetHeadache())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1656,10 +1656,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("25");
-    vs.push_back("•—×");
+    vs.push_back("é¢¨é‚ª");
     if (m_status.GetCold())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1669,10 +1669,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("26");
-    vs.push_back("• ’É");
+    vs.push_back("è…¹ç—›");
     if (m_status.GetStomachache())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1682,10 +1682,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("27");
-    vs.push_back("‡–°");
+    vs.push_back("ç¡çœ ");
     if (m_status.GetSleep())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1695,10 +1695,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("28");
-    vs.push_back("’E…Çó");
+    vs.push_back("è„±æ°´ç—‡çŠ¶");
     if (m_status.GetDehydration())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1708,10 +1708,10 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("29");
-    vs.push_back("‡–°•s‘«");
+    vs.push_back("ç¡çœ ä¸è¶³");
     if (m_status.GetLackOfSleep())
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -1721,14 +1721,14 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("30");
-    vs.push_back("‘•”õ•ŠíID");
+    vs.push_back("è£…å‚™æ­¦å™¨ID");
     work = std::to_string(GetEquipWeapon().GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("31");
-    vs.push_back("‘•”õ•ŠíSubID");
+    vs.push_back("è£…å‚™æ­¦å™¨SubID");
     work = std::to_string(GetEquipWeapon().GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
@@ -1756,112 +1756,112 @@ void StatusManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("35");
-    vs.push_back("–‚–@‚ÌŒoŒ±’li‰Šj");
+    vs.push_back("é­”æ³•ã®çµŒé¨“å€¤ï¼ˆç‚ï¼‰");
     work = std::to_string(m_experienceFire);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("36");
-    vs.push_back("–‚–@‚ÌŒoŒ±’li•Xj");
+    vs.push_back("é­”æ³•ã®çµŒé¨“å€¤ï¼ˆæ°·ï¼‰");
     work = std::to_string(m_experienceIce);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("37");
-    vs.push_back("–‚–@‚ÌŒoŒ±’liˆÅj");
+    vs.push_back("é­”æ³•ã®çµŒé¨“å€¤ï¼ˆé—‡ï¼‰");
     work = std::to_string(m_experienceDark);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("38");
-    vs.push_back("–‚–@‚ÌƒŒƒxƒ‹i‰Šj");
+    vs.push_back("é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆç‚ï¼‰");
     work = std::to_string(m_levelFire);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("39");
-    vs.push_back("–‚–@‚ÌƒŒƒxƒ‹i•Xj");
+    vs.push_back("é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆæ°·ï¼‰");
     work = std::to_string(m_levelIce);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("40");
-    vs.push_back("–‚–@‚ÌƒŒƒxƒ‹iˆÅj");
+    vs.push_back("é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ï¼ˆé—‡ï¼‰");
     work = std::to_string(m_levelDark);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("41");
-    vs.push_back("”w’†‚Ì‘Ü1ID");
+    vs.push_back("èƒŒä¸­ã®è¢‹1ID");
     work = std::to_string(m_BagMap.at(eBagPos::Back1).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("42");
-    vs.push_back("”w’†‚Ì‘Ü1SubID");
+    vs.push_back("èƒŒä¸­ã®è¢‹1SubID");
     work = std::to_string(m_BagMap.at(eBagPos::Back1).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("43");
-    vs.push_back("”w’†‚Ì‘Ü2ID");
+    vs.push_back("èƒŒä¸­ã®è¢‹2ID");
     work = std::to_string(m_BagMap.at(eBagPos::Back2).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("44");
-    vs.push_back("”w’†‚Ì‘Ü2SubID");
+    vs.push_back("èƒŒä¸­ã®è¢‹2SubID");
     work = std::to_string(m_BagMap.at(eBagPos::Back2).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("45");
-    vs.push_back("• ‚Ì‘ÜID");
+    vs.push_back("è…¹ã®è¢‹ID");
     work = std::to_string(m_BagMap.at(eBagPos::Front).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("46");
-    vs.push_back("• ‚Ì‘ÜSubID");
+    vs.push_back("è…¹ã®è¢‹SubID");
     work = std::to_string(m_BagMap.at(eBagPos::Front).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("47");
-    vs.push_back("¶è‚Ì‘ÜID");
+    vs.push_back("å·¦æ‰‹ã®è¢‹ID");
     work = std::to_string(m_BagMap.at(eBagPos::Left).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("48");
-    vs.push_back("¶è‚Ì‘ÜSubID");
+    vs.push_back("å·¦æ‰‹ã®è¢‹SubID");
     work = std::to_string(m_BagMap.at(eBagPos::Left).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("49");
-    vs.push_back("‰Eè‚Ì‘ÜID");
+    vs.push_back("å³æ‰‹ã®è¢‹ID");
     work = std::to_string(m_BagMap.at(eBagPos::Right).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
     vs.push_back("50");
-    vs.push_back("‰Eè‚Ì‘ÜSubID");
+    vs.push_back("å³æ‰‹ã®è¢‹SubID");
     work = std::to_string(m_BagMap.at(eBagPos::Right).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
@@ -1871,7 +1871,7 @@ void StatusManager::Save(const std::string& csvfile,
 
 float StatusManager::GetWalkSpeed()
 {
-    // Å‘åÏÚ—Ê‚ğ’´‚¦‚Ä‚¢‚½‚ç•à‚­‚±‚Æ‚ª‚Å‚«‚È‚¢
+    // æœ€å¤§ç©è¼‰é‡ã‚’è¶…ãˆã¦ã„ãŸã‚‰æ­©ãã“ã¨ãŒã§ããªã„
     {
         float work1 = Inventory::GetObj()->GetVolume();
         float work2 = Inventory::GetObj()->GetVolumeMax();
@@ -1885,35 +1885,35 @@ float StatusManager::GetWalkSpeed()
     float work = 0.f;
     bool work_b = false;
 
-    // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ª10“ˆÈ‰º‚É‚È‚é‚ÆˆÚ“®‘¬“x‚ª1/10‚É‚È‚éB
+    // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠãŒ10ï¼…ä»¥ä¸‹ã«ãªã‚‹ã¨ç§»å‹•é€Ÿåº¦ãŒ1/10ã«ãªã‚‹ã€‚
     if (m_status.GetBodyStaminaCurrent() < m_status.GetBodyStaminaMax() * 0.5f)
     {
         walkSpeed *= 0.1f;
     }
-    // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ª50“ˆÈ‰º‚É‚È‚é‚ÆˆÚ“®‘¬“x‚ª”¼•ª‚É‚È‚éB
+    // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠãŒ50ï¼…ä»¥ä¸‹ã«ãªã‚‹ã¨ç§»å‹•é€Ÿåº¦ãŒåŠåˆ†ã«ãªã‚‹ã€‚
     else if (m_status.GetBodyStaminaCurrent() < m_status.GetBodyStaminaMax() * 0.5f)
     {
         walkSpeed *= 0.5f;
     }
 
-    // u”­—Í‚ª‚‚¯‚ê‚Î•à‚­‚Ì‚ª‘‚­‚È‚é
-    // 100‚¾‚Á‚½‚ç1.0”{B110‚¾‚Á‚½‚ç1.1”{
+    // ç¬ç™ºåŠ›ãŒé«˜ã‘ã‚Œã°æ­©ãã®ãŒæ—©ããªã‚‹
+    // 100ã ã£ãŸã‚‰1.0å€ã€‚110ã ã£ãŸã‚‰1.1å€
     work = m_status.GetExplosivePower();
     walkSpeed *= work / 100.f;
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Ìd—Ê‚É‚æ‚Á‚Ä•às‘¬“x‚ğ’x‚­‚·‚é
-    // ”½”ä—á‚Ì®‚É‚µ‚½‚¢‚Ì‚Å
-    // 10‘«‚µ‚Ä10‚ğd—Ê(kg)‚ÅŠ„‚éB
-    // 0kg‚¾‚Á‚½‚ç1”{
-    // 10kg‚¾‚Á‚½‚ç0.5”{
-    // 100‡s‚¾‚Á‚½‚ç–ñ0.1”{
-    // 10000‡s‚¾‚Á‚½‚ç–ñ0.01”{
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã®é‡é‡ã«ã‚ˆã£ã¦æ­©è¡Œé€Ÿåº¦ã‚’é…ãã™ã‚‹
+    // åæ¯”ä¾‹ã®å¼ã«ã—ãŸã„ã®ã§
+    // 10è¶³ã—ã¦10ã‚’é‡é‡(kg)ã§å‰²ã‚‹ã€‚
+    // 0kgã ã£ãŸã‚‰1å€
+    // 10kgã ã£ãŸã‚‰0.5å€
+    // 100ãã ã£ãŸã‚‰ç´„0.1å€
+    // 10000ãã ã£ãŸã‚‰ç´„0.01å€
     Inventory* inventory = Inventory::GetObj();
     float weight = inventory->GetWeight();
     work = (weight + 10) / 10;
     walkSpeed *= work;
 
-    // ‘«‚ğœÜ‚µ‚Ä‚¢‚½‚çˆÚ“®‘¬“x‚ª90“ƒ_ƒEƒ“i0.1”{‚É‚È‚éj
+    // è¶³ã‚’éª¨æŠ˜ã—ã¦ã„ãŸã‚‰ç§»å‹•é€Ÿåº¦ãŒ90ï¼…ãƒ€ã‚¦ãƒ³ï¼ˆï¼0.1å€ã«ãªã‚‹ï¼‰
     work_b = m_status.GetFractureLeg();
     if (work_b)
     {
@@ -1921,7 +1921,7 @@ float StatusManager::GetWalkSpeed()
     }
 
     //-----------------------------------------
-    // ‰J‚ª~‚Á‚Ä‚¢‚½‚çˆÚ“®‘¬“x25“ƒ_ƒEƒ“
+    // é›¨ãŒé™ã£ã¦ã„ãŸã‚‰ç§»å‹•é€Ÿåº¦25ï¼…ãƒ€ã‚¦ãƒ³
     //-----------------------------------------
     {
         if (RainModel::Get()->IsRain())
@@ -1930,7 +1930,7 @@ float StatusManager::GetWalkSpeed()
         }
     }
 
-    // ”÷’²®
+    // å¾®èª¿æ•´
     walkSpeed *= 3.f;
 
     return walkSpeed;
@@ -1941,7 +1941,7 @@ float StatusManager::GetAttackPower()
     float result = 0.f;
     float work = 0.0;
 
-    // -1‚¾‚Á‚½‚ç•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢
+    // -1ã ã£ãŸã‚‰æ­¦å™¨ã‚’è£…å‚™ã—ã¦ã„ãªã„
     auto inventory = Inventory::GetObj();
     if (m_EquipWeapon.GetId() != -1)
     {
@@ -1951,11 +1951,11 @@ float StatusManager::GetAttackPower()
         auto weaponManager = WeaponManager::GetObj();
         auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
 
-        // ‘•”õ’†‚Ì•Ší‚ÌUŒ‚—Í
+        // è£…å‚™ä¸­ã®æ­¦å™¨ã®æ”»æ’ƒåŠ›
         double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
         result = (float)attackRate;
 
-        // ‘Ï‹v“x‚ª0‚¾‚Á‚½‚çUŒ‚—Í‚Í1‚É‚È‚é
+        // è€ä¹…åº¦ãŒ0ã ã£ãŸã‚‰æ”»æ’ƒåŠ›ã¯1ã«ãªã‚‹
         if (itemInfo.GetDurabilityCurrent() == 0)
         {
             result = 1.f;
@@ -1966,28 +1966,28 @@ float StatusManager::GetAttackPower()
         result = 1.f;
     }
 
-    // u”­—Í
+    // ç¬ç™ºåŠ›
     work = m_status.GetExplosivePower();
     result *= work;
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
-    // 10%Œ¸‚Á‚Ä‚¢‚½‚ç1%UŒ‚—Í‚ğ‰º‚°‚éB
-    // 20%Œ¸‚Á‚Ä‚¢‚½‚ç2%UŒ‚—Í‚ğ‰º‚°‚éB
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
+    // 10%æ¸›ã£ã¦ã„ãŸã‚‰1%æ”»æ’ƒåŠ›ã‚’ä¸‹ã’ã‚‹ã€‚
+    // 20%æ¸›ã£ã¦ã„ãŸã‚‰2%æ”»æ’ƒåŠ›ã‚’ä¸‹ã’ã‚‹ã€‚
     work = m_status.GetBrainStaminaCurrent() / m_status.GetBrainStaminaMax();
     work = (1.0f - work) / 10;
     result *= (1.0f - work);
 
-    // …•ª
-    // 1%Œ¸‚Á‚Ä‚¢‚½‚ç1%UŒ‚—Í‚ğ‰º‚°‚éB
-    // 2%Œ¸‚Á‚Ä‚¢‚½‚ç2%UŒ‚—Í‚ğ‰º‚°‚éB
+    // æ°´åˆ†
+    // 1%æ¸›ã£ã¦ã„ãŸã‚‰1%æ”»æ’ƒåŠ›ã‚’ä¸‹ã’ã‚‹ã€‚
+    // 2%æ¸›ã£ã¦ã„ãŸã‚‰2%æ”»æ’ƒåŠ›ã‚’ä¸‹ã’ã‚‹ã€‚
     work = m_status.GetWaterCurrent() / m_status.GetWaterMax();
     result *= work;
 
-    // d—Ê
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Ìd—Ê‚É‚æ‚Á‚ÄUŒ‚—Í‚ª’á‰º‚·‚é
-    // 0kg‚¾‚Á‚½‚ç1”{
-    // 10kg‚¾‚Á‚½‚ç0.9”{
-    // 100‡s‚¾‚Á‚½‚ç0”{
+    // é‡é‡
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã®é‡é‡ã«ã‚ˆã£ã¦æ”»æ’ƒåŠ›ãŒä½ä¸‹ã™ã‚‹
+    // 0kgã ã£ãŸã‚‰1å€
+    // 10kgã ã£ãŸã‚‰0.9å€
+    // 100ãã ã£ãŸã‚‰0å€
     //------------------------------------
     float weight = inventory->GetWeight();
     work = (1.f - (weight / 100.0f));
@@ -1997,54 +1997,54 @@ float StatusManager::GetAttackPower()
     }
     result *= work;
 
-    // “÷‘Ì‚ÌC•œ“x
+    // è‚‰ä½“ã®ä¿®å¾©åº¦
     work = m_status.GetMuscleCurrent() / m_status.GetMuscleMax();
     result *= work;
 
-    // ˜r‚Ìœ‚ªÜ‚ê‚Ä‚¢‚½‚ç90“ƒ_ƒEƒ“i0.1”{‚É‚È‚éj
+    // è…•ã®éª¨ãŒæŠ˜ã‚Œã¦ã„ãŸã‚‰90ï¼…ãƒ€ã‚¦ãƒ³ï¼ˆï¼0.1å€ã«ãªã‚‹ï¼‰
     if (m_status.GetFractureArm())
     {
         result *= 0.1f;
     }
 
-    // ‘«‚Ìœ‚ªÜ‚ê‚Ä‚¢‚½‚ç90“ƒ_ƒEƒ“i0.1”{‚É‚È‚éj
+    // è¶³ã®éª¨ãŒæŠ˜ã‚Œã¦ã„ãŸã‚‰90ï¼…ãƒ€ã‚¦ãƒ³ï¼ˆï¼0.1å€ã«ãªã‚‹ï¼‰
     if (m_status.GetFractureLeg())
     {
         result *= 0.1f;
     }
 
-    // •—×‚Ìê‡A50“ƒ_ƒEƒ“
+    // é¢¨é‚ªã®å ´åˆã€50ï¼…ãƒ€ã‚¦ãƒ³
     if (m_status.GetCold())
     {
         result *= 0.5f;
     }
 
-    // ’E…Çó‚Ìê‡A50“ƒ_ƒEƒ“
+    // è„±æ°´ç—‡çŠ¶ã®å ´åˆã€50ï¼…ãƒ€ã‚¦ãƒ³
     if (m_status.GetDehydration())
     {
         result *= 0.5f;
     }
 
-    // “ª’É‚Ìê‡A50“ƒ_ƒEƒ“
+    // é ­ç—›ã®å ´åˆã€50ï¼…ãƒ€ã‚¦ãƒ³
     if (m_status.GetHeadache())
     {
         result *= 0.5f;
     }
 
-    // • ’É‚Ìê‡A50“ƒ_ƒEƒ“
+    // è…¹ç—›ã®å ´åˆã€50ï¼…ãƒ€ã‚¦ãƒ³
     if (m_status.GetStomachache())
     {
         result *= 0.5f;
     }
 
-    // ¶è‚É‘Ü‚ğ‚Á‚Ä‚¢‚½‚çUŒ‚—Í‚ª”¼Œ¸‚·‚é
+    // å·¦æ‰‹ã«è¢‹ã‚’æŒã£ã¦ã„ãŸã‚‰æ”»æ’ƒåŠ›ãŒåŠæ¸›ã™ã‚‹
     if (GetBag(eBagPos::Left).GetId() != -1)
     {
         result *= 0.5f;
     }
 
     //-----------------------------------------
-    // ‰J‚ª~‚Á‚Ä‚¢‚½‚çUŒ‚—Í25“ƒ_ƒEƒ“
+    // é›¨ãŒé™ã£ã¦ã„ãŸã‚‰æ”»æ’ƒåŠ›25ï¼…ãƒ€ã‚¦ãƒ³
     //-----------------------------------------
     {
         if (RainModel::Get()->IsRain())
@@ -2053,7 +2053,7 @@ float StatusManager::GetAttackPower()
         }
     }
 
-    // UŒ‚—Í‚ªƒ}ƒCƒiƒXA‚Í‚ ‚è‚¦‚È‚¢B
+    // æ”»æ’ƒåŠ›ãŒãƒã‚¤ãƒŠã‚¹ã€ã¯ã‚ã‚Šãˆãªã„ã€‚
     if (result < 0.f)
     {
         result = 0.f;
@@ -2065,14 +2065,14 @@ float StatusManager::GetAttackPower()
 void StatusManager::ConsumeAttackCost()
 {
     //--------------------------------
-    // Á–Õ
-    // •Ší‚Ì‘Ï‹v“xAƒXƒ^ƒ~ƒiA‚»‚Ì‘¼A‘S•”Á–Õ‚·‚é
+    // æ¶ˆè€—
+    // æ­¦å™¨ã®è€ä¹…åº¦ã€ã‚¹ã‚¿ãƒŸãƒŠã€ãã®ä»–ã€å…¨éƒ¨æ¶ˆè€—ã™ã‚‹
     //--------------------------------
 
     int work_i = 0;
     float work_f = 0;
 
-    // •Ší‚Ì‘Ï‹v“x
+    // æ­¦å™¨ã®è€ä¹…åº¦
     if (m_EquipWeapon.GetId() != -1)
     {
         auto inventory = Inventory::GetObj();
@@ -2082,61 +2082,61 @@ void StatusManager::ConsumeAttackCost()
         m_EquipWeapon.SetDurabilityCurrent(dura - 1);
     }
 
-    // …•ª
+    // æ°´åˆ†
     work_f = m_status.GetWaterCurrent();
     m_status.SetWaterCurrent(work_f - 0.01f);
 
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     work_f = m_status.GetBodyStaminaCurrent();
     m_status.SetBodyStaminaCurrent(work_f - 0.01f);
 
-    // “÷‘Ì‚ÌC•œ“x
+    // è‚‰ä½“ã®ä¿®å¾©åº¦
     work_f = m_status.GetMuscleCurrent();
     if (m_EquipWeapon.GetId() != -1)
     {
         m_status.SetMuscleCurrent(work_f - 0.01f);
     }
-    // ‘fè‚¾‚Á‚½‚ç–Ò—ó‚ÉÁ–Õ‚·‚é
+    // ç´ æ‰‹ã ã£ãŸã‚‰çŒ›çƒˆã«æ¶ˆè€—ã™ã‚‹
     else
     {
         m_status.SetMuscleCurrent(work_f - 0.05f);
     }
 
     //---------------------------------------------
-    // ó‘ÔˆÙí‚ğˆ«‰»
+    // çŠ¶æ…‹ç•°å¸¸ã‚’æ‚ªåŒ–
     //---------------------------------------------
 
-    // •—×
+    // é¢¨é‚ª
     if (m_status.GetCold())
     {
         ++m_remainColdCure;
     }
 
-    // ˜r‚ÌœÜ
+    // è…•ã®éª¨æŠ˜
     if (m_status.GetFractureArm())
     {
         ++m_remainArmFracCure;
     }
 
-    // ‘«‚ÌœÜ
+    // è¶³ã®éª¨æŠ˜
     if (m_status.GetFractureLeg())
     {
         ++m_remainLegFracCure;
     }
 
-    // ’E…Çó
+    // è„±æ°´ç—‡çŠ¶
     if (m_status.GetDehydration())
     {
         ++m_remainDehydration;
     }
 
-    // “ª’É
+    // é ­ç—›
     if (m_status.GetHeadache())
     {
         ++m_remainHeadacheCure;
     }
 
-    // • ’É
+    // è…¹ç—›
     if (m_status.GetStomachache())
     {
         ++m_remainStomachacheCure;
@@ -2146,14 +2146,14 @@ void StatusManager::ConsumeAttackCost()
 float StatusManager::GetDefensePower()
 {
     // TODO
-    // “G‚ÌUŒ‚—ÍAålŒö‚Ìu”­—Í‚È‚Ç
+    // æ•µã®æ”»æ’ƒåŠ›ã€ä¸»äººå…¬ã®ç¬ç™ºåŠ›ãªã©
     return 1.0f;
 }
 
-// ƒjƒ‰orƒXƒCƒZƒ“EEE50“‚Å‚Í‚¸‚ê
-// Ô‚¢ÀEEE100“‚Í‚¸‚ê
-// ‚«‚Ì‚±EEE90“‚Í‚¸‚ê
-// ‘å‚«‚¢‚Ç‚ñ‚®‚èEEE100“‚Í‚¸‚ê
+// ãƒ‹ãƒ©orã‚¹ã‚¤ã‚»ãƒ³ãƒ»ãƒ»ãƒ»50ï¼…ã§ã¯ãšã‚Œ
+// èµ¤ã„å®Ÿãƒ»ãƒ»ãƒ»100ï¼…ã¯ãšã‚Œ
+// ãã®ã“ãƒ»ãƒ»ãƒ»90ï¼…ã¯ãšã‚Œ
+// å¤§ãã„ã©ã‚“ãã‚Šãƒ»ãƒ»ãƒ»100ï¼…ã¯ãšã‚Œ
 bool StatusManager::Eat(const ItemDef& itemDef)
 {
     if (itemDef.GetType() != ItemDef::ItemType::FOOD)
@@ -2165,17 +2165,17 @@ bool StatusManager::Eat(const ItemDef& itemDef)
 
     int rnd = rand();
 
-    // Ô‚¢À
+    // èµ¤ã„å®Ÿ
     if (itemDef.GetId() == 3)
     {
         bPoison = true;
     }
-    // ‘å‚«‚¢‚Ç‚ñ‚®‚è
+    // å¤§ãã„ã©ã‚“ãã‚Š
     else if (itemDef.GetId() == 9)
     {
         bPoison = true;
     }
-    // ƒjƒ‰ or ƒXƒCƒZƒ“
+    // ãƒ‹ãƒ© or ã‚¹ã‚¤ã‚»ãƒ³
     else if (itemDef.GetId() == 21)
     {
         if (rnd % 2 == 0)
@@ -2187,7 +2187,7 @@ bool StatusManager::Eat(const ItemDef& itemDef)
             bPoison = false;
         }
     }
-    // ƒLƒmƒR
+    // ã‚­ãƒã‚³
     else if (itemDef.GetId() == 22)
     {
         if (rnd % 10 == 0)
@@ -2204,7 +2204,7 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     work_f = m_status.GetSatiety();
     work_f += itemDef.GetCarbo();
 
-    // “œ¿‚ª100‚¾‚Á‚½‚ç–• ‚Å‚ ‚é‚Æ‚µ‚Ä‚±‚êˆÈãH‚×‚ç‚ê‚È‚¢B
+    // ç³–è³ªãŒ100ã ã£ãŸã‚‰æº€è…¹ã§ã‚ã‚‹ã¨ã—ã¦ã“ã‚Œä»¥ä¸Šé£Ÿã¹ã‚‰ã‚Œãªã„ã€‚
     if (work_f >= 100.f)
     {
         return false;
@@ -2272,14 +2272,14 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     return true;
 }
 
-// TODO ‚È‚ñ‚©•Ï
+// TODO ãªã‚“ã‹å¤‰
 bool StatusManager::Sleep()
 {
     PowereggDateTime* dateTime = PowereggDateTime::GetObj();
 
-    // ‰¼–°‚©‡–°‚©
-    // ”]‚Ì‘Ì—Í‚ª50“ˆÈ‰º‚Å‰¡‚É‚È‚Á‚½or”]‚Ì‘Ì—Í‚ª20“ˆÈ‰º‚ÅÀ‚Á‚½‚È‚ç‰½‚Å‚àQ‚Ä‚µ‚Ü‚¤B
-    // ‚±‚Ì‚Æ‚«A0‚¾‚Á‚½‚ç‡–°A‚»‚ê‚æ‚è‘O‚¾‚Á‚½‚ç‰¼–°‚É‚È‚éB
+    // ä»®çœ ã‹ç¡çœ ã‹
+    // è„³ã®ä½“åŠ›ãŒ50ï¼…ä»¥ä¸‹ã§æ¨ªã«ãªã£ãŸorè„³ã®ä½“åŠ›ãŒ20ï¼…ä»¥ä¸‹ã§åº§ã£ãŸãªã‚‰ä½•æ™‚ã§ã‚‚å¯ã¦ã—ã¾ã†ã€‚
+    // ã“ã®ã¨ãã€0æ™‚ã ã£ãŸã‚‰ç¡çœ ã€ãã‚Œã‚ˆã‚Šå‰ã ã£ãŸã‚‰ä»®çœ ã«ãªã‚‹ã€‚
     bool nap = false;
 
     if (7 <= dateTime->GetHour() && dateTime->GetHour() <= 23)
@@ -2300,8 +2300,8 @@ bool StatusManager::Sleep()
         }
         else
         {
-            // ‡–°•s‘«‚Å‚à‚È‚­AƒgƒŒ[ƒjƒ“ƒO‚à‚µ‚Ä‚¢‚È‚¢‚È‚ç
-            // 7~23‚ÌŠÔ‚ÉQ‚æ‚¤‚Æ‚µ‚Ä‚àQ‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B
+            // ç¡çœ ä¸è¶³ã§ã‚‚ãªãã€ãƒˆãƒ¬ãƒ¼ãƒ‹ãƒ³ã‚°ã‚‚ã—ã¦ã„ãªã„ãªã‚‰
+            // 7~23æ™‚ã®é–“ã«å¯ã‚ˆã†ã¨ã—ã¦ã‚‚å¯ã‚‹ã“ã¨ãŒã§ããªã„ã€‚
 //            if (m_training == false &&
 //                m_status.GetLackOfSleep() == false)
 //            {
@@ -2310,24 +2310,24 @@ bool StatusManager::Sleep()
         }
     }
 
-    // ŒÜ‘å‰h—{‘f‚Æ…•ª‚ğÁ”ï
+    // äº”å¤§æ „é¤Šç´ ã¨æ°´åˆ†ã‚’æ¶ˆè²»
     {
         float work1 = 0.f;
         float work2 = 0.f;
 
-        // “œ¿
+        // ç³–è³ª
         work1 = GetCarboCurrent();
         work1 *= 0.8f;
         work1 -= 5.f;
         if (work1 < 0.f)
         {
-            // “œ¿‚ª0‚È‚çA‰¿‚ªŒ¸‚é
+            // ç³–è³ªãŒ0ãªã‚‰ã€è„‚è³ªãŒæ¸›ã‚‹
             work2 = work1;
             work1 = 0.f;
         }
         SetCarboCurrent(work1);
 
-        // ƒ^ƒ“ƒpƒN¿
+        // ã‚¿ãƒ³ãƒ‘ã‚¯è³ª
         work1 = GetProteinCurrent();
         work1 *= 0.8f;
         work1 -= 5.f;
@@ -2337,7 +2337,7 @@ bool StatusManager::Sleep()
         }
         SetProteinCurrent(work1);
 
-        // ‰¿
+        // è„‚è³ª
         work1 = GetLipidCurrent();
         work1 += work2;
         if (work1 < 0.f)
@@ -2346,7 +2346,7 @@ bool StatusManager::Sleep()
         }
         SetLipidCurrent(work1);
 
-        // ƒrƒ^ƒ~ƒ“
+        // ãƒ“ã‚¿ãƒŸãƒ³
         work1 = GetVitaminCurrent();
         work1 *= 0.8f;
         work1 -= 5.f;
@@ -2356,7 +2356,7 @@ bool StatusManager::Sleep()
         }
         SetVitaminCurrent(work1);
 
-        // ƒ~ƒlƒ‰ƒ‹
+        // ãƒŸãƒãƒ©ãƒ«
         work1 = GetMineralCurrent();
         work1 *= 0.8f;
         work1 -= 5.f;
@@ -2366,7 +2366,7 @@ bool StatusManager::Sleep()
         }
         SetMineralCurrent(work1);
 
-        // …•ª
+        // æ°´åˆ†
         work1 = GetWaterCurrent();
         work1 -= 0.5f;
         if (work1 < 0.f)
@@ -2376,11 +2376,11 @@ bool StatusManager::Sleep()
         SetWaterCurrent(work1);
     }
 
-    // ‡–°i‰¼–°‚Å‚Í‚È‚¢j
+    // ç¡çœ ï¼ˆä»®çœ ã§ã¯ãªã„ï¼‰
     if (nap == false)
     {
-        // ”]‚Ì‘Ì—Í‚ÍQ‚½‚ç‘S‰õ‚·‚éB
-        // Q‚é‚Ì‚ª’x‚©‚Á‚½‚ç‰ñ•œ—Ê‚ª50“‚É§ŒÀ‚³‚ê‚é
+        // è„³ã®ä½“åŠ›ã¯å¯ãŸã‚‰å…¨å¿«ã™ã‚‹ã€‚
+        // å¯ã‚‹ã®ãŒé…ã‹ã£ãŸã‚‰å›å¾©é‡ãŒ50ï¼…ã«åˆ¶é™ã•ã‚Œã‚‹
         bool late = false;
 
         m_status.SetSleep(true);
@@ -2400,7 +2400,7 @@ bool StatusManager::Sleep()
             SetBrainStaminaMaxSub(work1);
             SetBrainStaminaCurrent(work1);
         }
-        // Q‚éŠÔ‚ª’x‚©‚Á‚½‚ç
+        // å¯ã‚‹æ™‚é–“ãŒé…ã‹ã£ãŸã‚‰
         else
         {
             work1 = GetBrainStaminaMax();
@@ -2414,12 +2414,12 @@ bool StatusManager::Sleep()
             m_status.SetLackOfSleep(true);
         }
 
-        // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ÍQ‚½‚çQ•s‘«‚Å‚à‘S‰õ‚·‚é
+        // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠã¯å¯ãŸã‚‰å¯ä¸è¶³ã§ã‚‚å…¨å¿«ã™ã‚‹
         work1 = GetBodyStaminaMax();
         SetBodyStaminaMaxSub(work1);
         SetBodyStaminaCurrent(work1);
 
-        // “÷‘Ì‚ÌC•œ“x
+        // è‚‰ä½“ã®ä¿®å¾©åº¦
         {
             work1 = GetMuscleCurrent();
             work2 = GetMuscleMax();
@@ -2432,7 +2432,7 @@ bool StatusManager::Sleep()
             SetMuscleCurrent(work1);
         }
 
-        // –‚–@ƒŒƒxƒ‹ƒAƒbƒv‚Ì‰Šú‰»
+        // é­”æ³•ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã®åˆæœŸåŒ–
         {
             m_levelUpFire = false;
             m_levelUpIce = false;
@@ -2443,14 +2443,14 @@ bool StatusManager::Sleep()
             m_levelDownDark = false;
         }
 
-        // ŒoŒ±’l‚Ì’á‰º
+        // çµŒé¨“å€¤ã®ä½ä¸‹
         {
             m_experienceFire -= 10;
             m_experienceIce -= 10;
             m_experienceDark -= 10;
         }
 
-        // –‚–@ƒŒƒxƒ‹‚Ìã¸
+        // é­”æ³•ãƒ¬ãƒ™ãƒ«ã®ä¸Šæ˜‡
         {
             if (m_experienceFire >= 100)
             {
@@ -2498,11 +2498,11 @@ bool StatusManager::Sleep()
             }
         }
 
-        // –‚–@‚ÌƒŒƒxƒ‹ƒ_ƒEƒ“
+        // é­”æ³•ã®ãƒ¬ãƒ™ãƒ«ãƒ€ã‚¦ãƒ³
         {
             if (m_experienceFire < 0)
             {
-                // -5‚¾‚Á‚½‚ç95‚É‚·‚é
+                // -5ã ã£ãŸã‚‰95ã«ã™ã‚‹
                 m_experienceFire = 100 + m_experienceFire;
                 --m_levelFire;
 
@@ -2519,7 +2519,7 @@ bool StatusManager::Sleep()
 
             if (m_experienceIce < 0)
             {
-                // -5‚¾‚Á‚½‚ç95‚É‚·‚é
+                // -5ã ã£ãŸã‚‰95ã«ã™ã‚‹
                 m_experienceIce = 100 + m_experienceIce;
                 --m_levelIce;
 
@@ -2536,7 +2536,7 @@ bool StatusManager::Sleep()
 
             if (m_experienceDark < 0)
             {
-                // -5‚¾‚Á‚½‚ç95‚É‚·‚é
+                // -5ã ã£ãŸã‚‰95ã«ã™ã‚‹
                 m_experienceDark = 100 + m_experienceDark;
                 --m_levelDark;
 
@@ -2552,25 +2552,25 @@ bool StatusManager::Sleep()
             }
         }
 
-        // ŠÔ‚ğ7ŠÔi‚ß‚é
+        // æ™‚é–“ã‚’7æ™‚é–“é€²ã‚ã‚‹
         dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
     }
-    // ‰¼–°
+    // ä»®çœ 
     else if (nap)
     {
-        // ”]‚ÌƒXƒ^ƒ~ƒi‚ÍQ‚½‚ç‘S‰õ‚·‚éB
+        // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠã¯å¯ãŸã‚‰å…¨å¿«ã™ã‚‹ã€‚
         float work = 0.f;
         float work2 = 0.f;
         work = GetBrainStaminaMax();
         SetBrainStaminaMaxSub(work);
         SetBrainStaminaCurrent(work);
 
-        // ‘Ì‚ÌƒXƒ^ƒ~ƒi‚ÍQ‚½‚ç‘S‰õ‚·‚é
+        // ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠã¯å¯ãŸã‚‰å…¨å¿«ã™ã‚‹
         work = GetBodyStaminaMax();
         SetBodyStaminaMaxSub(work);
         SetBodyStaminaCurrent(work);
 
-        // “÷‘Ì‚ÌC•œ“x
+        // è‚‰ä½“ã®ä¿®å¾©åº¦
         {
             work = GetMuscleCurrent();
             work2 = GetMuscleMax();
@@ -2583,7 +2583,7 @@ bool StatusManager::Sleep()
             SetMuscleCurrent(work);
         }
 
-        // ŠÔ‚ğ90•ªi‚ß‚é
+        // æ™‚é–“ã‚’90åˆ†é€²ã‚ã‚‹
         dateTime->IncreaseDateTime(0, 0, 1, 30, 0);
     }
     return true;
@@ -2593,7 +2593,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
 {
     float magni = 1.0f;
 
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         float work2 = 0.f;
@@ -2619,7 +2619,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         SetBodyStaminaCurrent(work);
     }
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         float work2 = 0.f;
@@ -2644,7 +2644,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         SetBrainStaminaCurrent(work);
     }
 
-    // …•ª
+    // æ°´åˆ†
     {
         float work = 0.f;
         work = GetWaterCurrent();
@@ -2653,7 +2653,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         SetWaterCurrent(work);
     }
 
-    // “÷‘Ì‚Ì‘¹
+    // è‚‰ä½“ã®æå‚·
     {
         auto work = GetMuscleCurrent();
         auto work2 = GetMuscleMax();
@@ -2666,23 +2666,23 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
 		SetMuscleCurrent(work);
     }
 
-    // ŒÜ‘å‰h—{‘f‚ğÁ”ï
+    // äº”å¤§æ „é¤Šç´ ã‚’æ¶ˆè²»
     {
         float work1 = 0.f;
         float work2 = 0.f;
 
-        // “œ¿
+        // ç³–è³ª
         work1 = GetCarboCurrent();
         work1 -= 5.f;
         if (work1 < 0.f)
         {
-            // “œ¿‚ª0‚È‚çA‰¿‚ªŒ¸‚é
+            // ç³–è³ªãŒ0ãªã‚‰ã€è„‚è³ªãŒæ¸›ã‚‹
             work2 = work1;
             work1 = 0.f;
         }
         SetCarboCurrent(work1);
 
-        // ƒ^ƒ“ƒpƒN¿
+        // ã‚¿ãƒ³ãƒ‘ã‚¯è³ª
         work1 = GetProteinCurrent();
         work1 -= 5.f;
         if (work1 < 0.f)
@@ -2691,7 +2691,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         }
         SetProteinCurrent(work1);
 
-        // ‰¿
+        // è„‚è³ª
         work1 = GetLipidCurrent();
         work1 += work2;
         if (work1 < 0.f)
@@ -2700,7 +2700,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         }
         SetLipidCurrent(work1);
 
-        // ƒrƒ^ƒ~ƒ“
+        // ãƒ“ã‚¿ãƒŸãƒ³
         work1 = GetVitaminCurrent();
         work1 -= 5.f;
         if (work1 < 0.f)
@@ -2709,7 +2709,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         }
         SetVitaminCurrent(work1);
 
-        // ƒ~ƒlƒ‰ƒ‹
+        // ãƒŸãƒãƒ©ãƒ«
         work1 = GetMineralCurrent();
         work1 -= 5.f;
         if (work1 < 0.f)
@@ -2771,20 +2771,20 @@ void StatusManager::DrinkWordBress(const float playerX,
     }
 }
 
-// TODO ‰pŒê‰»‘Î‰
+// TODO è‹±èªåŒ–å¯¾å¿œ
 void StatusManager::CutTree(const std::string& weapon, const int level)
 {
     //------------------------------------------------------
-    // •Ší‚Ìí—Ş‚â‹­‰»’l‚É‚æ‚Á‚ÄƒXƒ^ƒ~ƒiÁ–Õ‚ª•Ï‚í‚é‚æ‚¤‚É‚·‚é
+    // æ­¦å™¨ã®ç¨®é¡ã‚„å¼·åŒ–å€¤ã«ã‚ˆã£ã¦ã‚¹ã‚¿ãƒŸãƒŠæ¶ˆè€—ãŒå¤‰ã‚ã‚‹ã‚ˆã†ã«ã™ã‚‹
     //------------------------------------------------------
 
     float magni = 0.f;
 
-    if (weapon == "c’·‚ÌÎ")
+    if (weapon == "ç¸¦é•·ã®çŸ³")
     {
         magni = 1.f;
     }
-    else if (weapon == "Î•€")
+    else if (weapon == "çŸ³æ–§")
     {
         if (level == 0 || level == -1)
         {
@@ -2812,7 +2812,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
         }
     }
 
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBodyStaminaMaxSub();
@@ -2826,7 +2826,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
         SetBodyStaminaCurrent(work);
     }
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBrainStaminaMaxSub();
@@ -2840,7 +2840,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
         SetBrainStaminaCurrent(work);
     }
 
-    // …•ª
+    // æ°´åˆ†
     {
         float work = 0.f;
         work = GetWaterCurrent();
@@ -2849,10 +2849,10 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
         SetWaterCurrent(work);
     }
 
-    // “÷‘Ì‚Ì‘¹
+    // è‚‰ä½“ã®æå‚·
     {
         auto work = GetMuscleCurrent();
-        if (weapon == "c’·‚ÌÎ")
+        if (weapon == "ç¸¦é•·ã®çŸ³")
         {
             SetMuscleCurrent(work - (20.f * magni));
         }
@@ -2862,7 +2862,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
         }
     }
 
-    // ó‘ÔˆÙí‚Ìˆ«‰»
+    // çŠ¶æ…‹ç•°å¸¸ã®æ‚ªåŒ–
     {
         if (GetCold())
         {
@@ -2893,7 +2893,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
 
 void StatusManager::PickPlant()
 {
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBodyStaminaMaxSub();
@@ -2907,7 +2907,7 @@ void StatusManager::PickPlant()
         SetBodyStaminaCurrent(work);
     }
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBrainStaminaMaxSub();
@@ -2921,7 +2921,7 @@ void StatusManager::PickPlant()
         SetBrainStaminaCurrent(work);
     }
 
-    // …•ª
+    // æ°´åˆ†
     {
         float work = 0.f;
         work = GetWaterCurrent();
@@ -2930,7 +2930,7 @@ void StatusManager::PickPlant()
         SetWaterCurrent(work);
     }
 
-    // “÷‘Ì‚Ì‘¹
+    // è‚‰ä½“ã®æå‚·
     {
         auto work = GetMuscleCurrent();
         SetMuscleCurrent(work - 3.f);
@@ -2939,7 +2939,7 @@ void StatusManager::PickPlant()
 
 void StatusManager::PullOar()
 {
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBodyStaminaMaxSub();
@@ -2953,7 +2953,7 @@ void StatusManager::PullOar()
         SetBodyStaminaCurrent(work);
     }
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBrainStaminaMaxSub();
@@ -2967,7 +2967,7 @@ void StatusManager::PullOar()
         SetBrainStaminaCurrent(work);
     }
 
-    // …•ª
+    // æ°´åˆ†
     {
         float work = 0.f;
         work = GetWaterCurrent();
@@ -2976,7 +2976,7 @@ void StatusManager::PullOar()
         SetWaterCurrent(work);
     }
 
-    // “÷‘Ì‚Ì‘¹
+    // è‚‰ä½“ã®æå‚·
     {
         auto work = GetMuscleCurrent();
         SetMuscleCurrent(work - 0.01f);
@@ -2985,7 +2985,7 @@ void StatusManager::PullOar()
 
 void StatusManager::PullOarBoth()
 {
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBodyStaminaMaxSub();
@@ -2999,7 +2999,7 @@ void StatusManager::PullOarBoth()
         SetBodyStaminaCurrent(work);
     }
 
-    // ”]‚ÌƒXƒ^ƒ~ƒi
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠ
     {
         float work = 0.f;
         work = GetBrainStaminaMaxSub();
@@ -3013,7 +3013,7 @@ void StatusManager::PullOarBoth()
         SetBrainStaminaCurrent(work);
     }
 
-    // …•ª
+    // æ°´åˆ†
     {
         float work = 0.f;
         work = GetWaterCurrent();
@@ -3022,7 +3022,7 @@ void StatusManager::PullOarBoth()
         SetWaterCurrent(work);
     }
 
-    // “÷‘Ì‚Ì‘¹
+    // è‚‰ä½“ã®æå‚·
     {
         auto work = GetMuscleCurrent();
         SetMuscleCurrent(work - 0.02f);
@@ -3031,7 +3031,7 @@ void StatusManager::PullOarBoth()
 
 void StatusManager::Voyage3Hours()
 {
-    // 10•b‚Éˆê‰ñƒI[ƒ‹‚ğ‘†‚®A‚ğ3ŠÔ‘±‚¯‚½‚à‚Ì‚Æ‚·‚é
+    // 10ç§’ã«ä¸€å›ã‚ªãƒ¼ãƒ«ã‚’æ¼•ãã€ã‚’3æ™‚é–“ç¶šã‘ãŸã‚‚ã®ã¨ã™ã‚‹
     int count = 3600 * 3 / 10;
     for (int i = 0; i < count; ++i)
     {
@@ -3076,7 +3076,7 @@ float StatusManager::GetBrainStaminaCurrent() const
 
 void StatusManager::SetBrainStaminaCurrent(float arg)
 {
-    // ”]‚ÌƒXƒ^ƒ~ƒi‚ª0‚É‚È‚Á‚½‚ç‹Câ
+    // è„³ã®ã‚¹ã‚¿ãƒŸãƒŠãŒ0ã«ãªã£ãŸã‚‰æ°—çµ¶
     if (arg < 0.f)
     {
         arg = 0.f;
@@ -3270,7 +3270,7 @@ void StatusManager::SetFractureArm(bool arg)
 {
     if (arg)
     {
-        // ¡‚é‚Ì‚É90“ú(ƒQ[ƒ€“à‚Å180ŠÔ)‚©‚©‚éB
+        // æ²»ã‚‹ã®ã«90æ—¥(ã‚²ãƒ¼ãƒ å†…ã§180æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainArmFracCure = 3600 * 2 * 180;
     }
     m_status.SetFractureArm(arg);
@@ -3285,7 +3285,7 @@ void StatusManager::SetFractureLeg(bool arg)
 {
     if (arg)
     {
-        // ¡‚é‚Ì‚É90“ú(ƒQ[ƒ€“à‚Å180ŠÔ)‚©‚©‚éB
+        // æ²»ã‚‹ã®ã«90æ—¥(ã‚²ãƒ¼ãƒ å†…ã§180æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainLegFracCure = 3600 * 2 * 180;
     }
     m_status.SetFractureLeg(arg);
@@ -3300,7 +3300,7 @@ void StatusManager::SetHeadache(bool arg)
 {
     if (arg)
     {
-        // ¡‚é‚Ì‚É1“ú(ƒQ[ƒ€“à‚Å2ŠÔ)‚©‚©‚éB
+        // æ²»ã‚‹ã®ã«1æ—¥(ã‚²ãƒ¼ãƒ å†…ã§2æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainHeadacheCure = 3600 * 2;
     }
     m_status.SetHeadache(arg);
@@ -3315,7 +3315,7 @@ void StatusManager::SetCold(bool arg)
 {
     if (arg)
     {
-        // ¡‚é‚Ì‚É5“ú(ƒQ[ƒ€“à‚Å10ŠÔ)‚©‚©‚éB
+        // æ²»ã‚‹ã®ã«5æ—¥(ã‚²ãƒ¼ãƒ å†…ã§10æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainColdCure = 3600 * 2 * 10;
     }
     m_status.SetCold(arg);
@@ -3330,7 +3330,7 @@ void StatusManager::SetStomachache(bool arg)
 {
     if (arg)
     {
-        // • ’É‚Í¡‚é‚Ì‚É1“ú(ƒQ[ƒ€“à‚Å2ŠÔ)‚©‚©‚éB
+        // è…¹ç—›ã¯æ²»ã‚‹ã®ã«1æ—¥(ã‚²ãƒ¼ãƒ å†…ã§2æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainStomachacheCure = 3600 * 2;
     }
     m_status.SetStomachache(arg);
@@ -3355,7 +3355,7 @@ void StatusManager::SetDehydration(bool arg)
 {
     if (arg)
     {
-        // ¡‚é‚Ì‚É1“ú(ƒQ[ƒ€“à‚Å2ŠÔ)‚©‚©‚éB
+        // æ²»ã‚‹ã®ã«1æ—¥(ã‚²ãƒ¼ãƒ å†…ã§2æ™‚é–“)ã‹ã‹ã‚‹ã€‚
         m_remainDehydration = 3600 * 2;
     }
     m_status.SetDehydration(arg);
@@ -3398,7 +3398,7 @@ void StatusManager::SetEquipWeapon(const ItemInfo& arg)
 
 eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
 {
-    // ”w’†‚PA”w’†‚QA• A¶èA‰Eè‚Ì‡‚Å‘•”õ‚·‚éB
+    // èƒŒä¸­ï¼‘ã€èƒŒä¸­ï¼’ã€è…¹ã€å·¦æ‰‹ã€å³æ‰‹ã®é †ã§è£…å‚™ã™ã‚‹ã€‚
 
     eBagPos result = eBagPos::None;
 
@@ -3431,7 +3431,7 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
     }
 
 
-    // Å‘åÏÚ—Ê‚ÌÄŒvZ
+    // æœ€å¤§ç©è¼‰é‡ã®å†è¨ˆç®—
     Inventory::GetObj()->UpdateVolumeMax(GetAllBag());
 
     return result;
@@ -3445,13 +3445,13 @@ void NSStarmanLib::StatusManager::UnequipBag(const int id, const int subId)
 
 void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
 {
-    // w’è‚µ‚½ˆÊ’u‚Ì‘Ü‚ğŠO‚·
+    // æŒ‡å®šã—ãŸä½ç½®ã®è¢‹ã‚’å¤–ã™
     //
-    // ‚»‚ÌŒãA”w’†‚PA”w’†‚QA• A¶èA‰Eè‚Ì‡‚Å‘•”õ‚³‚ê‚é‚æ‚¤‚ÉAˆêŒÂ‚¸‚Â‚¸‚ç‚·
+    // ãã®å¾Œã€èƒŒä¸­ï¼‘ã€èƒŒä¸­ï¼’ã€è…¹ã€å·¦æ‰‹ã€å³æ‰‹ã®é †ã§è£…å‚™ã•ã‚Œã‚‹ã‚ˆã†ã«ã€ä¸€å€‹ãšã¤ãšã‚‰ã™
 
     ItemInfo work = m_BagMap.at(bagPos);
 
-    // ‚Ü‚¸A‘Ü‚ğŠO‚·
+    // ã¾ãšã€è¢‹ã‚’å¤–ã™
     if (bagPos != eBagPos::None)
     {
         m_BagMap.at(bagPos).SetId(-1);
@@ -3459,8 +3459,8 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
         m_BagMap.at(bagPos).SetDurabilityCurrent(-1);
     }
 
-    // Ÿ‚ÉA‘Ü‚ğˆÚ“®
-    // ˆêŒÂ‚¸‚Â‚¸‚ç‚·
+    // æ¬¡ã«ã€è¢‹ã‚’ç§»å‹•
+    // ä¸€å€‹ãšã¤ãšã‚‰ã™
 
     if (m_BagMap.at(eBagPos::Back1).GetId() == -1 &&
         m_BagMap.at(eBagPos::Back2).GetId() != -1)
@@ -3502,7 +3502,7 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
         m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(-1);
     }
 
-    // Å‘åÏÚ—Ê‚ÌÄŒvZ
+    // æœ€å¤§ç©è¼‰é‡ã®å†è¨ˆç®—
     Inventory::GetObj()->UpdateVolumeMax(GetAllBag());
 }
 
@@ -3577,9 +3577,9 @@ void NSStarmanLib::StatusManager::UpdateBagDurability()
             continue;
         }
 
-        // ‘Ü‚ğÌ‚Ä‚½ê‡AÌ‚Ä‚½‘Ü‚Ì‘Ï‹v’l‚Í‰º‚°‚æ‚¤‚Æ‚·‚é‚Æ
-        // ƒCƒ“ƒxƒ“ƒgƒŠ‚É‘¶İ‚µ‚È‚¢‚Ì‚Å—áŠO‚ª‹N‚«‚Ä‚µ‚Ü‚¤B
-        // ‘¶İ‚µ‚È‚¢‚È‚ç‘Ï‹v’l‚ğ‰º‚°‚È‚¢
+        // è¢‹ã‚’æ¨ã¦ãŸå ´åˆã€æ¨ã¦ãŸè¢‹ã®è€ä¹…å€¤ã¯ä¸‹ã’ã‚ˆã†ã¨ã™ã‚‹ã¨
+        // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«å­˜åœ¨ã—ãªã„ã®ã§ä¾‹å¤–ãŒèµ·ãã¦ã—ã¾ã†ã€‚
+        // å­˜åœ¨ã—ãªã„ãªã‚‰è€ä¹…å€¤ã‚’ä¸‹ã’ãªã„
         if (inventory->ExistItem(it->second.GetId(), it->second.GetSubId()))
         {
             auto itemInfo = inventory->GetItemInfo(it->second.GetId(), it->second.GetSubId());
@@ -3590,7 +3590,7 @@ void NSStarmanLib::StatusManager::UpdateBagDurability()
 
 void StatusManager::SetSuperStress()
 {
-    // ‹­‚¢ƒXƒgƒŒƒX‚ª‚ ‚Á‚½ê‡A”]‚Ì‘Ì—Í‚ª”¼•ª‚É‚È‚éBŒ»İ’n‚àÅ‘å’l‚à”¼•ª‚É‚È‚éB
+    // å¼·ã„ã‚¹ãƒˆãƒ¬ã‚¹ãŒã‚ã£ãŸå ´åˆã€è„³ã®ä½“åŠ›ãŒåŠåˆ†ã«ãªã‚‹ã€‚ç¾åœ¨åœ°ã‚‚æœ€å¤§å€¤ã‚‚åŠåˆ†ã«ãªã‚‹ã€‚
     float work = 0.f;
     work = GetBrainStaminaMax();
     work *= 0.5f;
@@ -3680,22 +3680,22 @@ eDeadReason NSStarmanLib::StatusManager::GetDeadReason() const
 void NSStarmanLib::StatusManager::ConsumeJumpCost()
 {
     //--------------------------------
-    // Á–Õ
-    // ƒXƒ^ƒ~ƒi‚ğÁ–Õ‚·‚é
+    // æ¶ˆè€—
+    // ã‚¹ã‚¿ãƒŸãƒŠã‚’æ¶ˆè€—ã™ã‚‹
     //--------------------------------
 
     int work_i = 0;
     float work_f = 0;
 
-    // …•ª
+    // æ°´åˆ†
     work_f = m_status.GetWaterCurrent();
     m_status.SetWaterCurrent(work_f - 0.01f);
 
-    // g‘Ì‚ÌƒXƒ^ƒ~ƒi
+    // èº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠ
     work_f = m_status.GetBodyStaminaCurrent();
     m_status.SetBodyStaminaCurrent(work_f - 0.01f);
 
-    // “÷‘Ì‚ÌC•œ“x
+    // è‚‰ä½“ã®ä¿®å¾©åº¦
     work_f = m_status.GetMuscleCurrent();
     if (m_EquipWeapon.GetId() != -1)
     {
@@ -3703,40 +3703,40 @@ void NSStarmanLib::StatusManager::ConsumeJumpCost()
     }
 
     //---------------------------------------------
-    // ó‘ÔˆÙí‚ğˆ«‰»
+    // çŠ¶æ…‹ç•°å¸¸ã‚’æ‚ªåŒ–
     //---------------------------------------------
 
-    // •—×
+    // é¢¨é‚ª
     if (m_status.GetCold())
     {
         ++m_remainColdCure;
     }
 
-    // ˜r‚ÌœÜ
+    // è…•ã®éª¨æŠ˜
     if (m_status.GetFractureArm())
     {
         ++m_remainArmFracCure;
     }
 
-    // ‘«‚ÌœÜ
+    // è¶³ã®éª¨æŠ˜
     if (m_status.GetFractureLeg())
     {
         ++m_remainLegFracCure;
     }
 
-    // ’E…Çó
+    // è„±æ°´ç—‡çŠ¶
     if (m_status.GetDehydration())
     {
         ++m_remainDehydration;
     }
 
-    // “ª’É
+    // é ­ç—›
     if (m_status.GetHeadache())
     {
         ++m_remainHeadacheCure;
     }
 
-    // • ’É
+    // è…¹ç—›
     if (m_status.GetStomachache())
     {
         ++m_remainStomachacheCure;

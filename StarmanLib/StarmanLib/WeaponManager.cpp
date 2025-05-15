@@ -1,4 +1,4 @@
-#include "WeaponManager.h"
+ï»¿#include "WeaponManager.h"
 #include "ItemManager.h"
 
 #include <iomanip>
@@ -29,7 +29,7 @@ void WeaponManager::Init(const std::string& csvfilename,
                          const std::string& savefilename,
                          const bool decrypt)
 {
-    // ItemManagerƒNƒ‰ƒX‚ÌInitŠÖ”‚ªæ‚ÉŒÄ‚Î‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚é
+    // ItemManagerã‚¯ãƒ©ã‚¹ã®Inité–¢æ•°ãŒå…ˆã«å‘¼ã°ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹
     {
         if (ItemManager::GetObj()->Inited() == false)
         {
@@ -37,11 +37,11 @@ void WeaponManager::Init(const std::string& csvfilename,
         }
     }
 
-    // •Šíƒf[ƒ^‚ğ“Ç‚Ş
+    // æ­¦å™¨ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚€
     {
         std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilename, decrypt);
 
-        // æ“ªs‚Í–³‹
+        // å…ˆé ­è¡Œã¯ç„¡è¦–
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             WeaponDef weaponDef;
@@ -66,11 +66,11 @@ void WeaponManager::Init(const std::string& csvfilename,
             m_weaponDefMap[weaponDef.GetWeaponId()] = weaponDef;
         }
     }
-    // •Û‘¶‚³‚ê‚½•Ší‚Ìî•ñ‚ğ“Ç‚İ‚Ş
+    // ä¿å­˜ã•ã‚ŒãŸæ­¦å™¨ã®æƒ…å ±ã‚’èª­ã¿è¾¼ã‚€
     {
         std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(savefilename, decrypt);
 
-        // æ“ªs‚Í–³‹
+        // å…ˆé ­è¡Œã¯ç„¡è¦–
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             std::string id = vvs.at(i).at(0);
@@ -91,19 +91,19 @@ void WeaponManager::Init(const std::string& csvfilename,
             }
         }
     }
-    // m_weaponDefSubList‚ğì‚é
-    // ‹­‰»’l‚²‚Æ‚É•Šíî•ñ‚ğ‚à‚Â”z—ñ
+    // m_weaponDefSubListã‚’ä½œã‚‹
+    // å¼·åŒ–å€¤ã”ã¨ã«æ­¦å™¨æƒ…å ±ã‚’ã‚‚ã¤é…åˆ—
     for (auto it = m_weaponDefMap.begin(); it != m_weaponDefMap.end(); ++it)
     {
         WeaponDef weaponDef = it->second;
 
-        // ‹­‰»’l‚Ì”‚¾‚¯ƒ‹[ƒv‚·‚é
+        // å¼·åŒ–å€¤ã®æ•°ã ã‘ãƒ«ãƒ¼ãƒ—ã™ã‚‹
         //
-        // Å‘å‹­‰»’l‚ª-1‚Ì‚Í‹­‰»–³‚µB
-        // ‚Â‚Ü‚èWeaponDefSub‚Í1‚Â•K—v‚É‚È‚é
+        // æœ€å¤§å¼·åŒ–å€¤ãŒ-1ã®æ™‚ã¯å¼·åŒ–ç„¡ã—ã€‚
+        // ã¤ã¾ã‚ŠWeaponDefSubã¯1ã¤å¿…è¦ã«ãªã‚‹
         // 
-        // Å‘å‹­‰»’l‚ª1‚Ì‚Æ‚«‚Í1“x‚Í‹­‰»‚Å‚«‚éB
-        // ‚Â‚Ü‚èWeaponDefSub‚Í2‚Â•K—v‚É‚È‚é
+        // æœ€å¤§å¼·åŒ–å€¤ãŒ1ã®ã¨ãã¯1åº¦ã¯å¼·åŒ–ã§ãã‚‹ã€‚
+        // ã¤ã¾ã‚ŠWeaponDefSubã¯2ã¤å¿…è¦ã«ãªã‚‹
         int loopNum = 0;
         if (weaponDef.GetReinforceMax() == -1)
         {
@@ -116,8 +116,8 @@ void WeaponManager::Init(const std::string& csvfilename,
 
         for (int i = 0; i < loopNum; ++i)
         {
-            // ‹­‰»’l‚Í0,1,2,3,4‚Æ‚¢‚¤‚æ‚¤‚É‚Í‚È‚ç‚¸
-            // -1,1,2,3,4,5‚Æ‚¢‚¤Š´‚¶‚É‚È‚é
+            // å¼·åŒ–å€¤ã¯0,1,2,3,4ã¨ã„ã†ã‚ˆã†ã«ã¯ãªã‚‰ãš
+            // -1,1,2,3,4,5ã¨ã„ã†æ„Ÿã˜ã«ãªã‚‹
             int level = 0;
             if (i == 0)
             {
@@ -141,15 +141,15 @@ void WeaponManager::Init(const std::string& csvfilename,
             double temp = 0.0;
             int temp_i = 0;
 
-            // UŒ‚—Í•â³’l
+            // æ”»æ’ƒåŠ›è£œæ­£å€¤
             temp = weaponDef.GetAttackRate() + (weaponDef.GetAttackRateUp() * level);
             weaponDefSub.SetAttackRate(temp);
 
-            // ”ò‹——£
+            // é£›è·é›¢
             temp = weaponDef.GetFlightDistance() + (weaponDef.GetFlightDistanceUp() * level);
             weaponDefSub.SetFlightDistance(temp);
 
-            // ‘Ï‹v—Í
+            // è€ä¹…åŠ›
             temp_i = weaponDef.GetDurability() + (weaponDef.GetDurabilityUp() * level);
             weaponDefSub.SetDurabilityMax(temp_i);
 
@@ -166,7 +166,7 @@ void WeaponManager::Save(const std::string& savefilename,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
-        vs.push_back("•\¦E”ñ•\¦");
+        vs.push_back("è¡¨ç¤ºãƒ»éè¡¨ç¤º");
         vvs.push_back(vs);
         vs.clear();
         auto itBegin = m_weaponDefMap.begin();

@@ -1,24 +1,24 @@
-#include "ActionManager.h"
+Ôªø#include "ActionManager.h"
 
 using namespace NSStarmanLib;
 
 void ActionManager::GetActionTime(const std::string actionName, int* day, int* hour, int* minute, int* second)
 {
-    if (actionName == "î∞çÃ")
+    if (actionName == "‰ºêÊé°")
     {
         *day = 0;
         *hour = 6;
         *minute = 0;
         *second = 0;
     }
-    else if (actionName == "êáñ∞")
+    else if (actionName == "Áù°Áú†")
     {
         *day = 0;
         *hour = 8;
         *minute = 0;
         *second = 0;
     }
-    else if (actionName == "âºñ∞")
+    else if (actionName == "‰ªÆÁú†")
     {
         *day = 0;
         *hour = 1;

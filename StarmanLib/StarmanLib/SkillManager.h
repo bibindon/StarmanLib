@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "HeaderOnlyCsv.hpp"
 
@@ -8,9 +8,9 @@
 
 namespace NSStarmanLib
 {
-// TODO n—û“x‚É‚Â‚¢‚Ä
-// ‹Ø“÷‚Ì¬’·‚Æ“¯‚¶“¹‚ğ‚½‚Ç‚éB
-// –‚–@‚ğg‚Á‚ÄA”æ‚ê‚ÄA‹xŒe‚µ‚ÄA‰ü‚ß‚Äg‚¤‚ÆƒŒƒxƒ‹‚ªã‚ª‚éB
+// TODO ç†Ÿç·´åº¦ã«ã¤ã„ã¦
+// ç­‹è‚‰ã®æˆé•·ã¨åŒã˜é“ã‚’ãŸã©ã‚‹ã€‚
+// é­”æ³•ã‚’ä½¿ã£ã¦ã€ç–²ã‚Œã¦ã€ä¼‘æ†©ã—ã¦ã€æ”¹ã‚ã¦ä½¿ã†ã¨ãƒ¬ãƒ™ãƒ«ãŒä¸ŠãŒã‚‹ã€‚
 
 class SkillDefinition
 {
@@ -61,13 +61,13 @@ public:
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static SkillManager* obj;
 
-    // ƒXƒLƒ‹‚Ì’è‹`
+    // ã‚¹ã‚­ãƒ«ã®å®šç¾©
     std::unordered_map<std::string, SkillDefinition> m_skillLevelMap;
 
-    // Œ»İ‚ÌålŒö‚ÌƒXƒLƒ‹ƒŒƒxƒ‹‚Ìó‹µ
+    // ç¾åœ¨ã®ä¸»äººå…¬ã®ã‚¹ã‚­ãƒ«ãƒ¬ãƒ™ãƒ«ã®çŠ¶æ³
     std::unordered_map<std::string, int> m_playerSkillLevelMap;
 
 };

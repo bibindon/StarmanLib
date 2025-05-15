@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/Help.h"
 #include "../StarmanLib/PowereggDateTime.h"
 #include "../StarmanLib/NpcStatusManager.h"
@@ -19,7 +19,7 @@ namespace StarmanLibTest
     {
     public:
 
-        // publicŠÖ”‚ðŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod01)
         {
             auto help = Help::Get();
@@ -30,7 +30,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // publicŠÖ”‚ðŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod02)
         {
             auto help = Help::Get();
@@ -44,7 +44,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // publicŠÖ”‚ðŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod03)
         {
             ItemManager* obj = ItemManager::GetObj();
@@ -59,7 +59,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // publicŠÖ”‚ðŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod04)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -79,7 +79,7 @@ namespace StarmanLibTest
             NpcStatusManager::Destroy();
         }
 
-        // publicŠÖ”‚ðŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod05)
         {
             ItemManager* obj = ItemManager::GetObj();
@@ -97,7 +97,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // ƒAƒCƒeƒ€‚ðŽó‚¯Žæ‚ê‚é‚©‚ÌƒeƒXƒg
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚Œã‚‹ã‹ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod06)
         {
             ItemManager* obj = ItemManager::GetObj();
@@ -119,7 +119,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // ƒAƒCƒeƒ€‚ðŽó‚¯Žæ‚ê‚é‚©‚ÌƒeƒXƒg
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚Œã‚‹ã‹ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod07)
         {
             ItemManager* obj = ItemManager::GetObj();
@@ -138,7 +138,7 @@ namespace StarmanLibTest
             Help::Destroy();
         }
 
-        // 16Žž‚ð‰ß‚¬‚½‚çXV‚³‚ê‚é‚±‚Æ‚ðŠm”F‚·‚éƒeƒXƒg
+        // 16æ™‚ã‚’éŽãŽãŸã‚‰æ›´æ–°ã•ã‚Œã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod08)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -171,7 +171,7 @@ namespace StarmanLibTest
             NpcStatusManager::Destroy();
         }
 
-        // Žæ“¾‚µ‚½‚ç‹ó‚É‚È‚Á‚Ä‚¢‚é‚±‚Æ
+        // å–å¾—ã—ãŸã‚‰ç©ºã«ãªã£ã¦ã„ã‚‹ã“ã¨
         TEST_METHOD(TestMethod09)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -203,7 +203,7 @@ namespace StarmanLibTest
             NpcStatusManager::Destroy();
         }
 
-        // Žæ“¾‚µ‚½‚ç‹ó‚É‚È‚èA‚»‚ÌŒãA16Žž‚ðŒ×‚®‚Ü‚Å‚ÍŽó‚¯Žæ‚ê‚È‚¢‚±‚ÆB
+        // å–å¾—ã—ãŸã‚‰ç©ºã«ãªã‚Šã€ãã®å¾Œã€16æ™‚ã‚’è·¨ãã¾ã§ã¯å—ã‘å–ã‚Œãªã„ã“ã¨ã€‚
         TEST_METHOD(TestMethod10)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -238,7 +238,7 @@ namespace StarmanLibTest
             NpcStatusManager::Destroy();
         }
 
-        // 16Žž‚ðŒ×‚¢‚¾‚çƒAƒCƒeƒ€‚ª•â[‚³‚êA‚à‚¤ˆê“x16Žž‚ðŒ×‚¢‚¾‚ç‚à‚¤ˆê“xƒAƒCƒeƒ€‚ª•â[‚³‚ê‚é‚±‚ÆB
+        // 16æ™‚ã‚’è·¨ã„ã ã‚‰ã‚¢ã‚¤ãƒ†ãƒ ãŒè£œå……ã•ã‚Œã€ã‚‚ã†ä¸€åº¦16æ™‚ã‚’è·¨ã„ã ã‚‰ã‚‚ã†ä¸€åº¦ã‚¢ã‚¤ãƒ†ãƒ ãŒè£œå……ã•ã‚Œã‚‹ã“ã¨ã€‚
         TEST_METHOD(TestMethod11)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -279,7 +279,7 @@ namespace StarmanLibTest
             NpcStatusManager::Destroy();
         }
 
-        // ƒCƒJƒ_‚ðƒNƒ‰ƒtƒg‚µ‚Ä‚¢‚½‚çƒAƒCƒeƒ€‚ðŽó‚¯Žæ‚ê‚È‚¢‚±‚Æ‚ðŠm”F‚·‚éƒeƒXƒg
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã—ã¦ã„ãŸã‚‰ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚Œãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod12)
         {
             NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
@@ -297,7 +297,7 @@ namespace StarmanLibTest
             StorehouseManager::Get()->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
 
             std::string err;
-            CraftSystem::GetObj()->QueueCraftRequest("ƒCƒJƒ_", &err);
+            CraftSystem::GetObj()->QueueCraftRequest("ã‚¤ã‚«ãƒ€", &err);
 
             auto receiveItems1 = help->ReceiveItems("sankakuman");
             auto receiveItems2 = help->ReceiveItems("shikakuman");

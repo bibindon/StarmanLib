@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/PatchTestManager.h"
 #include "../StarmanLib/PowereggDateTime.h"
 #include <fstream>
@@ -32,7 +32,7 @@ namespace StarmanLibTest
             auto que = obj->GetQueue();
             Assert::AreEqual(true, que.empty());
 
-            auto resultList = obj->GetResultList("“ä‚Ì‘‚P");
+            auto resultList = obj->GetResultList("è¬Žã®è‰ï¼‘");
             Assert::AreEqual(true, resultList.empty());
         }
 
@@ -47,12 +47,12 @@ namespace StarmanLibTest
             PatchTestManager* obj = PatchTestManager::Get();
             obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
 
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
 
             auto que = obj->GetQueue();
             Assert::AreEqual(1, (int)que.size());
 
-            auto resultList = obj->GetResultList("“ä‚Ì‘‚P");
+            auto resultList = obj->GetResultList("è¬Žã®è‰ï¼‘");
             Assert::AreEqual(true, resultList.empty());
         }
 
@@ -65,7 +65,7 @@ namespace StarmanLibTest
             PatchTestManager* obj = PatchTestManager::Get();
             obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
 
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 2, 0, 0);
@@ -76,7 +76,7 @@ namespace StarmanLibTest
 
             Assert::AreEqual(true, que.at(0).GetState() == PatchTest::eState::FINISHED);
 
-            auto resultList = obj->GetResultList("“ä‚Ì‘‚P");
+            auto resultList = obj->GetResultList("è¬Žã®è‰ï¼‘");
             Assert::AreEqual(1, (int)resultList.size());
         }
 
@@ -89,9 +89,9 @@ namespace StarmanLibTest
             PatchTestManager* obj = PatchTestManager::Get();
             obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
 
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
-            obj->QueuePatchTest("“ä‚Ì‘‚Q");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼’");
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -100,7 +100,7 @@ namespace StarmanLibTest
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
-            obj->QueuePatchTest("“ä‚Ì‘‚R");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼“");
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
@@ -115,17 +115,17 @@ namespace StarmanLibTest
             Assert::AreEqual(true, que.at(2).GetState() == PatchTest::eState::STARTED);
             Assert::AreEqual(true, que.at(3).GetState() == PatchTest::eState::NOT_START);
 
-            auto resultList1 = obj->GetResultList("“ä‚Ì‘‚P");
+            auto resultList1 = obj->GetResultList("è¬Žã®è‰ï¼‘");
             Assert::AreEqual(2, (int)resultList1.size());
 
-            auto resultList2 = obj->GetResultList("“ä‚Ì‘‚Q");
+            auto resultList2 = obj->GetResultList("è¬Žã®è‰ï¼’");
             Assert::AreEqual(0, (int)resultList2.size());
 
-            auto resultList3 = obj->GetResultList("“ä‚Ì‘‚R");
+            auto resultList3 = obj->GetResultList("è¬Žã®è‰ï¼“");
             Assert::AreEqual(0, (int)resultList3.size());
         }
 
-        // InitŠÖ”‚Å—Ž‚¿‚È‚¢‚±‚Æ‚ðŠm”F‚·‚éƒeƒXƒg
+        // Inité–¢æ•°ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod05_2)
         {
             PatchTestManager::Destroy();
@@ -135,7 +135,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\patchTestQueSave.csv");
         }
 
-        // InitŠÖ”‚Åƒf[ƒ^‚ª“Ç‚Ýž‚Ü‚ê‚Ä‚¢‚é‚±‚Æ‚ðŠm”F‚·‚é
+        // Inité–¢æ•°ã§ãƒ‡ãƒ¼ã‚¿ãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹
         TEST_METHOD(TestMethod05_3)
         {
             PatchTestManager::Destroy();
@@ -148,7 +148,7 @@ namespace StarmanLibTest
             Assert::AreEqual(true, que.size() != 0);
         }
 
-        // SaveŠÖ”‚Å—Ž‚¿‚È‚¢‚±‚Æ‚ðŠm”F‚·‚éƒeƒXƒg
+        // Saveé–¢æ•°ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod06)
         {
             PatchTestManager::Destroy();
@@ -158,7 +158,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\patchTestQueSave2.csv");
         }
 
-        // ƒpƒbƒ`ƒeƒXƒg‚ðs‚Á‚Ä‚©‚çSave‚·‚éƒeƒXƒg
+        // ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆã‚’è¡Œã£ã¦ã‹ã‚‰Saveã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod07)
         {
             PowereggDateTime* datetime = PowereggDateTime::GetObj();
@@ -168,9 +168,9 @@ namespace StarmanLibTest
             PatchTestManager* obj = PatchTestManager::Get();
             obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
 
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
-            obj->QueuePatchTest("“ä‚Ì‘‚P");
-            obj->QueuePatchTest("“ä‚Ì‘‚Q");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼’");
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -179,7 +179,7 @@ namespace StarmanLibTest
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
-            obj->QueuePatchTest("“ä‚Ì‘‚R");
+            obj->QueuePatchTest("è¬Žã®è‰ï¼“");
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
@@ -190,7 +190,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\patchTestQueSave2.csv");
         }
 
-        // Save‚µ‚½ƒf[ƒ^‚ð“Ç‚ÝŽæ‚éƒeƒXƒg
+        // Saveã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿å–ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod08)
         {
             {
@@ -201,9 +201,9 @@ namespace StarmanLibTest
                 PatchTestManager* obj = PatchTestManager::Get();
                 obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
 
-                obj->QueuePatchTest("“ä‚Ì‘‚P");
-                obj->QueuePatchTest("“ä‚Ì‘‚P");
-                obj->QueuePatchTest("“ä‚Ì‘‚Q");
+                obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+                obj->QueuePatchTest("è¬Žã®è‰ï¼‘");
+                obj->QueuePatchTest("è¬Žã®è‰ï¼’");
                 obj->Update();
 
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -212,7 +212,7 @@ namespace StarmanLibTest
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
                 obj->Update();
 
-                obj->QueuePatchTest("“ä‚Ì‘‚R");
+                obj->QueuePatchTest("è¬Žã®è‰ï¼“");
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
                 obj->Update();
 

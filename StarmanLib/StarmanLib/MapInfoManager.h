@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <vector>
 
 namespace NSStarmanLib
 {
-// TODO ƒZ[ƒuƒf[ƒ^‚ÌˆÃ†‰»
+// TODO ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®æš—å·åŒ–
 
 class MapInfo
 {

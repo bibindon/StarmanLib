@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 #include <string>
@@ -7,7 +7,7 @@
 
 namespace NSStarmanLib
 {
-// ƒNƒ‰ƒtƒg—p‚Ì‘fŞƒNƒ‰ƒX
+// ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æã‚¯ãƒ©ã‚¹
 class CraftMaterial
 {
 public:
@@ -28,18 +28,18 @@ private:
 
     int m_id = 0;
 
-    // ‘fŞ‚Ì–¼‘O
+    // ç´ æã®åå‰
     std::string m_name;
     
-    // ‘fŞ‚Ì•K—v”
+    // ç´ æã®å¿…è¦æ•°
     int m_number = 0;
     
-    // ‘fŞ‚Ì‹­‰»ƒŒƒxƒ‹
+    // ç´ æã®å¼·åŒ–ãƒ¬ãƒ™ãƒ«
     int m_level = 0;
 
 };
 
-// Š®¬•iƒNƒ‰ƒX
+// å®Œæˆå“ã‚¯ãƒ©ã‚¹
 class CraftOutput
 {
 public:
@@ -55,17 +55,17 @@ public:
 
 private:
 
-    // Š®¬•i‚Ì–¼‘O
+    // å®Œæˆå“ã®åå‰
     std::string m_name;
     
-    // Š®¬•i‚Ìo—Í”
+    // å®Œæˆå“ã®å‡ºåŠ›æ•°
     int m_number = 0;
     
-    // Š®¬•i‚Ì‹­‰»ƒŒƒxƒ‹
+    // å®Œæˆå“ã®å¼·åŒ–ãƒ¬ãƒ™ãƒ«
     int m_level = 0;
 };
 
-// ƒNƒ‰ƒtƒg‚Ìî•ñƒNƒ‰ƒX
+// ã‚¯ãƒ©ãƒ•ãƒˆã®æƒ…å ±ã‚¯ãƒ©ã‚¹
 class CraftInfo
 {
 public:
@@ -73,13 +73,13 @@ public:
     void SetOutput(const CraftOutput& arg);
     CraftOutput GetOutput() const;
 
-    // •K—v‘fŞ‚Ì’è‹`î•ñ
+    // å¿…è¦ç´ æã®å®šç¾©æƒ…å ±
     void SetCraftMaterialDef(const int index, const CraftMaterial& arg);
     CraftMaterial GetCraftMaterialDef(const int index);
     std::vector<CraftMaterial> GetCraftMaterialDef();
 
-    // —a‚¯‚½ƒAƒCƒeƒ€
-    // ƒNƒ‰ƒtƒgŠJn‘O‚ÉƒLƒƒƒ“ƒZƒ‹‚µ‚½‚ç‘fŞ‚ª•Ô‚Á‚Ä‚­‚é‚Ì‚ÅAID‚ÆSubID‚ğ•Û‘¶‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚éB
+    // é ã‘ãŸã‚¢ã‚¤ãƒ†ãƒ 
+    // ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹å‰ã«ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãŸã‚‰ç´ æãŒè¿”ã£ã¦ãã‚‹ã®ã§ã€IDã¨SubIDã‚’ä¿å­˜ã—ã¦ãŠãå¿…è¦ãŒã‚ã‚‹ã€‚
     void SetCraftMaterial(std::vector<ItemInfo> items);
     std::vector<ItemInfo> GetCraftMaterial();
 
@@ -92,10 +92,10 @@ private:
     std::vector<ItemInfo> m_materialList;
 };
 
-// ƒNƒ‰ƒtƒgî•ñ‚ÌŠÇ—ƒNƒ‰ƒX
-// ƒCƒJƒ_‚ªŠ®¬•i‚Æ‚È‚éƒŒƒVƒs‚Í11í—Ş‚ ‚éB
-// ‹­‰»’l‚ª{‚P‚ÌƒCƒJƒ_A‹­‰»’l‚ª{‚Q‚ÌƒCƒJƒ_EEE
-// ƒŒƒVƒs‚ğ“Á’è‚·‚é‚É‚ÍAŠ®¬•i‚Ì–¼‘O‚¾‚¯‚Å‚Í‚È‚­A–¼‘O‚ÆŒÂ”‚Æ‹­‰»’l‚ª•K—v
+// ã‚¯ãƒ©ãƒ•ãƒˆæƒ…å ±ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
+// ã‚¤ã‚«ãƒ€ãŒå®Œæˆå“ã¨ãªã‚‹ãƒ¬ã‚·ãƒ”ã¯11ç¨®é¡ã‚ã‚‹ã€‚
+// å¼·åŒ–å€¤ãŒï¼‹ï¼‘ã®ã‚¤ã‚«ãƒ€ã€å¼·åŒ–å€¤ãŒï¼‹ï¼’ã®ã‚¤ã‚«ãƒ€ãƒ»ãƒ»ãƒ»
+// ãƒ¬ã‚·ãƒ”ã‚’ç‰¹å®šã™ã‚‹ã«ã¯ã€å®Œæˆå“ã®åå‰ã ã‘ã§ã¯ãªãã€åå‰ã¨å€‹æ•°ã¨å¼·åŒ–å€¤ãŒå¿…è¦
 class CraftInfoManager
 {
 
@@ -116,7 +116,7 @@ public:
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static CraftInfoManager* obj;
 
     std::vector<CraftInfo> m_craftInfoList;

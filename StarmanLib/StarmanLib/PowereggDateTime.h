@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
 namespace NSStarmanLib
 {
-// ƒQ[ƒ€“à‚Ì“ú•tE
-// ƒpƒ[ƒGƒbƒO¯‚Å‚Í24ŠÔ‚Åˆê“ú‚ªŒo‰ß‚µAƒQ[ƒ€“à‚Å‚Í2ŠÔ‚Å24ŠÔ‚ªŒo‰ß‚·‚éB
+// ã‚²ãƒ¼ãƒ å†…ã®æ—¥ä»˜ãƒ»æ™‚åˆ»
+// ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã§ã¯24æ™‚é–“ã§ä¸€æ—¥ãŒçµŒéã—ã€ã‚²ãƒ¼ãƒ å†…ã§ã¯2æ™‚é–“ã§24æ™‚é–“ãŒçµŒéã™ã‚‹ã€‚
 
 class PowereggDateTime
 {
@@ -20,9 +20,9 @@ public:
     void Save(const std::string& csvfile,
               const bool encrypt = false);
 
-    // ‚ği‚ß‚éBƒpƒ[ƒGƒbƒO¯‚ÌŠÔ²‚Åw’è‚·‚éB
-    // ƒpƒ[ƒGƒbƒO¯‚Å‚Ì24ŠÔ‚ªƒQ[ƒ€“à‚Å‚Í2ŠÔ‚Å‚ ‚é‚ªA
-    // ƒQ[ƒ€“àŠÔ‚Å‚Í‚È‚­ƒpƒ[ƒGƒbƒO¯‚Å‚ÌŠÔ‚ğw’è‚·‚éB
+    // æ™‚ã‚’é€²ã‚ã‚‹ã€‚ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã®æ™‚é–“è»¸ã§æŒ‡å®šã™ã‚‹ã€‚
+    // ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã§ã®24æ™‚é–“ãŒã‚²ãƒ¼ãƒ å†…ã§ã¯2æ™‚é–“ã§ã‚ã‚‹ãŒã€
+    // ã‚²ãƒ¼ãƒ å†…æ™‚é–“ã§ã¯ãªããƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã§ã®æ™‚é–“ã‚’æŒ‡å®šã™ã‚‹ã€‚
     void IncreaseDateTime(int month, int day, int hour, int minute, int second);
     int GetYear();
     int GetMonth();
@@ -32,29 +32,29 @@ public:
     int GetSecond();
     int DAY_OF_MONTH(const int arg);
 
-    // “ñ‚Â‚Ì“ú‚Ì‚¤‚¿Å‰‚Ì“ú‚É‚Ì•û‚ªŒÃ‚¢‚È‚çtrue
+    // äºŒã¤ã®æ—¥æ™‚ã®ã†ã¡æœ€åˆã®æ—¥ã«ã®æ–¹ãŒå¤ã„ãªã‚‰true
     static bool FromPastToFuture(int year1, int month1, int day1, int hour1, int minute1, int second1,
                                  int year2, int month2, int day2, int hour2, int minute2, int second2);
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     static PowereggDateTime* obj;
 
     int m_year { 0 };
 
-    // 0Œ‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æœˆã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_month { 0 };
 
-    // 0“ú‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æ—¥ã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_day { 0 };
 
     int m_hour { 0 };
     int m_minute { 0 };
     int m_second { 0 };
 
-    // DAY_OF_MONTH[1]‚ª1Œ‚Ì“ú”‚ğ•\‚·B
-    // DAY_OF_MONTH[0]‚Í–³Œø
+    // DAY_OF_MONTH[1]ãŒ1æœˆã®æ—¥æ•°ã‚’è¡¨ã™ã€‚
+    // DAY_OF_MONTH[0]ã¯ç„¡åŠ¹
     const int DAY_OF_MONTH_[13] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 };
 }

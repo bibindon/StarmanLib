@@ -1,4 +1,4 @@
-#include "EnemyInfoManager.h"
+ï»¿#include "EnemyInfoManager.h"
 #include <algorithm>
 #include "Util.h"
 
@@ -96,7 +96,7 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
             int hp = std::stoi(vvs.at(i).at(8));
             enemyInfo.SetHP(hp);
 
-            if (vvs.at(i).at(9) == "›")
+            if (vvs.at(i).at(9) == "â—‹")
             {
                 enemyInfo.SetDefeated(true);
             }
@@ -119,7 +119,7 @@ void EnemyInfoManager::Init(const std::string& csvEnemyDef,
                 throw std::exception();
             }
 
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 m_enemyDefMap[work_i].SetVisible(true);
             }
@@ -143,15 +143,15 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
-        vs.push_back("ƒ^ƒCƒv");
+        vs.push_back("ã‚¿ã‚¤ãƒ—");
         vs.push_back("PosX");
         vs.push_back("PosY");
         vs.push_back("PosZ");
         vs.push_back("RotX");
         vs.push_back("RotY");
         vs.push_back("RotZ");
-        vs.push_back("c‚èHP");
-        vs.push_back("“¢”°Ï‚İ");
+        vs.push_back("æ®‹ã‚ŠHP");
+        vs.push_back("è¨ä¼æ¸ˆã¿");
         vvs.push_back(vs);
         vs.clear();
         for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
@@ -167,7 +167,7 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
             vs.push_back(std::to_string(it->second.GetHP()));
             if (it->second.GetDefeated())
             {
-                vs.push_back("›");
+                vs.push_back("â—‹");
             }
             else
             {
@@ -183,8 +183,8 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
-        vs.push_back("ƒ^ƒCƒv");
-        vs.push_back("•\¦E”ñ•\¦");
+        vs.push_back("ã‚¿ã‚¤ãƒ—");
+        vs.push_back("è¡¨ç¤ºãƒ»éè¡¨ç¤º");
         vvs.push_back(vs);
         vs.clear();
 
@@ -195,7 +195,7 @@ void EnemyInfoManager::Save(const std::string& csvEnemyInfo,
 
             if (it->second.GetVisible())
             {
-                vs.push_back("›");
+                vs.push_back("â—‹");
             }
             else
             {
@@ -214,7 +214,7 @@ std::vector<EnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
                                                   const float z,
                                                   const float r)
 {
-    // ‹…‚Å”»’è‚·‚é‚Æd‚¢‚Ì‚Å—§•û‘Ì‚Å”»’è‚·‚é
+    // çƒã§åˆ¤å®šã™ã‚‹ã¨é‡ã„ã®ã§ç«‹æ–¹ä½“ã§åˆ¤å®šã™ã‚‹
     std::vector<EnemyInfo> enemyInfoList;
     for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
     {
@@ -244,7 +244,7 @@ std::vector<std::string> NSStarmanLib::EnemyInfoManager::GetEnemyNameList()
         nameList.push_back(it->second.GetName());
     }
 
-    // ID‚ªá‚¢‡‚Éƒ\[ƒg
+    // IDãŒè‹¥ã„é †ã«ã‚½ãƒ¼ãƒˆ
     std::sort(nameList.begin(), nameList.end(),
               [&](const auto x1, const auto x2)
               {

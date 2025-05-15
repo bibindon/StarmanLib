@@ -1,17 +1,17 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include <unordered_map>
 #include "ItemManager.h"
 
 namespace NSStarmanLib
 {
-// �����A�^���p�N���A�����A�r�^�~���A�~�l������������ԂɎ���
-// �v���C���[�ܑ͌�h�{�f�����ׂ�0�ɂȂ�Ȃ��悤�ɂ���K�v������B
-// ������0�ɂȂ�����쎀�A����ȊO��0�ɂȂ�����a������B
-// �q�ɂɃ��[�h�u���X������΃��C�l���̌_�������������B
+// 糖質、タンパク質、脂質、ビタミン、ミネラルだけを状態に持つ
+// プレイヤーは五大栄養素がすべて0にならないようにする必要がある。
+// 糖質が0になったら餓死、それ以外が0になったら病死する。
+// 倉庫にワードブレスがあればライネンの契約をし復活する。
 
-// NPC�̓N���t�g�A�p�b�`�e�X�g�A����`���@�\�����B
-// �N���t�g�ƃp�b�`�e�X�g���ł���NPC������
+// NPCはクラフト、パッチテスト、お手伝い機能を持つ。
+// クラフトとパッチテストができるNPCがいる
 enum class eNpcFeature
 {
     CRAFTMAN,
@@ -90,34 +90,34 @@ public:
 
 private:
 
-    // ���O
+    // 名前
     std::string m_name;
 
-    // ����
+    // 糖質
     float m_carbo { 0.f };
 
-    // �^���p�N��
+    // タンパク質
     float m_protein { 0.f };
 
-    // ����
+    // 脂質
     float m_lipid { 0.f };
 
-    // �r�^�~��
+    // ビタミン
     float m_vitamin { 0.f };
 
-    // �~�l����
+    // ミネラル
     float m_mineral { 0.f };
 
-    // ����
+    // 水分
     float m_water { 0.f };
 
-    // ���C�l���̌_������Ă��邩�ۂ�
+    // ライネンの契約をしているか否か
     bool m_rynenContract { false };
 
-    // ���[�h�u���X������ł��邩�ۂ�
+    // ワードブレスを飲んでいるか否か
     bool m_bDrinkWordbress { false };
 
-    // ����ł��邩�ۂ�
+    // 死んでいるか否か
     bool m_dead { false };
 
     float m_x = 0.f;
@@ -128,26 +128,26 @@ private:
 
     float m_rotY = 0.f;
 
-    // ��b���ׂ����������邩�H
-    // �ENPC�̉�b�͉ו��Ԃ�b�艮�̋@�\��\������O�ɕ\������
+    // 会話すべき文言があるか？
+    // ・NPCの会話は荷物番や鍛冶屋の機能を表示する前に表示する
     bool m_bHasTalk = false;
 
-    // ��b���ׂ�����
-    // m_talkCsv�̓��e���g���ė��p�҂ɉ�b���Ă��炤�B
+    // 会話すべき文言
+    // m_talkCsvの内容を使って利用者に会話してもらう。
     std::string m_talkCsv;
 
-    // �ו��Ԃ�b�艮�̋@�\�����ւ���Ă��邩�B
+    // 荷物番や鍛冶屋の機能が解禁されているか。
     bool m_bFeatureEnable = false;
 
     eNpcFeature m_eNpcFeature = eNpcFeature::NONE;
 
-    // NPC�����j���[��ʂŕ\�����邩
+    // NPCをメニュー画面で表示するか
     bool m_bMenuShow = false;
 
-    // ���b�h�}���ɂȂ��Ă��邩�B
+    // レッドマンになっているか。
     bool m_bRedman = false;
 
-    // ���b�h�}���ɂȂ�����
+    // レッドマンになった日
     int m_redManYear = 0;
     int m_redManMonth = 0;
     int m_redManDay = 0;
@@ -176,12 +176,12 @@ public:
 
     std::vector<std::string> GetNameList();
 
-    // �V�J�N�}�������b�h�}���ɂȂ��Ă���1�T�Ԃ��o�߂������B
+    // シカクマンがレッドマンになってから1週間が経過したか。
     bool OneWeekAfterRedman();
 
 private:
 
-    // �V���O���g���I�u�W�F�N�g
+    // シングルトンオブジェクト
     static NpcStatusManager* obj;
 
     std::unordered_map<std::string, NpcStatus> m_NpcStatusMap;

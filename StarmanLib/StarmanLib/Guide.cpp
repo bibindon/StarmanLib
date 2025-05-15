@@ -1,4 +1,4 @@
-#include "Guide.h"
+ï»¿#include "Guide.h"
 #include "Util.h"
 #include <algorithm>
 
@@ -67,7 +67,7 @@ void Guide::Init(const std::string& csvfile,
         guideItem.SetCategory(vvs.at(i).at(1));
         guideItem.SetSubCategory(vvs.at(i).at(2));
         guideItem.SetText(vvs.at(i).at(3));
-        if (vvs.at(i).at(4) == "›")
+        if (vvs.at(i).at(4) == "â—‹")
         {
             guideItem.SetVisible(true);
         }
@@ -169,10 +169,10 @@ void Guide::Save(const std::string& csvfile,
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
-    vs.push_back("‘å•ª—Ş");
-    vs.push_back("¬•ª—Ş");
-    vs.push_back("à–¾•¶");
-    vs.push_back("•\¦Ï‚İ");
+    vs.push_back("å¤§åˆ†é¡");
+    vs.push_back("å°åˆ†é¡");
+    vs.push_back("èª¬æ˜æ–‡");
+    vs.push_back("è¡¨ç¤ºæ¸ˆã¿");
     vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
@@ -181,14 +181,14 @@ void Guide::Save(const std::string& csvfile,
         vs.push_back(m_guideList.at(i).GetCategory());
         vs.push_back(m_guideList.at(i).GetSubCategory());
 
-        // ƒ_ƒuƒ‹ƒNƒH[ƒg‚ğí“¬‚Æ––”ö‚É•t—^‚·‚é
+        // ãƒ€ãƒ–ãƒ«ã‚¯ã‚©ãƒ¼ãƒˆã‚’æˆ¦é—˜ã¨æœ«å°¾ã«ä»˜ä¸ã™ã‚‹
         std::string work;
         work = m_guideList.at(i).GetText();
         work = "\"" + work + "\"";
         vs.push_back(work);
         if (m_guideList.at(i).GetVisible())
         {
-            vs.push_back("›");
+            vs.push_back("â—‹");
         }
         else
         {

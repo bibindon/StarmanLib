@@ -1,4 +1,4 @@
-// TODO Å‘åÏÚ—Ê
+ï»¿// TODO æœ€å¤§ç©è¼‰é‡
 #pragma once
 
 #include "HeaderOnlyCsv.hpp"
@@ -11,10 +11,10 @@
 
 namespace NSStarmanLib
 {
-// ƒvƒŒƒCƒ„[‚ÌŠ•i‚ğŠÇ—‚·‚éƒNƒ‰ƒXB
-// ƒAƒCƒeƒ€‚Ì’è‹`‚ÍItemManager‚ªŠÇ—‚µ‚Ä‚¢‚éB
-// •Ší‚É‚Â‚¢‚Ä‚ÍWeaponManager‚ªŠ”‚Ü‚ÅŠÇ—‚µ‚Ä‚¢‚é‚Ì‚Å
-// InventoryƒNƒ‰ƒX‚Éo”Ô‚Í‚È‚¢—\’è
+// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰€æŒå“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
+// ã‚¢ã‚¤ãƒ†ãƒ ã®å®šç¾©ã¯ItemManagerãŒç®¡ç†ã—ã¦ã„ã‚‹ã€‚
+// æ­¦å™¨ã«ã¤ã„ã¦ã¯WeaponManagerãŒæ‰€æŒæ•°ã¾ã§ç®¡ç†ã—ã¦ã„ã‚‹ã®ã§
+// Inventoryã‚¯ãƒ©ã‚¹ã«å‡ºç•ªã¯ãªã„äºˆå®š
 
 class Inventory
 {
@@ -30,20 +30,20 @@ public:
     void Save(const std::string& csvfile,
               const bool encrypt = false);
 
-    // ˆêŒÂ‚¸‚Â‚µ‚©‘‰ÁŒ¸o—ˆ‚È‚¢‘z’è
-    // V‚½‚ÉSubID‚ğŠ„‚è“–‚Ä‚é
-    // V‚½‚ÉŠ„‚è“–‚Ä‚½SubID‚ğ•Ô‚·
+    // ä¸€å€‹ãšã¤ã—ã‹å¢—åŠ æ¸›å‡ºæ¥ãªã„æƒ³å®š
+    // æ–°ãŸã«SubIDã‚’å‰²ã‚Šå½“ã¦ã‚‹
+    // æ–°ãŸã«å‰²ã‚Šå½“ã¦ãŸSubIDã‚’è¿”ã™
     int AddItem(const int id, const int durability = -1);
     int AddItem(const std::string name, const int level = -1, const int durability = -1);
 
-    // SubID‚ğw’è‚µ‚ÄƒAƒCƒeƒ€‚ğ’Ç‰Ái‘qŒÉ‚©‚çƒCƒ“ƒxƒ“ƒgƒŠ‚ÖƒAƒCƒeƒ€‚ğˆÚ“®‚·‚é‚Æ‚«‚Ég‚¤j
-    // ‘qŒÉ‚ÅƒAƒCƒeƒ€‚ğíœ‚µ‚Ä‚©‚ç’Ç‰Á‚·‚é•K—v‚ª‚ ‚éB
-    // ‘qŒÉ‚ÅƒAƒCƒeƒ€‚ğíœ‚µ‚Ä‚¢‚È‚¢‚Æu‚·‚Å‚É‚»‚ÌSubID‚Íg‚í‚ê‚Ä‚¢‚év‚Æ‚¢‚¤‚±‚Æ‚ÅƒGƒ‰[‚É‚È‚é
+    // SubIDã‚’æŒ‡å®šã—ã¦ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ï¼ˆå€‰åº«ã‹ã‚‰ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã¸ã‚¢ã‚¤ãƒ†ãƒ ã‚’ç§»å‹•ã™ã‚‹ã¨ãã«ä½¿ã†ï¼‰
+    // å€‰åº«ã§ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã—ã¦ã‹ã‚‰è¿½åŠ ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+    // å€‰åº«ã§ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã—ã¦ã„ãªã„ã¨ã€Œã™ã§ã«ãã®SubIDã¯ä½¿ã‚ã‚Œã¦ã„ã‚‹ã€ã¨ã„ã†ã“ã¨ã§ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹
     void AddItemWithSubID(const int id, const int subId, const int durability = -1);
 
-    // subIdEEE‘Ï‹v’l‚Ì50‚ÌÎ•€‚Æ‘Ï‹v’l‚ª100‚ÌÎ•€‚ğŠ‚·‚é‚±‚Æ‚ª‚Å‚«‚é
-    // ‚»‚Ì‚½‚ßAƒAƒCƒeƒ€‚É‚ÍsubId‚ªU‚ç‚ê‚éBƒAƒCƒeƒ€‚ğíœ‚·‚é‚É‚ÍsubId‚ª‚È‚¢‚Æ‚Å‚«‚È‚¢
-    // ƒAƒCƒeƒ€‚Ííœ‚Å‚«‚é‚Ì‚ÅSubID‚ª˜A”Ô‚É‚È‚é‚Æ‚ÍŒÀ‚ç‚È‚¢
+    // subIdãƒ»ãƒ»ãƒ»è€ä¹…å€¤ã®50ã®çŸ³æ–§ã¨è€ä¹…å€¤ãŒ100ã®çŸ³æ–§ã‚’æ‰€æŒã™ã‚‹ã“ã¨ãŒã§ãã‚‹
+    // ãã®ãŸã‚ã€ã‚¢ã‚¤ãƒ†ãƒ ã«ã¯subIdãŒæŒ¯ã‚‰ã‚Œã‚‹ã€‚ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã™ã‚‹ã«ã¯subIdãŒãªã„ã¨ã§ããªã„
+    // ã‚¢ã‚¤ãƒ†ãƒ ã¯å‰Šé™¤ã§ãã‚‹ã®ã§SubIDãŒé€£ç•ªã«ãªã‚‹ã¨ã¯é™ã‚‰ãªã„
     void RemoveItem(const int id, const int subId);
     void RemoveItem(const std::string name, const int subId, const int level = -1);
 
@@ -52,7 +52,7 @@ public:
     bool ExistItem(const int id, const int subId);
     ItemInfo GetItemInfo(const int id, const int subId);
 
-    // SubID‚ğƒŠƒXƒg‚Åó‚¯æ‚é
+    // SubIDã‚’ãƒªã‚¹ãƒˆã§å—ã‘å–ã‚‹
     std::vector<int> GetSubIdList(const int id);
 
     int CountItem(const int id);
@@ -68,11 +68,11 @@ public:
     void UpdateVolumeMax(const std::vector<ItemInfo>& bagMap);
     float GetVolumeMax() const;
 
-    // ‘•”õ’†‚Ì‘Ü‚Ì‘Ï‹v’l‚ğŒ¸‚ç‚·
+    // è£…å‚™ä¸­ã®è¢‹ã®è€ä¹…å€¤ã‚’æ¸›ã‚‰ã™
     void ReduceEquipBagDurability();
 
 private:
-    // ˆÈ‰º‚Ì4‚Â‚ÌŠÖ”‚ğéŒ¾E’è‹`‚·‚é‚Ì‚ª³‚µ‚¢‚ªEEE‚È‚­‚Ä‚àEEE•Ê‚ÉEEE
+    // ä»¥ä¸‹ã®4ã¤ã®é–¢æ•°ã‚’å®£è¨€ãƒ»å®šç¾©ã™ã‚‹ã®ãŒæ­£ã—ã„ãŒãƒ»ãƒ»ãƒ»ãªãã¦ã‚‚ãƒ»ãƒ»ãƒ»åˆ¥ã«ãƒ»ãƒ»ãƒ»
     Inventory() {};
     Inventory(const Inventory&);
     Inventory& operator=(const Inventory&) {}
@@ -82,19 +82,19 @@ private:
 
     void Sort();
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static Inventory* obj;
 
-    // Š•i‚Ìd—Êi•Ší‚ÍŠÜ‚ß‚È‚¢j
+    // æ‰€æŒå“ã®é‡é‡ï¼ˆæ­¦å™¨ã¯å«ã‚ãªã„ï¼‰
     float m_weight = 0.f;
 
-    // Š•iƒŠƒXƒg
-    // “¯‚¶ƒAƒCƒeƒ€‚ğ•¡”Š‚Å‚«‚é‚±‚Æ‚É’ˆÓ
+    // æ‰€æŒå“ãƒªã‚¹ãƒˆ
+    // åŒã˜ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¤‡æ•°æ‰€æŒã§ãã‚‹ã“ã¨ã«æ³¨æ„
     std::list<ItemInfo> m_itemInfoList;
     
     bool m_inited = false;
 
-    // Å‘åÏÚ—Ê
+    // æœ€å¤§ç©è¼‰é‡
     float m_volumeMax = 0.f;
     float m_volumeCurrent = 0.f;
 };

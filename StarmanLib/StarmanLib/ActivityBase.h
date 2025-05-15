@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
@@ -11,9 +11,9 @@ enum class eBaseType
     DirectNex,
 };
 
-// Šˆ“®‹’“_î•ñ
+// æ´»å‹•æ‹ ç‚¹æƒ…å ±
 // 
-// Config‚Æ‚¢‚¤ƒNƒ‰ƒX–¼‚É‚µ‚ÄAŠˆ“®‹’“_ˆÈŠO‚Ì—lX‚Èİ’è’l‚ğˆµ‚¦‚é‚æ‚¤‚É‚·‚é‚©‚à‚µ‚ê‚È‚¢B
+// Configã¨ã„ã†ã‚¯ãƒ©ã‚¹åã«ã—ã¦ã€æ´»å‹•æ‹ ç‚¹ä»¥å¤–ã®æ§˜ã€…ãªè¨­å®šå€¤ã‚’æ‰±ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã€‚
 class ActivityBase
 {
 public:
@@ -26,14 +26,14 @@ public:
     eBaseType GetBaseType() const;
     void Finalize();
 
-    // ‘D’…‚«ê‚ÌÀ•W
-    // ƒNƒ‰ƒtƒg‚³‚ê‚½ƒCƒJƒ_‚ª”z’u‚³‚ê‚éêŠ
+    // èˆ¹ç€ãå ´ã®åº§æ¨™
+    // ã‚¯ãƒ©ãƒ•ãƒˆã•ã‚ŒãŸã‚¤ã‚«ãƒ€ãŒé…ç½®ã•ã‚Œã‚‹å ´æ‰€
     void GetPierPos(const eBaseType baseType, float* x, float* y, float* z);
 
-    // ƒCƒJƒ_‚ª‘D’…‚«ê‚É‚ ‚é‚©B5ƒ[ƒgƒ‹ˆÈ“à‚É‚ ‚éê‡‚ÍAƒCƒJƒ_‚ª‚ ‚é‚ÆŒ©‚È‚³‚ê‚é
+    // ã‚¤ã‚«ãƒ€ãŒèˆ¹ç€ãå ´ã«ã‚ã‚‹ã‹ã€‚5ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã«ã‚ã‚‹å ´åˆã¯ã€ã‚¤ã‚«ãƒ€ãŒã‚ã‚‹ã¨è¦‹ãªã•ã‚Œã‚‹
     bool CheckRaftNearPier(const float x, const float y, const float z);
 
-    // Œ»İ‚ÌŠˆ“®‹’“_‚ÉƒCƒJƒ_‚ª‚ ‚é‚©
+    // ç¾åœ¨ã®æ´»å‹•æ‹ ç‚¹ã«ã‚¤ã‚«ãƒ€ãŒã‚ã‚‹ã‹
     bool CheckRaftExist();
 
 private:

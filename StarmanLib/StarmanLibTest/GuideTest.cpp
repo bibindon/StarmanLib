@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/Guide.h"
 #include <fstream>
 #include <sstream>
@@ -30,13 +30,13 @@ namespace StarmanLibTest
         {
             Guide* obj = Guide::GetObj();
             obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
-            std::string text = obj->GetText("ƒXƒe[ƒ^ƒX", "ƒXƒe[ƒ^ƒX‚É‚Â‚¢‚Ä");
+            std::string text = obj->GetText("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹", "ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«ã¤ã„ã¦");
             Assert::AreEqual(text.size() != 0, true);
-            std::string text2 = "\"‚±‚ÌƒQ[ƒ€‚É‚ÍˆÈ‰º‚Ì‚P‚O‚ÌƒXƒe[ƒ^ƒX‚ª‘¶İ‚·‚éB\n\n";
-            text2 += "uƒXƒ^ƒ~ƒivAu”]‚ÌƒXƒ^ƒ~ƒivAuu”­—Ív\n";
-            text2 += "u…•ªvAug‘Ì‚Ì”æ˜JE‘¹v\n";
-            text2 += "u“œ¿vAuƒ^ƒ“ƒpƒN¿vAu‰¿vAuƒrƒ^ƒ~ƒ“vAuƒ~ƒlƒ‰ƒ‹v\"";
-            Assert::AreEqual(text.find("uƒ~ƒlƒ‰ƒ‹v") != std::string::npos, true);
+            std::string text2 = "\"ã“ã®ã‚²ãƒ¼ãƒ ã«ã¯ä»¥ä¸‹ã®ï¼‘ï¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒå­˜åœ¨ã™ã‚‹ã€‚\n\n";
+            text2 += "ã€Œã‚¹ã‚¿ãƒŸãƒŠã€ã€ã€Œè„³ã®ã‚¹ã‚¿ãƒŸãƒŠã€ã€ã€Œç¬ç™ºåŠ›ã€\n";
+            text2 += "ã€Œæ°´åˆ†ã€ã€ã€Œèº«ä½“ã®ç–²åŠ´ãƒ»æå‚·ã€\n";
+            text2 += "ã€Œç³–è³ªã€ã€ã€Œã‚¿ãƒ³ãƒ‘ã‚¯è³ªã€ã€ã€Œè„‚è³ªã€ã€ã€Œãƒ“ã‚¿ãƒŸãƒ³ã€ã€ã€ŒãƒŸãƒãƒ©ãƒ«ã€\"";
+            Assert::AreEqual(text.find("ã€ŒãƒŸãƒãƒ©ãƒ«ã€") != std::string::npos, true);
             Assert::AreEqual(text.empty() == false, true);
         }
         TEST_METHOD(TestMethod04)
@@ -44,14 +44,14 @@ namespace StarmanLibTest
             {
                 Guide* obj = Guide::GetObj();
                 obj->Init("..\\StarmanLibTest\\guideOrigin.csv");
-                obj->SetVisible("ƒXƒe[ƒ^ƒX", "u”]‚ÌƒXƒ^ƒ~ƒiv‚É‚Â‚¢‚Ä");
+                obj->SetVisible("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹", "ã€Œè„³ã®ã‚¹ã‚¿ãƒŸãƒŠã€ã«ã¤ã„ã¦");
                 obj->Save("..\\StarmanLibTest\\guideSave.csv");
                 Guide::Destroy();
             }
             {
                 Guide* obj = Guide::GetObj();
                 obj->Init("..\\StarmanLibTest\\guideSave.csv");
-                bool result = obj->GetVisible("ƒXƒe[ƒ^ƒX", "u”]‚ÌƒXƒ^ƒ~ƒiv‚É‚Â‚¢‚Ä");
+                bool result = obj->GetVisible("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹", "ã€Œè„³ã®ã‚¹ã‚¿ãƒŸãƒŠã€ã«ã¤ã„ã¦");
                 Assert::AreEqual(result, true);
             }
         }

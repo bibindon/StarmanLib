@@ -1,4 +1,4 @@
-#include "Help.h"
+ï»¿#include "Help.h"
 
 #include "Util.h"
 #include "PowereggDateTime.h"
@@ -31,7 +31,7 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
 {
     assert(ItemManager::GetObj()->Inited());
 
-    // E‚Á‚Ä‚æ‚¢ƒAƒCƒeƒ€‚ÌƒŠƒXƒg
+    // æ‹¾ã£ã¦ã‚ˆã„ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒªã‚¹ãƒˆ
     // 3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,25,33,34,35,38,39,40,41,42,
     // 54, 55, 56, 57
     m_enableItemIdList.clear();
@@ -97,12 +97,12 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
     m_bLoaded = true;
 }
 
-// TODO NPC‚ÌŒ’Nó‘Ô‚ğl—¶
+// TODO NPCã®å¥åº·çŠ¶æ…‹ã‚’è€ƒæ…®
 void NSStarmanLib::Help::Update()
 {
     auto datetime = PowereggDateTime::GetObj();
 
-    // ‚ªŠª‚«–ß‚Á‚Ä‚¢‚½‚ç‰ñûƒAƒCƒeƒ€‚ğƒNƒŠƒA‚·‚é
+    // æ™‚ãŒå·»ãæˆ»ã£ã¦ã„ãŸã‚‰å›åã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹
     bool backtime = BackTime();
 
     if (backtime)
@@ -128,18 +128,18 @@ void NSStarmanLib::Help::Update()
 
     if (crossOver)
     {
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg‚µ‚Ä‚¢‚é‚È‚çƒAƒCƒeƒ€ûW‚ÍƒiƒVB
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã—ã¦ã„ã‚‹ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ åé›†ã¯ãƒŠã‚·ã€‚
         auto request = CraftSystem::GetObj()->GetCraftRequestList();
-        if (request.empty() || request.front().GetName() != "ƒCƒJƒ_")
+        if (request.empty() || request.front().GetName() != "ã‚¤ã‚«ãƒ€")
         {
             srand((unsigned int)time(NULL));
 
             for (auto& x : m_presentMap)
             {
-                // ƒAƒCƒeƒ€‚ğƒ‰ƒ“ƒ_ƒ€‚É10ŒÂˆÈ‰º‚Å‘I‘ğ
+                // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«10å€‹ä»¥ä¸‹ã§é¸æŠ
                 auto items = GetRandomItem(x.first);
 
-                // ó‚¯æ‚ç‚¸‚É—‚“ú‚Ì16‚É‚È‚Á‚½‚çV‚µ‚¢ƒAƒCƒeƒ€‚É‚È‚èAŒÃ‚¢‚à‚Ì‚ÍÁ¸
+                // å—ã‘å–ã‚‰ãšã«ç¿Œæ—¥ã®16æ™‚ã«ãªã£ãŸã‚‰æ–°ã—ã„ã‚¢ã‚¤ãƒ†ãƒ ã«ãªã‚Šã€å¤ã„ã‚‚ã®ã¯æ¶ˆå¤±
                 x.second = items;
 
                 m_presented.at(x.first) = false;
@@ -163,22 +163,22 @@ void NSStarmanLib::Help::Update()
 
 void NSStarmanLib::Help::Save(const std::string& filepath)
 {
-    // m_presentMap‚Ì“à—e‚ğo—Í
+    // m_presentMapã®å†…å®¹ã‚’å‡ºåŠ›
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     int work = 0;
 
-    vs.push_back("–¼‘O");
-    vs.push_back("ƒAƒCƒeƒ€1");
-    vs.push_back("ƒAƒCƒeƒ€2");
-    vs.push_back("ƒAƒCƒeƒ€3");
-    vs.push_back("ƒAƒCƒeƒ€4");
-    vs.push_back("ƒAƒCƒeƒ€5");
-    vs.push_back("ƒAƒCƒeƒ€6");
-    vs.push_back("ƒAƒCƒeƒ€7");
-    vs.push_back("ƒAƒCƒeƒ€8");
-    vs.push_back("ƒAƒCƒeƒ€9");
-    vs.push_back("ƒAƒCƒeƒ€10");
+    vs.push_back("åå‰");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 1");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 2");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 3");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 4");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 5");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 6");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 7");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 8");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 9");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ 10");
     vvs.push_back(vs);
     vs.clear();
 
@@ -199,9 +199,9 @@ void NSStarmanLib::Help::Save(const std::string& filepath)
 
 std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName)
 {
-    // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg‚µ‚Ä‚¢‚½‚çƒAƒCƒeƒ€ûW‚ÍƒiƒVB
+    // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã—ã¦ã„ãŸã‚‰ã‚¢ã‚¤ãƒ†ãƒ åé›†ã¯ãƒŠã‚·ã€‚
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == "ƒCƒJƒ_")
+    if (!request.empty() && request.front().GetName() == "ã‚¤ã‚«ãƒ€")
     {
         m_presentMap.at(npcName).clear();
     }
@@ -216,7 +216,7 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName
 
 bool NSStarmanLib::Help::Received(const std::string& npcName)
 {
-    // ‹ó‚¾‚Á‚½‚ç“n‚µ‚½ŒãB
+    // ç©ºã ã£ãŸã‚‰æ¸¡ã—ãŸå¾Œã€‚
     auto received = m_presentMap.at(npcName).empty();
     return received;
 }
@@ -228,7 +228,7 @@ bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
         return false;
     }
 
-    // “n‚µ‚½ŒãA‚à‚µ‚­‚Íˆê‚Â‚à‚È‚¢‚È‚çó‚¯æ‚èo—ˆ‚È‚¢B
+    // æ¸¡ã—ãŸå¾Œã€ã‚‚ã—ãã¯ä¸€ã¤ã‚‚ãªã„ãªã‚‰å—ã‘å–ã‚Šå‡ºæ¥ãªã„ã€‚
     auto empty = m_presentMap.at(npcName).empty();
     if (empty)
     {
@@ -242,7 +242,7 @@ bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
     }
 
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == "ƒCƒJƒ_")
+    if (!request.empty() && request.front().GetName() == "ã‚¤ã‚«ãƒ€")
     {
         m_presentMap.at(npcName).clear();
         return false;
@@ -256,10 +256,10 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::string& npcNam
     int rnd = 0;
     int work = 0;
 
-    // ŒÂ”‚ğƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ‚ß‚é(1~10)
+    // å€‹æ•°ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§æ±ºã‚ã‚‹(1~10)
     int itemNum = 1;
     {
-        // TODO ˆê”Ô’á‚¢‰h—{‘f‚ğ‚à‚Æ‚ÉÅ‘åæ“¾ŒÂ”‚ğ‹‚ß‚é
+        // TODO ä¸€ç•ªä½ã„æ „é¤Šç´ ã‚’ã‚‚ã¨ã«æœ€å¤§å–å¾—å€‹æ•°ã‚’æ±‚ã‚ã‚‹
         auto carbo = NpcStatusManager::GetObj()->GetNpcStatus(npcName).GetCarbo();
 
         int maxNum = (int)(carbo / 10);
@@ -277,7 +277,7 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::string& npcNam
         itemNum = work;
     }
 
-    // ƒAƒCƒeƒ€‚ğƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ‚ß‚é
+    // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§æ±ºã‚ã‚‹
     std::vector<ItemDef> randomItem;
     {
         auto idListNum = m_enableItemIdList.size();

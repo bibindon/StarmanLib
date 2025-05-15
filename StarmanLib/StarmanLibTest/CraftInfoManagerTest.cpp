@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/CraftInfoManager.h"
 #include "../StarmanLib/Inventory.h"
 #include "../StarmanLib/ItemManager.h"
@@ -71,7 +71,7 @@ namespace StarmanLibTest
 
             {
                 std::string work_sz = work.at(0).GetName();
-                Assert::AreEqual(work_sz == "ƒCƒJƒ_", true);
+                Assert::AreEqual(work_sz == "ã‚¤ã‚«ãƒ€", true);
 
                 int work_i = 0;
 
@@ -83,7 +83,7 @@ namespace StarmanLibTest
             }
             {
                 std::string work_sz = work.at(1).GetName();
-                Assert::AreEqual(work_sz == "ƒCƒJƒ_", true);
+                Assert::AreEqual(work_sz == "ã‚¤ã‚«ãƒ€", true);
 
                 int work_i = 0;
 
@@ -95,7 +95,7 @@ namespace StarmanLibTest
             }
             {
                 std::string work_sz = work.at(56).GetName();
-                Assert::AreEqual(work_sz.c_str(), "ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+                Assert::AreEqual(work_sz.c_str(), "ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
 
                 int work_i = 0;
 
@@ -119,9 +119,9 @@ namespace StarmanLibTest
                 std::string work_sz;
                 int work_i = 0;
 
-                // ‘fŞ‚P
+                // ç´ æï¼‘
                 work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
-                Assert::AreEqual(work_sz == "×‚¢–Ø‚ÌŠ²", true);
+                Assert::AreEqual(work_sz == "ç´°ã„æœ¨ã®å¹¹", true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
@@ -129,9 +129,9 @@ namespace StarmanLibTest
                 work_i = craftInfo.GetCraftMaterialDef(0).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
-                // ‘fŞ‚Q
+                // ç´ æï¼’
                 work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
-                Assert::AreEqual(work_sz == "ƒcƒ^", true);
+                Assert::AreEqual(work_sz == "ãƒ„ã‚¿", true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
@@ -144,9 +144,9 @@ namespace StarmanLibTest
                 std::string work_sz;
                 int work_i = 0;
 
-                // ‘fŞ‚P
+                // ç´ æï¼‘
                 work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
-                Assert::AreEqual(work_sz == "–Ø‚Ì}", true);
+                Assert::AreEqual(work_sz == "æœ¨ã®æ", true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
@@ -154,9 +154,9 @@ namespace StarmanLibTest
                 work_i = craftInfo.GetCraftMaterialDef(0).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
-                // ‘fŞ‚Q
+                // ç´ æï¼’
                 work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
-                Assert::AreEqual(work_sz == "‚¢‚¢Œ`‚ÌÎi‘„j", true);
+                Assert::AreEqual(work_sz == "ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰", true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
@@ -164,9 +164,9 @@ namespace StarmanLibTest
                 work_i = craftInfo.GetCraftMaterialDef(1).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
 
-                // ‘fŞ‚R
+                // ç´ æï¼“
                 work_sz = craftInfo.GetCraftMaterialDef(2).GetName();
-                Assert::AreEqual(work_sz == "ƒcƒ^", true);
+                Assert::AreEqual(work_sz == "ãƒ„ã‚¿", true);
 
                 work_i = craftInfo.GetCraftMaterialDef(2).GetNumber();
                 Assert::AreEqual(work_i == 2, true);

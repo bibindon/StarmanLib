@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/RainModel.h"
 
 #include "../StarmanLib/PowereggDateTime.h"
@@ -13,7 +13,7 @@ namespace StarmanLibTest
     {
     public:
 
-        // ’Pƒ‚ÉPublicŠÖ”‚ğŒÄ‚ñ‚Å—‚¿‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒg
+        // å˜ç´”ã«Publicé–¢æ•°ã‚’å‘¼ã‚“ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod01)
         {
             // Target
@@ -23,7 +23,7 @@ namespace StarmanLibTest
             obj->Destroy();
         }
 
-        // ’Pƒ‚ÉPublicŠÖ”‚ğŒÄ‚ñ‚Å—‚¿‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒg
+        // å˜ç´”ã«Publicé–¢æ•°ã‚’å‘¼ã‚“ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod02)
         {
             RainModel* obj = RainModel::Get();
@@ -34,7 +34,7 @@ namespace StarmanLibTest
             obj->Destroy();
         }
 
-        // ’Pƒ‚ÉPublicŠÖ”‚ğŒÄ‚ñ‚Å—‚¿‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒg
+        // å˜ç´”ã«Publicé–¢æ•°ã‚’å‘¼ã‚“ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod03)
         {
             RainModel* obj = RainModel::Get();
@@ -46,7 +46,7 @@ namespace StarmanLibTest
             obj->Destroy();
         }
 
-        // ’Pƒ‚ÉPublicŠÖ”‚ğŒÄ‚ñ‚Å—‚¿‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒg
+        // å˜ç´”ã«Publicé–¢æ•°ã‚’å‘¼ã‚“ã§è½ã¡ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod04)
         {
             RainModel* obj = RainModel::Get();
@@ -55,24 +55,24 @@ namespace StarmanLibTest
             obj->Destroy();
         }
 
-        // °‚ê‚Ä‚¢‚é‚Æ‚«A1ŠÔŒã‚É‰J‚ª~‚é‚©A‚ğ10000‰ñŠm”F‚µ‚Ä
-        // ‰J‚ª~‚éŠm—¦‚ª1“’ö“x‚Å‚ ‚é‚±‚Æ‚ğŠm”F‚·‚é
+        // æ™´ã‚Œã¦ã„ã‚‹ã¨ãã€1æ™‚é–“å¾Œã«é›¨ãŒé™ã‚‹ã‹ã€ã‚’10000å›ç¢ºèªã—ã¦
+        // é›¨ãŒé™ã‚‹ç¢ºç‡ãŒ1ï¼…ç¨‹åº¦ã§ã‚ã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹
         TEST_METHOD(TestMethod05)
         {
             auto datetime = PowereggDateTime::GetObj();
             RainModel* obj = RainModel::Get();
 
-            // s‰ñ”
+            // è©¦è¡Œå›æ•°
             int tryCount = 0;
 
-            // ‰J‚ª~‚Á‚½‰ñ”
+            // é›¨ãŒé™ã£ãŸå›æ•°
             int rainStartCount = 0;
 
             for (int i = 0; i < 10000; ++i)
             {
                 bool isRain1 = obj->IsRain();
 
-                // °‚ê‚¾‚Á‚½‚ç‰J‚ª~‚é‚©Šm”F‚·‚éƒ`ƒƒƒ“ƒX
+                // æ™´ã‚Œã ã£ãŸã‚‰é›¨ãŒé™ã‚‹ã‹ç¢ºèªã™ã‚‹ãƒãƒ£ãƒ³ã‚¹
                 if (!isRain1)
                 {
                     ++tryCount;
@@ -97,24 +97,24 @@ namespace StarmanLibTest
             datetime->Destroy();
         }
 
-        // ‰J‚ª~‚Á‚Ä‚¢‚é‚Æ‚«A1ŠÔŒã‚É‰J‚ª~‚Ş‚©A‚ğ10000‰ñŠm”F‚µ‚Ä
-        // ‰J‚ª‚â‚ŞŠm—¦‚ª10“’ö“x‚Å‚ ‚é‚±‚Æ‚ğŠm”F‚·‚é
+        // é›¨ãŒé™ã£ã¦ã„ã‚‹ã¨ãã€1æ™‚é–“å¾Œã«é›¨ãŒæ­¢ã‚€ã‹ã€ã‚’10000å›ç¢ºèªã—ã¦
+        // é›¨ãŒã‚„ã‚€ç¢ºç‡ãŒ10ï¼…ç¨‹åº¦ã§ã‚ã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹
         TEST_METHOD(TestMethod06)
         {
             auto datetime = PowereggDateTime::GetObj();
             RainModel* obj = RainModel::Get();
 
-            // s‰ñ”
+            // è©¦è¡Œå›æ•°
             int tryCount = 0;
 
-            // ‰J‚ª~‚ñ‚¾‰ñ”
+            // é›¨ãŒæ­¢ã‚“ã å›æ•°
             int rainStopCount = 0;
 
             for (int i = 0; i < 10000; ++i)
             {
                 bool isRain1 = obj->IsRain();
 
-                // ‰J‚¾‚Á‚½‚ç‰J‚ª~‚Ş‚©Šm”F‚·‚éƒ`ƒƒƒ“ƒX
+                // é›¨ã ã£ãŸã‚‰é›¨ãŒæ­¢ã‚€ã‹ç¢ºèªã™ã‚‹ãƒãƒ£ãƒ³ã‚¹
                 if (isRain1)
                 {
                     ++tryCount;

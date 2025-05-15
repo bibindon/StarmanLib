@@ -1,4 +1,4 @@
-#include "SkillManager.h"
+ï»¿#include "SkillManager.h"
 
 #include "Util.h"
 
@@ -119,8 +119,8 @@ void SkillManager::Save(const std::string& csvfile,
     std::vector<std::string> vs;
     std::string work;
 
-    vs.push_back("–¼Ì");
-    vs.push_back("ƒŒƒxƒ‹");
+    vs.push_back("åç§°");
+    vs.push_back("ãƒ¬ãƒ™ãƒ«");
     vvs.push_back(vs);
     vs.clear();
 

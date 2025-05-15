@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 
-// ‚¨‚æ‚»100ƒ[ƒgƒ‹ˆÈ“à‚Ì3Dƒ‚ƒfƒ‹‚Ìî•ñ‚ğ•Ô‚·B
-// 1•b‚Éˆê‰ñ‚­‚ç‚¢ŒÄ‚Î‚ê‚é‘z’è
+// ãŠã‚ˆã100ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã®3Dãƒ¢ãƒ‡ãƒ«ã®æƒ…å ±ã‚’è¿”ã™ã€‚
+// 1ç§’ã«ä¸€å›ãã‚‰ã„å‘¼ã°ã‚Œã‚‹æƒ³å®š
 namespace NSStarmanLib
 {
 
-// ”p~—\’è
-// ƒ}ƒbƒvƒf[ƒ^‚ğƒNƒ‰ƒX‚Åˆµ‚¤‚Ì‚Íd‚·‚¬‚½B
+// å»ƒæ­¢äºˆå®š
+// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¯ãƒ©ã‚¹ã§æ‰±ã†ã®ã¯é‡ã™ããŸã€‚
 
 //class MapObj
 //{
@@ -43,8 +43,8 @@ namespace NSStarmanLib
 //    void SetScale(const float arg);
 //    float GetScale() const;
 //
-//    // 100ƒ[ƒgƒ‹ˆÈã—£‚ê‚½‚ç”ñ•\¦‚É‚·‚é‚ªA‚»‚ê‚Æ‚Í•Ê‚ÉA–Ø‚ğØ‚Á‚½‚çAØ‚Á‚½–Ø‚ğ”ñ•\¦‚É‚µ‚½‚¢B
-//    // Show/Hide, Visible/Disable‚ÅŒ¾—t‚ğg‚¢•ª‚¯‚é‚±‚Æ‚É‚·‚é
+//    // 100ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥ä¸Šé›¢ã‚ŒãŸã‚‰éè¡¨ç¤ºã«ã™ã‚‹ãŒã€ãã‚Œã¨ã¯åˆ¥ã«ã€æœ¨ã‚’åˆ‡ã£ãŸã‚‰ã€åˆ‡ã£ãŸæœ¨ã‚’éè¡¨ç¤ºã«ã—ãŸã„ã€‚
+//    // Show/Hide, Visible/Disableã§è¨€è‘‰ã‚’ä½¿ã„åˆ†ã‘ã‚‹ã“ã¨ã«ã™ã‚‹
 //    void SetShow(const bool arg);
 //    bool GetShow() const;
 //
@@ -71,7 +71,7 @@ namespace NSStarmanLib
 //    bool m_visible = false;
 //};
 
-// MapObj‚ª‘å—Ê‚É•K—v‚Æ‚È‚é‚½‚ß\‘¢‘Ì‚ğg‚¢‚‘¬‰»‚ğŒv‚é
+// MapObjãŒå¤§é‡ã«å¿…è¦ã¨ãªã‚‹ãŸã‚æ§‹é€ ä½“ã‚’ä½¿ã„é«˜é€ŸåŒ–ã‚’è¨ˆã‚‹
 struct stMapObj
 {
     int m_id = 0;
@@ -93,11 +93,11 @@ struct stMapObj
     bool m_visible = false;
 };
 
-// ‘S•”’²‚×‚½‚ç‘å•Ï•‰‰×‚ªd‚­‚È‚é‚Ì‚Å100ƒ[ƒgƒ‹‚²‚Æ‚ÌŠiq‚ğl‚¦‚éB
-// ƒ}ƒbƒv‚ğ100ƒ[ƒgƒ‹‚²‚Æ‚ÌŠiq‚Å•ªŠ„‚µA©•ª‚ª‚¢‚éŠiq‚Æ‚»‚Ìü‚è‚Ì8‚Â‚ÌŠiq‚¾‚¯‚ğˆ—‚·‚é
+// å…¨éƒ¨èª¿ã¹ãŸã‚‰å¤§å¤‰è² è·ãŒé‡ããªã‚‹ã®ã§100ãƒ¡ãƒ¼ãƒˆãƒ«ã”ã¨ã®æ ¼å­ã‚’è€ƒãˆã‚‹ã€‚
+// ãƒãƒƒãƒ—ã‚’100ãƒ¡ãƒ¼ãƒˆãƒ«ã”ã¨ã®æ ¼å­ã§åˆ†å‰²ã—ã€è‡ªåˆ†ãŒã„ã‚‹æ ¼å­ã¨ãã®å‘¨ã‚Šã®8ã¤ã®æ ¼å­ã ã‘ã‚’å‡¦ç†ã™ã‚‹
 //
-// 100ƒ[ƒgƒ‹ˆÈã—£‚ê‚½‚ç”ñ•\¦‚É‚·‚é‚ªA‚»‚ê‚Æ‚Í•Ê‚ÉA–Ø‚ğØ‚Á‚½‚çAØ‚Á‚½–Ø‚ğ”ñ•\¦‚É‚µ‚½‚¢B
-// Show/Hide, Visible/Disable‚ÅŒ¾—t‚ğg‚¢•ª‚¯‚é‚±‚Æ‚É‚·‚é
+// 100ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥ä¸Šé›¢ã‚ŒãŸã‚‰éè¡¨ç¤ºã«ã™ã‚‹ãŒã€ãã‚Œã¨ã¯åˆ¥ã«ã€æœ¨ã‚’åˆ‡ã£ãŸã‚‰ã€åˆ‡ã£ãŸæœ¨ã‚’éè¡¨ç¤ºã«ã—ãŸã„ã€‚
+// Show/Hide, Visible/Disableã§è¨€è‘‰ã‚’ä½¿ã„åˆ†ã‘ã‚‹ã“ã¨ã«ã™ã‚‹
 class MapObjManager
 {
 public:
@@ -108,7 +108,7 @@ public:
               const std::string& csvModelId,
               const bool decrypt = false);
 
-    // ƒoƒCƒiƒŠƒtƒ@ƒCƒ‹‚Å“Ç‚İ‘‚«‚·‚é
+    // ãƒã‚¤ãƒŠãƒªãƒ•ã‚¡ã‚¤ãƒ«ã§èª­ã¿æ›¸ãã™ã‚‹
     void InitWithBinary(const std::string& binfile,
                         const std::string& csvModelId,
                         const bool decrypt = false);
@@ -120,24 +120,24 @@ public:
 
     static void Destroy();
 
-    // •\¦‚·‚×‚«ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+    // è¡¨ç¤ºã™ã¹ãã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
     std::vector<stMapObj> GetMapObjList(const float playerX, const float playerZ);
 
-    // ”¼ŒarˆÈ“à‚ÌƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·B
+    // åŠå¾„rä»¥å†…ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ã€‚
     std::vector<stMapObj> GetMapObjListR(const float playerX, const float playerZ, const float r);
 
-    // •\¦‚·‚×‚«‚È‚Ì‚É•\¦‚³‚ê‚Ä‚¢‚È‚¢ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+    // è¡¨ç¤ºã™ã¹ããªã®ã«è¡¨ç¤ºã•ã‚Œã¦ã„ãªã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
     void GetMapObjListShow(const float playerX,
                            const float playerZ,
                            std::vector<stMapObj>* needShow);
 
-    // •\¦‚·‚×‚«‚Å‚È‚¢‚Ì‚É•\¦‚³‚ê‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+    // è¡¨ç¤ºã™ã¹ãã§ãªã„ã®ã«è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
     void GetMapObjListHide(const float playerX,
                            const float playerZ,
                            std::vector<stMapObj>* needHide);
 
-    // 100ƒ[ƒgƒ‹ˆÈã—£‚ê‚½‚ç”ñ•\¦‚É‚·‚é‚ªA‚»‚ê‚Æ‚Í•Ê‚ÉA–Ø‚ğØ‚Á‚½‚çAØ‚Á‚½–Ø‚ğ”ñ•\¦‚É‚µ‚½‚¢B
-    // Show/Hide, Visible/Disable‚ÅŒ¾—t‚ğg‚¢•ª‚¯‚é‚±‚Æ‚É‚·‚é
+    // 100ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥ä¸Šé›¢ã‚ŒãŸã‚‰éè¡¨ç¤ºã«ã™ã‚‹ãŒã€ãã‚Œã¨ã¯åˆ¥ã«ã€æœ¨ã‚’åˆ‡ã£ãŸã‚‰ã€åˆ‡ã£ãŸæœ¨ã‚’éè¡¨ç¤ºã«ã—ãŸã„ã€‚
+    // Show/Hide, Visible/Disableã§è¨€è‘‰ã‚’ä½¿ã„åˆ†ã‘ã‚‹ã“ã¨ã«ã™ã‚‹
     void SetShow(const int frame_x, const int frame_z, const int id, const bool show);
 
     void SetVisible(const int frame_x, const int frame_z, const int id, const bool visible);
@@ -145,22 +145,22 @@ public:
     std::string GetModelName(const int id);
     int GetModelId(const std::string& name);
 
-    // Show/Hide‚ğ‚·‚×‚ÄƒŠƒZƒbƒg
+    // Show/Hideã‚’ã™ã¹ã¦ãƒªã‚»ãƒƒãƒˆ
     void ResetShow();
 
 private:
 
     static MapObjManager* obj;
 
-    // m_mapObjMap[10][20] ‚±‚ê‚Í1000m ~ 1100m, 2000m ~ 2100m‚Ì”ÍˆÍ‚Ì3‚cƒ‚ƒfƒ‹‚ÌƒŠƒXƒg‚ğˆÓ–¡‚·‚é
+    // m_mapObjMap[10][20] ã“ã‚Œã¯1000m ~ 1100m, 2000m ~ 2100mã®ç¯„å›²ã®3ï¼¤ãƒ¢ãƒ‡ãƒ«ã®ãƒªã‚¹ãƒˆã‚’æ„å‘³ã™ã‚‹
 //    std::unordered_map<int, std::unordered_map<int, std::vector<MapObj>>> m_mapObjMap;
 
     std::unordered_map<int, std::unordered_map<int, std::vector<stMapObj>>> m_stMapObjMap;
 
-    // ƒ‚ƒfƒ‹‚Ì”z’uî•ñ‚Í‹‘å‚È‚½‚ßƒtƒ@ƒCƒ‹–¼‚ğ‚»‚Ì‚Ü‚Üˆµ‚¤‚Æ‚Æ‚Ä‚Â‚à‚È‚­‹‘å‚É‚È‚Á‚Ä‚µ‚Ü‚¤B
+    // ãƒ¢ãƒ‡ãƒ«ã®é…ç½®æƒ…å ±ã¯å·¨å¤§ãªãŸã‚ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãã®ã¾ã¾æ‰±ã†ã¨ã¨ã¦ã¤ã‚‚ãªãå·¨å¤§ã«ãªã£ã¦ã—ã¾ã†ã€‚
     // tree.x -> 1
     // rock.x -> 2
-    // ‚Ì‚æ‚¤‚È¯•Êq‚ğ—^‚¦‚é‚æ‚¤‚É‚·‚é
+    // ã®ã‚ˆã†ãªè­˜åˆ¥å­ã‚’ä¸ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
     std::unordered_map<int, std::string> m_XnameMap;
 
     bool m_bBinData = false;

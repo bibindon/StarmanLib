@@ -1,5 +1,5 @@
-//-------------------------------------------------------------
-// CraftSystem��Init�֐�����ɁACraftInfoManager��Init���Ă΂�Ă���K�v������B
+﻿//-------------------------------------------------------------
+// CraftSystemのInit関数より先に、CraftInfoManagerのInitが呼ばれている必要がある。
 //-------------------------------------------------------------
 #pragma once
 
@@ -12,7 +12,7 @@
 namespace NSStarmanLib
 {
 
-// �N���t�g�\�񃊃X�g�̃A�C�e��
+// クラフト予約リストのアイテム
 class CraftRequest
 {
 public:
@@ -84,9 +84,9 @@ private:
     int m_finishMinute = 0;
     int m_finishSecond = 0;
 
-    // �i�[��̑q��ID
-    // �Q�[�����ɑq�ɂ͕������݂���B
-    // �˗��������_�Ŋm�肷��
+    // 格納先の倉庫ID
+    // ゲーム内に倉庫は複数存在する。
+    // 依頼した時点で確定する
     int m_storehouseId = -1;
 
     CraftInfo m_craftInfo;
@@ -114,30 +114,30 @@ public:
 
 private:
 
-    // �N���t�g�A�C�e��
+    // クラフトアイテム
     std::string m_name;
 
-    // �����l
+    // 強化値
     int m_level;
 
-    // �N���t�g�\���ۂ�
+    // クラフト可能か否か
     bool m_enable;
 
-    // ���̃��x�����K������̓��K�v�ȃN���t�g��
+    // 次のレベルを習得するの日必要なクラフト回数
     int m_levelUpNecessity;
 
-    // �N���t�g�o����
+    // クラフト経験回数
     int m_successNum;
 };
 
-// �N���t�g�V�X�e���p�N���X
-// �ECraftInfoManager���g�p����Inventory�N���X��Storehouse�N���X�𑀍삷��B
-// �E�E�l�̏n���x���Ǘ�����B
-// �E�E�l�̏n���x�A�C���x���g���̏󋵂���N���t�g�\ OR �N���t�g�s�\�̏���񋟂���B
-// �EPowereggDateTime�N���X���g�p����24���Ԍ�Ɋ��������A�C�e����q�ɂɔz�u����B 
-// �E��x�ɃN���t�g�ł���A�C�e���͈�����̑z��
-// �E�N���t�g���L�����Z���ł��邪�f�ނ͂Ȃ��Ȃ�
-// �E��������O�Ɏ��̈˗����ł���B5�܂ŃL���[�C���O�o����
+// クラフトシステム用クラス
+// ・CraftInfoManagerを使用してInventoryクラスやStorehouseクラスを操作する。
+// ・職人の熟練度を管理する。
+// ・職人の熟練度、インベントリの状況からクラフト可能 OR クラフト不可能の情報を提供する。
+// ・PowereggDateTimeクラスを使用して24時間後に完成したアイテムを倉庫に配置する。 
+// ・一度にクラフトできるアイテムは一つだけの想定
+// ・クラフトをキャンセルできるが素材はなくなる
+// ・完成する前に次の依頼ができる。5個までキューイング出来る
 class CraftSystem
 {
 
@@ -153,24 +153,24 @@ public:
     void Save(const std::string& csvfileSkill, const std::string& csvfileQueue,
               const bool encrypt = false);
 
-    // �E�l���N���t�g�\�ł��邩�H�̃t���O��ON�ɂ���
+    // 職人がクラフト可能であるか？のフラグをONにする
     void SetCraftsmanSkill(const std::string& craftItem, const int level = -1);
 
-    // �E�l�����ݍ���N���t�g�A�C�e���̃��x��
+    // 職人が現在作れるクラフトアイテムのレベル
     int GetCraftsmanSkill(const std::string& craftItem);
 
-    // �N���t�g���˗����ꂽ��A�C�e��������A24���Ԍ�ɑq�ɂɃN���t�g�A�C�e�����z�u�����B
-    // ��x�Ɉ�����N���t�g�ł��Ȃ��̂ŃN���t�g���Ɏ��̈˗����󂯂���L���[�C���O�����
-    // 5�܂ŃL���[�C���O�o����
+    // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
+    // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる
+    // 5個までキューイング出来る
     //
-    // �E�l�������l�{�Q�̐Ε�������Ȃ炻������B
-    // �����l�{�Q�̐Ε�������̂Ɂ{�P�̐Ε��������@�͒񋟂��Ȃ��B
-    // �q��ID��-1�Ȃ�A���݂̋��_�̑q�ɂ��g��
+    // 職人が強化値＋２の石斧が作れるならそれを作る。
+    // 強化値＋２の石斧が作れるのに＋１の石斧を作る方法は提供しない。
+    // 倉庫IDが-1なら、現在の拠点の倉庫を使う
     bool QueueCraftRequest(const std::string& craftItem,
                            std::string* errMsg,
                            const int storehouseId = -1);
 
-    // �˗����L�����Z��
+    // 依頼をキャンセル
     bool CancelCraftStart(const int index);
 
     void UpdateCraftStatus();
@@ -183,12 +183,12 @@ private:
 
     void StartCraft();
 
-    // �V���O���g���I�u�W�F�N�g
+    // シングルトンオブジェクト
     static CraftSystem* obj;
 
     std::vector<CraftSkill> m_craftSkillList;
 
-    // ��x�ɃN���t�g�ł���A�C�e���͈�����̑z��
+    // 一度にクラフトできるアイテムは一つだけの想定
     std::list<CraftRequest> m_craftRequestList;
 
 };

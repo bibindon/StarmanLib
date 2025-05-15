@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/MapInfoManager.h"
 #include <fstream>
 #include <sstream>
@@ -35,14 +35,14 @@ namespace StarmanLibTest
             MapInfoManager* obj = MapInfoManager::GetObj();
             obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
             std::vector<std::string> vs = obj->GetNameList();
-            Assert::AreEqual(vs.at(0) == "ƒpƒ[ƒGƒbƒO¯", true);
+            Assert::AreEqual(vs.at(0) == "ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿ", true);
         }
 
         TEST_METHOD(TestMethod04)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
             obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            bool bDiscovered = obj->IsDiscovered("ƒvƒƒŠƒ^ƒ““‡");
+            bool bDiscovered = obj->IsDiscovered("ãƒ—ãƒ­ãƒªã‚¿ãƒ³å³¶");
             Assert::AreEqual(bDiscovered, true);
         }
 
@@ -50,24 +50,24 @@ namespace StarmanLibTest
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
             obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            std::string result = obj->GetImagePath("ƒvƒƒŠƒ^ƒ““‡");
+            std::string result = obj->GetImagePath("ãƒ—ãƒ­ãƒªã‚¿ãƒ³å³¶");
             Assert::AreEqual("res\\\\image\\\\narrowmap2.png", result.c_str());
         }
 
-        // •Û‘¶‚µ‚½‚Æ‚«‚Ì“à—e‚ª³‚µ‚¢‚©Šm”F
+        // ä¿å­˜ã—ãŸã¨ãã®å†…å®¹ãŒæ­£ã—ã„ã‹ç¢ºèª
         TEST_METHOD(TestMethod06)
         {
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-                obj->SetDiscovered("ƒvƒŒƒVƒWƒ‡ƒ“");
+                obj->SetDiscovered("ãƒ—ãƒ¬ã‚·ã‚¸ãƒ§ãƒ³");
                 obj->Save("..\\StarmanLibTest\\mapInfoSave.csv");
                 MapInfoManager::Destroy();
             }
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
                 obj->Init("..\\StarmanLibTest\\mapInfoSave.csv");
-                bool bDiscovered = obj->IsDiscovered("ƒvƒŒƒVƒWƒ‡ƒ“");
+                bool bDiscovered = obj->IsDiscovered("ãƒ—ãƒ¬ã‚·ã‚¸ãƒ§ãƒ³");
                 Assert::AreEqual(bDiscovered, true);
             }
         }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -7,32 +7,32 @@
 namespace NSStarmanLib
 {
 
-// �A�C�e���ɂ͑ϋv�x������A�����A�C�e���ł��ϋv�x���قȂ邱�Ƃ��\�B
-// �Ⴆ�΁A�Ε����������Ă��邪�A�Е��͑ϋv�x��100�ŁA
-// �����Е��͑ϋv�x��50�Ƃ����͉̂\�ł���B
-// ������������邽�߂�ItemInfo��ItemDef�Ƃ����N���X�ɕ�����B
-// ItemDef�̓A�C�e���̒�`�AItemInfo�͌X�̃A�C�e���̏�ԂƂ���
-// ItemInfo��Inventory�N���X�i�C���x���g���j��Storehouse�N���X�i�q�Ɂj�Ŏg����B
-// SubId�ŌX�̃A�C�e���̎��ʂ��s�����A�A�C�e���͍폜�ł���̂ŘA�ԂɂȂ�Ƃ͌���Ȃ�
+// アイテムには耐久度があり、同じアイテムでも耐久度が異なることが可能。
+// 例えば、石斧を二つ所持しているが、片方は耐久度が100で、
+// もう片方は耐久度が50というのは可能である。
+// これを実現するためにItemInfoとItemDefというクラスに分ける。
+// ItemDefはアイテムの定義、ItemInfoは個々のアイテムの状態とする
+// ItemInfoはInventoryクラス（インベントリ）やStorehouseクラス（倉庫）で使われる。
+// SubIdで個々のアイテムの識別を行うが、アイテムは削除できるので連番になるとは限らない
 
 class ItemDef
 {
 public:
     enum class ItemType
     {
-        // �M�d�i
+        // 貴重品
         VALUABLES,
 
-        // �H��
+        // 食材
         FOOD,
 
-        // �f��
+        // 素材
         MATERIAL,
 
-        // ����
+        // 武器
         WEAPON,
 
-        // ���̑�
+        // その他
         OTHERS,
     };
 
@@ -100,62 +100,62 @@ private:
     // ID
     int m_id = 0;
 
-    // ����
+    // 名称
     std::string m_name;
 
-    // �ڍ�
+    // 詳細
     std::string m_detail;
 
-    // �摜�̃t�@�C����
+    // 画像のファイル名
     std::string m_imagePath;
 
-    // �d�ʁikg�j
+    // 重量（kg）
     float m_weight = 0.f;
 
-    // �̐ρimL�j
+    // 体積（mL）
     float m_volume = 0.f;
 
-    // ���
+    // 種類
     ItemType m_eType;
 
-    // ����
+    // 糖質
     float m_carbo = 0.f;
 
-    // �^���p�N��
+    // タンパク質
     float m_protein = 0.f;
 
-    // ����
+    // 脂質
     float m_lipid = 0.f;
 
-    // �r�^�~��
+    // ビタミン
     float m_vitamin = 0.f;
 
-    // �~�l����
+    // ミネラル
     float m_mineral = 0.f;
 
-    // ����
-    // �}�C�i�X�ɂȂ邱�Ƃ�����B
+    // 水分
+    // マイナスになることがある。
     float m_water = 0.f;
 
-    // �f�o�t�i�̂̃X�^�~�i�j
+    // デバフ（体のスタミナ）
     float m_bodyStaminaDebuff = 0.f;
 
-    // �f�o�t�i�]�̃X�^�~�i�j
+    // デバフ（脳のスタミナ）
     float m_brainStaminaDebuff = 0.f;
 
-    // �f�o�t�i���̂̏C���x�j
+    // デバフ（肉体の修復度）
     float m_muscleDebuff = 0.f;
 
-    // �f�o�t�i���Ɂj
+    // デバフ（頭痛）
     bool m_headache = false;
 
-    // �f�o�t�i���Ɂj
+    // デバフ（腹痛）
     bool m_stomachache = false;
 
-    // �����l
+    // 強化値
     int m_level = -1;
 
-    // �ϋv�x
+    // 耐久度
     int m_durabilityMax = -1;
 };
 
@@ -183,7 +183,7 @@ private:
     int m_durabilityCurrent = 0;
 };
 
-// ���[���h�}�b�v��̂ǂ��ɃA�C�e���������Ă��邩�̏��
+// ワールドマップ上のどこにアイテムが落ちているかの情報
 class ItemPos
 {
 public:
@@ -209,9 +209,9 @@ private:
     bool m_obtained = false;
 };
 
-// �A�C�e�������Ǘ�����N���X
-// �u��l���͂ǂ̃A�C�e�������������Ă��邩�H�v��
-// Inventory�N���X���S�����邽�߂��̃N���X�͊֌W�Ȃ����Ƃɒ��ӁB
+// アイテム情報を管理するクラス
+// 「主人公はどのアイテムをいくつ持っているか？」は
+// Inventoryクラスが担当するためこのクラスは関係ないことに注意。
 class ItemManager
 {
 public:
@@ -233,13 +233,13 @@ public:
     
     ItemDef GetItemDefByPosID(const int posId);
 
-    // 1���[�g���ȓ��ɂ���A�C�e����������Ԃ�
+    // 1メートル以内にあるアイテムを一つだけ返す
     ItemPos GetItemPosByPos(const float x, const float y, const float z, const float r = 1.f);
     void SetItemPosObtained(const int itemPosId);
 
 private:
 
-    // �V���O���g���I�u�W�F�N�g
+    // シングルトンオブジェクト
     static ItemManager* obj;
 
     std::unordered_map<int, ItemDef> m_itemDefMap;

@@ -1,4 +1,4 @@
-#include "MapObjManager.h"
+ï»¿#include "MapObjManager.h"
 #include <algorithm>
 #include "Util.h"
 #include <fstream>
@@ -194,13 +194,13 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
 
         size_t size = 0;
 
-        // ƒxƒNƒ^[ƒTƒCƒY‚ğ“Ç‚İ‚Ş
+        // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’èª­ã¿è¾¼ã‚€
         inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
 
-        // ƒxƒNƒ^[ƒTƒCƒY‚ğİ’è
+        // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’è¨­å®š
         stMapObjList.resize(size);
 
-        // ƒf[ƒ^–{‘Ì‚ğ“Ç‚İ‚Ş
+        // ãƒ‡ãƒ¼ã‚¿æœ¬ä½“ã‚’èª­ã¿è¾¼ã‚€
         inFile.read(reinterpret_cast<char*>(stMapObjList.data()),
                     static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
@@ -208,9 +208,9 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
 
         for (auto it = stMapObjList.begin(); it != stMapObjList.end(); ++it)
         {
-            // •\¦Ï‚İƒtƒ‰ƒO‚ğƒIƒt‚É‚·‚é
-            // ƒZ[ƒu‚µ‚½‚Æ‚«‚Í–Ø‚â‘‚ğ•\¦‚µ‚Ä‚¢‚½‚©‚à‚µ‚ê‚È‚¢‚ªAƒQ[ƒ€‚ğÄ‹N“®‚µ‚½‚Ì‚¾‚©‚ç
-            // •\¦Ï‚İ‚Å‚Í‚È‚¢A‚Æ‚¢‚¤‚±‚ÆB
+            // è¡¨ç¤ºæ¸ˆã¿ãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ•ã«ã™ã‚‹
+            // ã‚»ãƒ¼ãƒ–ã—ãŸã¨ãã¯æœ¨ã‚„è‰ã‚’è¡¨ç¤ºã—ã¦ã„ãŸã‹ã‚‚ã—ã‚Œãªã„ãŒã€ã‚²ãƒ¼ãƒ ã‚’å†èµ·å‹•ã—ãŸã®ã ã‹ã‚‰
+            // è¡¨ç¤ºæ¸ˆã¿ã§ã¯ãªã„ã€ã¨ã„ã†ã“ã¨ã€‚
             it->m_show = false;
 
             m_stMapObjMap[it->m_frameX][it->m_frameZ].emplace_back(*it);
@@ -255,13 +255,13 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
 
     vs.clear();
     vs.push_back("ID");
-    vs.push_back("ƒ‚ƒfƒ‹ID");
+    vs.push_back("ãƒ¢ãƒ‡ãƒ«ID");
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("Z");
     vs.push_back("RotY");
     vs.push_back("Scale");
-    vs.push_back("•\¦");
+    vs.push_back("è¡¨ç¤º");
     vvs.push_back(vs);
 
     for (int i = 0; i < (int)work.size(); ++i)
@@ -315,10 +315,10 @@ void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binFile)
     {
         size_t size = stMapObjList.size();
 
-        // ƒxƒNƒ^[ƒTƒCƒY‚ğ‘‚«‚Ş
+        // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’æ›¸ãè¾¼ã‚€
         outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
 
-        // ƒf[ƒ^–{‘Ì‚ğ‘‚«‚Ş
+        // ãƒ‡ãƒ¼ã‚¿æœ¬ä½“ã‚’æ›¸ãè¾¼ã‚€
         outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
@@ -337,8 +337,8 @@ NSStarmanLib::MapObjManager::GetMapObjList(const float playerX,
                                            const float playerZ)
 {
     std::vector<stMapObj> result;
-    // ƒvƒŒƒCƒ„[‚ÌXÀ•W‚ª   0 ~  99 ‚È‚çŠiqX‚Í0
-    // ƒvƒŒƒCƒ„[‚ÌXÀ•W‚ª 100 ~ 199 ‚È‚çŠiqX‚Í1
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Xåº§æ¨™ãŒ   0 ~  99 ãªã‚‰æ ¼å­Xã¯0
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Xåº§æ¨™ãŒ 100 ~ 199 ãªã‚‰æ ¼å­Xã¯1
 
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
@@ -348,38 +348,38 @@ NSStarmanLib::MapObjManager::GetMapObjList(const float playerX,
     result = work;
 
     //-----------------------------------------------------------------------------
-    // ¶ãAãA‰EãA¶A‰EA¶‰ºA‰ºA‰E‰º‚ÌŠiq‚É‚Â‚¢‚Ä‚à’Ç‰Á
+    // å·¦ä¸Šã€ä¸Šã€å³ä¸Šã€å·¦ã€å³ã€å·¦ä¸‹ã€ä¸‹ã€å³ä¸‹ã®æ ¼å­ã«ã¤ã„ã¦ã‚‚è¿½åŠ 
     //-----------------------------------------------------------------------------
 
-    // ¶ã
+    // å·¦ä¸Š
     work = m_stMapObjMap[frameX-1][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ã
+    // ä¸Š
     work = m_stMapObjMap[frameX][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ‰Eã
+    // å³ä¸Š
     work = m_stMapObjMap[frameX+1][frameZ+1];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ¶
+    // å·¦
     work = m_stMapObjMap[frameX-1][frameZ];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ‰E
+    // å³
     work = m_stMapObjMap[frameX+1][frameZ];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ¶‰º
+    // å·¦ä¸‹
     work = m_stMapObjMap[frameX-1][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ‰º
+    // ä¸‹
     work = m_stMapObjMap[frameX][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
-    // ‰E‰º
+    // å³ä¸‹
     work = m_stMapObjMap[frameX+1][frameZ-1];
     result.insert(result.end(), work.begin(), work.end());
 
@@ -392,8 +392,8 @@ NSStarmanLib::MapObjManager::GetMapObjListR(const float playerX,
                                             const float r)
 {
     std::vector<stMapObj> result;
-    // ƒvƒŒƒCƒ„[‚ÌXÀ•W‚ª   0 ~  99 ‚È‚çŠiqX‚Í0
-    // ƒvƒŒƒCƒ„[‚ÌXÀ•W‚ª 100 ~ 199 ‚È‚çŠiqX‚Í1
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Xåº§æ¨™ãŒ   0 ~  99 ãªã‚‰æ ¼å­Xã¯0
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Xåº§æ¨™ãŒ 100 ~ 199 ãªã‚‰æ ¼å­Xã¯1
 
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
@@ -441,22 +441,22 @@ void NSStarmanLib::MapObjManager::GetMapObjListHide(const float playerX,
     int frameX = (int)playerX / 100;
     int frameZ = (int)playerZ / 100;
 
-    // •`‰æ”ÍˆÍŠOƒIƒuƒWƒFƒNƒg‚É‚Â‚¢‚Ä‚ÍAƒvƒŒƒCƒ„[‚Ì‚¢‚éŠiq‚©‚ç“ñ‚Â—£‚ê‚½Šiq‚¾‚¯’²‚×‚ê‚Î‚æ‚¢‹C‚ª‚·‚é
-    //             
-    //             
-    //    ¡¡¡¡¡     (1)
-    //    ¡   ¡     (2)
-    //    ¡ š ¡     (3)
-    //    ¡   ¡     (4)
-    //    ¡¡¡¡¡     (5)
-    //             
+    // æç”»ç¯„å›²å¤–ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã¤ã„ã¦ã¯ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã„ã‚‹æ ¼å­ã‹ã‚‰äºŒã¤é›¢ã‚ŒãŸæ ¼å­ã ã‘èª¿ã¹ã‚Œã°ã‚ˆã„æ°—ãŒã™ã‚‹
+    // â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡
+    // â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡
+    // â–¡â–¡â–¡â– â– â– â– â– â–¡â–¡â–¡â–¡ (1)
+    // â–¡â–¡â–¡â– â–¡â–¡â–¡â– â–¡â–¡â–¡â–¡ (2)
+    // â–¡â–¡â–¡â– â–¡â˜…â–¡â– â–¡â–¡â–¡â–¡ (3)
+    // â–¡â–¡â–¡â– â–¡â–¡â–¡â– â–¡â–¡â–¡â–¡ (4)
+    // â–¡â–¡â–¡â– â– â– â– â– â–¡â–¡â–¡â–¡ (5)
+    // â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡
     //
-    // –Ø‚ğØ‚Á‚½‚Æ‚©‚Å–Ø‚ğ”ñ•\¦‚É‚µ‚½‚¢ê‡‚É‚Â‚¢‚Ä‚ÍAƒvƒŒƒCƒ„[‚Æ‚»‚Ìü‚è‚É‚Â‚¢‚Ä’²‚×‚é
-    //           
-    //    ¡¡¡     (6)
-    //    ¡š¡     (7)
-    //    ¡¡¡     (8)
-    //           
+    // æœ¨ã‚’åˆ‡ã£ãŸã¨ã‹ã§æœ¨ã‚’éè¡¨ç¤ºã«ã—ãŸã„å ´åˆã«ã¤ã„ã¦ã¯ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãã®å‘¨ã‚Šã«ã¤ã„ã¦èª¿ã¹ã‚‹
+    // â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡
+    // â–¡â–¡â–¡â– â– â– â–¡â–¡â–¡â–¡ (6)
+    // â–¡â–¡â–¡â– â˜…â– â–¡â–¡â–¡â–¡ (7)
+    // â–¡â–¡â–¡â– â– â– â–¡â–¡â–¡â–¡ (8)
+    // â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡
 
     struct XZ
     {

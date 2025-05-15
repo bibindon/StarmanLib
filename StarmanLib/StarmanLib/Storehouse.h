@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "HeaderOnlyCsv.hpp"
 #include "ItemManager.h"
@@ -9,10 +9,10 @@
 
 namespace NSStarmanLib
 {
-// ƒvƒŒƒCƒ„[‚ÌŠ•i‚ğŠÇ—‚·‚éƒNƒ‰ƒXB
-// ƒAƒCƒeƒ€‚Ì’è‹`‚ÍItemManager‚ªŠÇ—‚µ‚Ä‚¢‚éB
-// •Ší‚É‚Â‚¢‚Ä‚ÍWeaponManager‚ªŠ”‚Ü‚ÅŠÇ—‚µ‚Ä‚¢‚é‚Ì‚Å
-// StorehouseƒNƒ‰ƒX‚Éo”Ô‚Í‚È‚¢—\’è
+// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰€æŒå“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
+// ã‚¢ã‚¤ãƒ†ãƒ ã®å®šç¾©ã¯ItemManagerãŒç®¡ç†ã—ã¦ã„ã‚‹ã€‚
+// æ­¦å™¨ã«ã¤ã„ã¦ã¯WeaponManagerãŒæ‰€æŒæ•°ã¾ã§ç®¡ç†ã—ã¦ã„ã‚‹ã®ã§
+// Storehouseã‚¯ãƒ©ã‚¹ã«å‡ºç•ªã¯ãªã„äºˆå®š
 
 class Storehouse
 {
@@ -24,19 +24,19 @@ public:
     void Save(const std::string& csvfile,
               const bool encrypt = false);
 
-    // ˆêŒÂ‚¸‚Â‚µ‚©‘‰ÁŒ¸o—ˆ‚È‚¢‘z’è
+    // ä¸€å€‹ãšã¤ã—ã‹å¢—åŠ æ¸›å‡ºæ¥ãªã„æƒ³å®š
     void AddItem(const int id, const int durability = -1);
     void AddItem(const std::string name, const int level = -1, const int durability = -1);
 
-    // SubID‚ğw’è‚µ‚ÄƒAƒCƒeƒ€‚ğ’Ç‰ÁiƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‘qŒÉ‚ÖƒAƒCƒeƒ€‚ğˆÚ“®‚·‚é‚Æ‚«‚Ég‚¤j
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚ÅƒAƒCƒeƒ€‚ğíœ‚µ‚Ä‚©‚ç’Ç‰Á‚·‚é•K—v‚ª‚ ‚éB
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚ÅƒAƒCƒeƒ€‚ğíœ‚µ‚Ä‚¢‚È‚¢‚Æ
-    // u‚·‚Å‚É‚»‚ÌSubID‚Íg‚í‚ê‚Ä‚¢‚év‚Æ‚¢‚¤‚±‚Æ‚ÅƒGƒ‰[‚É‚È‚é
+    // SubIDã‚’æŒ‡å®šã—ã¦ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ï¼ˆã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰å€‰åº«ã¸ã‚¢ã‚¤ãƒ†ãƒ ã‚’ç§»å‹•ã™ã‚‹ã¨ãã«ä½¿ã†ï¼‰
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã§ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã—ã¦ã‹ã‚‰è¿½åŠ ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã§ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã—ã¦ã„ãªã„ã¨
+    // ã€Œã™ã§ã«ãã®SubIDã¯ä½¿ã‚ã‚Œã¦ã„ã‚‹ã€ã¨ã„ã†ã“ã¨ã§ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹
     void AddItemWithSubID(const int id, const int subId, const int durability = -1);
 
-    // subIdEEE‘Ï‹v’l‚Ì50‚ÌÎ•€‚Æ‘Ï‹v’l‚ª100‚ÌÎ•€‚ğŠ‚·‚é‚±‚Æ‚ª‚Å‚«‚é
-    // ‚»‚Ì‚½‚ßAƒAƒCƒeƒ€‚É‚ÍsubId‚ªU‚ç‚ê‚éBƒAƒCƒeƒ€‚ğíœ‚·‚é‚É‚ÍsubId‚ª‚È‚¢‚Æ‚Å‚«‚È‚¢
-    // ƒAƒCƒeƒ€‚Ííœ‚Å‚«‚é‚Ì‚ÅSubID‚ª˜A”Ô‚É‚È‚é‚Æ‚ÍŒÀ‚ç‚È‚¢
+    // subIdãƒ»ãƒ»ãƒ»è€ä¹…å€¤ã®50ã®çŸ³æ–§ã¨è€ä¹…å€¤ãŒ100ã®çŸ³æ–§ã‚’æ‰€æŒã™ã‚‹ã“ã¨ãŒã§ãã‚‹
+    // ãã®ãŸã‚ã€ã‚¢ã‚¤ãƒ†ãƒ ã«ã¯subIdãŒæŒ¯ã‚‰ã‚Œã‚‹ã€‚ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤ã™ã‚‹ã«ã¯subIdãŒãªã„ã¨ã§ããªã„
+    // ã‚¢ã‚¤ãƒ†ãƒ ã¯å‰Šé™¤ã§ãã‚‹ã®ã§SubIDãŒé€£ç•ªã«ãªã‚‹ã¨ã¯é™ã‚‰ãªã„
     void RemoveItem(const int id, const int subId);
     void RemoveItem(const std::string name, const int subId, const int level = -1);
 
@@ -69,27 +69,27 @@ private:
 
     void Sort();
 
-    // Š•i‚Ìd—Êi•Ší‚ÍŠÜ‚ß‚È‚¢j
+    // æ‰€æŒå“ã®é‡é‡ï¼ˆæ­¦å™¨ã¯å«ã‚ãªã„ï¼‰
     float m_weight;
 
-    // Š•iƒŠƒXƒg
-    // “¯‚¶ƒAƒCƒeƒ€‚ğ•¡”Š‚Å‚«‚é‚±‚Æ‚É’ˆÓ
+    // æ‰€æŒå“ãƒªã‚¹ãƒˆ
+    // åŒã˜ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¤‡æ•°æ‰€æŒã§ãã‚‹ã“ã¨ã«æ³¨æ„
     std::list<ItemInfo> m_itemInfoList;
 
     float m_x = 0.f;
     float m_y = 0.f;
     float m_z = 0.f;
 
-    // ƒCƒJƒ_‚Ìã‚É”z’u‚³‚ê‚½‘qŒÉ‚©”Û‚©B
+    // ã‚¤ã‚«ãƒ€ã®ä¸Šã«é…ç½®ã•ã‚ŒãŸå€‰åº«ã‹å¦ã‹ã€‚
     bool m_bRaft = false;
 
-    // ƒfƒBƒŒƒNƒgƒŠ‚ğœ‚¢‚½Aƒtƒ@ƒCƒ‹–¼B
+    // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’é™¤ã„ãŸã€ãƒ•ã‚¡ã‚¤ãƒ«åã€‚
     std::string m_csvfilename;
 };
 
-// ‘qŒÉŠÇ—ƒNƒ‰ƒX
-// ‘qŒÉ‚Í•¡”‚Â‚±‚Æ‚ª‚Å‚«‚é
-// ƒCƒJƒ_‚ğì‚é‚Æ‘qŒÉ‚Í‘‚¦‚é
+// å€‰åº«ç®¡ç†ã‚¯ãƒ©ã‚¹
+// å€‰åº«ã¯è¤‡æ•°æŒã¤ã“ã¨ãŒã§ãã‚‹
+// ã‚¤ã‚«ãƒ€ã‚’ä½œã‚‹ã¨å€‰åº«ã¯å¢—ãˆã‚‹
 class StorehouseManager
 {
 public:
@@ -107,23 +107,23 @@ public:
 
     Storehouse* GetStorehouse(const int id);
 
-    // 3ƒ[ƒgƒ‹ˆÈ“à‚Ì‘qŒÉ‚ğæ“¾B
-    // ‚È‚¯‚ê‚ÎNULL
+    // 3ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã®å€‰åº«ã‚’å–å¾—ã€‚
+    // ãªã‘ã‚Œã°NULL
     Storehouse* GetNearStorehouse(const float x, const float z);
 
-    // Œ»İ‚ÌŠˆ“®‹’“_‚Ì‘qŒÉ
+    // ç¾åœ¨ã®æ´»å‹•æ‹ ç‚¹ã®å€‰åº«
     Storehouse* GetCurrentActiveStorehouse();
 
-    // ƒTƒuID‚ğ‚·‚×‚Ä‚Ì‘qŒÉ‚©‚çæ“¾‚·‚é
+    // ã‚µãƒ–IDã‚’ã™ã¹ã¦ã®å€‰åº«ã‹ã‚‰å–å¾—ã™ã‚‹
     std::vector<int> GetSubIdListFromAllStorehouse(const int id);
 
-    // ‘qŒÉ‚ğ‘‚â‚·
-    // ƒCƒJƒ_‚Éæ‚¹‚é‘qŒÉ‚É‚Â‚¢‚Ä‚Ì‚İ‘‚â‚·‚±‚Æ‚ª‚Å‚«‚é
+    // å€‰åº«ã‚’å¢—ã‚„ã™
+    // ã‚¤ã‚«ãƒ€ã«ä¹—ã›ã‚‹å€‰åº«ã«ã¤ã„ã¦ã®ã¿å¢—ã‚„ã™ã“ã¨ãŒã§ãã‚‹
     void AddStorehouse();
 
 private:
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static StorehouseManager* m_obj;
 
     std::map<int, Storehouse> m_StorehouseMap;

@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+﻿#include "CppUnitTest.h"
 #include "../StarmanLib/Inventory.h"
 #include <fstream>
 #include <sstream>
@@ -43,15 +43,15 @@ namespace StarmanLibTest
             Inventory* obj = Inventory::GetObj();
             obj->Init("..\\StarmanLibTest\\inventory.csv");
             float weight = obj->GetWeight();
-            // float��7�������L���������Ȃ��B4���̐��l���m�̔�r�Ȃ�A�����_�ȉ���3���܂ł������m����Ȃ��B
-            // �J��Ԃ��|���Z�Ƒ����Z���s���̂�7�����Ȃ��B�ۑ�
+            // floatは7桁しか有効桁数がない。4桁の数値同士の比較なら、小数点以下は3桁までしか正確じゃない。
+            // 繰り返し掛け算と足し算を行うので7桁もない。課題
 //            Assert::AreEqual((1063.094f <= weight && weight <= 1063.096f), true);
             Assert::AreEqual(1000.f <= weight, true);
             Inventory::Destroy();
             ItemManager::Destroy();
         }
 
-        // �A�C�e���̑����̃e�X�g
+        // アイテムの増減のテスト
         TEST_METHOD(TestMethod04)
         {
             ItemManager* itemManager = ItemManager::GetObj();
@@ -73,7 +73,7 @@ namespace StarmanLibTest
             ItemManager::Destroy();
         }
 
-        // �Z�[�u�@�\�̊m�F
+        // セーブ機能の確認
         TEST_METHOD(TestMethod05)
         {
             {
@@ -103,12 +103,12 @@ namespace StarmanLibTest
             }
         }
 
-        // SubID�̍̔Ԃ̊m�F
-        // ������ނ̃A�C�e���𕡐����Ă�̂ł��ꂼ��̃A�C�e����SubID������U���Ă���
-        // �A�C�e�����폜�ł���̂�SubID�͘A�ԂɂȂ�Ȃ��B
+        // SubIDの採番の確認
+        // 同じ種類のアイテムを複数持てるのでそれぞれのアイテムにSubIDが割り振られている
+        // アイテムを削除できるのでSubIDは連番にならない。
         //
-        // SubID��1,2,3,4,5�̂Ƃ�SubID��3�ASubID��4�̃A�C�e�����폜���āA
-        // ���̂��ƃA�C�e����ǉ�������SubID��1,2,3,5�ɂȂ��Ă���͂��B
+        // SubIDが1,2,3,4,5のときSubID＝3、SubID＝4のアイテムを削除して、
+        // そのあとアイテムを追加したらSubIDは1,2,3,5になっているはず。
         TEST_METHOD(TestMethod06)
         {
             {
@@ -142,8 +142,8 @@ namespace StarmanLibTest
             }
         }
 
-        // SubID�̍̔Ԃ̊m�F
-        // ���߂Ēǉ������A�C�e���Ȃ�SubID��1���̔Ԃ����͂�
+        // SubIDの採番の確認
+        // 初めて追加されるアイテムならSubIDは1が採番されるはず
         TEST_METHOD(TestMethod07)
         {
             {

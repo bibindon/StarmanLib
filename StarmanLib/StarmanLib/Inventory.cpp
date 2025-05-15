@@ -1,4 +1,4 @@
-#include "Inventory.h"
+ï»¿#include "Inventory.h"
 #include "ItemManager.h"
 #include "Storehouse.h"
 
@@ -27,7 +27,7 @@ void Inventory::Destroy()
 void Inventory::Init(const std::string& csvfile,
                      const bool decrypt)
 {
-    // ItemManager‚ÌInitŠÖ”‚ªæ‚ÉŒÄ‚Î‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB
+    // ItemManagerã®Inité–¢æ•°ãŒå…ˆã«å‘¼ã°ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
     {
         if (ItemManager::GetObj()->Inited() == false)
         {
@@ -80,9 +80,9 @@ void Inventory::Save(const std::string& csvfile,
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
-    vs.push_back("ƒAƒCƒeƒ€–¼");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ å");
     vs.push_back("SubID");
-    vs.push_back("‘Ï‹v“x");
+    vs.push_back("è€ä¹…åº¦");
     vvs.push_back(vs);
     vs.clear();
 
@@ -108,29 +108,29 @@ int Inventory::AddItem(const int id, const int durability)
 {
     int subId = 0;
 
-    // V‚µ‚¢SubID‚ğæ“¾BƒAƒCƒeƒ€‚Ííœ‚Å‚«‚é‚Ì‚ÅSubID‚ª˜A”Ô‚É‚È‚é‚Æ‚ÍŒÀ‚ç‚È‚¢B
-    // SubID‚Í 0‚Å‚Í‚È‚­1‚©‚çƒXƒ^[ƒg‚·‚é
-    // SubID‚ª 1,2,3,5‚Æ‚È‚Á‚Ä‚¢‚½‚çSubID4‚ÌƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚é
-    // SubID‚ª 1,2,5‚Æ‚È‚Á‚Ä‚¢‚½‚çSubID3‚ÌƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚éi4‚É’Ç‰Á‚·‚é‚í‚¯‚Å‚Í‚È‚¢j
-    // SubID‚ª 1,2,3,4‚Æ‚È‚Á‚Ä‚¢‚½‚çSubID5‚ÌƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚é
-    // ƒAƒCƒeƒ€‚ª‚È‚©‚Á‚½‚çSubID1‚ÌƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚é
+    // æ–°ã—ã„SubIDã‚’å–å¾—ã€‚ã‚¢ã‚¤ãƒ†ãƒ ã¯å‰Šé™¤ã§ãã‚‹ã®ã§SubIDãŒé€£ç•ªã«ãªã‚‹ã¨ã¯é™ã‚‰ãªã„ã€‚
+    // SubIDã¯ 0ã§ã¯ãªã1ã‹ã‚‰ã‚¹ã‚¿ãƒ¼ãƒˆã™ã‚‹
+    // SubIDãŒ 1,2,3,5ã¨ãªã£ã¦ã„ãŸã‚‰SubIDï¼4ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
+    // SubIDãŒ 1,2,5ã¨ãªã£ã¦ã„ãŸã‚‰SubIDï¼3ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹ï¼ˆ4ã«è¿½åŠ ã™ã‚‹ã‚ã‘ã§ã¯ãªã„ï¼‰
+    // SubIDãŒ 1,2,3,4ã¨ãªã£ã¦ã„ãŸã‚‰SubIDï¼5ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
+    // ã‚¢ã‚¤ãƒ†ãƒ ãŒãªã‹ã£ãŸã‚‰SubIDï¼1ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
     // 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Æ‘qŒÉ‚ÅSubId‚ª”í‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã¨å€‰åº«ã§SubIdãŒè¢«ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹
 
-    // Œ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID‚ğ’T‚·
+    // æ¬ ç•ªã¨ãªã£ã¦ã„ã‚‹SubIDã‚’æ¢ã™
 
-    // subId‚ÌƒŠƒXƒg
+    // subIdã®ãƒªã‚¹ãƒˆ
     std::vector<int> subIdList = GetSubIdList(id);
 
-    // ‘qŒÉ‚ÌSubID
-    // ‘qŒÉ‚ÍƒQ[ƒ€“à‚É•¡”‘¶İ‚·‚é‚±‚Æ‚É’ˆÓ
+    // å€‰åº«ã®SubID
+    // å€‰åº«ã¯ã‚²ãƒ¼ãƒ å†…ã«è¤‡æ•°å­˜åœ¨ã™ã‚‹ã“ã¨ã«æ³¨æ„
     std::vector<int> subIdList2 = StorehouseManager::Get()->GetSubIdListFromAllStorehouse(id);
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚Æ‘qŒÉ‚Å”í‚Á‚Ä‚¢‚éSubID‚ª‚ ‚é‚È‚çˆÙíI—¹‚³‚¹‚é
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã¨å€‰åº«ã§è¢«ã£ã¦ã„ã‚‹SubIDãŒã‚ã‚‹ãªã‚‰ç•°å¸¸çµ‚äº†ã•ã›ã‚‹
     {
         std::vector<int> intersection;
 
-        // “ñ‚Â‚ÌƒŠƒXƒg‚ÌÏW‡‚ğì‚é
+        // äºŒã¤ã®ãƒªã‚¹ãƒˆã®ç©é›†åˆã‚’ä½œã‚‹
         std::set_intersection(subIdList.begin(), subIdList.end(),
                               subIdList2.begin(), subIdList2.end(),
                               std::back_inserter(intersection));
@@ -148,12 +148,12 @@ int Inventory::AddItem(const int id, const int durability)
     int missingSubId = -1;
     for (auto it = subIdList.begin(); it != subIdList.end(); ++it)
     {
-        // work‚ÆSubID‚ªˆê’v‚·‚é‚È‚çŸ‚ÌSubID‚ğŒ©‚És‚­
+        // workã¨SubIDãŒä¸€è‡´ã™ã‚‹ãªã‚‰æ¬¡ã®SubIDã‚’è¦‹ã«è¡Œã
         if (work == *it)
         {
             ++work;
         }
-        // work‚ÆSubID‚ªˆÙ‚È‚éŒ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID
+        // workã¨SubIDãŒç•°ãªã‚‹ï¼æ¬ ç•ªã¨ãªã£ã¦ã„ã‚‹SubID
         else
         {
             missingSubId = work;
@@ -163,12 +163,12 @@ int Inventory::AddItem(const int id, const int durability)
 
     int newSubId = -1;
 
-    // Œ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID‚ª‚ ‚Á‚½‚çV‹KSubID‚Æ‚·‚é
+    // æ¬ ç•ªã¨ãªã£ã¦ã„ã‚‹SubIDãŒã‚ã£ãŸã‚‰æ–°è¦SubIDã¨ã™ã‚‹
     if (missingSubId != -1)
     {
         newSubId = missingSubId;
     }
-    // Œ‡”Ô‚Æ‚È‚Á‚Ä‚¢‚éSubID‚ª‚È‚©‚Á‚½i˜A”Ô‚¾‚Á‚½j‚È‚ç––”ö‚É’Ç‰Á‚·‚é
+    // æ¬ ç•ªã¨ãªã£ã¦ã„ã‚‹SubIDãŒãªã‹ã£ãŸï¼ˆï¼é€£ç•ªã ã£ãŸï¼‰ãªã‚‰æœ«å°¾ã«è¿½åŠ ã™ã‚‹
     else
     {
         newSubId = (int)subIdList.size() + 1;
@@ -284,7 +284,7 @@ ItemInfo NSStarmanLib::Inventory::GetItemInfo(const int id, const int subId)
     return result;
 }
 
-// SubID‚ğƒŠƒXƒg‚Åó‚¯æ‚é
+// SubIDã‚’ãƒªã‚¹ãƒˆã§å—ã‘å–ã‚‹
 std::vector<int> NSStarmanLib::Inventory::GetSubIdList(const int id)
 {
     std::vector<int> result;
@@ -300,8 +300,8 @@ std::vector<int> NSStarmanLib::Inventory::GetSubIdList(const int id)
 }
 
 
-// ‘Ï‹v“x‚ğ–³‹‚µ‚ÄŒÂ”‚ğ”‚¦‚é
-// ‚µ‚½‚ª‚Á‚ÄA‘Ï‹v“x‚Ì‰º‚ª‚Á‚½ƒAƒCƒeƒ€‚ğƒNƒ‰ƒtƒg‚Ì‘fŞ‚Æ‚µ‚Äg—po—ˆ‚Ä—Ç‚¢‚Æ‚¢‚¤‚±‚Æ‚É‚·‚é
+// è€ä¹…åº¦ã‚’ç„¡è¦–ã—ã¦å€‹æ•°ã‚’æ•°ãˆã‚‹
+// ã—ãŸãŒã£ã¦ã€è€ä¹…åº¦ã®ä¸‹ãŒã£ãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã®ç´ æã¨ã—ã¦ä½¿ç”¨å‡ºæ¥ã¦è‰¯ã„ã¨ã„ã†ã“ã¨ã«ã™ã‚‹
 int Inventory::CountItem(const int id)
 {
     int num = 0;
@@ -360,14 +360,14 @@ float NSStarmanLib::Inventory::GetVolume() const
 
 void NSStarmanLib::Inventory::UpdateVolumeMax(const std::vector<ItemInfo>& bagMap)
 {
-    // ‹­‰»’l0‚Ì‘Ü¨ÏÚ—Ê3000mL
-    // ‹­‰»’l1‚Ì‘Ü¨ÏÚ—Ê4000mL
-    // ‹­‰»’l2‚Ì‘Ü¨ÏÚ—Ê5000mL
-    // ‹­‰»’l3‚Ì‘Ü¨ÏÚ—Ê6000mL
-    // ‹­‰»’l4‚Ì‘Ü¨ÏÚ—Ê7000mL
-    // ‹­‰»’l5‚Ì‘Ü¨ÏÚ—Ê8000mL
+    // å¼·åŒ–å€¤0ã®è¢‹â†’ç©è¼‰é‡3000mL
+    // å¼·åŒ–å€¤1ã®è¢‹â†’ç©è¼‰é‡4000mL
+    // å¼·åŒ–å€¤2ã®è¢‹â†’ç©è¼‰é‡5000mL
+    // å¼·åŒ–å€¤3ã®è¢‹â†’ç©è¼‰é‡6000mL
+    // å¼·åŒ–å€¤4ã®è¢‹â†’ç©è¼‰é‡7000mL
+    // å¼·åŒ–å€¤5ã®è¢‹â†’ç©è¼‰é‡8000mL
 
-    m_volumeMax = 5000.f; // ‘Ü‚ª‚È‚­‚Ä‚à5ƒŠƒbƒgƒ‹‚Ü‚Å‚Í‚Ä‚é
+    m_volumeMax = 5000.f; // è¢‹ãŒãªãã¦ã‚‚5ãƒªãƒƒãƒˆãƒ«ã¾ã§ã¯æŒã¦ã‚‹
 
     for (auto it = bagMap.begin(); it != bagMap.end(); ++it)
     {

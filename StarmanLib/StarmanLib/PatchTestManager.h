@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <vector>
 #include <map>
@@ -6,7 +6,7 @@
 namespace NSStarmanLib
 {
 
-// TODO –é‚àQ‚¸‚Éƒpƒbƒ`ƒeƒXƒg‚·‚é‚Ì‚©H‚Æ‚¢‚¤–â‘è‚ª‚ ‚éB
+// TODO å¤œã‚‚å¯ãšã«ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆã™ã‚‹ã®ã‹ï¼Ÿã¨ã„ã†å•é¡ŒãŒã‚ã‚‹ã€‚
 class PatchTest
 {
 public:
@@ -28,19 +28,19 @@ public:
     void SetItemName(const std::string& arg);
     std::string GetItemName() const;
 
-    // ˆË—Š“ú
+    // ä¾é ¼æ—¥æ™‚
     void SetDateTimeReq(const int y, const int M, const int d,
                         const int h, const int m, const int s);
 
     void GetDateTimeReq(int* y, int* M, int* d, int* h, int* m, int* s);
 
-    // ŠJn“ú
+    // é–‹å§‹æ—¥æ™‚
     void SetDateTimeStart(const int y, const int M, const int d,
                           const int h, const int m, const int s);
 
     void GetDateTimeStart(int* y, int* M, int* d, int* h, int* m, int* s);
 
-    // Š®—¹“ú
+    // å®Œäº†æ—¥æ™‚
     void SetDateTimeEnd(const int y, const int M, const int d,
                         const int h, const int m, const int s);
 
@@ -59,14 +59,14 @@ private:
     eResult m_eResult = eResult::NOT_YET;
 
     //--------------------------------------------
-    // ˆË—Š“ú
+    // ä¾é ¼æ—¥æ™‚
     //--------------------------------------------
     int m_yearReq = 0;
 
-    // 0Œ‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æœˆã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_monthReq = 0;
 
-    // 0“ú‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æ—¥ã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_dayReq = 0;
 
     int m_hourReq = 0;
@@ -74,14 +74,14 @@ private:
     int m_secondReq = 0;
 
     //--------------------------------------------
-    // ŠJn“ú
+    // é–‹å§‹æ—¥æ™‚
     //--------------------------------------------
     int m_yearStart = 0;
 
-    // 0Œ‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æœˆã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_monthStart = 0;
 
-    // 0“ú‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æ—¥ã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_dayStart = 0;
 
     int m_hourStart = 0;
@@ -89,14 +89,14 @@ private:
     int m_secondStart = 0;
 
     //--------------------------------------------
-    // Š®—¹“ú
+    // å®Œäº†æ—¥æ™‚
     //--------------------------------------------
     int m_yearEnd = 0;
 
-    // 0Œ‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æœˆã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_monthEnd = 0;
 
-    // 0“ú‚Í‘¶İ‚µ‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚Æ
+    // 0æ—¥ã¯å­˜åœ¨ã—ãªã„ã“ã¨ã«æ³¨æ„ã™ã‚‹ã“ã¨
     int m_dayEnd = 0;
 
     int m_hourEnd = 0;
@@ -126,10 +126,10 @@ private:
     std::string m_name;
     bool m_poison = false;
 
-    // ƒpƒbƒ`ƒeƒXƒg‚³‚ê‚½‰ñ”
+    // ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆã•ã‚ŒãŸå›æ•°
     int m_tryNum = 0;
 
-    // ³‰ğ—¦
+    // æ­£è§£ç‡
     float m_accurate = 0.f;
 
 };
@@ -147,14 +147,14 @@ public:
     void Save(const std::string& csvfileInfo,
               const std::string& csvfileQue);
 
-    // Œ»À¢ŠE‚Å1•b‚Éˆê‰ñŒÄ‚Î‚ê‚é‘z’è
+    // ç¾å®Ÿä¸–ç•Œã§1ç§’ã«ä¸€å›å‘¼ã°ã‚Œã‚‹æƒ³å®š
     void Update();
 
     bool QueuePatchTest(const std::string& patchTest);
     std::vector<PatchTest> GetQueue();
 
-    // ’¼‹ß‚Ì3‰ñ‚ÌƒeƒXƒgŒ‹‰Ê‚ğæ“¾‚Å‚«‚é‚Æ•Ö—˜‚©‚à‚µ‚ê‚È‚¢B
-    // GUI‚Å•\¦‚µ‚½‚¢B
+    // ç›´è¿‘ã®3å›ã®ãƒ†ã‚¹ãƒˆçµæœã‚’å–å¾—ã§ãã‚‹ã¨ä¾¿åˆ©ã‹ã‚‚ã—ã‚Œãªã„ã€‚
+    // GUIã§è¡¨ç¤ºã—ãŸã„ã€‚
     std::vector<PatchTest> GetResultList(const std::string& name);
 
     std::vector<std::string> GetKeyList();
@@ -163,13 +163,13 @@ private:
 
     static PatchTestManager* m_obj;
 
-    // Queue‚ÆŒ¾‚¢‚Â‚Âstd::vector‚ğg‚¤B
-    // std::queue‚ğg‚¤‚Ææ“ª‚Æ––”ö‚µ‚©ƒAƒNƒZƒX‚Å‚«‚È‚¢‚Ì‚Å•’Ê‚É¢‚éB
+    // Queueã¨è¨€ã„ã¤ã¤std::vectorã‚’ä½¿ã†ã€‚
+    // std::queueã‚’ä½¿ã†ã¨å…ˆé ­ã¨æœ«å°¾ã—ã‹ã‚¢ã‚¯ã‚»ã‚¹ã§ããªã„ã®ã§æ™®é€šã«å›°ã‚‹ã€‚
     std::vector<PatchTest> m_PatchTestQue;
 
-    // ƒAƒCƒeƒ€î•ñƒŠƒXƒg
-    // “ÅA“Å‚¶‚á‚È‚¢A‚Í‚ ‚ç‚©‚¶‚ßŒˆ‚Ü‚Á‚Ä‚¢‚È‚¢B
-    // ƒQ[ƒ€ŠJn‚Éƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ‚Ü‚é
+    // ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±ãƒªã‚¹ãƒˆ
+    // æ¯’ã€æ¯’ã˜ã‚ƒãªã„ã€ã¯ã‚ã‚‰ã‹ã˜ã‚æ±ºã¾ã£ã¦ã„ãªã„ã€‚
+    // ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«ãƒ©ãƒ³ãƒ€ãƒ ã§æ±ºã¾ã‚‹
     std::map<std::string, PatchItemInfo> m_infoMap;
 
     std::vector<std::string> m_keyList;

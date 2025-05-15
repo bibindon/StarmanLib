@@ -1,4 +1,4 @@
-#include "Voyage.h"
+ï»¿#include "Voyage.h"
 #include "Inventory.h"
 #include "StatusManager.h"
 #include "PowereggDateTime.h"
@@ -95,13 +95,13 @@ void Voyage::Save(const std::string& csvRaft)
         std::string work_str;
 
         vs.push_back("ID");
-        vs.push_back("”¿‚Ì“WŠJ");
+        vs.push_back("å¸†ã®å±•é–‹");
         vs.push_back("x");
         vs.push_back("y");
         vs.push_back("z");
-        vs.push_back("‘Ï‹v’l");
-        vs.push_back("êŠƒ^ƒCƒv");
-        vs.push_back("‘qŒÉID");
+        vs.push_back("è€ä¹…å€¤");
+        vs.push_back("å ´æ‰€ã‚¿ã‚¤ãƒ—");
+        vs.push_back("å€‰åº«ID");
         vvs.push_back(vs);
 
         for (auto it = m_raftList.begin(); it != m_raftList.end(); ++it)
@@ -157,8 +157,8 @@ void Voyage::Save(const std::string& csvRaft)
     srand((unsigned int)time(NULL));
 }
 
-// –ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é‘z’è
-// ’ª‚â•—‚É‚æ‚Á‚Ä—¬‚³‚ê‚éˆ—‚Íƒ‰ƒCƒuƒ‰ƒŠ‚Ì—˜—pŽÒ‘¤‚Ås‚¤
+// æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹æƒ³å®š
+// æ½®ã‚„é¢¨ã«ã‚ˆã£ã¦æµã•ã‚Œã‚‹å‡¦ç†ã¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆ©ç”¨è€…å´ã§è¡Œã†
 void Voyage::Update(const float x, const float y, const float z)
 {
     static int counter = 0;
@@ -169,7 +169,7 @@ void Voyage::Update(const float x, const float y, const float z)
         counter = 0;
     }
 
-    // 0.05•b‚²‚Æ‚Éæ‘D’†‚ÌƒCƒJƒ_‚ÌÀ•W‚ðXV
+    // 0.05ç§’ã”ã¨ã«ä¹—èˆ¹ä¸­ã®ã‚¤ã‚«ãƒ€ã®åº§æ¨™ã‚’æ›´æ–°
     if (counter % 3 == 0)
     {
         if (m_currentRaftId != -1)
@@ -186,8 +186,8 @@ void Voyage::Update(const float x, const float y, const float z)
         }
     }
     
-    // 10•b‚²‚Æ‚É‘Ï‹v“x‚ª1Œ¸‚é
-    // 10•biŒ»ŽÀŽžŠÔj120•biƒQ[ƒ€ŽžŠÔj
+    // 10ç§’ã”ã¨ã«è€ä¹…åº¦ãŒ1æ¸›ã‚‹
+    // 10ç§’ï¼ˆç¾å®Ÿæ™‚é–“ï¼‰ï¼120ç§’ï¼ˆã‚²ãƒ¼ãƒ æ™‚é–“ï¼‰
     if (counter % (60 * 10) == 0)
     {
         auto raft = GetRaftCurrentPriv();
@@ -195,9 +195,9 @@ void Voyage::Update(const float x, const float y, const float z)
         raft->SetDurability(dura - 1);
     }
 
-    // 1ŽžŠÔ‚¨‚«‚É•—‚ÌŒü‚«‚Æ‹­‚³‚ª•Ï‚í‚é
-    // 1ŽžŠÔiƒQ[ƒ€ŽžŠÔj5•ªiŒ»ŽÀŽžŠÔj
-    // ‹­‚³F-10.0 m/s ~ 10.0 m/s
+    // 1æ™‚é–“ãŠãã«é¢¨ã®å‘ãã¨å¼·ã•ãŒå¤‰ã‚ã‚‹
+    // 1æ™‚é–“ï¼ˆã‚²ãƒ¼ãƒ æ™‚é–“ï¼‰ï¼5åˆ†ï¼ˆç¾å®Ÿæ™‚é–“ï¼‰
+    // å¼·ã•ï¼š-10.0 m/s ~ 10.0 m/s
     if (counter % (60 * 60 * 5) == 1)
     {
         {
@@ -217,9 +217,9 @@ void Voyage::Update(const float x, const float y, const float z)
         }
     }
 
-    // 1ŽžŠÔ‚¨‚«‚É’ª‚ÌŒü‚«‚Æ‹­‚³‚ª•Ï‚í‚é
-    // 1ŽžŠÔiƒQ[ƒ€ŽžŠÔj5•ªiŒ»ŽÀŽžŠÔj
-    // ‹­‚³F0m/s ~ 3m/s
+    // 1æ™‚é–“ãŠãã«æ½®ã®å‘ãã¨å¼·ã•ãŒå¤‰ã‚ã‚‹
+    // 1æ™‚é–“ï¼ˆã‚²ãƒ¼ãƒ æ™‚é–“ï¼‰ï¼5åˆ†ï¼ˆç¾å®Ÿæ™‚é–“ï¼‰
+    // å¼·ã•ï¼š0m/s ~ 3m/s
     if (counter % (60 * 60 * 5) == 1)
     {
         {
@@ -254,7 +254,7 @@ void Voyage::AddRaft(const Raft& arg)
 {
     Raft raft(arg);
 
-    // IDˆÈŠO‚Í‚ ‚ç‚©‚¶‚ßarg‚ÅÝ’èÏ‚Ý‚È‚Ì‚Åid‚¾‚¯ƒZƒbƒg‚·‚é
+    // IDä»¥å¤–ã¯ã‚ã‚‰ã‹ã˜ã‚argã§è¨­å®šæ¸ˆã¿ãªã®ã§idã ã‘ã‚»ãƒƒãƒˆã™ã‚‹
     raft.SetId((int)m_raftList.size());
 
     m_raftList.push_back(arg);
@@ -309,36 +309,36 @@ void NSStarmanLib::Voyage::SetRaftCurrentId(const int arg)
 
 void Voyage::PullRightOar()
 {
-    // ‘Ï‹v“x‚ðŒ¸‚ç‚·
+    // è€ä¹…åº¦ã‚’æ¸›ã‚‰ã™
     auto raft = GetRaftCurrentPriv();
     auto dura = raft->GetDurability();
     raft->SetDurability(dura - 1);
 
-    // ‘Ì—Í‚ðÁ–Õ‚³‚¹‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã•ã›ã‚‹
     auto status = StatusManager::GetObj();
     status->PullOar();
 }
 
 void Voyage::PullLeftOar()
 {
-    // ‘Ï‹v“x‚ðŒ¸‚ç‚·
+    // è€ä¹…åº¦ã‚’æ¸›ã‚‰ã™
     auto raft = GetRaftCurrentPriv();
     auto dura = raft->GetDurability();
     raft->SetDurability(dura - 1);
 
-    // ‘Ì—Í‚ðÁ–Õ‚³‚¹‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã•ã›ã‚‹
     auto status = StatusManager::GetObj();
     status->PullOar();
 }
 
 void Voyage::PullBothOar()
 {
-    // ‘Ï‹v“x‚ðŒ¸‚ç‚·
+    // è€ä¹…åº¦ã‚’æ¸›ã‚‰ã™
     auto raft = GetRaftCurrentPriv();
     auto dura = raft->GetDurability();
     raft->SetDurability(dura - 1);
 
-    // ‘Ì—Í‚ðÁ–Õ‚³‚¹‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã•ã›ã‚‹
     auto status = StatusManager::GetObj();
     status->PullOarBoth();
 }
@@ -357,29 +357,29 @@ void Voyage::GetCurrentRaftCoord(float* x, float* y, float* z)
 
 bool Voyage::Set3HoursAuto()
 {
-    // ì‚Å‚Í‚È‚­ŠC‚É‚¢‚é‚Æ‚«‚¶‚á‚È‚¢‚ÆŽg‚¦‚È‚¢B
+    // å·ã§ã¯ãªãæµ·ã«ã„ã‚‹ã¨ãã˜ã‚ƒãªã„ã¨ä½¿ãˆãªã„ã€‚
     auto it = GetRaftCurrentPriv();
     if (it->GetPosType() == Raft::ePosType::River)
     {
         return false;
     }
 
-    // 3ŽžŠÔŒo‰ß
+    // 3æ™‚é–“çµŒéŽ
     auto datetime = PowereggDateTime::GetObj();
     datetime->IncreaseDateTime(0, 0, 3, 0, 0);
 
-    // 3ŽžŠÔ•ªA‘Ï‹v“x’á‰º
-    // ƒQ[ƒ€ŽžŠÔ‚Å120•b‚²‚Æ‚É‘Ï‹v“x‚ª1Œ¸‚é‚Ì‚Å
-    // 3600•b * 3ŽžŠÔ / 120•b‚Å90Œ¸‚é
+    // 3æ™‚é–“åˆ†ã€è€ä¹…åº¦ä½Žä¸‹
+    // ã‚²ãƒ¼ãƒ æ™‚é–“ã§120ç§’ã”ã¨ã«è€ä¹…åº¦ãŒ1æ¸›ã‚‹ã®ã§
+    // 3600ç§’ * 3æ™‚é–“ / 120ç§’ã§90æ¸›ã‚‹
     auto dura = it->GetDurability();
     dura -= (3600 * 3) / 120;
     it->SetDurability(dura);
 
-    // 3ŽžŠÔ•ªAˆÚ“®
-    // ˆÚ“®ˆ—‚Íƒ‰ƒCƒuƒ‰ƒŠ‘¤‚Å‚Í‚â‚ç‚È‚¢
+    // 3æ™‚é–“åˆ†ã€ç§»å‹•
+    // ç§»å‹•å‡¦ç†ã¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå´ã§ã¯ã‚„ã‚‰ãªã„
 
-    // 3ŽžŠÔ•ªA‘Ì—ÍÁ”ï
-    // 10•b‚Éˆê‰ñƒI[ƒ‹‚ð‘†‚®A‚ð3ŽžŠÔ‘±‚¯‚½‚à‚Ì‚Æ‚·‚é
+    // 3æ™‚é–“åˆ†ã€ä½“åŠ›æ¶ˆè²»
+    // 10ç§’ã«ä¸€å›žã‚ªãƒ¼ãƒ«ã‚’æ¼•ãã€ã‚’3æ™‚é–“ç¶šã‘ãŸã‚‚ã®ã¨ã™ã‚‹
     auto status = StatusManager::GetObj();
     status->Voyage3Hours();
 
@@ -390,7 +390,7 @@ bool Voyage::Enable3HoursAuto()
 {
     bool result = true;
 
-    // ì‚Å‚Í‚È‚­ŠC‚É‚¢‚é‚Æ‚«‚¶‚á‚È‚¢‚ÆŽg‚¦‚È‚¢B
+    // å·ã§ã¯ãªãæµ·ã«ã„ã‚‹ã¨ãã˜ã‚ƒãªã„ã¨ä½¿ãˆãªã„ã€‚
     auto it = GetRaftCurrentPriv();
     if (it->GetPosType() == Raft::ePosType::River)
     {
@@ -462,7 +462,7 @@ bool Voyage::CheckNearRaft(const float x, const float y, const float z, int* id)
 
 bool Voyage::CheckRaftEnable()
 {
-    // ‘Ü‚ð‘•”õ‚µ‚Ä‚¢‚½‚çƒCƒJƒ_‚Éæ‚é‚±‚Æ‚Í‚Å‚«‚È‚¢B
+    // è¢‹ã‚’è£…å‚™ã—ã¦ã„ãŸã‚‰ã‚¤ã‚«ãƒ€ã«ä¹—ã‚‹ã“ã¨ã¯ã§ããªã„ã€‚
 
     auto status = StatusManager::GetObj();
     auto bagState = status->GetBagState();

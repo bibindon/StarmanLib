@@ -1,4 +1,4 @@
-#include "ActivityBase.h"
+ï»¿#include "ActivityBase.h"
 #include <vector>
 #include "Util.h"
 #include "Voyage.h"
@@ -37,7 +37,7 @@ void NSStarmanLib::ActivityBase::Save(const std::string& csvfile)
 {
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
-    vs.push_back("Œ»İ‚ÌŠˆ“®‹’“_");
+    vs.push_back("ç¾åœ¨ã®æ´»å‹•æ‹ ç‚¹");
 
     if (m_eBaseType == eBaseType::Precision)
     {
@@ -79,7 +79,7 @@ void NSStarmanLib::ActivityBase::GetPierPos(const eBaseType baseType, float* x, 
     }
     else if (baseType == eBaseType::DirectNex)
     {
-        // TODO ³‚µ‚¢À•W
+        // TODO æ­£ã—ã„åº§æ¨™
         *x = -305.f;
         *y = 11.f;
         *z = 540.f;

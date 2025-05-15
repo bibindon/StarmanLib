@@ -1,4 +1,4 @@
-#include "CraftInfoManager.h"
+ï»¿#include "CraftInfoManager.h"
 #include "ItemManager.h"
 #include "Util.h"
 
@@ -56,13 +56,13 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
 
         craftInfo.SetOutput(craftOutput);
 
-        // ‘fŞ‚ÍÅ‘å‚Å5í—Ş‚Ü‚Å
+        // ç´ æã¯æœ€å¤§ã§5ç¨®é¡ã¾ã§
         for (std::size_t j = 0; j < 5; ++j)
         {
             CraftMaterial craftMaterial;
 
-            // •K—v‘fŞ‚ª5í—Ş‚Ì‚à‚ ‚ê‚Î1í—Ş‚Ì‚à‚ ‚éB
-            // •K—v‘fŞ‚Ì–¼‘O‚ª‹ó‚È‚çA‚à‚Í‚â•K—v‚È‘fŞ‚Í‚È‚¢‚Æ‚¢‚¤‚±‚Æ
+            // å¿…è¦ç´ æãŒ5ç¨®é¡ã®æ™‚ã‚‚ã‚ã‚Œã°1ç¨®é¡ã®æ™‚ã‚‚ã‚ã‚‹ã€‚
+            // å¿…è¦ç´ æã®åå‰ãŒç©ºãªã‚‰ã€ã‚‚ã¯ã‚„å¿…è¦ãªç´ æã¯ãªã„ã¨ã„ã†ã“ã¨
             if (vvs.at(i).at(4 + (j * 3)).empty())
             {
                 break;
@@ -123,7 +123,7 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
                 {
                     break;
                 }
-                // Š®¬•i‚Ì‹­‰»’l‚ª–³‚µ‚È‚ç-1
+                // å®Œæˆå“ã®å¼·åŒ–å€¤ãŒç„¡ã—ãªã‚‰-1
                 else if (m_craftInfoList.at(i).GetOutput().GetLevel() == -1)
                 {
                     break;

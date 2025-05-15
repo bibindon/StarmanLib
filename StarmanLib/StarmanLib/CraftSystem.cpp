@@ -1,4 +1,4 @@
-#include "CraftSystem.h"
+ï»¿#include "CraftSystem.h"
 #include "PowereggDateTime.h"
 #include "ItemManager.h"
 #include "Storehouse.h"
@@ -28,12 +28,12 @@ void CraftSystem::Destroy()
 void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfileQueue,
                        const bool decrypt)
 {
-    // CraftSystem‚ÌInitŠÖ”‚æ‚èæ‚ÉACraftInfoManager‚ÌInit‚ªŒÄ‚Î‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB
+    // CraftSystemã®Inité–¢æ•°ã‚ˆã‚Šå…ˆã«ã€CraftInfoManagerã®InitãŒå‘¼ã°ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
     {
         CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
         if (craftInfoManager->Inited() == false)
         {
-            throw std::exception("CraftSystem‚ÌInitŠÖ”‚æ‚èæ‚ÉACraftInfoManager‚ÌInit‚ªŒÄ‚Î‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB");
+            throw std::exception("CraftSystemã®Inité–¢æ•°ã‚ˆã‚Šå…ˆã«ã€CraftInfoManagerã®InitãŒå‘¼ã°ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚");
         }
     }
 
@@ -63,7 +63,7 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
             }
             craftSkill.SetLevel(level);
 
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 craftSkill.SetEnable(true);
             }
@@ -121,15 +121,15 @@ void CraftSystem::Init(const std::string& csvfileSkill, const std::string& csvfi
                 level = std::stoi(vvs.at(i).at(1));
             }
 
-            // ƒNƒ‰ƒtƒgî•ñ‚ğæ“¾
+            // ã‚¯ãƒ©ãƒ•ãƒˆæƒ…å ±ã‚’å–å¾—
             CraftInfo craftInfo = craftInfoManager->GetCraftInfo(name, 1, level);
 
-            // ƒNƒ‰ƒtƒg’†‚ÌƒAƒCƒeƒ€î•ñ
+            // ã‚¯ãƒ©ãƒ•ãƒˆä¸­ã®ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±
             CraftRequest craftRequest;
 
             craftRequest.SetCraftInfo(craftInfo);
 
-            if (vvs.at(i).at(2) == "›")
+            if (vvs.at(i).at(2) == "â—‹")
             {
                 craftRequest.SetCrafting(true);
             }
@@ -186,11 +186,11 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
 
-        vs.push_back("ƒNƒ‰ƒtƒgƒAƒCƒeƒ€");
-        vs.push_back("‹­‰»’l");
-        vs.push_back("ƒNƒ‰ƒtƒg‰Â”\");
-        vs.push_back("Ÿ‚ÌƒŒƒxƒ‹‚ğK“¾‚·‚é‚Ì‚É•K—v‚ÈƒNƒ‰ƒtƒg‰ñ”");
-        vs.push_back("Œ»İ‚ÌƒNƒ‰ƒtƒgŒoŒ±‰ñ”");
+        vs.push_back("ã‚¯ãƒ©ãƒ•ãƒˆã‚¢ã‚¤ãƒ†ãƒ ");
+        vs.push_back("å¼·åŒ–å€¤");
+        vs.push_back("ã‚¯ãƒ©ãƒ•ãƒˆå¯èƒ½");
+        vs.push_back("æ¬¡ã®ãƒ¬ãƒ™ãƒ«ã‚’ç¿’å¾—ã™ã‚‹ã®ã«å¿…è¦ãªã‚¯ãƒ©ãƒ•ãƒˆå›æ•°");
+        vs.push_back("ç¾åœ¨ã®ã‚¯ãƒ©ãƒ•ãƒˆçµŒé¨“å›æ•°");
         vvs.push_back(vs);
         vs.clear();
 
@@ -208,7 +208,7 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
 
             if (it->GetEnable())
             {
-                vs.push_back("›");
+                vs.push_back("â—‹");
             }
             else
             {
@@ -243,22 +243,22 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
 
-        vs.push_back("ƒNƒ‰ƒtƒgƒAƒCƒeƒ€");
-        vs.push_back("‹­‰»’l");
-        vs.push_back("ƒNƒ‰ƒtƒg’†");
-        vs.push_back("ŠJn”N");
-        vs.push_back("ŠJnŒ");
-        vs.push_back("ŠJn“ú");
-        vs.push_back("ŠJn");
-        vs.push_back("ŠJn•ª");
-        vs.push_back("ŠJn•b");
-        vs.push_back("Š®—¹”N");
-        vs.push_back("Š®—¹Œ");
-        vs.push_back("Š®—¹“ú");
-        vs.push_back("Š®—¹");
-        vs.push_back("Š®—¹•ª");
-        vs.push_back("Š®—¹•b");
-        vs.push_back("û”[æ‘qŒÉID");
+        vs.push_back("ã‚¯ãƒ©ãƒ•ãƒˆã‚¢ã‚¤ãƒ†ãƒ ");
+        vs.push_back("å¼·åŒ–å€¤");
+        vs.push_back("ã‚¯ãƒ©ãƒ•ãƒˆä¸­");
+        vs.push_back("é–‹å§‹å¹´");
+        vs.push_back("é–‹å§‹æœˆ");
+        vs.push_back("é–‹å§‹æ—¥");
+        vs.push_back("é–‹å§‹æ™‚");
+        vs.push_back("é–‹å§‹åˆ†");
+        vs.push_back("é–‹å§‹ç§’");
+        vs.push_back("å®Œäº†å¹´");
+        vs.push_back("å®Œäº†æœˆ");
+        vs.push_back("å®Œäº†æ—¥");
+        vs.push_back("å®Œäº†æ™‚");
+        vs.push_back("å®Œäº†åˆ†");
+        vs.push_back("å®Œäº†ç§’");
+        vs.push_back("åç´å…ˆå€‰åº«ID");
         vvs.push_back(vs);
         vs.clear();
 
@@ -278,7 +278,7 @@ void NSStarmanLib::CraftSystem::Save(const std::string& csvfileSkill,
 
             if (it->GetCrafting())
             {
-                vs.push_back("›");
+                vs.push_back("â—‹");
             }
             else
             {
@@ -344,8 +344,8 @@ void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::string& craftItem, 
 
 int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::string& craftItem)
 {
-    // {‚P‚ÌÎ•€‚Æ{‚Q‚ÌÎ•€‚ªì‚ê‚ÄA{‚R‚ÌÎ•€‚ªì‚ê‚È‚¢‚È‚ç2‚ğ•Ô‚·B
-    // icraftItem‚Ìì‚ê‚éƒAƒCƒeƒ€‚Ì’†‚ÅÅ‚ƒŒƒxƒ‹‚Ì”’l‚ğ•Ô‚·Bj
+    // ï¼‹ï¼‘ã®çŸ³æ–§ã¨ï¼‹ï¼’ã®çŸ³æ–§ãŒä½œã‚Œã¦ã€ï¼‹ï¼“ã®çŸ³æ–§ãŒä½œã‚Œãªã„ãªã‚‰2ã‚’è¿”ã™ã€‚
+    // ï¼ˆcraftItemã®ä½œã‚Œã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ä¸­ã§æœ€é«˜ãƒ¬ãƒ™ãƒ«ã®æ•°å€¤ã‚’è¿”ã™ã€‚ï¼‰
     int level = -1;
     for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
     {
@@ -364,31 +364,31 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
                                                   std::string* errMsg,
                                                   const int storehouseId)
 {
-    // —\–ñ‚Í5Œ‚Ü‚Å
+    // äºˆç´„ã¯5ä»¶ã¾ã§
     if (m_craftRequestList.size() >= 5)
     {
-        *errMsg = "—\–ñ‚Í‚TŒ‚Ü‚Å‚É‚µ‚Ä‚¨‚±‚¤";
+        *errMsg = "äºˆç´„ã¯ï¼•ä»¶ã¾ã§ã«ã—ã¦ãŠã“ã†";
         return false;
     }
 
     CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
 
-    // Œ»İAEl‚ªì‚ê‚écraftItem‚ÌƒŒƒxƒ‹‚ğæ“¾
-    // {‚P‚ÌÎ•€‚Æ{‚Q‚ÌÎ•€‚ªì‚ê‚ÄA{‚R‚ÌÎ•€‚ªì‚ê‚È‚¢‚È‚ç2‚ğæ“¾B
+    // ç¾åœ¨ã€è·äººãŒä½œã‚Œã‚‹craftItemã®ãƒ¬ãƒ™ãƒ«ã‚’å–å¾—
+    // ï¼‹ï¼‘ã®çŸ³æ–§ã¨ï¼‹ï¼’ã®çŸ³æ–§ãŒä½œã‚Œã¦ã€ï¼‹ï¼“ã®çŸ³æ–§ãŒä½œã‚Œãªã„ãªã‚‰2ã‚’å–å¾—ã€‚
     int level = GetCraftsmanSkill(craftItem);
 
-    // ƒNƒ‰ƒtƒgî•ñ
+    // ã‚¯ãƒ©ãƒ•ãƒˆæƒ…å ±
     CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, 1, level);
 
-    // ‘fŞ‚ğÁ”ï‚·‚é
-    // ‘fŞ‚ª‘«‚è‚È‚¢‚Æ‚«‚Ífalse‚ğ•Ô‚·
+    // ç´ æã‚’æ¶ˆè²»ã™ã‚‹
+    // ç´ æãŒè¶³ã‚Šãªã„ã¨ãã¯falseã‚’è¿”ã™
     ItemManager* itemManager = ItemManager::GetObj();
     std::vector<CraftMaterial> craftMaterialList = craftInfo.GetCraftMaterialDef();
 
     auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
     bool materialShortage = false;
 
-    // ‘qŒÉ“à‚É•K—v‚È‚¾‚¯‚Ì‘fŞ‚ª‚ ‚é‚©‚Ìƒ`ƒFƒbƒN
+    // å€‰åº«å†…ã«å¿…è¦ãªã ã‘ã®ç´ æãŒã‚ã‚‹ã‹ã®ãƒã‚§ãƒƒã‚¯
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
         std::string name;
@@ -401,7 +401,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
 
         int materialNumCurrent = storehouse->CountItem(name, materialLevel);
 
-        // ‘fŞ‚ª‘«‚è‚È‚¢
+        // ç´ æãŒè¶³ã‚Šãªã„
         if (materialNumCurrent < materialNum)
         {
             materialShortage = true;
@@ -411,12 +411,12 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
 
     if (materialShortage)
     {
-        *errMsg = "‘fŞ‚ª‘«‚è‚È‚¢";
+        *errMsg = "ç´ æãŒè¶³ã‚Šãªã„";
         return false;
     }
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ“à‚Ì‘fŞ‚ğíœ
-    // iƒNƒ‰ƒtƒgŠJn‘O‚ÉƒLƒƒƒ“ƒZƒ‹‚µ‚½‚ç‘fŞ‚ª•Ô‚Á‚Ä‚­‚éj
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªå†…ã®ç´ æã‚’å‰Šé™¤
+    // ï¼ˆã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹å‰ã«ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãŸã‚‰ç´ æãŒè¿”ã£ã¦ãã‚‹ï¼‰
     std::vector<ItemInfo> items;
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
@@ -433,13 +433,13 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         int id = craftMaterialList.at(i).GetId();
         item.SetId(id);
 
-        // ‘fŞ‚Ì•K—v”•ªíœ‚·‚é
-        // subId‚Í”’l‚ªá‚¢‚à‚Ì‚©‚ç‡‚Ég‚¤
+        // ç´ æã®å¿…è¦æ•°åˆ†å‰Šé™¤ã™ã‚‹
+        // subIdã¯æ•°å€¤ãŒè‹¥ã„ã‚‚ã®ã‹ã‚‰é †ã«ä½¿ã†
 
         std::vector<int> subIdList = storehouse->GetSubIdList(craftMaterialList.at(i).GetId());
         for (int j = 0; j < materialNum; ++j)
         {
-            // subId‚Í•Ô‹p‚ÉV‹K‚ÅŠ„‚è“–‚Ä‚éBÄ—˜—p‚µ‚È‚¢B
+            // subIdã¯è¿”å´æ™‚ã«æ–°è¦ã§å‰²ã‚Šå½“ã¦ã‚‹ã€‚å†åˆ©ç”¨ã—ãªã„ã€‚
             item.SetSubId(-1);
             auto info = storehouse->GetItemInfo(id, subIdList.at(j));
             auto dura = info.GetDurabilityCurrent();
@@ -451,20 +451,20 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
     }
     craftInfo.SetCraftMaterial(items);
 
-    // ƒNƒ‰ƒtƒg’†‚ÌƒAƒCƒeƒ€î•ñ
+    // ã‚¯ãƒ©ãƒ•ãƒˆä¸­ã®ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±
     CraftRequest craftRequest;
 
-    // ì‚è‚½‚¢‚à‚Ì‚ğƒZƒbƒg
-    // ƒNƒ‰ƒtƒgŠJnŠÔ‚ÆƒNƒ‰ƒtƒgŠ®—¹ŠÔ‚Í‚±‚±‚Å‚Íİ’è‚µ‚È‚¢iƒNƒ‰ƒtƒg—v‹‚ÍƒLƒ…[ƒCƒ“ƒOo—ˆ‚é‚½‚ßj
+    // ä½œã‚ŠãŸã„ã‚‚ã®ã‚’ã‚»ãƒƒãƒˆ
+    // ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹æ™‚é–“ã¨ã‚¯ãƒ©ãƒ•ãƒˆå®Œäº†æ™‚é–“ã¯ã“ã“ã§ã¯è¨­å®šã—ãªã„ï¼ˆã‚¯ãƒ©ãƒ•ãƒˆè¦æ±‚ã¯ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°å‡ºæ¥ã‚‹ãŸã‚ï¼‰
     craftRequest.SetCraftInfo(craftInfo);
     craftRequest.SetCrafting(false);
 
     //----------------------------------------------------------
-    // Š®¬‚µ‚½Û‚ÌŠi”[æ‚Ì‘qŒÉ
+    // å®Œæˆã—ãŸéš›ã®æ ¼ç´å…ˆã®å€‰åº«
     //----------------------------------------------------------
 
-    // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg‚·‚éê‡‚Í‘qŒÉ‚É“ü‚ç‚È‚¢‚Ì‚Å-1
-    if (craftItem == "ƒCƒJƒ_")
+    // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã™ã‚‹å ´åˆã¯å€‰åº«ã«å…¥ã‚‰ãªã„ã®ã§-1
+    if (craftItem == "ã‚¤ã‚«ãƒ€")
     {
         craftRequest.SetStorehouseId(-1);
     }
@@ -474,7 +474,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::string& craftItem,
         {
             craftRequest.SetStorehouseId(storehouseId);
         }
-        // -1‚È‚çŒ»İ‚Ì‹’“_‚Ì‘qŒÉ
+        // -1ãªã‚‰ç¾åœ¨ã®æ‹ ç‚¹ã®å€‰åº«
         else
         {
             auto baseType = ActivityBase::Get()->GetBaseType();
@@ -504,7 +504,7 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
 
     auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
 
-    // ŠJn‚µ‚Ä‚¢‚È‚¢ƒNƒ‰ƒtƒg‚ğƒLƒƒƒ“ƒZƒ‹‚µ‚½‚ç‘fŞ‚ª•Ô‚Á‚Ä‚­‚é
+    // é–‹å§‹ã—ã¦ã„ãªã„ã‚¯ãƒ©ãƒ•ãƒˆã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãŸã‚‰ç´ æãŒè¿”ã£ã¦ãã‚‹
     if (index != 0)
     {
         auto it = std::next(m_craftRequestList.begin(), index);
@@ -524,24 +524,24 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
 
 void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 {
-    // ƒŠƒNƒGƒXƒg‚ª‚È‚¢‚È‚ç‚â‚é‚±‚Æ‚È‚µ
+    // ãƒªã‚¯ã‚¨ã‚¹ãƒˆãŒãªã„ãªã‚‰ã‚„ã‚‹ã“ã¨ãªã—
     if (m_craftRequestList.size() == 0)
     {
         return;
     }
 
-    // ƒNƒ‰ƒtƒgƒŠƒNƒGƒXƒg‚Ìæ“ª‚ªƒNƒ‰ƒtƒg’†‚Å‚È‚¢‚È‚ç‚ÎAƒNƒ‰ƒtƒg‚ğŠJn‚·‚é
+    // ã‚¯ãƒ©ãƒ•ãƒˆãƒªã‚¯ã‚¨ã‚¹ãƒˆã®å…ˆé ­ãŒã‚¯ãƒ©ãƒ•ãƒˆä¸­ã§ãªã„ãªã‚‰ã°ã€ã‚¯ãƒ©ãƒ•ãƒˆã‚’é–‹å§‹ã™ã‚‹
     if (m_craftRequestList.front().GetCrafting() == false)
     {
         StartCraft();
     }
-    // ƒNƒ‰ƒtƒgƒŠƒNƒGƒXƒg‚Ìæ“ª‚ªƒNƒ‰ƒtƒg’†‚È‚ç‚ÎƒNƒ‰ƒtƒgŠ®—¹‚Å‚È‚¢‚©Šm”F‚·‚é
+    // ã‚¯ãƒ©ãƒ•ãƒˆãƒªã‚¯ã‚¨ã‚¹ãƒˆã®å…ˆé ­ãŒã‚¯ãƒ©ãƒ•ãƒˆä¸­ãªã‚‰ã°ã‚¯ãƒ©ãƒ•ãƒˆå®Œäº†ã§ãªã„ã‹ç¢ºèªã™ã‚‹
     else if (m_craftRequestList.front().GetCrafting())
     {
 
-        // “ú•t“¯m‚Ì”äŠr
-        // 1”N2Œ3“ú45•ª6•b‚Æ6”N5Œ4“ú32•ª1•b‚Ì‚Ç‚¿‚ç‚ª–¢—ˆE‰ß‹‚©‚ğ”»’è‚·‚é‚É‚Í
-        // 010203040506 ‚Æ 060504030201 ‚Æ‚¢‚¤12Œ…‚Ì”’l‚ÆŒ©‚È‚µ‚Ä12Œ…‚Ì”’l“¯m‚Ì”äŠr‚ğs‚¦‚Î‚æ‚¢
+        // æ—¥ä»˜åŒå£«ã®æ¯”è¼ƒ
+        // 1å¹´2æœˆ3æ—¥4æ™‚5åˆ†6ç§’ã¨6å¹´5æœˆ4æ—¥3æ™‚2åˆ†1ç§’ã®ã©ã¡ã‚‰ãŒæœªæ¥ãƒ»éå»ã‹ã‚’åˆ¤å®šã™ã‚‹ã«ã¯
+        // 010203040506 ã¨ 060504030201 ã¨ã„ã†12æ¡ã®æ•°å€¤ã¨è¦‹ãªã—ã¦12æ¡ã®æ•°å€¤åŒå£«ã®æ¯”è¼ƒã‚’è¡Œãˆã°ã‚ˆã„
         int y1, M1, d1, h1, m1, s1;
         int y2, M2, d2, h2, m2, s2;
 
@@ -563,18 +563,18 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
         bool fromPastToFuture = PowereggDateTime::FromPastToFuture(y1, M1, d1, h1, m1, s1, 
                                                                    y2, M2, d2, h2, m2, s2);
 
-        // ì‹ÆŠ®—¹‚æ‚è‚àŒ»İV‚µ‚¢A‚±‚Æ‚ÍŠ®¬‚µ‚Ä‚¢‚é‚±‚Æ‚ğˆÓ–¡‚·‚é
+        // ä½œæ¥­å®Œäº†æ™‚åˆ»ã‚ˆã‚Šã‚‚ç¾åœ¨æ™‚åˆ»æ–°ã—ã„ã€ã“ã¨ã¯å®Œæˆã—ã¦ã„ã‚‹ã“ã¨ã‚’æ„å‘³ã™ã‚‹
         if (fromPastToFuture)
         {
-            // Š®¬‚µ‚½ƒAƒCƒeƒ€‚ğ‘qŒÉ‚É”z’u‚·‚é
+            // å®Œæˆã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’å€‰åº«ã«é…ç½®ã™ã‚‹
             CraftOutput output = m_craftRequestList.front().GetCraftInfo().GetOutput();
 
             int storehouseId = m_craftRequestList.front().GetStorehouseId();
 
             Storehouse* storehouse = nullptr;
 
-            // ƒCƒJƒ_‚Ìê‡‚Í‘qŒÉ‚É“ü‚ê‚È‚¢‚½‚ß
-            // ‘qŒÉID‚ª-1‚ÉƒZƒbƒg‚³‚ê‚Ä‚¢‚éB-1‚Ì‚Í‘qŒÉ‚Ìæ“¾‚ğ‚µ‚È‚¢
+            // ã‚¤ã‚«ãƒ€ã®å ´åˆã¯å€‰åº«ã«å…¥ã‚Œãªã„ãŸã‚
+            // å€‰åº«IDãŒ-1ã«ã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹ã€‚-1ã®æ™‚ã¯å€‰åº«ã®å–å¾—ã‚’ã—ãªã„
             if (storehouseId != -1)
             {
                 storehouse = StorehouseManager::Get()->GetStorehouse(storehouseId);
@@ -582,8 +582,8 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
             for (int i = 0; i < output.GetNumber(); ++i)
             {
-                // ƒCƒJƒ_‚Ìê‡‚Í‘qŒÉ‚É“ü‚ê‚È‚¢B
-                if (output.GetName() == "ƒCƒJƒ_")
+                // ã‚¤ã‚«ãƒ€ã®å ´åˆã¯å€‰åº«ã«å…¥ã‚Œãªã„ã€‚
+                if (output.GetName() == "ã‚¤ã‚«ãƒ€")
                 {
                     auto voyage = Voyage::Get();
                     Raft raft;
@@ -594,7 +594,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     auto dura = itemDef.GetDurabilityMax();
                     raft.SetDurability(dura);
 
-                    // Œ»İ‚ÌŠˆ“®‹’“_‚É‚æ‚Á‚ÄƒCƒJƒ_‚ª”z’u‚³‚ê‚éêŠ‚ªˆÙ‚È‚é
+                    // ç¾åœ¨ã®æ´»å‹•æ‹ ç‚¹ã«ã‚ˆã£ã¦ã‚¤ã‚«ãƒ€ãŒé…ç½®ã•ã‚Œã‚‹å ´æ‰€ãŒç•°ãªã‚‹
                     auto baseType = ActivityBase::Get()->GetBaseType();
 
                     float x, y, z;
@@ -603,12 +603,12 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
                     if (baseType == eBaseType::Precision)
                     {
-                        // TODO ƒCƒJƒ_‚ÌêŠƒ^ƒCƒv
+                        // TODO ã‚¤ã‚«ãƒ€ã®å ´æ‰€ã‚¿ã‚¤ãƒ—
                          raft.SetPosType(Raft::ePosType::Sea);
                     }
                     else if (baseType == eBaseType::DirectNex)
                     {
-                        // TODO ƒCƒJƒ_‚ÌêŠƒ^ƒCƒv
+                        // TODO ã‚¤ã‚«ãƒ€ã®å ´æ‰€ã‚¿ã‚¤ãƒ—
                          raft.SetPosType(Raft::ePosType::Sea);
                     }
 
@@ -623,9 +623,9 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
             }
 
-            // El‚Ìn—û“x‚ÌXV
-            // ‹­‰»’l‚È‚µ‚Ì‘Ü‚ğ2‰ñì‚Á‚½‚çAŸ‚Í‹­‰»’l{‚P‚Ì‘Ü‚ğì‚ê‚é‚æ‚¤‚É‚È‚éB
-            // ‚»‚Ì‚½‚ßì‚Á‚½‰ñ”‚ğ‹L˜^‚·‚é
+            // è·äººã®ç†Ÿç·´åº¦ã®æ›´æ–°
+            // å¼·åŒ–å€¤ãªã—ã®è¢‹ã‚’2å›ä½œã£ãŸã‚‰ã€æ¬¡ã¯å¼·åŒ–å€¤ï¼‹ï¼‘ã®è¢‹ã‚’ä½œã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹ã€‚
+            // ãã®ãŸã‚ä½œã£ãŸå›æ•°ã‚’è¨˜éŒ²ã™ã‚‹
             bool levelup = false;
             for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
             {
@@ -636,8 +636,8 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     ++successNum;
                     m_craftSkillList.at(i).SetSuccessNum(successNum);
 
-                    // ƒŒƒxƒ‹ƒAƒbƒv”»’è
-                    // ‹K’è‰ñ”AƒNƒ‰ƒtƒg‚É¬Œ÷‚µ‚Ä‚¢‚½‚çŸ‚Ì‹­‰»’l‚ÌƒNƒ‰ƒtƒg‚ğ‰Â”\‚É‚·‚é
+                    // ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—åˆ¤å®š
+                    // è¦å®šå›æ•°ã€ã‚¯ãƒ©ãƒ•ãƒˆã«æˆåŠŸã—ã¦ã„ãŸã‚‰æ¬¡ã®å¼·åŒ–å€¤ã®ã‚¯ãƒ©ãƒ•ãƒˆã‚’å¯èƒ½ã«ã™ã‚‹
                     if (m_craftSkillList.at(i).GetLevelUpNecessity() <= successNum)
                     {
                         levelup = true;
@@ -646,12 +646,12 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
             }
 
-            // ƒŒƒxƒ‹ƒAƒbƒvˆ—
-            // ‚Ü‚¸A‹­‰»’l‚ªˆê‚Âã‚ÌƒNƒ‰ƒtƒg‚ª‘¶İ‚·‚é‚©‚ğ’²‚×‚éB
+            // ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—å‡¦ç†
+            // ã¾ãšã€å¼·åŒ–å€¤ãŒä¸€ã¤ä¸Šã®ã‚¯ãƒ©ãƒ•ãƒˆãŒå­˜åœ¨ã™ã‚‹ã‹ã‚’èª¿ã¹ã‚‹ã€‚
             if (levelup)
             {
-                // ‹­‰»‚ª+1~+5‚Å‰Â”\‚Ìê‡A‹­‰»’l‚Í-1, 1, 2, 3, 4, 5‚Ì6’Ê‚è‚Æ‚È‚éB
-                // 0‚ªŠÜ‚Ü‚ê‚È‚¢‚±‚Æ‚É’ˆÓB
+                // å¼·åŒ–ãŒ+1~+5ã§å¯èƒ½ã®å ´åˆã€å¼·åŒ–å€¤ã¯-1, 1, 2, 3, 4, 5ã®6é€šã‚Šã¨ãªã‚‹ã€‚
+                // 0ãŒå«ã¾ã‚Œãªã„ã“ã¨ã«æ³¨æ„ã€‚
                 int targetSkill = -1;
                 bool targetSkillExist = false;
                 if (output.GetLevel() == -1)
@@ -680,7 +680,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     }
                 }
 
-                // ‘¶İ‚·‚é‚È‚çƒNƒ‰ƒtƒg‰Â”\‚É•ÏX‚·‚é
+                // å­˜åœ¨ã™ã‚‹ãªã‚‰ã‚¯ãƒ©ãƒ•ãƒˆå¯èƒ½ã«å¤‰æ›´ã™ã‚‹
                 if (targetSkillExist)
                 {
                     if (m_craftSkillList.at(targetSkillIndex).GetEnable() == false)
@@ -691,10 +691,10 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             }
 
 
-            // æ“ª‚Ì—v‘f‚ğƒŠƒNƒGƒXƒg‚ÌƒŠƒXƒg‚©‚çíœ
+            // å…ˆé ­ã®è¦ç´ ã‚’ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
             m_craftRequestList.pop_front();
 
-            // —\–ñƒŠƒXƒg‚ª‚O‚Å‚Í‚È‚¢‚È‚çAV‚½‚Éí“¬‚Ì—v‘f‚Æ‚È‚Á‚½ƒŠƒNƒGƒXƒg‚ğƒNƒ‰ƒtƒgŠJn
+            // äºˆç´„ãƒªã‚¹ãƒˆãŒï¼ã§ã¯ãªã„ãªã‚‰ã€æ–°ãŸã«æˆ¦é—˜ã®è¦ç´ ã¨ãªã£ãŸãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹
             if (m_craftRequestList.size() >= 1)
             {
                 StartCraft();
@@ -706,10 +706,10 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 void NSStarmanLib::CraftSystem::StartCraft()
 {
     //-----------------------------------------------
-    // ‘Ü‚ÌƒNƒ‰ƒtƒg‚ğ3Œ—\–ñ‚µ‚½‚Æ‚·‚éB
-    // ‘Ü‚Í2‰ñì¬‚·‚é‚ÆAn—û“x‚ªã‚ª‚èA‹­‰»’l‚Ì‚‚¢‘Ü‚ğƒNƒ‰ƒtƒg‚Å‚«‚é‚æ‚¤‚É‚È‚éB
-    // ‚»‚Ì‚½‚ßA3ŒÂ–Ú‚Ì‘Ü‚Í‚PC‚QŒÂ–Ú‚Ì‘Ü‚æ‚è‚‚¢‹­‰»’l‚Ì‘Ü‚ªì‚ç‚ê‚È‚­‚Ä‚Í‚¢‚¯‚È‚¢B
-    // ‚±‚ê‚É‘Î‰‚·‚é‚½‚ßAƒNƒ‰ƒtƒgŠJn‚Én—û“x‚ğŠm”F‚·‚é
+    // è¢‹ã®ã‚¯ãƒ©ãƒ•ãƒˆã‚’3ä»¶äºˆç´„ã—ãŸã¨ã™ã‚‹ã€‚
+    // è¢‹ã¯2å›ä½œæˆã™ã‚‹ã¨ã€ç†Ÿç·´åº¦ãŒä¸ŠãŒã‚Šã€å¼·åŒ–å€¤ã®é«˜ã„è¢‹ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã§ãã‚‹ã‚ˆã†ã«ãªã‚‹ã€‚
+    // ãã®ãŸã‚ã€3å€‹ç›®ã®è¢‹ã¯ï¼‘ï¼Œï¼’å€‹ç›®ã®è¢‹ã‚ˆã‚Šé«˜ã„å¼·åŒ–å€¤ã®è¢‹ãŒä½œã‚‰ã‚Œãªãã¦ã¯ã„ã‘ãªã„ã€‚
+    // ã“ã‚Œã«å¯¾å¿œã™ã‚‹ãŸã‚ã€ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹æ™‚ã«ç†Ÿç·´åº¦ã‚’ç¢ºèªã™ã‚‹
     //-----------------------------------------------
     {
         auto req = m_craftRequestList.front();
@@ -727,7 +727,7 @@ void NSStarmanLib::CraftSystem::StartCraft()
 
     m_craftRequestList.front().SetCrafting(true);
 
-    // ƒpƒ[ƒGƒbƒO¯‚Å‚ÌŒ»İ‚ÆƒNƒ‰ƒtƒgŠ®—¹‚ğİ’è‚·‚é
+    // ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã§ã®ç¾åœ¨æ™‚åˆ»ã¨ã‚¯ãƒ©ãƒ•ãƒˆå®Œäº†æ™‚åˆ»ã‚’è¨­å®šã™ã‚‹
     PowereggDateTime* obj = PowereggDateTime::GetObj();
     m_craftRequestList.front().SetStartYear(obj->GetYear());
     m_craftRequestList.front().SetStartMonth(obj->GetMonth());
@@ -736,34 +736,34 @@ void NSStarmanLib::CraftSystem::StartCraft()
     m_craftRequestList.front().SetStartMinute(obj->GetMinute());
     m_craftRequestList.front().SetStartSecond(obj->GetSecond());
 
-    // Š®—¹‚Í24ŠÔŒãB
-    // Š®—¹‚ğƒAƒCƒeƒ€‚²‚Æ‚É•Ï‚¦‚é‚Ì‚Í“ï‚µ‚­‚È‚¢‚Ì‚Å‚â‚Á‚Ä‚à—Ç‚¢‚æ‚¤‚È‹C‚ª‚·‚é
-    // 1Œ32“ú‚â13Œ‚Í‘¶İ‚µ‚È‚¢‚Ì‚ÅA‚»‚Ì‘Î‰‚ğs‚¤‚½‚ß‚É
-    // •bA•ªAA‚Æ‚¢‚¤‚æ‚¤‚É×‚©‚¢‚Ù‚¤‚©‚çİ’è‚µ‚Ä‚¢‚­
+    // å®Œäº†æ™‚åˆ»ã¯24æ™‚é–“å¾Œã€‚
+    // å®Œäº†æ™‚åˆ»ã‚’ã‚¢ã‚¤ãƒ†ãƒ ã”ã¨ã«å¤‰ãˆã‚‹ã®ã¯é›£ã—ããªã„ã®ã§ã‚„ã£ã¦ã‚‚è‰¯ã„ã‚ˆã†ãªæ°—ãŒã™ã‚‹
+    // 1æœˆ32æ—¥ã‚„13æœˆã¯å­˜åœ¨ã—ãªã„ã®ã§ã€ãã®å¯¾å¿œã‚’è¡Œã†ãŸã‚ã«
+    // ç§’ã€åˆ†ã€æ™‚ã€ã¨ã„ã†ã‚ˆã†ã«ç´°ã‹ã„ã»ã†ã‹ã‚‰è¨­å®šã—ã¦ã„ã
     m_craftRequestList.front().SetFinishSecond(obj->GetSecond());
     m_craftRequestList.front().SetFinishMinute(obj->GetMinute());
     m_craftRequestList.front().SetFinishHour(obj->GetHour());
 
-    // 1Œ31“ú‚Æ‚©2Œ28“ú‚Ì‚æ‚¤‚ÈŒ––‚Å‚È‚¢‚È‚ç‚Î“ú”‚É{‚P‚·‚éB
+    // 1æœˆ31æ—¥ã¨ã‹2æœˆ28æ—¥ã®ã‚ˆã†ãªæœˆæœ«ã§ãªã„ãªã‚‰ã°æ—¥æ•°ã«ï¼‹ï¼‘ã™ã‚‹ã€‚
     if (obj->GetDay() < obj->DAY_OF_MONTH(obj->GetMonth()))
     {
         m_craftRequestList.front().SetFinishDay(obj->GetDay() + 1);
         m_craftRequestList.front().SetFinishMonth(obj->GetMonth());
         m_craftRequestList.front().SetFinishYear(obj->GetYear());
     }
-    // Œ––‚È‚ç‚Î“ú”‚ğ1“ú‚É‚·‚é
+    // æœˆæœ«ãªã‚‰ã°æ—¥æ•°ã‚’1æ—¥ã«ã™ã‚‹
     else
     {
         m_craftRequestList.front().SetFinishDay(1);
 
-        // Œ”‚ğ+1‚·‚é
-        // 13Œ‚É‚È‚ç‚È‚¢‚æ‚¤‚É’ˆÓ‚·‚é
+        // æœˆæ•°ã‚’+1ã™ã‚‹
+        // 13æœˆã«ãªã‚‰ãªã„ã‚ˆã†ã«æ³¨æ„ã™ã‚‹
         if (obj->GetMonth() != 12)
         {
             m_craftRequestList.front().SetFinishMonth(obj->GetMonth() + 1);
             m_craftRequestList.front().SetFinishYear(obj->GetYear());
         }
-        // 12Œ‚È‚ç‚ÎAŠ®—¹“ú‚ğ—‚”N‚Ì1Œ‚É‚·‚é
+        // 12æœˆãªã‚‰ã°ã€å®Œäº†æ—¥ã‚’ç¿Œå¹´ã®1æœˆã«ã™ã‚‹
         else if (obj->GetMonth() == 12)
         {
             m_craftRequestList.front().SetFinishMonth(1);
@@ -779,8 +779,8 @@ int NSStarmanLib::CraftSystem::GetProgress()
         return -1;
     }
 
-    // 24ŠÔ‚ÅŠ®¬‚È‚Ì‚Å1ŠÔ‚Å4%ã¸‚³‚¹‚éB•ªE•b‚Íl‚¦‚È‚¢B
-    // Œo‰ßŠÔ
+    // 24æ™‚é–“ã§å®Œæˆãªã®ã§1æ™‚é–“ã§4%ä¸Šæ˜‡ã•ã›ã‚‹ã€‚åˆ†ãƒ»ç§’ã¯è€ƒãˆãªã„ã€‚
+    // çµŒéæ™‚é–“
     int elapsedHour = 0;
 
     PowereggDateTime* obj = PowereggDateTime::GetObj();
@@ -790,7 +790,7 @@ int NSStarmanLib::CraftSystem::GetProgress()
     {
         elapsedHour = currentHour - finishHour;
     }
-    // Œ»İ‚ª0‚ğ’´‚¦‚½‚ç24‚ğ‘«‚µ‚Ä‚©‚çˆø‚­
+    // ç¾åœ¨æ™‚åˆ»ãŒ0æ™‚ã‚’è¶…ãˆãŸã‚‰24ã‚’è¶³ã—ã¦ã‹ã‚‰å¼•ã
     else if (currentHour < finishHour)
     {
         elapsedHour = (currentHour+24) - finishHour;

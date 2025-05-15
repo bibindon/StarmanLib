@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -6,13 +6,13 @@
 namespace NSStarmanLib
 {
 
-// weapon.csv‚Ì“à—e‚»‚Ì‚Ü‚Ü
+// weapon.csvã®å†…å®¹ãã®ã¾ã¾
 class WeaponDef
 {
 
 public:
 
-    // ‚±‚±‚Å‚ÌID‚Íweapon.csv‚Å‚ÌID
+    // ã“ã“ã§ã®IDã¯weapon.csvã§ã®ID
     std::string GetWeaponId() const;
     void SetWeaponId(const std::string& id);
 
@@ -70,27 +70,27 @@ private:
     std::string m_detail;
     std::string m_xfileName;
     std::string m_imageName;
-    double m_weight = 0.f; // d—Ê
-    int m_volume = 0; // ‘ÌÏ
-    double m_attackRate = 0.f; // UŒ‚—Í•â³
-    double m_attackRateUp = 0.f; // ‹­‰»‚ÌUŒ‚—Í•â³‚Ìã¸’l
-    int m_reinforceMax = 0; // ‹­‰»‰Â”\‰ñ”
-    double m_flightDistance = 0.f; // ”ò‹——£
-    double m_flightDistanceUp = 0.f; // ‹­‰»‚Ì”ò‹——£‚Ìã¸’l
-    double m_staminaDown = 0.f; // Á”ïƒXƒ^ƒ~ƒi
-    int m_durability = 0; // ‘Ï‹v’li‰ó‚ê‚é‚Ü‚Å‚Ì‰ñ”j
-    int m_durabilityUp = 0; // ‹­‰»‚Ì‘Ï‹v’l‚Ìã¸’l
-    int m_ownDamage = 0; // g—p‚Ì“÷‘Ì‘¹
+    double m_weight = 0.f; // é‡é‡
+    int m_volume = 0; // ä½“ç©
+    double m_attackRate = 0.f; // æ”»æ’ƒåŠ›è£œæ­£
+    double m_attackRateUp = 0.f; // å¼·åŒ–æ™‚ã®æ”»æ’ƒåŠ›è£œæ­£ã®ä¸Šæ˜‡å€¤
+    int m_reinforceMax = 0; // å¼·åŒ–å¯èƒ½å›æ•°
+    double m_flightDistance = 0.f; // é£›è·é›¢
+    double m_flightDistanceUp = 0.f; // å¼·åŒ–æ™‚ã®é£›è·é›¢ã®ä¸Šæ˜‡å€¤
+    double m_staminaDown = 0.f; // æ¶ˆè²»ã‚¹ã‚¿ãƒŸãƒŠ
+    int m_durability = 0; // è€ä¹…å€¤ï¼ˆå£Šã‚Œã‚‹ã¾ã§ã®å›æ•°ï¼‰
+    int m_durabilityUp = 0; // å¼·åŒ–æ™‚ã®è€ä¹…å€¤ã®ä¸Šæ˜‡å€¤
+    int m_ownDamage = 0; // ä½¿ç”¨æ™‚ã®è‚‰ä½“æå‚·
 
-    bool m_isShow = false; // •\¦
+    bool m_isShow = false; // è¡¨ç¤º
 };
 
-// WeaponDef‚Ì’è‹`‚Å‚Íu‹­‰»’l{‚R‚ÌÎ•€‚ÌUŒ‚—Ív‚ğ’m‚è‚½‚¢‚Æ‚«
-// ŒvZ‚µ‚È‚¢‚Æ•ª‚©‚ç‚È‚¢B
+// WeaponDefã®å®šç¾©ã§ã¯ã€Œå¼·åŒ–å€¤ï¼‹ï¼“ã®çŸ³æ–§ã®æ”»æ’ƒåŠ›ã€ã‚’çŸ¥ã‚ŠãŸã„ã¨ã
+// è¨ˆç®—ã—ãªã„ã¨åˆ†ã‹ã‚‰ãªã„ã€‚
 // 
-// WeaponDefSub‚Å‚Í‹­‰»’l‚²‚Æ‚ÌUŒ‚—Í‚â”ò‹——£‚È‚Ç‚ğ‚ ‚ç‚©‚¶‚ßŒvZ‚µ‚Ä•Û‚µ‚Ä‚¨‚­B
+// WeaponDefSubã§ã¯å¼·åŒ–å€¤ã”ã¨ã®æ”»æ’ƒåŠ›ã‚„é£›è·é›¢ãªã©ã‚’ã‚ã‚‰ã‹ã˜ã‚è¨ˆç®—ã—ã¦ä¿æŒã—ã¦ãŠãã€‚
 // 
-// Å‘å‘Ï‹v“x‚ÍŠÇ—‚·‚é‚ªŒ»İ‚Ì‘Ï‹v“x‚ÍInventory‚©Storehouse‚ªŠÇ—‚µ‚Ä‚¢‚é‚Ì‚Åˆµ‚í‚È‚¢B
+// æœ€å¤§è€ä¹…åº¦ã¯ç®¡ç†ã™ã‚‹ãŒç¾åœ¨ã®è€ä¹…åº¦ã¯Inventoryã‹StorehouseãŒç®¡ç†ã—ã¦ã„ã‚‹ã®ã§æ‰±ã‚ãªã„ã€‚
 class WeaponDefSub
 {
 public:
@@ -115,8 +115,8 @@ public:
 
 private:
 
-    std::string m_weaponId; // •ŠíIDiweapon.csvj
-    int m_itemId = 0; // ƒAƒCƒeƒ€IDiitem.csvj
+    std::string m_weaponId; // æ­¦å™¨IDï¼ˆweapon.csvï¼‰
+    int m_itemId = 0; // ã‚¢ã‚¤ãƒ†ãƒ IDï¼ˆitem.csvï¼‰
 
     int m_reinforce = 0;
     double m_attackRate = 0.f;
@@ -154,8 +154,8 @@ public:
 
     std::vector<std::string> GetWeaponNameList();
 
-    // ¼–¾‚É‰Î‚ª‚Â‚¢‚Ä‚¢‚é‚©”Û‚©B‰Î‚ª‚Â‚¢‚Ä‚¢‚éE‚¢‚È‚¢‚ÍƒZ[ƒu‚µ‚È‚¢BƒQ[ƒ€‚ğÄ‹N“®‚µ‚½‚çÁ‚¦‚Ä‚¢‚éB
-    // ‰Î‚ª•t‚¢‚½¼–¾‚Íˆê‚Â‚µ‚©‘¶İ‚Å‚«‚È‚¢‚Ì‚ÅsubId‚ÍŠÇ—•s—v
+    // æ¾æ˜ã«ç«ãŒã¤ã„ã¦ã„ã‚‹ã‹å¦ã‹ã€‚ç«ãŒã¤ã„ã¦ã„ã‚‹ãƒ»ã„ãªã„ã¯ã‚»ãƒ¼ãƒ–ã—ãªã„ã€‚ã‚²ãƒ¼ãƒ ã‚’å†èµ·å‹•ã—ãŸã‚‰æ¶ˆãˆã¦ã„ã‚‹ã€‚
+    // ç«ãŒä»˜ã„ãŸæ¾æ˜ã¯ä¸€ã¤ã—ã‹å­˜åœ¨ã§ããªã„ã®ã§subIdã¯ç®¡ç†ä¸è¦
     bool IsTorchLit();
     void SetTorchLit(const bool lit);
 
@@ -163,7 +163,7 @@ private:
 
     std::string GetItemName(const std::string& weaponName) const;
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒIƒuƒWƒFƒNƒg
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     static WeaponManager* obj;
 
     std::unordered_map<std::string, WeaponDef> m_weaponDefMap;

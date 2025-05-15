@@ -1,19 +1,19 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
 namespace NSStarmanLib
 {
-// ���C�l���Ƃ����_����Ǘ�����N���X
-// �����ƌ_�񂷂�Ɩ��@���g����悤�ɂȂ�A���[�h�u���X�Ƃ������r�Ŏ���ł������ł���悤�ɂȂ�B
-// �������A1�N��Ɏ��ʁB
+// ライネンという契約を管理するクラス
+// 悪魔と契約すると魔法が使えるようになり、ワードブレスという小瓶で死んでも復活できるようになる。
+// ただし、1年後に死ぬ。
 // 
-// �����V�X�e��
-// ���[�h�u���X�Ƃ������r�����񂾂�1�x���������Ԃ���B
-// �E�����Ԃ�ꏊ�͏��r�����񂾏ꏊ
-// �E���{����ł������Ԃ���̂�1�x����
-// �E�����Ԃ�����ɂ�����x���߂΂�����x�����Ԃ���
-// �E�̗͂͑S������
-// �E���r������ł��Ȃ���ԂŎ��񂾂�Q�[���̓I�[�v�j���O����X�^�[�g�ɂȂ�
+// 復活システム
+// ワードブレスという小瓶を飲んだら1度だけ生き返られる。
+// ・生き返る場所は小瓶を飲んだ場所
+// ・何本飲んでも生き返られるのは1度だけ
+// ・生き返った後にもう一度飲めばもう一度生き返られる
+// ・体力は全快する
+// ・小瓶を飲んでいない状態で死んだらゲームはオープニングからスタートになる
 class Rynen
 {
 public:
@@ -39,21 +39,21 @@ public:
 
 private:
 
-    // �V���O���g���I�u�W�F�N�g
+    // シングルトンオブジェクト
     static Rynen* obj;
 
-    // �_��ς݃t���O
+    // 契約済みフラグ
     bool m_contracted { false };
 
-    // �����\�t���O
+    // 復活可能フラグ
     bool m_reviveEnable { false };
 
-    // �����ꏊ
+    // 復活場所
     float m_x { 0.f };
     float m_y { 0.f };
     float m_z { 0.f };
 
-    // �_�񂵂���
+    // 契約した日
     int m_year { 0 };
     int m_month { 0 };
     int m_day { 0 };

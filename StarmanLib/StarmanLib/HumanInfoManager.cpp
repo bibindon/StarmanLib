@@ -1,4 +1,4 @@
-#include "HumanInfoManager.h"
+ï»¿#include "HumanInfoManager.h"
 #include "ItemManager.h"
 #include "Util.h"
 
@@ -32,7 +32,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
         {
             humanInfo.SetName(vvs.at(i).at(1));
 
-            // u"v‹L†‚ª‚ ‚ê‚Îíœ
+            // ã€Œ"ã€è¨˜å·ãŒã‚ã‚Œã°å‰Šé™¤
             std::string work = vvs.at(i).at(2);
             work.erase(std::remove(work.begin(), work.end(), '"'), work.end());
 
@@ -52,7 +52,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             std::string name = vvs.at(i).at(0);
-            if (vvs.at(i).at(1) == "›")
+            if (vvs.at(i).at(1) == "â—‹")
             {
                 m_humanInfoMap.at(name).SetVisible(true);
             }
@@ -69,8 +69,8 @@ void HumanInfoManager::Save(const std::string& csvfile,
 {
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
-    vs.push_back("–¼‘O");
-    vs.push_back("•\¦");
+    vs.push_back("åå‰");
+    vs.push_back("è¡¨ç¤º");
     vvs.push_back(vs);
     vs.clear();
 
@@ -79,7 +79,7 @@ void HumanInfoManager::Save(const std::string& csvfile,
         vs.push_back(it->first);
         if (it->second.GetVisible())
         {
-            vs.push_back("›");
+            vs.push_back("â—‹");
         }
         else
         {

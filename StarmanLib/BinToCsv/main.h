@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -17,13 +17,13 @@ static void WriteCsv(const std::string& binFile)
 
     size_t size = 0;
 
-    // ƒxƒNƒ^[ƒTƒCƒY‚ğ“Ç‚İ‚Ş
+    // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’èª­ã¿è¾¼ã‚€
     inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
 
-    // ƒxƒNƒ^[ƒTƒCƒY‚ğİ’è
+    // ãƒ™ã‚¯ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’è¨­å®š
     stMapObjList.resize(size);
 
-    // ƒf[ƒ^–{‘Ì‚ğ“Ç‚İ‚Ş
+    // ãƒ‡ãƒ¼ã‚¿æœ¬ä½“ã‚’èª­ã¿è¾¼ã‚€
     inFile.read(reinterpret_cast<char*>(stMapObjList.data()),
                 static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
@@ -33,13 +33,13 @@ static void WriteCsv(const std::string& binFile)
     std::vector<std::string> vs;
 
     vs.push_back("ID");
-    vs.push_back("ƒ‚ƒfƒ‹ID");
+    vs.push_back("ãƒ¢ãƒ‡ãƒ«ID");
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("Z");
     vs.push_back("RotY");
     vs.push_back("Scale");
-    vs.push_back("•\¦");
+    vs.push_back("è¡¨ç¤º");
     vvs.push_back(vs);
 
     for (const auto& item : stMapObjList)

@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/WeaponManager.h"
 #include <fstream>
 #include <sstream>
@@ -57,7 +57,7 @@ namespace StarmanLibTest
             WeaponManager::Destroy();
         }
 
-        // InitŠÖ”‚É‚æ‚é“Ç‚İ‚İƒeƒXƒg
+        // Inité–¢æ•°ã«ã‚ˆã‚‹èª­ã¿è¾¼ã¿ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod03)
         {
             WeaponManager* wm = WeaponManager::GetObj();
@@ -66,84 +66,84 @@ namespace StarmanLibTest
 
             std::string work;
             //------------------------------------------------
-            work = wm->GetDetail("Î");
-            Assert::AreNotEqual(std::string::npos, work.find("“Š‚°‚½‚è"));
+            work = wm->GetDetail("çŸ³");
+            Assert::AreNotEqual(std::string::npos, work.find("æŠ•ã’ãŸã‚Š"));
 
-            work = wm->GetDetail("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
-            Assert::AreNotEqual(std::string::npos, work.find("‚»‚Ì‚±‚Æ‚É‹C‚ª•t‚­B"));
+            work = wm->GetDetail("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
+            Assert::AreNotEqual(std::string::npos, work.find("ãã®ã“ã¨ã«æ°—ãŒä»˜ãã€‚"));
 
             //------------------------------------------------
-            work = wm->GetXfilename("Î");
+            work = wm->GetXfilename("çŸ³");
             Assert::AreEqual("stone.x", work.c_str());
 
-            work = wm->GetXfilename("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work = wm->GetXfilename("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual("spearForAtlatl.x", work.c_str());
 
             //------------------------------------------------
-            work = wm->GetImageName("Î");
+            work = wm->GetImageName("çŸ³");
             Assert::AreEqual("stone.png", work.c_str());
 
-            work = wm->GetImageName("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work = wm->GetImageName("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual("spearForAtlatl.png", work.c_str());
 
             //------------------------------------------------
-            work = wm->GetImageName("Î");
+            work = wm->GetImageName("çŸ³");
             Assert::AreEqual("stone.png", work.c_str());
 
-            work = wm->GetImageName("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work = wm->GetImageName("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual("spearForAtlatl.png", work.c_str());
 
             double work_d = 0.0;
             //------------------------------------------------
-            work_d = wm->GetWeight("Î");
+            work_d = wm->GetWeight("çŸ³");
             Assert::AreEqual(0.5, work_d);
 
-            work_d = wm->GetWeight("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_d = wm->GetWeight("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(0.6, work_d);
 
             int work_i = 0;
             //------------------------------------------------
-            work_i = wm->GetVolume("Î");
+            work_i = wm->GetVolume("çŸ³");
             Assert::AreEqual(500, work_i);
 
-            work_i = wm->GetVolume("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_i = wm->GetVolume("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(2000, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetReinforceMax("Î");
+            work_i = wm->GetReinforceMax("çŸ³");
             Assert::AreEqual(0, work_i);
 
-            work_i = wm->GetReinforceMax("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_i = wm->GetReinforceMax("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(5, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetReinforceMax("Î");
+            work_i = wm->GetReinforceMax("çŸ³");
             Assert::AreEqual(0, work_i);
 
-            work_i = wm->GetReinforceMax("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_i = wm->GetReinforceMax("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(5, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetOwnDamage("Î");
+            work_i = wm->GetOwnDamage("çŸ³");
             Assert::AreEqual(10, work_i);
 
-            work_i = wm->GetOwnDamage("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_i = wm->GetOwnDamage("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(5, work_i);
 
             bool work_b = false;
 
             //------------------------------------------------
-            work_b = wm->GetIsShow("Î");
+            work_b = wm->GetIsShow("çŸ³");
             Assert::AreEqual(true, work_b);
 
-            work_b = wm->GetIsShow("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+            work_b = wm->GetIsShow("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
             Assert::AreEqual(false, work_b);
 
             WeaponManager::Destroy();
         }
 
-        // InitŠÖ”‚É‚æ‚é“Ç‚İ‚İƒeƒXƒg
-        // ‹­‰»’l‚ğw’è
+        // Inité–¢æ•°ã«ã‚ˆã‚‹èª­ã¿è¾¼ã¿ãƒ†ã‚¹ãƒˆ
+        // å¼·åŒ–å€¤ã‚’æŒ‡å®š
         TEST_METHOD(TestMethod04)
         {
             WeaponManager* wm = WeaponManager::GetObj();
@@ -152,37 +152,37 @@ namespace StarmanLibTest
 
             double work_d = 0.0;
 
-            // Î‚Í‹­‰»‚Å‚«‚È‚¢‚Ì‚Å‹­‰»’l{‚Q‚ÌÎ‚Í‘¶İ‚µ‚È‚¢B
-            // æ“¾‚µ‚æ‚¤‚Æ‚µ‚½‚ç—áŠO‚ª”­¶‚·‚é
+            // çŸ³ã¯å¼·åŒ–ã§ããªã„ã®ã§å¼·åŒ–å€¤ï¼‹ï¼’ã®çŸ³ã¯å­˜åœ¨ã—ãªã„ã€‚
+            // å–å¾—ã—ã‚ˆã†ã¨ã—ãŸã‚‰ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹
             Assert::ExpectException<std::exception>(
                 [&]
                 {
-                    work_d = wm->GetAttackRate("Î", 2);
+                    work_d = wm->GetAttackRate("çŸ³", 2);
                 });
 
             //-------------------------------------------------
-            work_d = wm->GetAttackRate("Î", -1);
+            work_d = wm->GetAttackRate("çŸ³", -1);
             Assert::AreEqual(3.0, work_d);
 
-            work_d = wm->GetAttackRate("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„", 3);
+            work_d = wm->GetAttackRate("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§", 3);
             Assert::AreEqual(2.0, work_d);
 
             //-------------------------------------------------
-            work_d = wm->GetFlightDistance("Î", -1);
+            work_d = wm->GetFlightDistance("çŸ³", -1);
             Assert::AreEqual(30.0, work_d);
 
-            work_d = wm->GetFlightDistance("‹|–î‚Ì‹|", 3);
+            work_d = wm->GetFlightDistance("å¼“çŸ¢ã®å¼“", 3);
             Assert::AreEqual(6.0, work_d);
 
-            work_d = wm->GetFlightDistance("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„", 3);
+            work_d = wm->GetFlightDistance("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§", 3);
             Assert::AreEqual(40.0, work_d);
 
             //-------------------------------------------------
             int work_i = 0;
-            work_i = wm->GetDurabilityMax("Î", -1);
+            work_i = wm->GetDurabilityMax("çŸ³", -1);
             Assert::AreEqual(999, work_i);
 
-            work_i = wm->GetDurabilityMax("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„", 3);
+            work_i = wm->GetDurabilityMax("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§", 3);
             Assert::AreEqual(40, work_i);
 
             WeaponManager::Destroy();

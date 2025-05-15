@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../StarmanLib/CraftSystem.h"
 #include "../StarmanLib/ItemManager.h"
 #include "../StarmanLib/Storehouse.h"
@@ -61,7 +61,7 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // El‚ÌƒŒƒxƒ‹‚ªæ“¾‚Å‚«‚é‚©ƒeƒXƒg
+        // è·äººã®ãƒ¬ãƒ™ãƒ«ãŒå–å¾—ã§ãã‚‹ã‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod03)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
@@ -71,10 +71,10 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueue.csv");
             int result = false;
-            result = obj->GetCraftsmanSkill("ƒCƒJƒ_");
+            result = obj->GetCraftsmanSkill("ã‚¤ã‚«ãƒ€");
             Assert::AreEqual(result, -1);
 
-            result = obj->GetCraftsmanSkill("–Ø‚Ì–_");
+            result = obj->GetCraftsmanSkill("æœ¨ã®æ£’");
             Assert::AreEqual(result, 1);
 
             CraftSystem::Destroy();
@@ -89,18 +89,18 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueue.csv");
             int result = 0;
-            obj->SetCraftsmanSkill("ƒCƒJƒ_", 1);
-            result = obj->GetCraftsmanSkill("ƒCƒJƒ_");
+            obj->SetCraftsmanSkill("ã‚¤ã‚«ãƒ€", 1);
+            result = obj->GetCraftsmanSkill("ã‚¤ã‚«ãƒ€");
             Assert::AreEqual(result, 1);
 
-            obj->SetCraftsmanSkill("–Ø‚Ì–_", 2);
-            result = obj->GetCraftsmanSkill("–Ø‚Ì–_");
+            obj->SetCraftsmanSkill("æœ¨ã®æ£’", 2);
+            result = obj->GetCraftsmanSkill("æœ¨ã®æ£’");
             Assert::AreEqual(result, 2);
 
             CraftSystem::Destroy();
         }
 
-        // El‚ÌƒXƒLƒ‹‚ª•Û‘¶‚Å‚«‚Ä‚¢‚é‚±‚Æ‚ğŠm”F
+        // è·äººã®ã‚¹ã‚­ãƒ«ãŒä¿å­˜ã§ãã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèª
         TEST_METHOD(TestMethod05)
         {
             {
@@ -112,8 +112,8 @@ namespace StarmanLibTest
                           "..\\StarmanLibTest\\craftsmanQueue.csv");
 
                 bool result = false;
-                obj->SetCraftsmanSkill("ƒCƒJƒ_", 1);
-                obj->SetCraftsmanSkill("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„", 1);
+                obj->SetCraftsmanSkill("ã‚¤ã‚«ãƒ€", 1);
+                obj->SetCraftsmanSkill("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§", 1);
                 obj->Save("..\\StarmanLibTest\\craftsmanSkillSave.csv",
                           "..\\StarmanLibTest\\craftsmanQueueSave.csv");
 
@@ -129,10 +129,10 @@ namespace StarmanLibTest
                           "..\\StarmanLibTest\\craftsmanQueueSave.csv");
 
                 int result = false;
-                result = obj->GetCraftsmanSkill("ƒCƒJƒ_");
+                result = obj->GetCraftsmanSkill("ã‚¤ã‚«ãƒ€");
                 Assert::AreEqual(result, 1);
 
-                result = obj->GetCraftsmanSkill("ƒAƒgƒ‰ƒgƒ‹‚Ég‚¤‘„");
+                result = obj->GetCraftsmanSkill("ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã«ä½¿ã†æ§");
                 Assert::AreEqual(result, 1);
 
                 CraftSystem::Destroy();
@@ -146,12 +146,12 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueue.csv");
             std::string work;
-            obj->QueueCraftRequest("ƒCƒJƒ_", &work, 1);
+            obj->QueueCraftRequest("ã‚¤ã‚«ãƒ€", &work, 1);
 
             CraftSystem::Destroy();
         }
 
-        // ƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‚È‚­‚ÄƒLƒ…[ƒCƒ“ƒO¸”s
+        // ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒãªãã¦ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°å¤±æ•—
         TEST_METHOD(TestMethod07)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -159,7 +159,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            bool result = obj->QueueCraftRequest("ƒCƒJƒ_", &work, 1);
+            bool result = obj->QueueCraftRequest("ã‚¤ã‚«ãƒ€", &work, 1);
 
             Assert::AreEqual(result, false);
 
@@ -171,7 +171,7 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒXƒ^[ƒg
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚¹ã‚¿ãƒ¼ãƒˆ
         TEST_METHOD(TestMethod08)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -179,7 +179,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("ƒAƒgƒ‰ƒgƒ‹", &work, 1);
+            obj->QueueCraftRequest("ã‚¢ãƒˆãƒ©ãƒˆãƒ«", &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -197,13 +197,13 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚½“_‚ÅƒNƒ‰ƒtƒg—p‘fŞ‚ªƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‚È‚­‚È‚é
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ãŸæ™‚ç‚¹ã§ã‚¯ãƒ©ãƒ•ãƒˆç”¨ç´ æãŒã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰ãªããªã‚‹
         TEST_METHOD(TestMethod09)
         {
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
             int temp = 0;
 
-            temp = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
+            temp = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
             Assert::AreEqual(temp, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -211,7 +211,7 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -219,10 +219,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
 
-            temp = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
+            temp = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            temp = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
             Assert::AreEqual(temp, 9);
 
             obj->UpdateCraftStatus();
@@ -232,16 +232,16 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
 
-            temp = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
+            temp = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            temp = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
             Assert::AreEqual(temp, 9);
 
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒXƒ^[ƒg‚µ‚ÄŠ®—¹‚·‚é
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦å®Œäº†ã™ã‚‹
         TEST_METHOD(TestMethod10)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -249,13 +249,13 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
@@ -263,20 +263,20 @@ namespace StarmanLibTest
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
 
-            // ƒNƒ‰ƒtƒg—v‹‚ª‚È‚­‚È‚Á‚Ä‚¢‚é‚±‚Æ
+            // ã‚¯ãƒ©ãƒ•ãƒˆè¦æ±‚ãŒãªããªã£ã¦ã„ã‚‹ã“ã¨
             Assert::AreEqual(true, (int)craftRequestList.size() == 0);
 
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒXƒ^[ƒg‚µ‚ÄŠ®—¹‚µ‚Ä‘qŒÉ‚ÉŠ®¬•i‚ª’Ç‰Á‚³‚ê‚é
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦å®Œäº†ã—ã¦å€‰åº«ã«å®Œæˆå“ãŒè¿½åŠ ã•ã‚Œã‚‹
         TEST_METHOD(TestMethod11)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
 
             Assert::AreEqual(work, 10);
 
@@ -285,32 +285,32 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work2;
-            obj->QueueCraftRequest("Î‘„", &work2, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
 
             Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
         }
 
-        // •¡”ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒXƒ^[ƒg‚µ‚ÄŠ®—¹‚µ‚Ä‘qŒÉ‚ÉŠ®¬•i‚ªŒ»‚ê‚é
+        // è¤‡æ•°ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦å®Œäº†ã—ã¦å€‰åº«ã«å®Œæˆå“ãŒç¾ã‚Œã‚‹
         TEST_METHOD(TestMethod12)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
 
             Assert::AreEqual(work, 10);
 
@@ -319,35 +319,35 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work2;
-            obj->QueueCraftRequest("Î‘„", &work2, 1);
-            obj->QueueCraftRequest("Î‘„", &work2, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
 
             Assert::AreEqual(work, 11);
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
 
             Assert::AreEqual(work, 12);
 
             CraftSystem::Destroy();
         }
 
-        // •¡”ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒXƒ^[ƒg‚µ‚ÄŠ®—¹‚µ‚Ä‘qŒÉ‚ÉŠ®¬•i‚ªŒ»‚ê‚é(2)
+        // è¤‡æ•°ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦å®Œäº†ã—ã¦å€‰åº«ã«å®Œæˆå“ãŒç¾ã‚Œã‚‹(2)
         TEST_METHOD(TestMethod13)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
@@ -355,10 +355,10 @@ namespace StarmanLibTest
 
             int work = 0;
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
             Assert::AreEqual(work, 10);
 
-            work = storehouse->CountItem("ƒAƒgƒ‰ƒgƒ‹");
+            work = storehouse->CountItem("ã‚¢ãƒˆãƒ©ãƒˆãƒ«");
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -366,39 +366,39 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work2;
-            obj->QueueCraftRequest("Î‘„", &work2, 1);
-            obj->QueueCraftRequest("ƒAƒgƒ‰ƒgƒ‹", &work2, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
+            obj->QueueCraftRequest("ã‚¢ãƒˆãƒ©ãƒˆãƒ«", &work2, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem("ƒAƒgƒ‰ƒgƒ‹");
+            work = storehouse->CountItem("ã‚¢ãƒˆãƒ©ãƒˆãƒ«");
             Assert::AreEqual(work, 10);
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„");
+            work = storehouse->CountItem("çŸ³æ§");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem("ƒAƒgƒ‰ƒgƒ‹");
+            work = storehouse->CountItem("ã‚¢ãƒˆãƒ©ãƒˆãƒ«");
             Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
         }
 
-        // i’»“x‚ªæ“¾‚Å‚«‚é
+        // é€²æ—åº¦ãŒå–å¾—ã§ãã‚‹
         TEST_METHOD(TestMethod14)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -406,13 +406,13 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 12ŠÔA‚ği‚ß‚é
+            // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
             obj->UpdateCraftStatus();
@@ -424,7 +424,7 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // •Û‘¶‚Å‚«‚é
+        // ä¿å­˜ã§ãã‚‹
         TEST_METHOD(TestMethod15)
         {
             {
@@ -433,13 +433,13 @@ namespace StarmanLibTest
                           "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
                 std::string work;
-                obj->QueueCraftRequest("Î‘„", &work, 1);
+                obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
                 obj->UpdateCraftStatus();
 
                 PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-                // 12ŠÔA‚ği‚ß‚é
+                // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
                 powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
                 obj->UpdateCraftStatus();
@@ -480,7 +480,7 @@ namespace StarmanLibTest
             }
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒLƒƒƒ“ƒZƒ‹
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚­ãƒ£ãƒ³ã‚»ãƒ«
         TEST_METHOD(TestMethod16)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -488,13 +488,13 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 12ŠÔA‚ği‚ß‚é
+            // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
             obj->UpdateCraftStatus();
@@ -508,45 +508,45 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒLƒƒƒ“ƒZƒ‹
-        // ŠJn‚µ‚Ä‚¢‚È‚¢ƒNƒ‰ƒtƒg‚ğƒLƒƒƒ“ƒZƒ‹‚µ‚½‚ç‘fŞ‚ª•Ô‚Á‚Ä‚­‚é
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚­ãƒ£ãƒ³ã‚»ãƒ«
+        // é–‹å§‹ã—ã¦ã„ãªã„ã‚¯ãƒ©ãƒ•ãƒˆã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãŸã‚‰ç´ æãŒè¿”ã£ã¦ãã‚‹
         TEST_METHOD(TestMethod16_2)
         {
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 12ŠÔA‚ği‚ß‚é
+            // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
-            auto mat2 = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            auto mat1 = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
+            auto mat2 = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(1);
 
-            mat1 = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
-            mat2 = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            mat1 = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
+            mat2 = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
             Assert::AreEqual(9, mat1);
             Assert::AreEqual(9, mat2);
 
             CraftSystem::Destroy();
         }
 
-        // ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒLƒƒƒ“ƒZƒ‹
-        // ŠJn‚µ‚½ƒNƒ‰ƒtƒg‚ğƒLƒƒƒ“ƒZƒ‹‚µ‚½‚ç‘fŞ‚ª•Ô‚Á‚Ä‚±‚È‚¢
+        // ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚­ãƒ£ãƒ³ã‚»ãƒ«
+        // é–‹å§‹ã—ãŸã‚¯ãƒ©ãƒ•ãƒˆã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ãŸã‚‰ç´ æãŒè¿”ã£ã¦ã“ãªã„
         TEST_METHOD(TestMethod16_3)
         {
             CraftSystem* obj = CraftSystem::GetObj();
@@ -554,51 +554,51 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 12ŠÔA‚ği‚ß‚é
+            // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
-            auto mat2 = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            auto mat1 = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
+            auto mat2 = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(0);
 
-            mat1 = storehouse->CountItem("×‚¢–Ø‚ÌŠ²");
-            mat2 = storehouse->CountItem("‚¢‚¢Œ`‚ÌÎi‘„j");
+            mat1 = storehouse->CountItem("ç´°ã„æœ¨ã®å¹¹");
+            mat2 = storehouse->CountItem("ã„ã„å½¢ã®çŸ³ï¼ˆæ§ï¼‰");
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             CraftSystem::Destroy();
         }
 
-        // •¡”ƒLƒ…[ƒCƒ“ƒO‚µ‚ÄƒLƒƒƒ“ƒZƒ‹
+        // è¤‡æ•°ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã—ã¦ã‚­ãƒ£ãƒ³ã‚»ãƒ«
         TEST_METHOD(TestMethod17)
         {
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
             std::string work;
-            obj->QueueCraftRequest("Î‘„", &work, 1);
-            obj->QueueCraftRequest("Î‘„", &work, 1);
-            obj->QueueCraftRequest("Î‘„", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
+            obj->QueueCraftRequest("çŸ³æ§", &work, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 12ŠÔA‚ği‚ß‚é
+            // 12æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 0, 12, 0, 0);
 
             obj->UpdateCraftStatus();
@@ -613,7 +613,7 @@ namespace StarmanLibTest
             CraftSystem::Destroy();
         }
 
-        // ‹K’è‰ñ”AƒNƒ‰ƒtƒg‚ğs‚¤‚Æ‹­‰»’l‚Ì‚‚¢ƒAƒCƒeƒ€‚ªƒNƒ‰ƒtƒg‚³‚ê‚é‚æ‚¤‚É‚È‚éB
+        // è¦å®šå›æ•°ã€ã‚¯ãƒ©ãƒ•ãƒˆã‚’è¡Œã†ã¨å¼·åŒ–å€¤ã®é«˜ã„ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚¯ãƒ©ãƒ•ãƒˆã•ã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹ã€‚
         TEST_METHOD(TestMethod18)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
@@ -621,7 +621,7 @@ namespace StarmanLibTest
 
             int work = 0;
             bool work_b = false;
-            work = storehouse->CountItem("Î‘„", -1);
+            work = storehouse->CountItem("çŸ³æ§", -1);
 
             Assert::AreEqual(work, 10);
 
@@ -629,47 +629,47 @@ namespace StarmanLibTest
             obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
-            work = obj->GetCraftsmanSkill("Î‘„");
+            work = obj->GetCraftsmanSkill("çŸ³æ§");
             Assert::AreEqual(work, -1);
 
             std::string work2;
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„", -1);
+            work = storehouse->CountItem("çŸ³æ§", -1);
 
             Assert::AreEqual(work, 11);
 
-            work = obj->GetCraftsmanSkill("Î‘„");
+            work = obj->GetCraftsmanSkill("çŸ³æ§");
             Assert::AreEqual(work, -1);
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("Î‘„", -1);
+            work = storehouse->CountItem("çŸ³æ§", -1);
 
             Assert::AreEqual(work, 12);
 
-            work = obj->GetCraftsmanSkill("Î‘„");
+            work = obj->GetCraftsmanSkill("çŸ³æ§");
             Assert::AreEqual(work, 1);
 
             CraftSystem::Destroy();
         }
 
-        // El‚Ìn—û“x‚ª‚‚¢ó‘Ô‚ÅƒNƒ‰ƒtƒg‚ğˆË—Š‚·‚é‚Æ“¯‚¶‘fŞ‚ğg‚Á‚Ä‚à
-        // ‹­‰»“x‚Ì‚‚¢ƒAƒCƒeƒ€‚ªì‚ç‚ê‚éB
-        // ƒ_[ƒNƒ\ƒEƒ‹‚Ì‚æ‚¤‚ÈŒÃ‚¢•Ší‚ğ‘fŞ‚Ég‚¤A‚Æ‚¢‚¤‚±‚Æ‚Í‚µ‚È‚¢B
+        // è·äººã®ç†Ÿç·´åº¦ãŒé«˜ã„çŠ¶æ…‹ã§ã‚¯ãƒ©ãƒ•ãƒˆã‚’ä¾é ¼ã™ã‚‹ã¨åŒã˜ç´ æã‚’ä½¿ã£ã¦ã‚‚
+        // å¼·åŒ–åº¦ã®é«˜ã„ã‚¢ã‚¤ãƒ†ãƒ ãŒä½œã‚‰ã‚Œã‚‹ã€‚
+        // ãƒ€ãƒ¼ã‚¯ã‚½ã‚¦ãƒ«ã®ã‚ˆã†ãªå¤ã„æ­¦å™¨ã‚’ç´ æã«ä½¿ã†ã€ã¨ã„ã†ã“ã¨ã¯ã—ãªã„ã€‚
         TEST_METHOD(TestMethod19)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
@@ -683,40 +683,40 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work2;
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
-            // El‚ÉÎ‘„‚Ì»‘¢‚ğˆË—Š‚·‚é‚ÆA‚±‚Ì“_‚Å‚Í‹­‰»’l‚È‚µ‚ÌÎ‘„‚ğì‚èn‚ß‚éB
+            // è·äººã«çŸ³æ§ã®è£½é€ ã‚’ä¾é ¼ã™ã‚‹ã¨ã€ã“ã®æ™‚ç‚¹ã§ã¯å¼·åŒ–å€¤ãªã—ã®çŸ³æ§ã‚’ä½œã‚Šå§‹ã‚ã‚‹ã€‚
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
             Assert::AreEqual(work, -1);
 
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
-            // ‚±‚±‚ÅEl‚ÌƒŒƒxƒ‹ƒAƒbƒvB{‚P‚ÌÎ‘„‚ğì‚ê‚é‚æ‚¤‚É‚È‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
+            // ã“ã“ã§è·äººã®ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã€‚ï¼‹ï¼‘ã®çŸ³æ§ã‚’ä½œã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            // ‚±‚±‚ÅÎ‘„‚ğ—\–ñ‚µ‚½‚ç{‚P‚ÌÎ‘„‚ªì‚ç‚ê‚é
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
+            // ã“ã“ã§çŸ³æ§ã‚’äºˆç´„ã—ãŸã‚‰ï¼‹ï¼‘ã®çŸ³æ§ãŒä½œã‚‰ã‚Œã‚‹
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
-            // {‚P‚ÌÎ‘„‚ª—\–ñ‚³‚ê‚Ä‚¢‚é‚©H
+            // ï¼‹ï¼‘ã®çŸ³æ§ãŒäºˆç´„ã•ã‚Œã¦ã„ã‚‹ã‹ï¼Ÿ
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
             Assert::AreEqual(work, 1);
 
             CraftSystem::Destroy();
         }
 
-        // •Ší‚ğì‚èA•ŠíŠÇ—ƒNƒ‰ƒX‚ªXV‚³‚ê‚é‚©ƒeƒXƒg
+        // æ­¦å™¨ã‚’ä½œã‚Šã€æ­¦å™¨ç®¡ç†ã‚¯ãƒ©ã‚¹ãŒæ›´æ–°ã•ã‚Œã‚‹ã‹ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(TestMethod20)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
@@ -730,23 +730,23 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work2;
-            work_b = obj->QueueCraftRequest("Î‘„", &work2, 1);
+            work_b = obj->QueueCraftRequest("çŸ³æ§", &work2, 1);
 
-            // •Ší‚Ì§ì‚ğŠJn
+            // æ­¦å™¨ã®åˆ¶ä½œã‚’é–‹å§‹
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
-            // •Ší‚Ì§ì‚ªŠ®—¹
+            // æ­¦å™¨ã®åˆ¶ä½œãŒå®Œäº†
             obj->UpdateCraftStatus();
 
             CraftSystem::Destroy();
         }
         
-        // ‘fŞ‚É•Ší‚ª‚ ‚éê‡B
+        // ç´ æã«æ­¦å™¨ãŒã‚ã‚‹å ´åˆã€‚
         //TEST_METHOD(TestMethod21)
         //{
         //    Storehouse* storehouse = Storehouse::GetObj();
@@ -757,41 +757,41 @@ namespace StarmanLibTest
         //    obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
         //              "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
-        //    work_b = obj->QueueCraftRequest("Î‘„");
+        //    work_b = obj->QueueCraftRequest("çŸ³æ§");
 
-        //    // El‚ÉÎ‘„‚Ì»‘¢‚ğˆË—Š‚·‚é‚ÆA‚±‚Ì“_‚Å‚Í‹­‰»’l‚È‚µ‚ÌÎ‘„‚ğì‚èn‚ß‚éB
+        //    // è·äººã«çŸ³æ§ã®è£½é€ ã‚’ä¾é ¼ã™ã‚‹ã¨ã€ã“ã®æ™‚ç‚¹ã§ã¯å¼·åŒ–å€¤ãªã—ã®çŸ³æ§ã‚’ä½œã‚Šå§‹ã‚ã‚‹ã€‚
         //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
         //    Assert::AreEqual(work, -1);
 
-        //    work_b = obj->QueueCraftRequest("Î‘„");
+        //    work_b = obj->QueueCraftRequest("çŸ³æ§");
 
         //    obj->UpdateCraftStatus();
 
         //    PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-        //    // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+        //    // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
         //    powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
         //    obj->UpdateCraftStatus();
 
-        //    // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
-        //    // ‚±‚±‚ÅEl‚ÌƒŒƒxƒ‹ƒAƒbƒvB{‚P‚ÌÎ‘„‚ğì‚ê‚é‚æ‚¤‚É‚È‚é
+        //    // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
+        //    // ã“ã“ã§è·äººã®ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã€‚ï¼‹ï¼‘ã®çŸ³æ§ã‚’ä½œã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹
         //    powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
         //    obj->UpdateCraftStatus();
 
-        //    // ‚±‚±‚ÅÎ‘„‚ğ—\–ñ‚µ‚½‚ç{‚P‚ÌÎ‘„‚ªì‚ç‚ê‚é
-        //    work_b = obj->QueueCraftRequest("Î‘„");
+        //    // ã“ã“ã§çŸ³æ§ã‚’äºˆç´„ã—ãŸã‚‰ï¼‹ï¼‘ã®çŸ³æ§ãŒä½œã‚‰ã‚Œã‚‹
+        //    work_b = obj->QueueCraftRequest("çŸ³æ§");
 
-        //    // {‚P‚ÌÎ‘„‚ª—\–ñ‚³‚ê‚Ä‚¢‚é‚©H
+        //    // ï¼‹ï¼‘ã®çŸ³æ§ãŒäºˆç´„ã•ã‚Œã¦ã„ã‚‹ã‹ï¼Ÿ
         //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
         //    Assert::AreEqual(work, 1);
 
         //    CraftSystem::Destroy();
         //}
 
-        // ƒCƒJƒ_‚ÌƒNƒ‰ƒtƒg
-        // Š®¬‚µ‚Ä‚à‘qŒÉ‚ÉŠi”[‚³‚ê‚¸A‹’“_‚Ì‹ß‚­‚É”z’u‚³‚ê‚é
+        // ã‚¤ã‚«ãƒ€ã®ã‚¯ãƒ©ãƒ•ãƒˆ
+        // å®Œæˆã—ã¦ã‚‚å€‰åº«ã«æ ¼ç´ã•ã‚Œãšã€æ‹ ç‚¹ã®è¿‘ãã«é…ç½®ã•ã‚Œã‚‹
         TEST_METHOD(TestMethod21)
         {
             auto raftNum1 = (int)Voyage::Get()->GetRaftList().size();
@@ -801,8 +801,8 @@ namespace StarmanLibTest
 
             for (int i = 0; i < 200; ++i)
             {
-                storehouse->AddItem("×‚¢–Ø‚ÌŠ²");
-                storehouse->AddItem("ƒcƒ^");
+                storehouse->AddItem("ç´°ã„æœ¨ã®å¹¹");
+                storehouse->AddItem("ãƒ„ã‚¿");
             }
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -810,18 +810,18 @@ namespace StarmanLibTest
                       "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
 
             std::string work;
-            obj->QueueCraftRequest("ƒCƒJƒ_", &work);
+            obj->QueueCraftRequest("ã‚¤ã‚«ãƒ€", &work);
 
             obj->UpdateCraftStatus();
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
 
-            // 1“ú‚Æ1ŠÔA‚ği‚ß‚é
+            // 1æ—¥ã¨1æ™‚é–“ã€æ™‚ã‚’é€²ã‚ã‚‹
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            auto raftCount = storehouse->CountItem("ƒCƒJƒ_");
+            auto raftCount = storehouse->CountItem("ã‚¤ã‚«ãƒ€");
 
             Assert::AreEqual(0, raftCount);
 

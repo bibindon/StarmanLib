@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+﻿#include "CppUnitTest.h"
 #include "../StarmanLib/MapObjManager.h"
 #include <fstream>
 #include <sstream>

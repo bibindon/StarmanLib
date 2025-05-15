@@ -1,4 +1,4 @@
-#include <algorithm>
+ï»¿#include <algorithm>
 #include <stdlib.h>
 #include <time.h>
 
@@ -43,17 +43,17 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
     }
 
     //-------------------------------------------------------------
-    // “ÅA“Å‚Å‚Í‚È‚¢A‚Æ‚¢‚¤î•ñ‚Í‚ ‚ç‚©‚¶‚ßŒˆ‚Ü‚Á‚Ä‚¢‚é‚í‚¯‚Å‚Í‚È‚¢B
-    // ƒQ[ƒ€ŠJn‚Éƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ‚Ü‚é
+    // æ¯’ã€æ¯’ã§ã¯ãªã„ã€ã¨ã„ã†æƒ…å ±ã¯ã‚ã‚‰ã‹ã˜ã‚æ±ºã¾ã£ã¦ã„ã‚‹ã‚ã‘ã§ã¯ãªã„ã€‚
+    // ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«ãƒ©ãƒ³ãƒ€ãƒ ã§æ±ºã¾ã‚‹
     //-------------------------------------------------------------
 
-    // saveFileInfo‚ª‹ó‚È‚çƒQ[ƒ€ŠJnB
-    // “ÅA“Å‚Å‚Í‚È‚¢î•ñ‚ğì¬‚·‚é
+    // saveFileInfoãŒç©ºãªã‚‰ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã€‚
+    // æ¯’ã€æ¯’ã§ã¯ãªã„æƒ…å ±ã‚’ä½œæˆã™ã‚‹
     if (saveFileInfo.empty())
     {
         std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(originFile, false);
 
-        // Œ»İ‚Ìî•ñ‚Å‰Šú‰»
+        // ç¾åœ¨æ™‚åˆ»ã®æƒ…å ±ã§åˆæœŸåŒ–
         srand((unsigned int)time(NULL));
 
         for (size_t i = 1; i < vvs.size(); ++i)
@@ -62,7 +62,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
 
             int rnd = rand();
 
-            // 50%‚ÌŠm—¦‚Å“Å
+            // 50%ã®ç¢ºç‡ã§æ¯’
             if (rnd % 100 <= 49)
             {
                 m_infoMap[vvs.at(i).at(0)].SetPoison(true);
@@ -72,7 +72,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                 m_infoMap[vvs.at(i).at(0)].SetPoison(false);
             }
 
-            // Å‰‚Í³‰ğ—¦60“
+            // æœ€åˆã¯æ­£è§£ç‡60ï¼…
             m_infoMap[vvs.at(i).at(0)].SetAccurate(0.6f);
         }
     }
@@ -179,11 +179,11 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_YET);
                     }
-                    else if (vvs.at(i).at(5) == "“Å")
+                    else if (vvs.at(i).at(5) == "æ¯’")
                     {
                         patchTest.SetResult(PatchTest::eResult::POISON);
                     }
-                    else if (vvs.at(i).at(5) == "“Å‚Å‚Í‚È‚¢")
+                    else if (vvs.at(i).at(5) == "æ¯’ã§ã¯ãªã„")
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_POISON);
                     }
@@ -206,10 +206,10 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
 
-        vs.push_back("ƒAƒCƒeƒ€–¼");
-        vs.push_back("“Å«");
-        vs.push_back("ƒpƒbƒ`ƒeƒXƒg‰ñ”");
-        vs.push_back("³‰ğ—¦");
+        vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ å");
+        vs.push_back("æ¯’æ€§");
+        vs.push_back("ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆå›æ•°");
+        vs.push_back("æ­£è§£ç‡");
         vvs.push_back(vs);
         vs.clear();
 
@@ -240,12 +240,12 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
 
-        vs.push_back("ƒAƒCƒeƒ€–¼");
-        vs.push_back("ó‘Ô");
-        vs.push_back("—\–ñ“ú");
-        vs.push_back("ŠJn“ú");
-        vs.push_back("Š®—¹“ú");
-        vs.push_back("ƒeƒXƒgŒ‹‰Ê");
+        vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ å");
+        vs.push_back("çŠ¶æ…‹");
+        vs.push_back("äºˆç´„æ—¥æ™‚");
+        vs.push_back("é–‹å§‹æ—¥æ™‚");
+        vs.push_back("å®Œäº†æ—¥æ™‚");
+        vs.push_back("ãƒ†ã‚¹ãƒˆçµæœ");
         vvs.push_back(vs);
         vs.clear();
 
@@ -320,11 +320,11 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
             }
             else if (it->GetResult() == PatchTest::eResult::POISON)
             {
-                vs.push_back("“Å");
+                vs.push_back("æ¯’");
             }
             else if (it->GetResult() == PatchTest::eResult::NOT_POISON)
             {
-                vs.push_back("“Å‚Å‚Í‚È‚¢");
+                vs.push_back("æ¯’ã§ã¯ãªã„");
             }
 
             vvs.push_back(vs);
@@ -343,7 +343,7 @@ void NSStarmanLib::PatchTestManager::Update()
 
     auto dateTime = PowereggDateTime::GetObj();
 
-    // ‚·‚×‚ÄFINISHED‚È‚ç‚â‚é‚±‚Æ‚È‚µ
+    // ã™ã¹ã¦FINISHEDãªã‚‰ã‚„ã‚‹ã“ã¨ãªã—
     bool allFinish =
         std::all_of(m_PatchTestQue.begin(), m_PatchTestQue.end(),
                     [](PatchTest patchTest)
@@ -356,7 +356,7 @@ void NSStarmanLib::PatchTestManager::Update()
         return;
     }
 
-    // Às’†‚ÌƒeƒXƒg‚ª‚ ‚é‚©
+    // å®Ÿè¡Œä¸­ã®ãƒ†ã‚¹ãƒˆãŒã‚ã‚‹ã‹
     bool existStarted =
         std::any_of(m_PatchTestQue.begin(), m_PatchTestQue.end(),
                     [](PatchTest patchTest)
@@ -364,7 +364,7 @@ void NSStarmanLib::PatchTestManager::Update()
                         return patchTest.GetState() == PatchTest::eState::STARTED;
                     });
 
-    // Às’†‚ÌƒeƒXƒg‚ª‚ ‚é‚È‚ç‚ÎAŠ®—¹‚ğ‰ß‚¬‚Ä‚¢‚È‚¢‚©”»’è‚ğs‚¤
+    // å®Ÿè¡Œä¸­ã®ãƒ†ã‚¹ãƒˆãŒã‚ã‚‹ãªã‚‰ã°ã€å®Œäº†æ™‚åˆ»ã‚’éãã¦ã„ãªã„ã‹åˆ¤å®šã‚’è¡Œã†
     if (existStarted)
     {
         auto it = std::find_if(m_PatchTestQue.begin(), m_PatchTestQue.end(),
@@ -386,7 +386,7 @@ void NSStarmanLib::PatchTestManager::Update()
 
         if (finished)
         {
-            // Š®—¹ˆ—
+            // å®Œäº†å‡¦ç†
             it->SetState(PatchTest::eState::FINISHED);
 
             it->SetDateTimeEnd(dateTime->GetYear(),
@@ -399,16 +399,16 @@ void NSStarmanLib::PatchTestManager::Update()
             auto name = it->GetItemName();
             auto accurate = m_infoMap[name].GetAccurate();
 
-            // ³‰ğ—¦‚É‚æ‚éŒ‹‰Ê”»’è
+            // æ­£è§£ç‡ã«ã‚ˆã‚‹çµæœåˆ¤å®š
 
             srand((unsigned int)time(NULL));
 
-            // 0 ~ 99‚Ì—”
+            // 0 ~ 99ã®ä¹±æ•°
             int rnd = rand() % 100;
 
             int nAccurate = (int)accurate * 100;
 
-            // ³‰ğ
+            // æ­£è§£
             if (rnd < nAccurate)
             {
                 auto poison = m_infoMap[name].GetPoison();
@@ -421,7 +421,7 @@ void NSStarmanLib::PatchTestManager::Update()
                     it->SetResult(PatchTest::eResult::NOT_POISON);
                 }
             }
-            // •s³‰ğ
+            // ä¸æ­£è§£
             else
             {
                 auto poison = m_infoMap[name].GetPoison();
@@ -435,12 +435,12 @@ void NSStarmanLib::PatchTestManager::Update()
                 }
             }
 
-            // ƒpƒbƒ`ƒeƒXƒg‰ñ”‚ğXV
+            // ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆå›æ•°ã‚’æ›´æ–°
             auto tryNum = m_infoMap[name].GetTryNum();
             ++tryNum;
             m_infoMap[name].SetTryNum(tryNum);
 
-            // ³‰ğ—¦‚ğXV
+            // æ­£è§£ç‡ã‚’æ›´æ–°
             accurate += 0.1f;
             if (accurate >= 0.9f)
             {
@@ -449,7 +449,7 @@ void NSStarmanLib::PatchTestManager::Update()
 
             m_infoMap[name].SetAccurate(accurate);
 
-            // ŠJnˆ—
+            // é–‹å§‹å‡¦ç†
             ++it;
             if (it != m_PatchTestQue.end())
             {
@@ -470,15 +470,15 @@ void NSStarmanLib::PatchTestManager::Update()
             }
         }
     }
-    // Às’†‚ÌƒeƒXƒg‚ª‚È‚¢‚È‚ç‚ÎAˆê”ÔŒÃ‚¢ˆË—Š‚ğŠJn‚·‚é
+    // å®Ÿè¡Œä¸­ã®ãƒ†ã‚¹ãƒˆãŒãªã„ãªã‚‰ã°ã€ä¸€ç•ªå¤ã„ä¾é ¼ã‚’é–‹å§‹ã™ã‚‹
     else
     {
-        // ˆË—Š‚Í––”ö‚É’Ç‰Á‚·‚é‚Ì‚Åæ“ª‚Ù‚ÇŒÃ‚¢ˆË—Š
+        // ä¾é ¼ã¯æœ«å°¾ã«è¿½åŠ ã™ã‚‹ã®ã§å…ˆé ­ã»ã©å¤ã„ä¾é ¼
         for (size_t i = 0; i < m_PatchTestQue.size(); ++i)
         {
             auto& patchTest = m_PatchTestQue.at(i);
 
-            // –¢Š®—¹‚ğŒ©‚Â‚¯‚½‚çŠJn‚·‚é
+            // æœªå®Œäº†ã‚’è¦‹ã¤ã‘ãŸã‚‰é–‹å§‹ã™ã‚‹
             if (patchTest.GetState() == PatchTest::eState::NOT_START)
             {
                 patchTest.SetState(PatchTest::eState::STARTED);
@@ -510,7 +510,7 @@ bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
         throw std::exception();
     }
 
-    // ˆê“x‚ÉˆË—Š‚Å‚«‚é‚Ì‚Í‚R‰ñ‚Ü‚Å
+    // ä¸€åº¦ã«ä¾é ¼ã§ãã‚‹ã®ã¯ï¼“å›ã¾ã§
     auto notFinishCount =
         std::count_if(m_PatchTestQue.begin(), m_PatchTestQue.end(),
                       [](PatchTest patchTest)
@@ -547,7 +547,7 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()
     return m_PatchTestQue;
 }
 
-// æ“ª‚ªˆê”ÔV‚µ‚­A––”ö‚ÉŒü‚©‚¤‚Ù‚ÇŒÃ‚¢ƒeƒXƒgŒ‹‰Ê
+// å…ˆé ­ãŒä¸€ç•ªæ–°ã—ãã€æœ«å°¾ã«å‘ã‹ã†ã»ã©å¤ã„ãƒ†ã‚¹ãƒˆçµæœ
 std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::string& name)
 {
     std::vector<PatchTest> resultList;

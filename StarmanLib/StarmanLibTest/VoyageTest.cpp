@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+﻿#include "CppUnitTest.h"
 #include "../StarmanLib/Voyage.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

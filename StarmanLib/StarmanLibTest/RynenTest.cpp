@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+﻿#include "CppUnitTest.h"
 #include "../StarmanLib/Rynen.h"
 #include <fstream>
 #include <sstream>

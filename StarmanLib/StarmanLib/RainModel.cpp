@@ -1,4 +1,4 @@
-#include "RainModel.h"
+ï»¿#include "RainModel.h"
 
 #include "PowereggDateTime.h"
 #include <time.h>
@@ -11,7 +11,7 @@ NSStarmanLib::RainModel* NSStarmanLib::RainModel::Get()
     {
         m_rain = new RainModel();
 
-        // 0 ~ 99‚Ì—”
+        // 0 ~ 99ã®ä¹±æ•°
         srand((unsigned int)time(NULL));
     }
 
@@ -24,7 +24,7 @@ void NSStarmanLib::RainModel::Destroy()
     m_rain = nullptr;
 }
 
-// ‰J‚Ìó‘Ô‚ğXVBÚ×‚Íƒwƒbƒ_[ƒtƒ@ƒCƒ‹B
+// é›¨ã®çŠ¶æ…‹ã‚’æ›´æ–°ã€‚è©³ç´°ã¯ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã€‚
 void NSStarmanLib::RainModel::Update()
 {
     auto datetime = PowereggDateTime::GetObj();
@@ -38,20 +38,20 @@ void NSStarmanLib::RainModel::Update()
     int currentDay = datetime->GetDay();
     int currentHour = datetime->GetHour();
 
-    // 0•ª0•b‚ğ‰z‚¦‚½‚çXVˆ—‚ğs‚¤B
-    // ‚»‚Ì‚½‚ß‚ÉA‘O‰ñAUpdateŠÖ”‚ªŒÄ‚Î‚ê‚½‚©‚ç1ŠÔŒo‰ß‚µ‚Ä‚¢‚é‚©‚ğŠm”F‚·‚éB
+    // 0åˆ†0ç§’ã‚’è¶ŠãˆãŸã‚‰æ›´æ–°å‡¦ç†ã‚’è¡Œã†ã€‚
+    // ãã®ãŸã‚ã«ã€å‰å›ã€Updateé–¢æ•°ãŒå‘¼ã°ã‚ŒãŸæ™‚åˆ»ã‹ã‚‰1æ™‚é–“çµŒéã—ã¦ã„ã‚‹ã‹ã‚’ç¢ºèªã™ã‚‹ã€‚
     bool updateNecessary = false;
 
-    // Œ»İij‚ªˆÈ‘O‚æ‚è‘‚¦‚Ä‚¢‚é‚È‚ç1ŠÔŒo‰ß‚µ‚½
+    // ç¾åœ¨æ™‚åˆ»ï¼ˆæ™‚ï¼‰ãŒä»¥å‰ã‚ˆã‚Šå¢—ãˆã¦ã„ã‚‹ãªã‚‰1æ™‚é–“çµŒéã—ãŸ
     if (currentHour > m_previousHour)
     {
         updateNecessary = true;
     }
-    // Œ»İij‚ªˆÈ‘O‚æ‚è‘‚¦‚Ä‚¢‚È‚­‚Ä‚à1ŠÔŒo‰ß‚µ‚Ä‚¢‚éê‡‚ª‚ ‚éB
-    // 23¨0‚È‚ÇB
+    // ç¾åœ¨æ™‚åˆ»ï¼ˆæ™‚ï¼‰ãŒä»¥å‰ã‚ˆã‚Šå¢—ãˆã¦ã„ãªãã¦ã‚‚1æ™‚é–“çµŒéã—ã¦ã„ã‚‹å ´åˆãŒã‚ã‚‹ã€‚
+    // 23æ™‚â†’0æ™‚ãªã©ã€‚
     else
     {
-        // Œ»İi“új‚ªˆÈ‘O‚æ‚è‘‚¦‚Ä‚¢‚é‚È‚ç1ŠÔŒo‰ß‚µ‚½B
+        // ç¾åœ¨æ™‚åˆ»ï¼ˆæ—¥ï¼‰ãŒä»¥å‰ã‚ˆã‚Šå¢—ãˆã¦ã„ã‚‹ãªã‚‰1æ™‚é–“çµŒéã—ãŸã€‚
         if (currentDay > m_previousDay)
         {
             updateNecessary = true;
@@ -76,16 +76,16 @@ void NSStarmanLib::RainModel::Update()
     {
         int rnd = rand() % 100;
 
-        // ‰J‚ª~‚Á‚Ä‚¢‚È‚¢ê‡A1“‚ÌŠm—¦‚Å‰J‚ª~‚é
+        // é›¨ãŒé™ã£ã¦ã„ãªã„å ´åˆã€1ï¼…ã®ç¢ºç‡ã§é›¨ãŒé™ã‚‹
         if (!m_bRain)
         {
-            // rnd == 0‚¾‚Á‚½‚ç1%‚ÌŠm—¦‚ğˆø‚«“–‚Ä‚½A‚Æ‚¢‚¤‚±‚Æ
+            // rnd == 0ã ã£ãŸã‚‰1%ã®ç¢ºç‡ã‚’å¼•ãå½“ã¦ãŸã€ã¨ã„ã†ã“ã¨
             if (rnd == 0)
             {
                 m_bRain = true;
             }
         }
-        // ‰J‚ª~‚Á‚Ä‚¢‚½ê‡A10“‚ÌŠm—¦‚Å‰J‚ª‚â‚Ş
+        // é›¨ãŒé™ã£ã¦ã„ãŸå ´åˆã€10ï¼…ã®ç¢ºç‡ã§é›¨ãŒã‚„ã‚€
         else
         {
             if (rnd <= 9)
@@ -95,7 +95,7 @@ void NSStarmanLib::RainModel::Update()
         }
     }
 
-    // Ÿ‰ñA‚±‚ÌŠÖ”‚ğŒÄ‚Î‚ê‚½‚Ì‚½‚ß‚ÉŒ»İ‚ğ•Û‘¶B
+    // æ¬¡å›ã€ã“ã®é–¢æ•°ã‚’å‘¼ã°ã‚ŒãŸæ™‚ã®ãŸã‚ã«ç¾åœ¨æ™‚åˆ»ã‚’ä¿å­˜ã€‚
     m_previousYear = currentYear;
     m_previousMonth = currentMonth;
     m_previousDay = currentDay;

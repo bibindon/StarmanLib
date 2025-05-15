@@ -1,4 +1,4 @@
-#include "ItemManager.h"
+ï»¿#include "ItemManager.h"
 #include <vector>
 #include "Util.h"
 #include "WeaponManager.h"
@@ -258,23 +258,23 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
             work_f = std::stof(vvs.at(i).at(5));
             itemDef.SetVolume(work_f);
 
-            if (vvs.at(i).at(6) == "‹Md•i")
+            if (vvs.at(i).at(6) == "è²´é‡å“")
             {
                 itemDef.SetType(ItemDef::ItemType::VALUABLES);
             }
-            else if (vvs.at(i).at(6) == "‘fŞ")
+            else if (vvs.at(i).at(6) == "ç´ æ")
             {
                 itemDef.SetType(ItemDef::ItemType::MATERIAL);
             }
-            else if (vvs.at(i).at(6) == "HŞ")
+            else if (vvs.at(i).at(6) == "é£Ÿæ")
             {
                 itemDef.SetType(ItemDef::ItemType::FOOD);
             }
-            else if (vvs.at(i).at(6) == "•Ší")
+            else if (vvs.at(i).at(6) == "æ­¦å™¨")
             {
                 itemDef.SetType(ItemDef::ItemType::WEAPON);
             }
-            else if (vvs.at(i).at(6) == "‚»‚Ì‘¼")
+            else if (vvs.at(i).at(6) == "ãã®ä»–")
             {
                 itemDef.SetType(ItemDef::ItemType::OTHERS);
             }
@@ -308,7 +308,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                 work_f = std::stof(vvs.at(i).at(15));
                 itemDef.SetMuscleDebuff(work_f);
 
-                if (vvs.at(i).at(16) == "›")
+                if (vvs.at(i).at(16) == "â—‹")
                 {
                     itemDef.SetHeadache(true);
                 }
@@ -317,7 +317,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                     itemDef.SetHeadache(false);
                 }
 
-                if (vvs.at(i).at(17) == "›")
+                if (vvs.at(i).at(17) == "â—‹")
                 {
                     itemDef.SetStomachache(true);
                 }
@@ -327,7 +327,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                 }
             }
 
-            // ‹­‰»’l
+            // å¼·åŒ–å€¤
             if (vvs.at(i).at(18).empty())
             {
                 work_i = -1;
@@ -339,7 +339,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
 
             itemDef.SetLevel(work_i);
 
-            // ‘Ï‹v“x‚ÌÅ‘å’li‰Šú’lj
+            // è€ä¹…åº¦ã®æœ€å¤§å€¤ï¼ˆï¼åˆæœŸå€¤ï¼‰
             if (vvs.at(i).at(19).empty())
             {
                 work_i = -1;
@@ -377,7 +377,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
             z = std::stof(vvs.at(i).at(4));
             itemPos.SetPos(x, y, z);
 
-            if (vvs.at(i).at(5) == "›")
+            if (vvs.at(i).at(5) == "â—‹")
             {
                 itemPos.SetObtained(true);
             }
@@ -406,11 +406,11 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
     std::vector<std::vector<std::string>> vvs;
     std::vector<std::string> vs;
     vs.push_back("ID");
-    vs.push_back("ƒAƒCƒeƒ€ID");
+    vs.push_back("ã‚¢ã‚¤ãƒ†ãƒ ID");
     vs.push_back("X");
     vs.push_back("Y");
     vs.push_back("Z");
-    vs.push_back("æ“¾Ï‚İ");
+    vs.push_back("å–å¾—æ¸ˆã¿");
     vvs.push_back(vs);
     vs.clear();
 
@@ -432,7 +432,7 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
 
         if (it->second.GetObtained())
         {
-            vs.push_back("›");
+            vs.push_back("â—‹");
         }
         else
         {
@@ -494,7 +494,7 @@ ItemDef ItemManager::GetItemDef(const int id)
 
     if (itemDef.GetId() == 0)
     {
-        // ‘¶İ‚µ‚È‚¢ID‚ğæ“¾‚µ‚æ‚¤‚Æ‚µ‚½B
+        // å­˜åœ¨ã—ãªã„IDã‚’å–å¾—ã—ã‚ˆã†ã¨ã—ãŸã€‚
         throw std::exception();
     }
 
@@ -533,8 +533,8 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByPosID(const int posId)
     return m_itemDefMap[itemDefId];
 }
 
-// ˆø”‚Åw’è‚µ‚½À•W‚É‘¶İ‚·‚éƒAƒCƒeƒ€‚ğæ“¾
-// GetItemPosId‚ª-1‚¾‚Á‚½‚çƒAƒCƒeƒ€‚ª‚È‚¢B
+// å¼•æ•°ã§æŒ‡å®šã—ãŸåº§æ¨™ã«å­˜åœ¨ã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—
+// GetItemPosIdãŒ-1ã ã£ãŸã‚‰ã‚¢ã‚¤ãƒ†ãƒ ãŒãªã„ã€‚
 ItemPos NSStarmanLib::ItemManager::GetItemPosByPos(const float x,
                                                        const float y,
                                                        const float z,
@@ -543,7 +543,7 @@ ItemPos NSStarmanLib::ItemManager::GetItemPosByPos(const float x,
     ItemPos itemPos;
     itemPos.SetItemPosId(-1);
 
-    // ‹…‚Å‹——£‚ğ‘ª‚é‚æ‚è—§•û‘Ì‚Å‘ª‚Á‚½‚Ù‚¤‚ª‘¬‚»‚¤
+    // çƒã§è·é›¢ã‚’æ¸¬ã‚‹ã‚ˆã‚Šç«‹æ–¹ä½“ã§æ¸¬ã£ãŸã»ã†ãŒé€Ÿãã†
     for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
     {
         float x2 = 0.f;

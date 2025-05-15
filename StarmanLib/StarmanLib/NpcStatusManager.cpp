@@ -1,4 +1,4 @@
-#include "NpcStatusManager.h"
+ï»¿#include "NpcStatusManager.h"
 #include "Storehouse.h"
 #include "Rynen.h"
 #include "Util.h"
@@ -393,29 +393,29 @@ void NpcStatusManager::Save(const std::string& csvfile,
     std::vector<std::string> vs;
     std::string work;
 
-    vs.push_back("–¼‘O");
-    vs.push_back("“œ¿");
-    vs.push_back("ƒ^ƒ“ƒpƒN¿");
-    vs.push_back("‰¿");
-    vs.push_back("ƒrƒ^ƒ~ƒ“");
-    vs.push_back("ƒ~ƒlƒ‰ƒ‹");
-    vs.push_back("…•ª");
-    vs.push_back("ƒ‰ƒCƒlƒ“‚ÌŒ_–ñ‚ğ‚µ‚Ä‚¢‚é");
-    vs.push_back("ƒ[ƒhƒuƒŒƒX‚ğˆù‚ñ‚Å‚¢‚é");
-    vs.push_back("€‚ñ‚Å‚¢‚é");
+    vs.push_back("åå‰");
+    vs.push_back("ç³–è³ª");
+    vs.push_back("ã‚¿ãƒ³ãƒ‘ã‚¯è³ª");
+    vs.push_back("è„‚è³ª");
+    vs.push_back("ãƒ“ã‚¿ãƒŸãƒ³");
+    vs.push_back("ãƒŸãƒãƒ©ãƒ«");
+    vs.push_back("æ°´åˆ†");
+    vs.push_back("ãƒ©ã‚¤ãƒãƒ³ã®å¥‘ç´„ã‚’ã—ã¦ã„ã‚‹");
+    vs.push_back("ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹ã‚’é£²ã‚“ã§ã„ã‚‹");
+    vs.push_back("æ­»ã‚“ã§ã„ã‚‹");
     vs.push_back("x");
     vs.push_back("y");
     vs.push_back("z");
     vs.push_back("yRot");
-    vs.push_back("‰ï˜b‰Â”\");
-    vs.push_back("‰ï˜bƒXƒNƒŠƒvƒg");
-    vs.push_back("‹@”\‰ğ‹Ö");
-    vs.push_back("‹@”\í•Ê");
-    vs.push_back("ƒƒjƒ…[•\¦");
-    vs.push_back("ƒŒƒbƒhƒ}ƒ“");
-    vs.push_back("ƒŒƒbƒhƒ}ƒ“‚É‚È‚Á‚½”N");
-    vs.push_back("ƒŒƒbƒhƒ}ƒ“‚É‚È‚Á‚½Œ");
-    vs.push_back("ƒŒƒbƒhƒ}ƒ“‚É‚È‚Á‚½“ú");
+    vs.push_back("ä¼šè©±å¯èƒ½");
+    vs.push_back("ä¼šè©±ã‚¹ã‚¯ãƒªãƒ—ãƒˆ");
+    vs.push_back("æ©Ÿèƒ½è§£ç¦");
+    vs.push_back("æ©Ÿèƒ½ç¨®åˆ¥");
+    vs.push_back("ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤º");
+    vs.push_back("ãƒ¬ãƒƒãƒ‰ãƒãƒ³");
+    vs.push_back("ãƒ¬ãƒƒãƒ‰ãƒãƒ³ã«ãªã£ãŸå¹´");
+    vs.push_back("ãƒ¬ãƒƒãƒ‰ãƒãƒ³ã«ãªã£ãŸæœˆ");
+    vs.push_back("ãƒ¬ãƒƒãƒ‰ãƒãƒ³ã«ãªã£ãŸæ—¥");
     vvs.push_back(vs);
     vs.clear();
 
@@ -560,23 +560,23 @@ void NpcStatusManager::Save(const std::string& csvfile,
 
 void NSStarmanLib::NpcStatusManager::Update()
 {
-    // ‚P•b‚É‚P‰ñŒÄ‚Î‚ê‚é‘z’è
+    // ï¼‘ç§’ã«ï¼‘å›å‘¼ã°ã‚Œã‚‹æƒ³å®š
     {
-        // b’è“I‚ÉA“œ¿A‰¿Aƒ^ƒ“ƒpƒN¿Aƒ~ƒlƒ‰ƒ‹Aƒrƒ^ƒ~ƒ“A…•ª‚Í‚Ç‚ê‚à‚T“ú‚Å‚O‚É‚È‚é‚±‚Æ‚Æ‚·‚éB
-        // ‚P•b‚Å‚ÌÁ”ï—Ê‚Í100/5/24/60/60
-        // …•ª‚Í90‚Å€–S‚È‚Ì‚ÅA5“ú‚Å10Œ¸‚é‚æ‚¤‚É‚·‚é
+        // æš«å®šçš„ã«ã€ç³–è³ªã€è„‚è³ªã€ã‚¿ãƒ³ãƒ‘ã‚¯è³ªã€ãƒŸãƒãƒ©ãƒ«ã€ãƒ“ã‚¿ãƒŸãƒ³ã€æ°´åˆ†ã¯ã©ã‚Œã‚‚ï¼•æ—¥ã§ï¼ã«ãªã‚‹ã“ã¨ã¨ã™ã‚‹ã€‚
+        // ï¼‘ç§’ã§ã®æ¶ˆè²»é‡ã¯100/5/24/60/60
+        // æ°´åˆ†ã¯90ã§æ­»äº¡ãªã®ã§ã€5æ—¥ã§10æ¸›ã‚‹ã‚ˆã†ã«ã™ã‚‹
         float work_f = 100.f;
         work_f /= 5;
         work_f /= 24;
         work_f /= 60;
         work_f /= 60;
 
-        // 1•b‚ÅAƒQ[ƒ€“à‚Å‚Í12•bŒo‰ß‚·‚é
+        // 1ç§’ã§ã€ã‚²ãƒ¼ãƒ å†…ã§ã¯12ç§’çµŒéã™ã‚‹
         work_f *= 12;
 
         for (auto& npc : m_NpcStatusMap)
         {
-            // ƒrƒ€‚Í‘Ì—Í‚ğÁ”ï‚µ‚È‚¢
+            // ãƒ“ãƒ ã¯ä½“åŠ›ã‚’æ¶ˆè²»ã—ãªã„
             if (npc.first == "vim")
             {
                 continue;
@@ -603,13 +603,13 @@ void NSStarmanLib::NpcStatusManager::Update()
             work_f2 = npc.second.GetVitamin();
             npc.second.SetVitamin(work_f2 - work_f);
 
-            // …•ª‚ÍŒ¸­—Ê‚ğ1/10‚É‚·‚éB
+            // æ°´åˆ†ã¯æ¸›å°‘é‡ã‚’1/10ã«ã™ã‚‹ã€‚
             work_f2 = npc.second.GetWater();
             npc.second.SetWater(work_f2 - (work_f/10.f));
         }
     }
 
-    // ƒXƒe[ƒ^ƒX‚ª’á‚¢ê‡‚Í‘qŒÉ‚©‚çH—¿‚ğŒ¸‚ç‚·
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒä½ã„å ´åˆã¯å€‰åº«ã‹ã‚‰é£Ÿæ–™ã‚’æ¸›ã‚‰ã™
     {
         for (auto& npc : m_NpcStatusMap)
         {
@@ -624,9 +624,9 @@ void NSStarmanLib::NpcStatusManager::Update()
                 auto storage = storageManager->GetCurrentActiveStorehouse();
                 auto allItem = storage->GetAllItem();
 
-                // ƒ‰ƒ“ƒ_ƒ€‚Åˆê‚ÂÁ”ï
-                // Ô‚¢À‚ÍH‚×‚È‚¢B
-                // ƒLƒmƒRAƒjƒ‰EƒXƒCƒZƒ“A‘å‚«‚¢‚Ç‚ñ‚®‚èA‚Í“œ¿‚ª10‚Ì‚Æ‚«‚Ü‚ÅŒó•â‚É‚È‚ç‚È‚¢B
+                // ãƒ©ãƒ³ãƒ€ãƒ ã§ä¸€ã¤æ¶ˆè²»
+                // èµ¤ã„å®Ÿã¯é£Ÿã¹ãªã„ã€‚
+                // ã‚­ãƒã‚³ã€ãƒ‹ãƒ©ãƒ»ã‚¹ã‚¤ã‚»ãƒ³ã€å¤§ãã„ã©ã‚“ãã‚Šã€ã¯ç³–è³ªãŒ10ã®ã¨ãã¾ã§å€™è£œã«ãªã‚‰ãªã„ã€‚
                 std::vector<ItemInfo> foodList;
 
                 for (auto& item : allItem)
@@ -662,16 +662,16 @@ void NSStarmanLib::NpcStatusManager::Update()
 
                     storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
 
-                    // ‘Ì—Í‚Ì‰ñ•œ
+                    // ä½“åŠ›ã®å›å¾©
                     Eat(npc.first, foodList.at(pickup).GetItemDef());
                 }
             }
         }
     }
 
-    // •m€‚¾‚Á‚½‚çƒ[ƒhƒuƒŒƒX‚ğˆù‚Ş
+    // ç€•æ­»ã ã£ãŸã‚‰ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹ã‚’é£²ã‚€
     {
-        // ålŒö‚ªŒ_–ñ‚µ‚½ŒãANPC‚àg—p‰Â”\‚É‚È‚éB‚½‚Ü‚½‚Ü‚¾‚¯‚ÇEEEB
+        // ä¸»äººå…¬ãŒå¥‘ç´„ã—ãŸå¾Œã€NPCã‚‚ä½¿ç”¨å¯èƒ½ã«ãªã‚‹ã€‚ãŸã¾ãŸã¾ã ã‘ã©ãƒ»ãƒ»ãƒ»ã€‚
         if (Rynen::GetObj()->GetContracted())
         {
             for (auto& npc : m_NpcStatusMap)
@@ -688,7 +688,7 @@ void NSStarmanLib::NpcStatusManager::Update()
                     npc.second.GetMineral() <= 5.f ||
                     npc.second.GetWater() <= 92.f)
                 {
-                    // ƒ[ƒhƒuƒŒƒX‚ª‚ ‚ê‚ÎÁ”ï
+                    // ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹ãŒã‚ã‚Œã°æ¶ˆè²»
                     auto storageManager = StorehouseManager::Get();
                     auto storage = storageManager->GetCurrentActiveStorehouse();
 
@@ -706,7 +706,7 @@ void NSStarmanLib::NpcStatusManager::Update()
         }
     }
 
-    // €–S”»’è
+    // æ­»äº¡åˆ¤å®š
     {
         for (auto& npc : m_NpcStatusMap)
         {
@@ -715,8 +715,8 @@ void NSStarmanLib::NpcStatusManager::Update()
                 continue;
             }
 
-            // …•ª‚Í90“A‚»‚êˆÈŠO‚Í0“‚É‚È‚Á‚½‚ç€–SB
-            // ‰¼À‘•
+            // æ°´åˆ†ã¯90ï¼…ã€ãã‚Œä»¥å¤–ã¯0ï¼…ã«ãªã£ãŸã‚‰æ­»äº¡ã€‚
+            // ä»®å®Ÿè£…
             if (npc.second.GetCarbo() <= 0.f ||
                 npc.second.GetProtein() <= 0.f ||
                 npc.second.GetLipid() <= 0.f ||
@@ -726,7 +726,7 @@ void NSStarmanLib::NpcStatusManager::Update()
             {
                 if (npc.second.GetDrinkWordbress())
                 {
-                    // ‘Ì—Í‚ª‘S‰õ‚·‚é
+                    // ä½“åŠ›ãŒå…¨å¿«ã™ã‚‹
                     npc.second.SetDrinkWordbress(false);
                     npc.second.SetCarbo(100.f);
                     npc.second.SetProtein(100.f);
@@ -743,7 +743,7 @@ void NSStarmanLib::NpcStatusManager::Update()
         }
     }
 
-    // ƒXƒe[ƒ^ƒX‚ªƒ}ƒCƒiƒX‚â‚P‚O‚OˆÈã‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉŠÛ‚ßˆ—‚ğ‚·‚é
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒãƒã‚¤ãƒŠã‚¹ã‚„ï¼‘ï¼ï¼ä»¥ä¸Šã«ãªã‚‰ãªã„ã‚ˆã†ã«ä¸¸ã‚å‡¦ç†ã‚’ã™ã‚‹
     Clamp();
 }
 
@@ -778,7 +778,7 @@ bool NSStarmanLib::NpcStatusManager::OneWeekAfterRedman()
     int day = 0;
     m_NpcStatusMap.at("shikakuman").GetRedManDay(&year, &month, &day);
 
-    // ƒŒƒbƒhƒ}ƒ“‚É‚È‚Á‚Ä‚©‚ç‚Ì1TŠÔŒã‚Æ‚Í‰½Œ‰½“ú‚Å‚ ‚é‚©B
+    // ãƒ¬ãƒƒãƒ‰ãƒãƒ³ã«ãªã£ã¦ã‹ã‚‰ã®1é€±é–“å¾Œã¨ã¯ä½•æœˆä½•æ—¥ã§ã‚ã‚‹ã‹ã€‚
     int limitYear = 0;
     int limitMonth = 0;
     int limitDay = 0;
@@ -919,17 +919,17 @@ void NSStarmanLib::NpcStatusManager::Eat(const std::string npcKey, const ItemDef
 
     int rnd = rand();
 
-    // Ô‚¢À
+    // èµ¤ã„å®Ÿ
     if (itemDef.GetId() == 3)
     {
         bPoison = true;
     }
-    // ‘å‚«‚¢‚Ç‚ñ‚®‚è
+    // å¤§ãã„ã©ã‚“ãã‚Š
     else if (itemDef.GetId() == 9)
     {
         bPoison = true;
     }
-    // ƒjƒ‰ or ƒXƒCƒZƒ“
+    // ãƒ‹ãƒ© or ã‚¹ã‚¤ã‚»ãƒ³
     else if (itemDef.GetId() == 21)
     {
         if (rnd % 2 == 0)
@@ -941,7 +941,7 @@ void NSStarmanLib::NpcStatusManager::Eat(const std::string npcKey, const ItemDef
             bPoison = false;
         }
     }
-    // ƒLƒmƒR
+    // ã‚­ãƒã‚³
     else if (itemDef.GetId() == 22)
     {
         if (rnd % 10 == 0)

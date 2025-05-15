@@ -1,4 +1,4 @@
-#include "Rynen.h"
+ï»¿#include "Rynen.h"
 #include <vector>
 #include "Util.h"
 
@@ -64,7 +64,7 @@ void Rynen::Init(const std::string& csvfile,
 {
     std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    if (vvs.at(0).at(1) == "›")
+    if (vvs.at(0).at(1) == "â—‹")
     {
         m_contracted = true;
     }
@@ -73,7 +73,7 @@ void Rynen::Init(const std::string& csvfile,
         m_contracted = false;
     }
 
-    if (vvs.at(1).at(1) == "›")
+    if (vvs.at(1).at(1) == "â—‹")
     {
         m_reviveEnable = true;
     }
@@ -107,10 +107,10 @@ void Rynen::Save(const std::string& csvfile,
     std::vector<std::string> vs;
     std::string work;
 
-    vs.push_back("Œ_–ñÏ‚İƒtƒ‰ƒO");
+    vs.push_back("å¥‘ç´„æ¸ˆã¿ãƒ•ãƒ©ã‚°");
     if (m_contracted)
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -119,10 +119,10 @@ void Rynen::Save(const std::string& csvfile,
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("•œŠˆ‰Â”\ƒtƒ‰ƒO");
+    vs.push_back("å¾©æ´»å¯èƒ½ãƒ•ãƒ©ã‚°");
     if (m_reviveEnable)
     {
-        vs.push_back("›");
+        vs.push_back("â—‹");
     }
     else
     {
@@ -149,13 +149,13 @@ void Rynen::Save(const std::string& csvfile,
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("Œ_–ñ“úiŒj");
+    vs.push_back("å¥‘ç´„æ—¥ï¼ˆæœˆï¼‰");
     work = std::to_string(m_month);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("Œ_–ñ“úi“új");
+    vs.push_back("å¥‘ç´„æ—¥ï¼ˆæ—¥ï¼‰");
     work = std::to_string(m_day);
     vs.push_back(work);
     vvs.push_back(vs);

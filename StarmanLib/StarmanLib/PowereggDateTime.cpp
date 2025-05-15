@@ -1,4 +1,4 @@
-#include "PowereggDateTime.h"
+ï»¿#include "PowereggDateTime.h"
 #include <vector>
 #include "Util.h"
 
@@ -41,32 +41,32 @@ void PowereggDateTime::Save(const std::string& csvfile,
     std::vector<std::string> vs;
     int work = 0;
 
-    vs.push_back("”N");
+    vs.push_back("å¹´");
     vs.push_back(std::to_string(m_year));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("Œ");
+    vs.push_back("æœˆ");
     vs.push_back(std::to_string(m_month));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("“ú");
+    vs.push_back("æ—¥");
     vs.push_back(std::to_string(m_day));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("");
+    vs.push_back("æ™‚");
     vs.push_back(std::to_string(m_hour));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("•ª");
+    vs.push_back("åˆ†");
     vs.push_back(std::to_string(m_minute));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("•b");
+    vs.push_back("ç§’");
     vs.push_back(std::to_string(m_second));
     vvs.push_back(vs);
     vs.clear();
@@ -152,9 +152,9 @@ int NSStarmanLib::PowereggDateTime::DAY_OF_MONTH(const int arg)
     return DAY_OF_MONTH_[arg];
 }
 
-// “ú•t“¯m‚Ì”äŠr
-// 1”N2Œ3“ú45•ª6•b‚Æ6”N5Œ4“ú32•ª1•b‚Ì‚Ç‚¿‚ç‚ª–¢—ˆE‰ß‹‚©‚ğ”»’è‚·‚é‚É‚Í
-// 010203040506 ‚Æ 060504030201 ‚Æ‚¢‚¤12Œ…‚Ì”’l‚ÆŒ©‚È‚µ‚Ä12Œ…‚Ì”’l“¯m‚Ì”äŠr‚ğs‚¦‚Î‚æ‚¢
+// æ—¥ä»˜åŒå£«ã®æ¯”è¼ƒ
+// 1å¹´2æœˆ3æ—¥4æ™‚5åˆ†6ç§’ã¨6å¹´5æœˆ4æ—¥3æ™‚2åˆ†1ç§’ã®ã©ã¡ã‚‰ãŒæœªæ¥ãƒ»éå»ã‹ã‚’åˆ¤å®šã™ã‚‹ã«ã¯
+// 010203040506 ã¨ 060504030201 ã¨ã„ã†12æ¡ã®æ•°å€¤ã¨è¦‹ãªã—ã¦12æ¡ã®æ•°å€¤åŒå£«ã®æ¯”è¼ƒã‚’è¡Œãˆã°ã‚ˆã„
 bool NSStarmanLib::PowereggDateTime::FromPastToFuture(int year1, int month1, int day1,
                                                       int hour1, int minute1, int second1,
                                                       int year2, int month2, int day2,
