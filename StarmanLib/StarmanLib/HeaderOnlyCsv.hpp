@@ -18,14 +18,14 @@ public:
         int result = PathFileExists(filepath.c_str());
         if (result == 0)
         {
-            std::string work = filepath + "を開くことができませんでした。";
+            std::string work = filepath + u8"を開くことができませんでした。";
             throw std::exception(work.c_str());
         }
 
         std::ifstream ifs(filepath);
         if (ifs.is_open() == false)
         {
-            std::string work = filepath + "を開くことができませんでした。";
+            std::string work = filepath + u8"を開くことができませんでした。";
             throw std::exception(work.c_str());
         }
 
@@ -150,7 +150,7 @@ public:
 
         if (ofs.is_open() == false)
         {
-            std::string work = filepath + "を開くことができませんでした。";
+            std::string work = filepath + u8"を開くことができませんでした。";
             throw std::exception(work.c_str());
         }
 
