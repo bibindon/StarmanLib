@@ -17,7 +17,7 @@ class CraftRequest
 {
 public:
 
-    std::string GetName() const;
+    std::wstring GetName() const;
 
     int GetLevel() const;
 
@@ -97,8 +97,8 @@ class CraftSkill
 {
 public:
 
-    void SetName(const std::string& arg);
-    std::string GetName() const;
+    void SetName(const std::wstring& arg);
+    std::wstring GetName() const;
 
     void SetLevel(const int arg);
     int GetLevel() const;
@@ -115,7 +115,7 @@ public:
 private:
 
     // クラフトアイテム
-    std::string m_name;
+    std::wstring m_name;
 
     // 強化値
     int m_level;
@@ -147,17 +147,17 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileSkill, const std::string& csvfileQueue,
+    void Init(const std::wstring& csvfileSkill, const std::wstring& csvfileQueue,
               const bool decrypt = false);
 
-    void Save(const std::string& csvfileSkill, const std::string& csvfileQueue,
+    void Save(const std::wstring& csvfileSkill, const std::wstring& csvfileQueue,
               const bool encrypt = false);
 
     // 職人がクラフト可能であるか？のフラグをONにする
-    void SetCraftsmanSkill(const std::string& craftItem, const int level = -1);
+    void SetCraftsmanSkill(const std::wstring& craftItem, const int level = -1);
 
     // 職人が現在作れるクラフトアイテムのレベル
-    int GetCraftsmanSkill(const std::string& craftItem);
+    int GetCraftsmanSkill(const std::wstring& craftItem);
 
     // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
     // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる
@@ -166,8 +166,8 @@ public:
     // 職人が強化値＋２の石斧が作れるならそれを作る。
     // 強化値＋２の石斧が作れるのに＋１の石斧を作る方法は提供しない。
     // 倉庫IDが-1なら、現在の拠点の倉庫を使う
-    bool QueueCraftRequest(const std::string& craftItem,
-                           std::string* errMsg,
+    bool QueueCraftRequest(const std::wstring& craftItem,
+                           std::wstring* errMsg,
                            const int storehouseId = -1);
 
     // 依頼をキャンセル

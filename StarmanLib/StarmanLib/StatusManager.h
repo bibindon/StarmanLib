@@ -311,13 +311,13 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
 
     // 1秒に一度呼ばれる想定
     void Update();
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const float player_x,
               const float player_y,
               const float player_z,
@@ -357,7 +357,7 @@ public:
                         const float playerZ);
 
     // 木の伐採
-    void CutTree(const std::string& weapon, const int level);
+    void CutTree(const std::wstring& weapon, const int level);
 
     // 植物採取
     void PickPlant();

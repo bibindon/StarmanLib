@@ -59,12 +59,12 @@ void Rynen::Destroy()
     Rynen::obj = nullptr;
 }
 
-void Rynen::Init(const std::string& csvfile,
+void Rynen::Init(const std::wstring& csvfile,
                  const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    if (vvs.at(0).at(1) == "○")
+    if (vvs.at(0).at(1) == _T("○"))
     {
         m_contracted = true;
     }
@@ -73,7 +73,7 @@ void Rynen::Init(const std::string& csvfile,
         m_contracted = false;
     }
 
-    if (vvs.at(1).at(1) == "○")
+    if (vvs.at(1).at(1) == _T("○"))
     {
         m_reviveEnable = true;
     }
@@ -100,63 +100,63 @@ void Rynen::Init(const std::string& csvfile,
     m_day = work_i;
 }
 
-void Rynen::Save(const std::string& csvfile,
+void Rynen::Save(const std::wstring& csvfile,
                  const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    std::string work;
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    std::wstring work;
 
-    vs.push_back("契約済みフラグ");
+    vs.push_back(_T("契約済みフラグ"));
     if (m_contracted)
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("復活可能フラグ");
+    vs.push_back(_T("復活可能フラグ"));
     if (m_reviveEnable)
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("x");
-    work = std::to_string(m_x);
+    vs.push_back(_T("x"));
+    work = std::to_wstring(m_x);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("y");
-    work = std::to_string(m_y);
+    vs.push_back(_T("y"));
+    work = std::to_wstring(m_y);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("z");
-    work = std::to_string(m_z);
+    vs.push_back(_T("z"));
+    work = std::to_wstring(m_z);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("契約日（月）");
-    work = std::to_string(m_month);
+    vs.push_back(_T("契約日（月）"));
+    work = std::to_wstring(m_month);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("契約日（日）");
-    work = std::to_string(m_day);
+    vs.push_back(_T("契約日（日）"));
+    work = std::to_wstring(m_day);
     vs.push_back(work);
     vvs.push_back(vs);
     vs.clear();

@@ -25,7 +25,7 @@ void NSStarmanLib::Voyage::Destroy()
     Voyage::m_single = nullptr;
 }
 
-void Voyage::Init(const std::string& csvRaft)
+void Voyage::Init(const std::wstring& csvRaft)
 {
     {
         if (csvRaft.empty())
@@ -33,7 +33,7 @@ void Voyage::Init(const std::string& csvRaft)
             return;
         }
 
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvRaft, false);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvRaft, false);
         for (size_t i = 1; i < vvs.size(); ++i)
         {
             Raft raft;
@@ -41,11 +41,11 @@ void Voyage::Init(const std::string& csvRaft)
             int raftId = std::stoi(vvs.at(i).at(0));
             raft.SetId(raftId);
 
-            if (vvs.at(i).at(1) == "y")
+            if (vvs.at(i).at(1) == _T("y"))
             {
                 raft.SetSail(true);
             }
-            else if (vvs.at(i).at(1) == "n")
+            else if (vvs.at(i).at(1) == _T("n"))
             {
                 raft.SetSail(false);
             }
@@ -66,11 +66,11 @@ void Voyage::Init(const std::string& csvRaft)
             work_i = std::stoi(vvs.at(i).at(5));
             raft.SetDurability(work_i);
 
-            if (vvs.at(i).at(6) == "Sea")
+            if (vvs.at(i).at(6) == _T("Sea"))
             {
                 raft.SetPosType(Raft::ePosType::Sea);
             }
-            else if (vvs.at(i).at(6) == "River")
+            else if (vvs.at(i).at(6) == _T("River"))
             {
                 raft.SetPosType(Raft::ePosType::River);
             }
@@ -87,37 +87,37 @@ void Voyage::Init(const std::string& csvRaft)
     }
 }
 
-void Voyage::Save(const std::string& csvRaft)
+void Voyage::Save(const std::wstring& csvRaft)
 {
     {
-        std::vector<std::vector<std::string> > vvs;
-        std::vector<std::string> vs;
-        std::string work_str;
+        std::vector<std::vector<std::wstring> > vvs;
+        std::vector<std::wstring> vs;
+        std::wstring work_str;
 
-        vs.push_back("ID");
-        vs.push_back("帆の展開");
-        vs.push_back("x");
-        vs.push_back("y");
-        vs.push_back("z");
-        vs.push_back("耐久値");
-        vs.push_back("場所タイプ");
-        vs.push_back("倉庫ID");
+        vs.push_back(_T("ID"));
+        vs.push_back(_T("帆の展開"));
+        vs.push_back(_T("x"));
+        vs.push_back(_T("y"));
+        vs.push_back(_T("z"));
+        vs.push_back(_T("耐久値"));
+        vs.push_back(_T("場所タイプ"));
+        vs.push_back(_T("倉庫ID"));
         vvs.push_back(vs);
 
         for (auto it = m_raftList.begin(); it != m_raftList.end(); ++it)
         {
             vs.clear();
 
-            work_str = std::to_string(it->GetId());
+            work_str = std::to_wstring(it->GetId());
             vs.push_back(work_str);
 
             if (it->GetSail())
             {
-                work_str = "y";
+                work_str = _T("y");
             }
             else
             {
-                work_str = "n";
+                work_str = _T("n");
             }
 
             vs.push_back(work_str);
@@ -125,28 +125,28 @@ void Voyage::Save(const std::string& csvRaft)
             float x, y, z;
             it->GetXYZ(&x, &y, &z);
 
-            work_str = std::to_string(x);
+            work_str = std::to_wstring(x);
             vs.push_back(work_str);
 
-            work_str = std::to_string(y);
+            work_str = std::to_wstring(y);
             vs.push_back(work_str);
 
-            work_str = std::to_string(z);
+            work_str = std::to_wstring(z);
             vs.push_back(work_str);
 
-            work_str = std::to_string(it->GetDurability());
+            work_str = std::to_wstring(it->GetDurability());
             vs.push_back(work_str);
 
             if (it->GetPosType() == Raft::ePosType::River)
             {
-                vs.push_back("River");
+                vs.push_back(_T("River"));
             }
             else
             {
-                vs.push_back("Sea");
+                vs.push_back(_T("Sea"));
             }
 
-            work_str = std::to_string(it->GetStorehouseId());
+            work_str = std::to_wstring(it->GetStorehouseId());
             vs.push_back(work_str);
             vvs.push_back(vs);
         }

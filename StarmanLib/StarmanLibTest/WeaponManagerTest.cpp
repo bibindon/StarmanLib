@@ -22,16 +22,16 @@ namespace StarmanLibTest
         TEST_METHOD_INITIALIZE(Initialize)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             Inventory* inventory = Inventory::GetObj();
-            inventory->Init("..\\StarmanLibTest\\inventory.csv");
+            inventory->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
             StorehouseManager* storehouseManager = StorehouseManager::Get();
-            storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
+            storehouseManager->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
 
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-            craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
         }
 
         TEST_METHOD_CLEANUP(CleanUp)
@@ -51,8 +51,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
+            wm->Init(_T("..\\StarmanLibTest\\weapon.csv"),
+                     _T("..\\StarmanLibTest\\weaponSave.csv"));
 
             WeaponManager::Destroy();
         }
@@ -61,82 +61,82 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
+            wm->Init(_T("..\\StarmanLibTest\\weapon.csv"),
+                     _T("..\\StarmanLibTest\\weaponSave.csv"));
 
-            std::string work;
+            std::wstring work;
             //------------------------------------------------
-            work = wm->GetDetail("石");
-            Assert::AreNotEqual(std::string::npos, work.find("投げたり"));
+            work = wm->GetDetail(_T("石"));
+            Assert::AreNotEqual(std::wstring::npos, work.find(_T("投げたり")));
 
-            work = wm->GetDetail("アトラトルに使う槍");
-            Assert::AreNotEqual(std::string::npos, work.find("そのことに気が付く。"));
-
-            //------------------------------------------------
-            work = wm->GetXfilename("石");
-            Assert::AreEqual("stone.x", work.c_str());
-
-            work = wm->GetXfilename("アトラトルに使う槍");
-            Assert::AreEqual("spearForAtlatl.x", work.c_str());
+            work = wm->GetDetail(_T("アトラトルに使う槍"));
+            Assert::AreNotEqual(std::wstring::npos, work.find(_T("そのことに気が付く。")));
 
             //------------------------------------------------
-            work = wm->GetImageName("石");
-            Assert::AreEqual("stone.png", work.c_str());
+            work = wm->GetXfilename(_T("石"));
+            Assert::AreEqual(_T("stone.x"), work.c_str());
 
-            work = wm->GetImageName("アトラトルに使う槍");
-            Assert::AreEqual("spearForAtlatl.png", work.c_str());
+            work = wm->GetXfilename(_T("アトラトルに使う槍"));
+            Assert::AreEqual(_T("spearForAtlatl.x"), work.c_str());
 
             //------------------------------------------------
-            work = wm->GetImageName("石");
-            Assert::AreEqual("stone.png", work.c_str());
+            work = wm->GetImageName(_T("石"));
+            Assert::AreEqual(_T("stone.png"), work.c_str());
 
-            work = wm->GetImageName("アトラトルに使う槍");
-            Assert::AreEqual("spearForAtlatl.png", work.c_str());
+            work = wm->GetImageName(_T("アトラトルに使う槍"));
+            Assert::AreEqual(_T("spearForAtlatl.png"), work.c_str());
+
+            //------------------------------------------------
+            work = wm->GetImageName(_T("石"));
+            Assert::AreEqual(_T("stone.png"), work.c_str());
+
+            work = wm->GetImageName(_T("アトラトルに使う槍"));
+            Assert::AreEqual(_T("spearForAtlatl.png"), work.c_str());
 
             double work_d = 0.0;
             //------------------------------------------------
-            work_d = wm->GetWeight("石");
+            work_d = wm->GetWeight(_T("石"));
             Assert::AreEqual(0.5, work_d);
 
-            work_d = wm->GetWeight("アトラトルに使う槍");
+            work_d = wm->GetWeight(_T("アトラトルに使う槍"));
             Assert::AreEqual(0.6, work_d);
 
             int work_i = 0;
             //------------------------------------------------
-            work_i = wm->GetVolume("石");
+            work_i = wm->GetVolume(_T("石"));
             Assert::AreEqual(500, work_i);
 
-            work_i = wm->GetVolume("アトラトルに使う槍");
+            work_i = wm->GetVolume(_T("アトラトルに使う槍"));
             Assert::AreEqual(2000, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetReinforceMax("石");
+            work_i = wm->GetReinforceMax(_T("石"));
             Assert::AreEqual(0, work_i);
 
-            work_i = wm->GetReinforceMax("アトラトルに使う槍");
+            work_i = wm->GetReinforceMax(_T("アトラトルに使う槍"));
             Assert::AreEqual(5, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetReinforceMax("石");
+            work_i = wm->GetReinforceMax(_T("石"));
             Assert::AreEqual(0, work_i);
 
-            work_i = wm->GetReinforceMax("アトラトルに使う槍");
+            work_i = wm->GetReinforceMax(_T("アトラトルに使う槍"));
             Assert::AreEqual(5, work_i);
 
             //------------------------------------------------
-            work_i = wm->GetOwnDamage("石");
+            work_i = wm->GetOwnDamage(_T("石"));
             Assert::AreEqual(10, work_i);
 
-            work_i = wm->GetOwnDamage("アトラトルに使う槍");
+            work_i = wm->GetOwnDamage(_T("アトラトルに使う槍"));
             Assert::AreEqual(5, work_i);
 
             bool work_b = false;
 
             //------------------------------------------------
-            work_b = wm->GetIsShow("石");
+            work_b = wm->GetIsShow(_T("石"));
             Assert::AreEqual(true, work_b);
 
-            work_b = wm->GetIsShow("アトラトルに使う槍");
+            work_b = wm->GetIsShow(_T("アトラトルに使う槍"));
             Assert::AreEqual(false, work_b);
 
             WeaponManager::Destroy();
@@ -147,8 +147,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             WeaponManager* wm = WeaponManager::GetObj();
-            wm->Init("..\\StarmanLibTest\\weapon.csv",
-                     "..\\StarmanLibTest\\weaponSave.csv");
+            wm->Init(_T("..\\StarmanLibTest\\weapon.csv"),
+                     _T("..\\StarmanLibTest\\weaponSave.csv"));
 
             double work_d = 0.0;
 
@@ -157,32 +157,32 @@ namespace StarmanLibTest
             Assert::ExpectException<std::exception>(
                 [&]
                 {
-                    work_d = wm->GetAttackRate("石", 2);
+                    work_d = wm->GetAttackRate(_T("石"), 2);
                 });
 
             //-------------------------------------------------
-            work_d = wm->GetAttackRate("石", -1);
+            work_d = wm->GetAttackRate(_T("石"), -1);
             Assert::AreEqual(3.0, work_d);
 
-            work_d = wm->GetAttackRate("アトラトルに使う槍", 3);
+            work_d = wm->GetAttackRate(_T("アトラトルに使う槍"), 3);
             Assert::AreEqual(2.0, work_d);
 
             //-------------------------------------------------
-            work_d = wm->GetFlightDistance("石", -1);
+            work_d = wm->GetFlightDistance(_T("石"), -1);
             Assert::AreEqual(30.0, work_d);
 
-            work_d = wm->GetFlightDistance("弓矢の弓", 3);
+            work_d = wm->GetFlightDistance(_T("弓矢の弓"), 3);
             Assert::AreEqual(6.0, work_d);
 
-            work_d = wm->GetFlightDistance("アトラトルに使う槍", 3);
+            work_d = wm->GetFlightDistance(_T("アトラトルに使う槍"), 3);
             Assert::AreEqual(40.0, work_d);
 
             //-------------------------------------------------
             int work_i = 0;
-            work_i = wm->GetDurabilityMax("石", -1);
+            work_i = wm->GetDurabilityMax(_T("石"), -1);
             Assert::AreEqual(999, work_i);
 
-            work_i = wm->GetDurabilityMax("アトラトルに使う槍", 3);
+            work_i = wm->GetDurabilityMax(_T("アトラトルに使う槍"), 3);
             Assert::AreEqual(40, work_i);
 
             WeaponManager::Destroy();

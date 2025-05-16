@@ -13,20 +13,20 @@ class WeaponDef
 public:
 
     // ここでのIDはweapon.csvでのID
-    std::string GetWeaponId() const;
-    void SetWeaponId(const std::string& id);
+    std::wstring GetWeaponId() const;
+    void SetWeaponId(const std::wstring& id);
 
-    std::string GetName() const;
-    void SetName(const std::string& name);
+    std::wstring GetName() const;
+    void SetName(const std::wstring& name);
 
-    std::string GetDetail() const;
-    void SetDetail(const std::string& detail);
+    std::wstring GetDetail() const;
+    void SetDetail(const std::wstring& detail);
 
-    std::string GetXfileName() const;
-    void SetXfileName(const std::string& xfileName);
+    std::wstring GetXfileName() const;
+    void SetXfileName(const std::wstring& xfileName);
 
-    std::string GetImageName() const;
-    void SetImageName(const std::string& imageName);
+    std::wstring GetImageName() const;
+    void SetImageName(const std::wstring& imageName);
 
     double GetWeight() const;
     void SetWeight(double weight);
@@ -65,11 +65,11 @@ public:
     void SetIsShow(bool isShow);
 
 private:
-    std::string m_weaponId;
-    std::string m_name;
-    std::string m_detail;
-    std::string m_xfileName;
-    std::string m_imageName;
+    std::wstring m_weaponId;
+    std::wstring m_name;
+    std::wstring m_detail;
+    std::wstring m_xfileName;
+    std::wstring m_imageName;
     double m_weight = 0.f; // 重量
     int m_volume = 0; // 体積
     double m_attackRate = 0.f; // 攻撃力補正
@@ -95,8 +95,8 @@ class WeaponDefSub
 {
 public:
 
-    std::string GetWeaponId() const;
-    void SetWeaponId(const std::string& id);
+    std::wstring GetWeaponId() const;
+    void SetWeaponId(const std::wstring& id);
 
     int GetItemId() const;
     void SetItemId(const int& id);
@@ -115,7 +115,7 @@ public:
 
 private:
 
-    std::string m_weaponId; // 武器ID（weapon.csv）
+    std::wstring m_weaponId; // 武器ID（weapon.csv）
     int m_itemId = 0; // アイテムID（item.csv）
 
     int m_reinforce = 0;
@@ -131,28 +131,28 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfilename,
-              const std::string& savefilename,
+    void Init(const std::wstring& csvfilename,
+              const std::wstring& savefilename,
               const bool decrypt = false);
 
-    void Save(const std::string& savefilename,
+    void Save(const std::wstring& savefilename,
               const bool encrypt = false);
 
-    std::string GetDetail(const std::string& weaponName) const;
-    std::string GetXfilename(const std::string& weaponName) const;
-    std::string GetImageName(const std::string& weaponName) const;
-    double GetWeight(const std::string& weaponName) const;
-    int GetVolume(const std::string& weaponName) const;
-    int GetReinforceMax(const std::string& weaponName) const;
-    double GetStaminaDown(const std::string& weaponName) const;
-    int GetOwnDamage(const std::string& weaponName) const;
-    bool GetIsShow(const std::string& weaponName) const;
+    std::wstring GetDetail(const std::wstring& weaponName) const;
+    std::wstring GetXfilename(const std::wstring& weaponName) const;
+    std::wstring GetImageName(const std::wstring& weaponName) const;
+    double GetWeight(const std::wstring& weaponName) const;
+    int GetVolume(const std::wstring& weaponName) const;
+    int GetReinforceMax(const std::wstring& weaponName) const;
+    double GetStaminaDown(const std::wstring& weaponName) const;
+    int GetOwnDamage(const std::wstring& weaponName) const;
+    bool GetIsShow(const std::wstring& weaponName) const;
 
-    double GetAttackRate(const std::string& weaponName, const int level) const;
-    double GetFlightDistance(const std::string& weaponName, const int level) const;
-    int GetDurabilityMax(const std::string& weaponName, const int level) const;
+    double GetAttackRate(const std::wstring& weaponName, const int level) const;
+    double GetFlightDistance(const std::wstring& weaponName, const int level) const;
+    int GetDurabilityMax(const std::wstring& weaponName, const int level) const;
 
-    std::vector<std::string> GetWeaponNameList();
+    std::vector<std::wstring> GetWeaponNameList();
 
     // 松明に火がついているか否か。火がついている・いないはセーブしない。ゲームを再起動したら消えている。
     // 火が付いた松明は一つしか存在できないのでsubIdは管理不要
@@ -161,12 +161,12 @@ public:
 
 private:
 
-    std::string GetItemName(const std::string& weaponName) const;
+    std::wstring GetItemName(const std::wstring& weaponName) const;
 
     // シングルトンオブジェクト
     static WeaponManager* obj;
 
-    std::unordered_map<std::string, WeaponDef> m_weaponDefMap;
+    std::unordered_map<std::wstring, WeaponDef> m_weaponDefMap;
     std::vector<WeaponDefSub> m_weaponDefSubList;
 
     bool m_torchLit = false;

@@ -21,11 +21,11 @@ void HumanInfoManager::Destroy()
     HumanInfoManager::obj = nullptr;
 }
 
-void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& csvfileSaved,
+void HumanInfoManager::Init(const std::wstring& csvfileBase, const std::wstring& csvfileSaved,
                             const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileBase, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfileBase, decrypt);
 
         HumanInfo humanInfo;
         for (std::size_t i = 1; i < vvs.size(); ++i)
@@ -33,7 +33,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
             humanInfo.SetName(vvs.at(i).at(1));
 
             // 「"」記号があれば削除
-            std::string work = vvs.at(i).at(2);
+            std::wstring work = vvs.at(i).at(2);
             work.erase(std::remove(work.begin(), work.end(), '"'), work.end());
 
             humanInfo.SetDetail(work);
@@ -42,7 +42,7 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
         }
     }
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileSaved, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfileSaved, decrypt);
 
         if (vvs.size() == 0)
         {
@@ -51,8 +51,8 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            std::string name = vvs.at(i).at(0);
-            if (vvs.at(i).at(1) == "○")
+            std::wstring name = vvs.at(i).at(0);
+            if (vvs.at(i).at(1) == _T("○"))
             {
                 m_humanInfoMap.at(name).SetVisible(true);
             }
@@ -64,13 +64,13 @@ void HumanInfoManager::Init(const std::string& csvfileBase, const std::string& c
     }
 }
 
-void HumanInfoManager::Save(const std::string& csvfile,
+void HumanInfoManager::Save(const std::wstring& csvfile,
                             const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("名前");
-    vs.push_back("表示");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("名前"));
+    vs.push_back(_T("表示"));
     vvs.push_back(vs);
     vs.clear();
 
@@ -79,11 +79,11 @@ void HumanInfoManager::Save(const std::string& csvfile,
         vs.push_back(it->first);
         if (it->second.GetVisible())
         {
-            vs.push_back("○");
+            vs.push_back(_T("○"));
         }
         else
         {
-            vs.push_back("");
+            vs.push_back(_T(""));
         }
         vvs.push_back(vs);
         vs.clear();
@@ -92,14 +92,14 @@ void HumanInfoManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-HumanInfo HumanInfoManager::GetHumanInfo(const std::string& name)
+HumanInfo HumanInfoManager::GetHumanInfo(const std::wstring& name)
 {
     return m_humanInfoMap.at(name);
 }
 
-std::vector<std::string> HumanInfoManager::GetHumanNameList()
+std::vector<std::wstring> HumanInfoManager::GetHumanNameList()
 {
-    std::vector<std::string> result;
+    std::vector<std::wstring> result;
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
     {
         result.push_back(it->first);
@@ -107,37 +107,37 @@ std::vector<std::string> HumanInfoManager::GetHumanNameList()
     return result;
 }
 
-void HumanInfoManager::SetHumanVisible(const std::string& name)
+void HumanInfoManager::SetHumanVisible(const std::wstring& name)
 {
     m_humanInfoMap.at(name).SetVisible(true);
 }
 
-void HumanInfo::SetName(const std::string& arg)
+void HumanInfo::SetName(const std::wstring& arg)
 {
     m_name = arg;
 }
 
-std::string HumanInfo::GetName()
+std::wstring HumanInfo::GetName()
 {
     return m_name;
 }
 
-void HumanInfo::SetDetail(const std::string& arg)
+void HumanInfo::SetDetail(const std::wstring& arg)
 {
     m_detail = arg;
 }
 
-std::string HumanInfo::GetDetail()
+std::wstring HumanInfo::GetDetail()
 {
     return m_detail;
 }
 
-void HumanInfo::SetImagePath(const std::string& arg)
+void HumanInfo::SetImagePath(const std::wstring& arg)
 {
     m_imagePath = arg;
 }
 
-std::string HumanInfo::GetImagePath()
+std::wstring HumanInfo::GetImagePath()
 {
     return m_imagePath;
 }

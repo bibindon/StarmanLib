@@ -35,10 +35,10 @@ namespace StarmanLibTest
         {
             auto help = Help::Get();
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             // Target
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
 
             ItemManager::Destroy();
             Help::Destroy();
@@ -48,12 +48,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
 
             // Target
-            help->Save("..\\StarmanLibTest\\helpSave.csv");
+            help->Save(_T("..\\StarmanLibTest\\helpSave.csv"));
 
             ItemManager::Destroy();
             Help::Destroy();
@@ -62,13 +62,13 @@ namespace StarmanLibTest
         // public関数を呼ぶだけのテスト
         TEST_METHOD(TestMethod04)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
             // Target
             help->Update();
@@ -83,14 +83,14 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
             // Target
-            auto receiveItems = help->ReceiveItems("sankakuman");
+            auto receiveItems = help->ReceiveItems(_T("sankakuman"));
 
             ItemManager::Destroy();
             PowereggDateTime::Destroy();
@@ -101,12 +101,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems = help->ReceiveItems("sankakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems = help->ReceiveItems(_T("sankakuman"));
 
             // Target
             Assert::AreEqual<size_t>(3, receiveItems.size());
@@ -123,12 +123,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod07)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems = help->ReceiveItems("shikakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems = help->ReceiveItems(_T("shikakuman"));
 
             // Target
             Assert::AreEqual<size_t>(0, receiveItems.size());
@@ -141,21 +141,21 @@ namespace StarmanLibTest
         // 16時を過ぎたら更新されることを確認するテスト
         TEST_METHOD(TestMethod08)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("sankakuman");
-            auto receiveItems2 = help->ReceiveItems("shikakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("sankakuman");
-            auto receiveItems4 = help->ReceiveItems("shikakuman");
+            auto receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             // Target
             Assert::AreEqual(false,
@@ -174,24 +174,24 @@ namespace StarmanLibTest
         // 取得したら空になっていること
         TEST_METHOD(TestMethod09)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("sankakuman");
-            auto receiveItems2 = help->ReceiveItems("shikakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("sankakuman");
-            auto receiveItems4 = help->ReceiveItems("shikakuman");
+            auto receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
-            receiveItems3 = help->ReceiveItems("sankakuman");
-            receiveItems4 = help->ReceiveItems("shikakuman");
+            receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             // Target
             Assert::AreEqual(true, receiveItems3.empty());
@@ -206,27 +206,27 @@ namespace StarmanLibTest
         // 取得したら空になり、その後、16時を跨ぐまでは受け取れないこと。
         TEST_METHOD(TestMethod10)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("sankakuman");
-            auto receiveItems2 = help->ReceiveItems("shikakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("sankakuman");
-            auto receiveItems4 = help->ReceiveItems("shikakuman");
+            auto receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             datetime->IncreaseDateTime(0, 0, 1, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("sankakuman");
-            receiveItems4 = help->ReceiveItems("shikakuman");
+            receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             // Target
             Assert::AreEqual(true, receiveItems3.empty());
@@ -241,33 +241,33 @@ namespace StarmanLibTest
         // 16時を跨いだらアイテムが補充され、もう一度16時を跨いだらもう一度アイテムが補充されること。
         TEST_METHOD(TestMethod11)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
-            auto receiveItems1 = help->ReceiveItems("sankakuman");
-            auto receiveItems2 = help->ReceiveItems("shikakuman");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+            auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("sankakuman");
-            auto receiveItems4 = help->ReceiveItems("shikakuman");
+            auto receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("sankakuman");
-            receiveItems4 = help->ReceiveItems("shikakuman");
+            receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             datetime->IncreaseDateTime(0, 1, 0, 0, 0);
             help->Update();
 
-            receiveItems3 = help->ReceiveItems("sankakuman");
-            receiveItems4 = help->ReceiveItems("shikakuman");
+            receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             // Target
             Assert::AreEqual(false, receiveItems3.empty());
@@ -282,25 +282,25 @@ namespace StarmanLibTest
         // イカダをクラフトしていたらアイテムを受け取れないことを確認するテスト
         TEST_METHOD(TestMethod12)
         {
-            NpcStatusManager::GetObj()->Init("..\\StarmanLibTest\\npcStatus.csv");
+            NpcStatusManager::GetObj()->Init(_T("..\\StarmanLibTest\\npcStatus.csv"));
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             auto help = Help::Get();
-            help->Init("..\\StarmanLibTest\\help.csv");
+            help->Init(_T("..\\StarmanLibTest\\help.csv"));
             auto datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
-            CraftInfoManager::GetObj()->Init("..\\StarmanLibTest\\craftDef.csv");
-            CraftSystem::GetObj()->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                                        "..\\StarmanLibTest\\craftsmanQueue.csv");
+            CraftInfoManager::GetObj()->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
+            CraftSystem::GetObj()->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                                        _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
 
-            StorehouseManager::Get()->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
+            StorehouseManager::Get()->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
 
-            std::string err;
-            CraftSystem::GetObj()->QueueCraftRequest("イカダ", &err);
+            std::wstring err;
+            CraftSystem::GetObj()->QueueCraftRequest(_T("イカダ"), &err);
 
-            auto receiveItems1 = help->ReceiveItems("sankakuman");
-            auto receiveItems2 = help->ReceiveItems("shikakuman");
+            auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
 
             Assert::AreEqual(true, receiveItems1.empty());
             Assert::AreEqual(true, receiveItems2.empty());
@@ -309,8 +309,8 @@ namespace StarmanLibTest
 
             help->Update();
 
-            auto receiveItems3 = help->ReceiveItems("sankakuman");
-            auto receiveItems4 = help->ReceiveItems("shikakuman");
+            auto receiveItems3 = help->ReceiveItems(_T("sankakuman"));
+            auto receiveItems4 = help->ReceiveItems(_T("shikakuman"));
 
             Assert::AreEqual(true, receiveItems1.empty());
             Assert::AreEqual(true, receiveItems2.empty());

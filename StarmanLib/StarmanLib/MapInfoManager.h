@@ -11,26 +11,26 @@ class MapInfo
 {
 public:
 
-    void SetName(const std::string& name);
-    std::string GetName();
+    void SetName(const std::wstring& name);
+    std::wstring GetName();
 
-    void SetDetail(const std::string& detail);
-    std::string GetDetail();
+    void SetDetail(const std::wstring& detail);
+    std::wstring GetDetail();
 
     void SetPos(const int x, const int y);
     void GetPos(int* x, int* y);
 
-    void SetImagePath(const std::string& imagePath);
-    std::string GetImagePath();
+    void SetImagePath(const std::wstring& imagePath);
+    std::wstring GetImagePath();
 
     void SetDiscovered(const bool);
     bool IsDiscovered();
 
 private:
 
-    std::string m_name;
-    std::string m_imagePath;
-    std::string m_detail;
+    std::wstring m_name;
+    std::wstring m_imagePath;
+    std::wstring m_detail;
     int m_x = 0;
     int m_y = 0;
     bool m_isDiscovered = false;
@@ -40,16 +40,16 @@ class MapInfoManager
 {
 public:
     static MapInfoManager* GetObj();
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
     static void Destroy();
-    std::vector<std::string> GetNameList();
-    bool IsDiscovered(const std::string& name);
-    void SetDiscovered(const std::string& name);
-    std::string GetDetail(const std::string& name);
-    void GetPos(const std::string& name, int* x, int* y);
-    std::string GetImagePath(const std::string& name);
-    void Save(const std::string& csvfile,
+    std::vector<std::wstring> GetNameList();
+    bool IsDiscovered(const std::wstring& name);
+    void SetDiscovered(const std::wstring& name);
+    std::wstring GetDetail(const std::wstring& name);
+    void GetPos(const std::wstring& name, int* x, int* y);
+    std::wstring GetImagePath(const std::wstring& name);
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
 private:

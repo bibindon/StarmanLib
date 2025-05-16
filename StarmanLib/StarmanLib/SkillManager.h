@@ -16,11 +16,11 @@ class SkillDefinition
 {
 public:
 
-    void SetName(const std::string& arg);
-    std::string GetName();
+    void SetName(const std::wstring& arg);
+    std::wstring GetName();
 
-    void SetDetail(const std::string& arg);
-    std::string GetDetail();
+    void SetDetail(const std::wstring& arg);
+    std::wstring GetDetail();
 
     void SetDamage(const int arg1, const float& arg2);
     float GetDamage(const int arg);
@@ -30,8 +30,8 @@ public:
 
 private:
 
-    std::string m_name;
-    std::string m_detail;
+    std::wstring m_name;
+    std::wstring m_detail;
     std::unordered_map<int, float> m_damageMap;
     std::unordered_map<int, float> m_rangeMap;
 };
@@ -44,20 +44,20 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer,
+    void Init(const std::wstring& csvfileDefinition, const std::wstring& csvfilePlayer,
               const bool decrypt = false);
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
-    void SetSkillLevel(const std::string& skillName, const int skillLevel);
-    int GetSkillLevel(const std::string& skillName);
+    void SetSkillLevel(const std::wstring& skillName, const int skillLevel);
+    int GetSkillLevel(const std::wstring& skillName);
 
-    std::string GetDetail(const std::string& key);
-    float GetDamage(const std::string& key, const int level);
-    float GetRange(const std::string& key, const int level);
+    std::wstring GetDetail(const std::wstring& key);
+    float GetDamage(const std::wstring& key, const int level);
+    float GetRange(const std::wstring& key, const int level);
 
-    std::vector<std::string> GetNameList();
+    std::vector<std::wstring> GetNameList();
 
 private:
 
@@ -65,10 +65,10 @@ private:
     static SkillManager* obj;
 
     // スキルの定義
-    std::unordered_map<std::string, SkillDefinition> m_skillLevelMap;
+    std::unordered_map<std::wstring, SkillDefinition> m_skillLevelMap;
 
     // 現在の主人公のスキルレベルの状況
-    std::unordered_map<std::string, int> m_playerSkillLevelMap;
+    std::unordered_map<std::wstring, int> m_playerSkillLevelMap;
 
 };
 }

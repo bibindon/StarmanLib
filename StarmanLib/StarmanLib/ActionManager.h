@@ -27,7 +27,7 @@ namespace NSStarmanLib
 class ActionManager
 {
 public:
-    void GetActionTime(const std::string actionName,
+    void GetActionTime(const std::wstring actionName,
                        int* day,
                        int* hour,
                        int* minute,

@@ -24,7 +24,7 @@ void Inventory::Destroy()
     Inventory::obj = nullptr;
 }
 
-void Inventory::Init(const std::string& csvfile,
+void Inventory::Init(const std::wstring& csvfile,
                      const bool decrypt)
 {
     // ItemManagerのInit関数が先に呼ばれている必要がある。
@@ -35,7 +35,7 @@ void Inventory::Init(const std::string& csvfile,
         }
     }
 
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
@@ -74,15 +74,15 @@ bool NSStarmanLib::Inventory::Inited()
     return m_inited;
 }
 
-void Inventory::Save(const std::string& csvfile,
+void Inventory::Save(const std::wstring& csvfile,
                      const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("アイテム名");
-    vs.push_back("SubID");
-    vs.push_back("耐久度");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("アイテム名"));
+    vs.push_back(_T("SubID"));
+    vs.push_back(_T("耐久度"));
     vvs.push_back(vs);
     vs.clear();
 
@@ -90,13 +90,13 @@ void Inventory::Save(const std::string& csvfile,
 
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        vs.push_back(std::to_string(it->GetId()));
+        vs.push_back(std::to_wstring(it->GetId()));
 
         ItemDef itemDef = itemManager->GetItemDef(it->GetId());
         vs.push_back(itemDef.GetName());
 
-        vs.push_back(std::to_string(it->GetSubId()));
-        vs.push_back(std::to_string(it->GetDurabilityCurrent()));
+        vs.push_back(std::to_wstring(it->GetSubId()));
+        vs.push_back(std::to_wstring(it->GetDurabilityCurrent()));
         vvs.push_back(vs);
         vs.clear();
     }
@@ -186,7 +186,7 @@ int Inventory::AddItem(const int id, const int durability)
     return newSubId;
 }
 
-int NSStarmanLib::Inventory::AddItem(const std::string name,
+int NSStarmanLib::Inventory::AddItem(const std::wstring name,
                                      const int level,
                                      const int durability)
 {
@@ -225,7 +225,7 @@ void Inventory::RemoveItem(const int id, const int subId)
     m_volumeCurrent = CalcVolume();
 }
 
-void NSStarmanLib::Inventory::RemoveItem(const std::string name,
+void NSStarmanLib::Inventory::RemoveItem(const std::wstring name,
                                          const int subId,
                                          const int level)
 {
@@ -316,7 +316,7 @@ int Inventory::CountItem(const int id)
     return num;
 }
 
-int NSStarmanLib::Inventory::CountItem(const std::string name, const int level)
+int NSStarmanLib::Inventory::CountItem(const std::wstring name, const int level)
 {
     ItemManager* itemManager = ItemManager::GetObj();
     ItemDef itemDef = itemManager->GetItemDef(name, level);

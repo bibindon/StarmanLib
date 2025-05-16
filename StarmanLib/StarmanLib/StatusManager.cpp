@@ -367,7 +367,7 @@ void StatusManager::Destroy()
     StatusManager::obj = nullptr;
 }
 
-void StatusManager::Init(const std::string& csvfile,
+void StatusManager::Init(const std::wstring& csvfile,
                          const bool decrypt)
 {
     srand((unsigned int)time(NULL));
@@ -380,118 +380,118 @@ void StatusManager::Init(const std::string& csvfile,
         }
     }
 
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
-        if (vvs.at(i).at(1) == "体のスタミナ（現在値）")
+        if (vvs.at(i).at(1) == _T("体のスタミナ（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "体のスタミナ（最大値）")
+        else if (vvs.at(i).at(1) == _T("体のスタミナ（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMax(value);
         }
-        else if (vvs.at(i).at(1) == "体のスタミナ（回復可能値）")
+        else if (vvs.at(i).at(1) == _T("体のスタミナ（回復可能値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBodyStaminaMaxSub(value);
         }
-        else if (vvs.at(i).at(1) == "脳のスタミナ（現在値）")
+        else if (vvs.at(i).at(1) == _T("脳のスタミナ（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "脳のスタミナ（最大値）")
+        else if (vvs.at(i).at(1) == _T("脳のスタミナ（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMax(value);
         }
-        else if (vvs.at(i).at(1) == "脳のスタミナ（回復可能値）")
+        else if (vvs.at(i).at(1) == _T("脳のスタミナ（回復可能値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetBrainStaminaMaxSub(value);
         }
-        else if (vvs.at(i).at(1) == "瞬発力")
+        else if (vvs.at(i).at(1) == _T("瞬発力"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetExplosivePower(value);
         }
-        else if (vvs.at(i).at(1) == "肉体の修復度（現在値）")
+        else if (vvs.at(i).at(1) == _T("肉体の修復度（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "肉体の修復度（最大値）")
+        else if (vvs.at(i).at(1) == _T("肉体の修復度（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMuscleMax(value);
         }
-        else if (vvs.at(i).at(1) == "糖質（現在値）")
+        else if (vvs.at(i).at(1) == _T("糖質（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "糖質（最大値）")
+        else if (vvs.at(i).at(1) == _T("糖質（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetCarboMax(value);
         }
-        else if (vvs.at(i).at(1) == "タンパク質（現在値）")
+        else if (vvs.at(i).at(1) == _T("タンパク質（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "タンパク質（最大値）")
+        else if (vvs.at(i).at(1) == _T("タンパク質（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetProteinMax(value);
         }
-        else if (vvs.at(i).at(1) == "脂質（現在値）")
+        else if (vvs.at(i).at(1) == _T("脂質（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "脂質（最大値）")
+        else if (vvs.at(i).at(1) == _T("脂質（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetLipidMax(value);
         }
-        else if (vvs.at(i).at(1) == "ビタミン（現在値）")
+        else if (vvs.at(i).at(1) == _T("ビタミン（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "ビタミン（最大値）")
+        else if (vvs.at(i).at(1) == _T("ビタミン（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetVitaminMax(value);
         }
-        else if (vvs.at(i).at(1) == "ミネラル（現在値）")
+        else if (vvs.at(i).at(1) == _T("ミネラル（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "ミネラル（最大値）")
+        else if (vvs.at(i).at(1) == _T("ミネラル（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetMineralMax(value);
         }
-        else if (vvs.at(i).at(1) == "水分（現在値）")
+        else if (vvs.at(i).at(1) == _T("水分（現在値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterCurrent(value);
         }
-        else if (vvs.at(i).at(1) == "水分（最大値）")
+        else if (vvs.at(i).at(1) == _T("水分（最大値）"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetWaterMax(value);
         }
-        else if (vvs.at(i).at(1) == "腕骨折")
+        else if (vvs.at(i).at(1) == _T("腕骨折"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetFractureArm(true);
             }
@@ -500,9 +500,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureArm(false);
             }
         }
-        else if (vvs.at(i).at(1) == "足骨折")
+        else if (vvs.at(i).at(1) == _T("足骨折"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetFractureLeg(true);
             }
@@ -511,9 +511,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetFractureLeg(false);
             }
         }
-        else if (vvs.at(i).at(1) == "頭痛")
+        else if (vvs.at(i).at(1) == _T("頭痛"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetHeadache(true);
             }
@@ -522,9 +522,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetHeadache(false);
             }
         }
-        else if (vvs.at(i).at(1) == "風邪")
+        else if (vvs.at(i).at(1) == _T("風邪"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetCold(true);
             }
@@ -533,9 +533,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetCold(false);
             }
         }
-        else if (vvs.at(i).at(1) == "腹痛")
+        else if (vvs.at(i).at(1) == _T("腹痛"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetStomachache(true);
             }
@@ -544,9 +544,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetStomachache(false);
             }
         }
-        else if (vvs.at(i).at(1) == "睡眠")
+        else if (vvs.at(i).at(1) == _T("睡眠"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetSleep(true);
             }
@@ -555,9 +555,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetSleep(false);
             }
         }
-        else if (vvs.at(i).at(1) == "脱水症状")
+        else if (vvs.at(i).at(1) == _T("脱水症状"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetDehydration(true);
             }
@@ -566,9 +566,9 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetDehydration(false);
             }
         }
-        else if (vvs.at(i).at(1) == "睡眠不足")
+        else if (vvs.at(i).at(1) == _T("睡眠不足"))
         {
-            if (vvs.at(i).at(2) == "○")
+            if (vvs.at(i).at(2) == _T("○"))
             {
                 m_status.SetLackOfSleep(true);
             }
@@ -577,10 +577,10 @@ void StatusManager::Init(const std::string& csvfile,
                 m_status.SetLackOfSleep(false);
             }
         }
-        else if (vvs.at(i).at(1) == "装備武器ID")
+        else if (vvs.at(i).at(1) == _T("装備武器ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -591,9 +591,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_EquipWeapon = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "装備武器SubID")
+        else if (vvs.at(i).at(1) == _T("装備武器SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_EquipWeapon.SetSubId(-1);
             }
@@ -611,55 +611,55 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "x")
+        else if (vvs.at(i).at(1) == _T("x"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetX(value);
         }
-        else if (vvs.at(i).at(1) == "y")
+        else if (vvs.at(i).at(1) == _T("y"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetY(value);
         }
-        else if (vvs.at(i).at(1) == "z")
+        else if (vvs.at(i).at(1) == _T("z"))
         {
             float value = std::stof(vvs.at(i).at(2));
             m_status.SetZ(value);
         }
-        else if (vvs.at(i).at(1) == "魔法の経験値（炎）")
+        else if (vvs.at(i).at(1) == _T("魔法の経験値（炎）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceFire = value;
         }
-        else if (vvs.at(i).at(1) == "魔法の経験値（氷）")
+        else if (vvs.at(i).at(1) == _T("魔法の経験値（氷）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceIce = value;
         }
-        else if (vvs.at(i).at(1) == "魔法の経験値（闇）")
+        else if (vvs.at(i).at(1) == _T("魔法の経験値（闇）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_experienceDark = value;
         }
-        else if (vvs.at(i).at(1) == "魔法のレベル（炎）")
+        else if (vvs.at(i).at(1) == _T("魔法のレベル（炎）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelFire = value;
         }
-        else if (vvs.at(i).at(1) == "魔法のレベル（氷）")
+        else if (vvs.at(i).at(1) == _T("魔法のレベル（氷）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelIce = value;
         }
-        else if (vvs.at(i).at(1) == "魔法のレベル（闇）")
+        else if (vvs.at(i).at(1) == _T("魔法のレベル（闇）"))
         {
             int value = std::stoi(vvs.at(i).at(2));
             m_levelDark = value;
         }
-        else if (vvs.at(i).at(1) == "背中の袋1ID")
+        else if (vvs.at(i).at(1) == _T("背中の袋1ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -670,9 +670,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Back1] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "背中の袋1SubID")
+        else if (vvs.at(i).at(1) == _T("背中の袋1SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_BagMap.at(eBagPos::Back1).SetSubId(-1);
             }
@@ -690,10 +690,10 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "背中の袋2ID")
+        else if (vvs.at(i).at(1) == _T("背中の袋2ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -704,9 +704,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Back2] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "背中の袋2SubID")
+        else if (vvs.at(i).at(1) == _T("背中の袋2SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_BagMap.at(eBagPos::Back2).SetSubId(-1);
             }
@@ -724,10 +724,10 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "腹の袋ID")
+        else if (vvs.at(i).at(1) == _T("腹の袋ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -738,9 +738,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Front] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "腹の袋SubID")
+        else if (vvs.at(i).at(1) == _T("腹の袋SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_BagMap.at(eBagPos::Front).SetSubId(-1);
             }
@@ -758,10 +758,10 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "左手の袋ID")
+        else if (vvs.at(i).at(1) == _T("左手の袋ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -772,9 +772,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Left] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "左手の袋SubID")
+        else if (vvs.at(i).at(1) == _T("左手の袋SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_BagMap.at(eBagPos::Left).SetSubId(-1);
             }
@@ -792,10 +792,10 @@ void StatusManager::Init(const std::string& csvfile,
                 }
             }
         }
-        else if (vvs.at(i).at(1) == "右手の袋ID")
+        else if (vvs.at(i).at(1) == _T("右手の袋ID"))
         {
             ItemInfo itemInfo;
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 itemInfo.SetId(-1);
             }
@@ -806,9 +806,9 @@ void StatusManager::Init(const std::string& csvfile,
             }
             m_BagMap[eBagPos::Right] = itemInfo;
         }
-        else if (vvs.at(i).at(1) == "右手の袋SubID")
+        else if (vvs.at(i).at(1) == _T("右手の袋SubID"))
         {
-            if (vvs.at(i).at(2) == "")
+            if (vvs.at(i).at(2) == _T(""))
             {
                 m_BagMap.at(eBagPos::Right).SetSubId(-1);
             }
@@ -1452,417 +1452,417 @@ void StatusManager::Update()
     Clamp();
 }
 
-void StatusManager::Save(const std::string& csvfile,
+void StatusManager::Save(const std::wstring& csvfile,
                          const float player_x,
                          const float player_y,
                          const float player_z,
                          const bool encrypt)
 {
-    std::vector<std::vector<std::string> > vvs;
-    std::vector<std::string> vs;
-    std::string work;
+    std::vector<std::vector<std::wstring> > vvs;
+    std::vector<std::wstring> vs;
+    std::wstring work;
 
     vs.clear();
-    vs.push_back("ID");
-    vs.push_back("ステータス名");
-    vs.push_back("値");
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("ステータス名"));
+    vs.push_back(_T("値"));
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("1");
-    vs.push_back("体のスタミナ（現在値）");
-    work = std::to_string(m_status.GetBodyStaminaCurrent());
+    vs.push_back(_T("1"));
+    vs.push_back(_T("体のスタミナ（現在値）"));
+    work = std::to_wstring(m_status.GetBodyStaminaCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("2");
-    vs.push_back("体のスタミナ（最大値）");
-    work = std::to_string(m_status.GetBodyStaminaMax());
+    vs.push_back(_T("2"));
+    vs.push_back(_T("体のスタミナ（最大値）"));
+    work = std::to_wstring(m_status.GetBodyStaminaMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("3");
-    vs.push_back("体のスタミナ（回復可能値）");
-    work = std::to_string(m_status.GetBodyStaminaMaxSub());
+    vs.push_back(_T("3"));
+    vs.push_back(_T("体のスタミナ（回復可能値）"));
+    work = std::to_wstring(m_status.GetBodyStaminaMaxSub());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("4");
-    vs.push_back("脳のスタミナ（現在値）");
-    work = std::to_string(m_status.GetBrainStaminaCurrent());
+    vs.push_back(_T("4"));
+    vs.push_back(_T("脳のスタミナ（現在値）"));
+    work = std::to_wstring(m_status.GetBrainStaminaCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("5");
-    vs.push_back("脳のスタミナ（最大値）");
-    work = std::to_string(m_status.GetBrainStaminaMax());
+    vs.push_back(_T("5"));
+    vs.push_back(_T("脳のスタミナ（最大値）"));
+    work = std::to_wstring(m_status.GetBrainStaminaMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("6");
-    vs.push_back("脳のスタミナ（回復可能値）");
-    work = std::to_string(m_status.GetBrainStaminaMaxSub());
+    vs.push_back(_T("6"));
+    vs.push_back(_T("脳のスタミナ（回復可能値）"));
+    work = std::to_wstring(m_status.GetBrainStaminaMaxSub());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("7");
-    vs.push_back("瞬発力");
-    work = std::to_string(m_status.GetExplosivePower());
+    vs.push_back(_T("7"));
+    vs.push_back(_T("瞬発力"));
+    work = std::to_wstring(m_status.GetExplosivePower());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("8");
-    vs.push_back("肉体の修復度（現在値）");
-    work = std::to_string(m_status.GetMuscleCurrent());
+    vs.push_back(_T("8"));
+    vs.push_back(_T("肉体の修復度（現在値）"));
+    work = std::to_wstring(m_status.GetMuscleCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("9");
-    vs.push_back("肉体の修復度（最大値）");
-    work = std::to_string(m_status.GetMuscleMax());
+    vs.push_back(_T("9"));
+    vs.push_back(_T("肉体の修復度（最大値）"));
+    work = std::to_wstring(m_status.GetMuscleMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("10");
-    vs.push_back("糖質（現在値）");
-    work = std::to_string(m_status.GetCarboCurrent());
+    vs.push_back(_T("10"));
+    vs.push_back(_T("糖質（現在値）"));
+    work = std::to_wstring(m_status.GetCarboCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("11");
-    vs.push_back("糖質（最大値）");
-    work = std::to_string(m_status.GetCarboMax());
+    vs.push_back(_T("11"));
+    vs.push_back(_T("糖質（最大値）"));
+    work = std::to_wstring(m_status.GetCarboMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("12");
-    vs.push_back("タンパク質（現在値）");
-    work = std::to_string(m_status.GetProteinCurrent());
+    vs.push_back(_T("12"));
+    vs.push_back(_T("タンパク質（現在値）"));
+    work = std::to_wstring(m_status.GetProteinCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("13");
-    vs.push_back("タンパク質（最大値）");
-    work = std::to_string(m_status.GetProteinMax());
+    vs.push_back(_T("13"));
+    vs.push_back(_T("タンパク質（最大値）"));
+    work = std::to_wstring(m_status.GetProteinMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("14");
-    vs.push_back("脂質（現在値）");
-    work = std::to_string(m_status.GetLipidCurrent());
+    vs.push_back(_T("14"));
+    vs.push_back(_T("脂質（現在値）"));
+    work = std::to_wstring(m_status.GetLipidCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("15");
-    vs.push_back("脂質（最大値）");
-    work = std::to_string(m_status.GetLipidMax());
+    vs.push_back(_T("15"));
+    vs.push_back(_T("脂質（最大値）"));
+    work = std::to_wstring(m_status.GetLipidMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("16");
-    vs.push_back("ビタミン（現在値）");
-    work = std::to_string(m_status.GetVitaminCurrent());
+    vs.push_back(_T("16"));
+    vs.push_back(_T("ビタミン（現在値）"));
+    work = std::to_wstring(m_status.GetVitaminCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("17");
-    vs.push_back("ビタミン（最大値）");
-    work = std::to_string(m_status.GetVitaminMax());
+    vs.push_back(_T("17"));
+    vs.push_back(_T("ビタミン（最大値）"));
+    work = std::to_wstring(m_status.GetVitaminMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("18");
-    vs.push_back("ミネラル（現在値）");
-    work = std::to_string(m_status.GetMineralCurrent());
+    vs.push_back(_T("18"));
+    vs.push_back(_T("ミネラル（現在値）"));
+    work = std::to_wstring(m_status.GetMineralCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("19");
-    vs.push_back("ミネラル（最大値）");
-    work = std::to_string(m_status.GetMineralMax());
+    vs.push_back(_T("19"));
+    vs.push_back(_T("ミネラル（最大値）"));
+    work = std::to_wstring(m_status.GetMineralMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("20");
-    vs.push_back("水分（現在値）");
-    work = std::to_string(m_status.GetWaterCurrent());
+    vs.push_back(_T("20"));
+    vs.push_back(_T("水分（現在値）"));
+    work = std::to_wstring(m_status.GetWaterCurrent());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("21");
-    vs.push_back("水分（最大値）");
-    work = std::to_string(m_status.GetWaterMax());
+    vs.push_back(_T("21"));
+    vs.push_back(_T("水分（最大値）"));
+    work = std::to_wstring(m_status.GetWaterMax());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("22");
-    vs.push_back("腕骨折");
+    vs.push_back(_T("22"));
+    vs.push_back(_T("腕骨折"));
     if (m_status.GetFractureArm())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("23");
-    vs.push_back("足骨折");
+    vs.push_back(_T("23"));
+    vs.push_back(_T("足骨折"));
     if (m_status.GetFractureLeg())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("24");
-    vs.push_back("頭痛");
+    vs.push_back(_T("24"));
+    vs.push_back(_T("頭痛"));
     if (m_status.GetHeadache())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("25");
-    vs.push_back("風邪");
+    vs.push_back(_T("25"));
+    vs.push_back(_T("風邪"));
     if (m_status.GetCold())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("26");
-    vs.push_back("腹痛");
+    vs.push_back(_T("26"));
+    vs.push_back(_T("腹痛"));
     if (m_status.GetStomachache())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("27");
-    vs.push_back("睡眠");
+    vs.push_back(_T("27"));
+    vs.push_back(_T("睡眠"));
     if (m_status.GetSleep())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("28");
-    vs.push_back("脱水症状");
+    vs.push_back(_T("28"));
+    vs.push_back(_T("脱水症状"));
     if (m_status.GetDehydration())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("29");
-    vs.push_back("睡眠不足");
+    vs.push_back(_T("29"));
+    vs.push_back(_T("睡眠不足"));
     if (m_status.GetLackOfSleep())
     {
-        vs.push_back("○");
+        vs.push_back(_T("○"));
     }
     else
     {
-        vs.push_back("");
+        vs.push_back(_T(""));
     }
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("30");
-    vs.push_back("装備武器ID");
-    work = std::to_string(GetEquipWeapon().GetId());
+    vs.push_back(_T("30"));
+    vs.push_back(_T("装備武器ID"));
+    work = std::to_wstring(GetEquipWeapon().GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("31");
-    vs.push_back("装備武器SubID");
-    work = std::to_string(GetEquipWeapon().GetSubId());
+    vs.push_back(_T("31"));
+    vs.push_back(_T("装備武器SubID"));
+    work = std::to_wstring(GetEquipWeapon().GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("32");
-    vs.push_back("x");
-    work = std::to_string(player_x);
+    vs.push_back(_T("32"));
+    vs.push_back(_T("x"));
+    work = std::to_wstring(player_x);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("33");
-    vs.push_back("y");
-    work = std::to_string(player_y);
+    vs.push_back(_T("33"));
+    vs.push_back(_T("y"));
+    work = std::to_wstring(player_y);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("34");
-    vs.push_back("z");
-    work = std::to_string(player_z);
+    vs.push_back(_T("34"));
+    vs.push_back(_T("z"));
+    work = std::to_wstring(player_z);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("35");
-    vs.push_back("魔法の経験値（炎）");
-    work = std::to_string(m_experienceFire);
+    vs.push_back(_T("35"));
+    vs.push_back(_T("魔法の経験値（炎）"));
+    work = std::to_wstring(m_experienceFire);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("36");
-    vs.push_back("魔法の経験値（氷）");
-    work = std::to_string(m_experienceIce);
+    vs.push_back(_T("36"));
+    vs.push_back(_T("魔法の経験値（氷）"));
+    work = std::to_wstring(m_experienceIce);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("37");
-    vs.push_back("魔法の経験値（闇）");
-    work = std::to_string(m_experienceDark);
+    vs.push_back(_T("37"));
+    vs.push_back(_T("魔法の経験値（闇）"));
+    work = std::to_wstring(m_experienceDark);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("38");
-    vs.push_back("魔法のレベル（炎）");
-    work = std::to_string(m_levelFire);
+    vs.push_back(_T("38"));
+    vs.push_back(_T("魔法のレベル（炎）"));
+    work = std::to_wstring(m_levelFire);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("39");
-    vs.push_back("魔法のレベル（氷）");
-    work = std::to_string(m_levelIce);
+    vs.push_back(_T("39"));
+    vs.push_back(_T("魔法のレベル（氷）"));
+    work = std::to_wstring(m_levelIce);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("40");
-    vs.push_back("魔法のレベル（闇）");
-    work = std::to_string(m_levelDark);
+    vs.push_back(_T("40"));
+    vs.push_back(_T("魔法のレベル（闇）"));
+    work = std::to_wstring(m_levelDark);
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("41");
-    vs.push_back("背中の袋1ID");
-    work = std::to_string(m_BagMap.at(eBagPos::Back1).GetId());
+    vs.push_back(_T("41"));
+    vs.push_back(_T("背中の袋1ID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Back1).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("42");
-    vs.push_back("背中の袋1SubID");
-    work = std::to_string(m_BagMap.at(eBagPos::Back1).GetSubId());
+    vs.push_back(_T("42"));
+    vs.push_back(_T("背中の袋1SubID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Back1).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("43");
-    vs.push_back("背中の袋2ID");
-    work = std::to_string(m_BagMap.at(eBagPos::Back2).GetId());
+    vs.push_back(_T("43"));
+    vs.push_back(_T("背中の袋2ID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Back2).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("44");
-    vs.push_back("背中の袋2SubID");
-    work = std::to_string(m_BagMap.at(eBagPos::Back2).GetSubId());
+    vs.push_back(_T("44"));
+    vs.push_back(_T("背中の袋2SubID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Back2).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("45");
-    vs.push_back("腹の袋ID");
-    work = std::to_string(m_BagMap.at(eBagPos::Front).GetId());
+    vs.push_back(_T("45"));
+    vs.push_back(_T("腹の袋ID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Front).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("46");
-    vs.push_back("腹の袋SubID");
-    work = std::to_string(m_BagMap.at(eBagPos::Front).GetSubId());
+    vs.push_back(_T("46"));
+    vs.push_back(_T("腹の袋SubID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Front).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("47");
-    vs.push_back("左手の袋ID");
-    work = std::to_string(m_BagMap.at(eBagPos::Left).GetId());
+    vs.push_back(_T("47"));
+    vs.push_back(_T("左手の袋ID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Left).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("48");
-    vs.push_back("左手の袋SubID");
-    work = std::to_string(m_BagMap.at(eBagPos::Left).GetSubId());
+    vs.push_back(_T("48"));
+    vs.push_back(_T("左手の袋SubID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Left).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("49");
-    vs.push_back("右手の袋ID");
-    work = std::to_string(m_BagMap.at(eBagPos::Right).GetId());
+    vs.push_back(_T("49"));
+    vs.push_back(_T("右手の袋ID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Right).GetId());
     vs.push_back(work);
     vvs.push_back(vs);
 
     vs.clear();
-    vs.push_back("50");
-    vs.push_back("右手の袋SubID");
-    work = std::to_string(m_BagMap.at(eBagPos::Right).GetSubId());
+    vs.push_back(_T("50"));
+    vs.push_back(_T("右手の袋SubID"));
+    work = std::to_wstring(m_BagMap.at(eBagPos::Right).GetSubId());
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -2772,7 +2772,7 @@ void StatusManager::DrinkWordBress(const float playerX,
 }
 
 // TODO 英語化対応
-void StatusManager::CutTree(const std::string& weapon, const int level)
+void StatusManager::CutTree(const std::wstring& weapon, const int level)
 {
     //------------------------------------------------------
     // 武器の種類や強化値によってスタミナ消耗が変わるようにする
@@ -2780,11 +2780,11 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
 
     float magni = 0.f;
 
-    if (weapon == "縦長の石")
+    if (weapon == _T("縦長の石"))
     {
         magni = 1.f;
     }
-    else if (weapon == "石斧")
+    else if (weapon == _T("石斧"))
     {
         if (level == 0 || level == -1)
         {
@@ -2852,7 +2852,7 @@ void StatusManager::CutTree(const std::string& weapon, const int level)
     // 肉体の損傷
     {
         auto work = GetMuscleCurrent();
-        if (weapon == "縦長の石")
+        if (weapon == _T("縦長の石"))
         {
             SetMuscleCurrent(work - (20.f * magni));
         }

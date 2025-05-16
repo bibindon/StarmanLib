@@ -26,16 +26,16 @@ void NSStarmanLib::PatchTestManager::Destroy()
     m_obj = nullptr;
 }
 
-void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
-                                          const std::string& saveFileInfo,
-                                          const std::string& saveFileQue)
+void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
+                                          const std::wstring& saveFileInfo,
+                                          const std::wstring& saveFileQue)
 {
     m_keyList.clear();
     m_infoMap.clear();
     m_PatchTestQue.clear();
 
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(originFile, false);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(originFile, false);
         for (size_t i = 1; i < vvs.size(); ++i)
         {
             m_keyList.push_back(vvs.at(i).at(0));
@@ -51,7 +51,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
     // 毒、毒ではない情報を作成する
     if (saveFileInfo.empty())
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(originFile, false);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(originFile, false);
 
         // 現在時刻の情報で初期化
         srand((unsigned int)time(NULL));
@@ -79,15 +79,15 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
     else
     {
         {
-            std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(saveFileInfo, false);
+            std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(saveFileInfo, false);
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
-                if (vvs.at(i).at(1) == "y")
+                if (vvs.at(i).at(1) == _T("y"))
                 {
                     m_infoMap[vvs.at(i).at(0)].SetPoison(true);
                 }
-                else if (vvs.at(i).at(1) == "n")
+                else if (vvs.at(i).at(1) == _T("n"))
                 {
                     m_infoMap[vvs.at(i).at(0)].SetPoison(false);
                 }
@@ -105,7 +105,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
         }
 
         {
-            std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(saveFileQue, false);
+            std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(saveFileQue, false);
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
@@ -113,15 +113,15 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
 
                 patchTest.SetItemName(vvs.at(i).at(0));
 
-                if (vvs.at(i).at(1) == "NOT_START")
+                if (vvs.at(i).at(1) == _T("NOT_START"))
                 {
                     patchTest.SetState(PatchTest::eState::NOT_START);
                 }
-                else if (vvs.at(i).at(1) == "STARTED")
+                else if (vvs.at(i).at(1) == _T("STARTED"))
                 {
                     patchTest.SetState(PatchTest::eState::STARTED);
                 }
-                else if (vvs.at(i).at(1) == "FINISHED")
+                else if (vvs.at(i).at(1) == _T("FINISHED"))
                 {
                     patchTest.SetState(PatchTest::eState::FINISHED);
                 }
@@ -179,11 +179,11 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_YET);
                     }
-                    else if (vvs.at(i).at(5) == "毒")
+                    else if (vvs.at(i).at(5) == _T("毒"))
                     {
                         patchTest.SetResult(PatchTest::eResult::POISON);
                     }
-                    else if (vvs.at(i).at(5) == "毒ではない")
+                    else if (vvs.at(i).at(5) == _T("毒ではない"))
                     {
                         patchTest.SetResult(PatchTest::eResult::NOT_POISON);
                     }
@@ -199,17 +199,17 @@ void NSStarmanLib::PatchTestManager::Init(const std::string& originFile,
     }
 }
 
-void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
-                                          const std::string& csvfileQue)
+void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
+                                          const std::wstring& csvfileQue)
 {
     {
-        std::vector<std::vector<std::string>> vvs;
-        std::vector<std::string> vs;
+        std::vector<std::vector<std::wstring>> vvs;
+        std::vector<std::wstring> vs;
 
-        vs.push_back("アイテム名");
-        vs.push_back("毒性");
-        vs.push_back("パッチテスト回数");
-        vs.push_back("正解率");
+        vs.push_back(_T("アイテム名"));
+        vs.push_back(_T("毒性"));
+        vs.push_back(_T("パッチテスト回数"));
+        vs.push_back(_T("正解率"));
         vvs.push_back(vs);
         vs.clear();
 
@@ -221,15 +221,15 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
 
             if (it->second.GetPoison())
             {
-                vs.push_back("y");
+                vs.push_back(_T("y"));
             }
             else
             {
-                vs.push_back("n");
+                vs.push_back(_T("n"));
             }
             
-            vs.push_back(std::to_string(it->second.GetTryNum()));
-            vs.push_back(std::to_string(it->second.GetAccurate()));
+            vs.push_back(std::to_wstring(it->second.GetTryNum()));
+            vs.push_back(std::to_wstring(it->second.GetAccurate()));
             vvs.push_back(vs);
         }
 
@@ -237,15 +237,15 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
     }
 
     {
-        std::vector<std::vector<std::string>> vvs;
-        std::vector<std::string> vs;
+        std::vector<std::vector<std::wstring>> vvs;
+        std::vector<std::wstring> vs;
 
-        vs.push_back("アイテム名");
-        vs.push_back("状態");
-        vs.push_back("予約日時");
-        vs.push_back("開始日時");
-        vs.push_back("完了日時");
-        vs.push_back("テスト結果");
+        vs.push_back(_T("アイテム名"));
+        vs.push_back(_T("状態"));
+        vs.push_back(_T("予約日時"));
+        vs.push_back(_T("開始日時"));
+        vs.push_back(_T("完了日時"));
+        vs.push_back(_T("テスト結果"));
         vvs.push_back(vs);
         vs.clear();
 
@@ -257,15 +257,15 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
 
             if (it->GetState() == PatchTest::eState::NOT_START)
             {
-                vs.push_back("NOT_START");
+                vs.push_back(_T("NOT_START"));
             }
             else if (it->GetState() == PatchTest::eState::STARTED)
             {
-                vs.push_back("STARTED");
+                vs.push_back(_T("STARTED"));
             }
             else if (it->GetState() == PatchTest::eState::FINISHED)
             {
-                vs.push_back("FINISHED");
+                vs.push_back(_T("FINISHED"));
             }
             else
             {
@@ -273,43 +273,43 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
             }
             
             {
-                std::string work;
+                std::wstring work;
                 int y, M, d, h, m, s;
                 it->GetDateTimeReq(&y, &M, &d, &h, &m, &s);
-                work += std::to_string(y) + ":";
-                work += std::to_string(M) + ":";
-                work += std::to_string(d) + ":";
-                work += std::to_string(h) + ":";
-                work += std::to_string(m) + ":";
-                work += std::to_string(s);
+                work += std::to_wstring(y) + _T(":");
+                work += std::to_wstring(M) + _T(":");
+                work += std::to_wstring(d) + _T(":");
+                work += std::to_wstring(h) + _T(":");
+                work += std::to_wstring(m) + _T(":");
+                work += std::to_wstring(s);
 
                 vs.push_back(work);
             }
 
             {
-                std::string work;
+                std::wstring work;
                 int y, M, d, h, m, s;
                 it->GetDateTimeStart(&y, &M, &d, &h, &m, &s);
-                work += std::to_string(y) + ":";
-                work += std::to_string(M) + ":";
-                work += std::to_string(d) + ":";
-                work += std::to_string(h) + ":";
-                work += std::to_string(m) + ":";
-                work += std::to_string(s);
+                work += std::to_wstring(y) + _T(":");
+                work += std::to_wstring(M) + _T(":");
+                work += std::to_wstring(d) + _T(":");
+                work += std::to_wstring(h) + _T(":");
+                work += std::to_wstring(m) + _T(":");
+                work += std::to_wstring(s);
 
                 vs.push_back(work);
             }
 
             {
-                std::string work;
+                std::wstring work;
                 int y, M, d, h, m, s;
                 it->GetDateTimeEnd(&y, &M, &d, &h, &m, &s);
-                work += std::to_string(y) + ":";
-                work += std::to_string(M) + ":";
-                work += std::to_string(d) + ":";
-                work += std::to_string(h) + ":";
-                work += std::to_string(m) + ":";
-                work += std::to_string(s);
+                work += std::to_wstring(y) + _T(":");
+                work += std::to_wstring(M) + _T(":");
+                work += std::to_wstring(d) + _T(":");
+                work += std::to_wstring(h) + _T(":");
+                work += std::to_wstring(m) + _T(":");
+                work += std::to_wstring(s);
 
                 vs.push_back(work);
             }
@@ -320,11 +320,11 @@ void NSStarmanLib::PatchTestManager::Save(const std::string& csvfileInfo,
             }
             else if (it->GetResult() == PatchTest::eResult::POISON)
             {
-                vs.push_back("毒");
+                vs.push_back(_T("毒"));
             }
             else if (it->GetResult() == PatchTest::eResult::NOT_POISON)
             {
-                vs.push_back("毒ではない");
+                vs.push_back(_T("毒ではない"));
             }
 
             vvs.push_back(vs);
@@ -502,7 +502,7 @@ void NSStarmanLib::PatchTestManager::Update()
     }
 }
 
-bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::string& name)
+bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::wstring& name)
 {
     auto it = m_infoMap.find(name);
     if (it == m_infoMap.end())
@@ -548,7 +548,7 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()
 }
 
 // 先頭が一番新しく、末尾に向かうほど古いテスト結果
-std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::string& name)
+std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::wstring& name)
 {
     std::vector<PatchTest> resultList;
 
@@ -566,17 +566,17 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::
     return resultList;
 }
 
-std::vector<std::string> NSStarmanLib::PatchTestManager::GetKeyList()
+std::vector<std::wstring> NSStarmanLib::PatchTestManager::GetKeyList()
 {
     return m_keyList;
 }
 
-void NSStarmanLib::PatchTest::SetItemName(const std::string& arg)
+void NSStarmanLib::PatchTest::SetItemName(const std::wstring& arg)
 {
     m_itemName = arg;
 }
 
-std::string NSStarmanLib::PatchTest::GetItemName() const
+std::wstring NSStarmanLib::PatchTest::GetItemName() const
 {
     return m_itemName;
 }
@@ -668,12 +668,12 @@ PatchTest::eResult NSStarmanLib::PatchTest::GetResult() const
     return m_eResult;
 }
 
-void NSStarmanLib::PatchItemInfo::SetName(const std::string arg)
+void NSStarmanLib::PatchItemInfo::SetName(const std::wstring arg)
 {
     m_name = arg;
 }
 
-std::string NSStarmanLib::PatchItemInfo::GetName() const
+std::wstring NSStarmanLib::PatchItemInfo::GetName() const
 {
     return m_name;
 }

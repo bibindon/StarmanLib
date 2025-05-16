@@ -20,8 +20,8 @@ public:
 
     static ActivityBase* Get();
 
-    void Init(const std::string& csvFile);
-    void Save(const std::string& csvFile);
+    void Init(const std::wstring& csvFile);
+    void Save(const std::wstring& csvFile);
     void SetBaseType(const eBaseType arg);
     eBaseType GetBaseType() const;
     void Finalize();

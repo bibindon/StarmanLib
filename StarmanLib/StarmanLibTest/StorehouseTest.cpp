@@ -23,7 +23,7 @@ public:
         bool bException = false;
         try
         {
-            storehouse->Init("no-exist-file.csv");
+            storehouse->Init(_T("no-exist-file.csv"));
         }
         catch (const std::exception&)
         {

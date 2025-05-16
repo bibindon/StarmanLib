@@ -39,14 +39,14 @@ public:
     int GetId() const;
     void SetId(int arg);
 
-    std::string GetName() const;
-    void SetName(std::string arg);
+    std::wstring GetName() const;
+    void SetName(std::wstring arg);
 
-    std::string GetDetail() const;
-    void SetDetail(std::string arg);
+    std::wstring GetDetail() const;
+    void SetDetail(std::wstring arg);
 
-    std::string GetImagePath() const;
-    void SetImagePath(std::string arg);
+    std::wstring GetImagePath() const;
+    void SetImagePath(std::wstring arg);
 
     float GetWeight() const;
     void SetWeight(float arg);
@@ -101,13 +101,13 @@ private:
     int m_id = 0;
 
     // 名称
-    std::string m_name;
+    std::wstring m_name;
 
     // 詳細
-    std::string m_detail;
+    std::wstring m_detail;
 
     // 画像のファイル名
-    std::string m_imagePath;
+    std::wstring m_imagePath;
 
     // 重量（kg）
     float m_weight = 0.f;
@@ -116,7 +116,7 @@ private:
     float m_volume = 0.f;
 
     // 種類
-    ItemType m_eType;
+    ItemType m_eType = ItemType::OTHERS;
 
     // 糖質
     float m_carbo = 0.f;
@@ -220,14 +220,14 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile, const std::string& csvfilePos,
+    void Init(const std::wstring& csvfile, const std::wstring& csvfilePos,
               const bool decrypt = false);
     bool Inited();
-    void Save(const std::string& csvfilePos,
+    void Save(const std::wstring& csvfilePos,
               const bool encrypt = false);
 
     std::vector<int> GetItemIdList();
-    ItemDef GetItemDef(const std::string& key, const int level = -1);
+    ItemDef GetItemDef(const std::wstring& key, const int level = -1);
     ItemDef GetItemDef(const int id);
     std::vector<int> GetItemDef(const ItemDef::ItemType type);
     

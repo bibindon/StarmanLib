@@ -25,15 +25,15 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             HumanInfoManager* obj = HumanInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"), _T("..\\StarmanLibTest\\humanInfoSub.csv"));
             HumanInfoManager::Destroy();
         }
 
         TEST_METHOD(TestMethod03)
         {
             HumanInfoManager* obj = HumanInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSub.csv");
-            std::vector<std::string> vs = obj->GetHumanNameList();
+            obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"), _T("..\\StarmanLibTest\\humanInfoSub.csv"));
+            std::vector<std::wstring> vs = obj->GetHumanNameList();
             Assert::AreEqual((int)vs.size(), 12);
             HumanInfoManager::Destroy();
         }
@@ -41,26 +41,26 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             HumanInfoManager* obj = HumanInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSub.csv");
-            std::vector<std::string> vs = obj->GetHumanNameList();
+            obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"), _T("..\\StarmanLibTest\\humanInfoSub.csv"));
+            std::vector<std::wstring> vs = obj->GetHumanNameList();
             HumanInfo humanInfo = obj->GetHumanInfo(vs.at(0));
-            Assert::AreEqual(humanInfo.GetName() == "ホシマン", true);
-            bool find = (humanInfo.GetDetail().find("１７０ｃｍ") != std::string::npos);
+            Assert::AreEqual(humanInfo.GetName() == _T("ホシマン"), true);
+            bool find = (humanInfo.GetDetail().find(_T("１７０ｃｍ")) != std::wstring::npos);
             Assert::AreEqual(find, true);
-            Assert::AreEqual(humanInfo.GetImagePath() == "human_hoshiman.png", true);
+            Assert::AreEqual(humanInfo.GetImagePath() == _T("human_hoshiman.png"), true);
             HumanInfoManager::Destroy();
         }
 
         TEST_METHOD(TestMethod05)
         {
             HumanInfoManager* obj = HumanInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\humanInfo.csv", "..\\StarmanLibTest\\humanInfoSub.csv");
-            std::vector<std::string> vs = obj->GetHumanNameList();
+            obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"), _T("..\\StarmanLibTest\\humanInfoSub.csv"));
+            std::vector<std::wstring> vs = obj->GetHumanNameList();
             HumanInfo humanInfo = obj->GetHumanInfo(vs.at(11));
-            Assert::AreEqual(humanInfo.GetName() == "ヒシガタマン", true);
-            bool find = (humanInfo.GetDetail().find("うまくいかない") != std::string::npos);
+            Assert::AreEqual(humanInfo.GetName() == _T("ヒシガタマン"), true);
+            bool find = (humanInfo.GetDetail().find(_T("うまくいかない")) != std::wstring::npos);
             Assert::AreEqual(find, true);
-            Assert::AreEqual(humanInfo.GetImagePath() == "human_xxx.png", true);
+            Assert::AreEqual(humanInfo.GetImagePath() == _T("human_xxx.png"), true);
             HumanInfoManager::Destroy();
         }
 
@@ -68,21 +68,21 @@ namespace StarmanLibTest
         {
             {
                 HumanInfoManager* obj = HumanInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\humanInfo.csv",
-                          "..\\StarmanLibTest\\humanInfoSub.csv");
-                HumanInfo humanInfo = obj->GetHumanInfo("ノーブル");
+                obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"),
+                          _T("..\\StarmanLibTest\\humanInfoSub.csv"));
+                HumanInfo humanInfo = obj->GetHumanInfo(_T("ノーブル"));
                 Assert::AreEqual(humanInfo.GetVisible(), false);
-                obj->SetHumanVisible("ノーブル");
-                humanInfo = obj->GetHumanInfo("ノーブル");
+                obj->SetHumanVisible(_T("ノーブル"));
+                humanInfo = obj->GetHumanInfo(_T("ノーブル"));
                 Assert::AreEqual(humanInfo.GetVisible(), true);
-                obj->Save("..\\StarmanLibTest\\humanInfoSubSave.csv");
+                obj->Save(_T("..\\StarmanLibTest\\humanInfoSubSave.csv"));
                 HumanInfoManager::Destroy();
             }
             {
                 HumanInfoManager* obj = HumanInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\humanInfo.csv",
-                          "..\\StarmanLibTest\\humanInfoSubSave.csv");
-                HumanInfo humanInfo = obj->GetHumanInfo("ノーブル");
+                obj->Init(_T("..\\StarmanLibTest\\humanInfo.csv"),
+                          _T("..\\StarmanLibTest\\humanInfoSubSave.csv"));
+                HumanInfo humanInfo = obj->GetHumanInfo(_T("ノーブル"));
                 Assert::AreEqual(humanInfo.GetVisible(), true);
                 HumanInfoManager::Destroy();
             }

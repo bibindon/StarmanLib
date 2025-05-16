@@ -27,7 +27,7 @@ void NSStarmanLib::Help::Destroy()
     m_obj = nullptr;
 }
 
-void NSStarmanLib::Help::Init(const std::string& filepath)
+void NSStarmanLib::Help::Init(const std::wstring& filepath)
 {
     assert(ItemManager::GetObj()->Inited());
 
@@ -68,13 +68,13 @@ void NSStarmanLib::Help::Init(const std::string& filepath)
     m_enableItemIdList.push_back(56);
     m_enableItemIdList.push_back(57);
 
-	m_presentMap["sankakuman"] = std::vector<ItemDef>();
-	m_presentMap["shikakuman"] = std::vector<ItemDef>();
+	m_presentMap[_T("sankakuman")] = std::vector<ItemDef>();
+	m_presentMap[_T("shikakuman")] = std::vector<ItemDef>();
 	
-	m_presented["sankakuman"] = false;
-	m_presented["shikakuman"] = false;
+	m_presented[_T("sankakuman")] = false;
+	m_presented[_T("shikakuman")] = false;
 
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(filepath, false);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(filepath, false);
 
     auto itemManager = ItemManager::GetObj();
 
@@ -130,7 +130,7 @@ void NSStarmanLib::Help::Update()
     {
         // イカダをクラフトしているならアイテム収集はナシ。
         auto request = CraftSystem::GetObj()->GetCraftRequestList();
-        if (request.empty() || request.front().GetName() != "イカダ")
+        if (request.empty() || request.front().GetName() != _T("イカダ"))
         {
             srand((unsigned int)time(NULL));
 
@@ -161,24 +161,24 @@ void NSStarmanLib::Help::Update()
     m_previousHour = datetime->GetHour();
 }
 
-void NSStarmanLib::Help::Save(const std::string& filepath)
+void NSStarmanLib::Help::Save(const std::wstring& filepath)
 {
     // m_presentMapの内容を出力
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
     int work = 0;
 
-    vs.push_back("名前");
-    vs.push_back("アイテム1");
-    vs.push_back("アイテム2");
-    vs.push_back("アイテム3");
-    vs.push_back("アイテム4");
-    vs.push_back("アイテム5");
-    vs.push_back("アイテム6");
-    vs.push_back("アイテム7");
-    vs.push_back("アイテム8");
-    vs.push_back("アイテム9");
-    vs.push_back("アイテム10");
+    vs.push_back(_T("名前"));
+    vs.push_back(_T("アイテム1"));
+    vs.push_back(_T("アイテム2"));
+    vs.push_back(_T("アイテム3"));
+    vs.push_back(_T("アイテム4"));
+    vs.push_back(_T("アイテム5"));
+    vs.push_back(_T("アイテム6"));
+    vs.push_back(_T("アイテム7"));
+    vs.push_back(_T("アイテム8"));
+    vs.push_back(_T("アイテム9"));
+    vs.push_back(_T("アイテム10"));
     vvs.push_back(vs);
     vs.clear();
 
@@ -188,7 +188,7 @@ void NSStarmanLib::Help::Save(const std::string& filepath)
         for (auto& item : helper.second)
         {
             auto id = item.GetId();
-            vs.push_back(std::to_string(id));
+            vs.push_back(std::to_wstring(id));
         }
         vvs.push_back(vs);
         vs.clear();
@@ -197,11 +197,11 @@ void NSStarmanLib::Help::Save(const std::string& filepath)
     Util::WriteToCsv(filepath, vvs, false);
 }
 
-std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName)
+std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::wstring& npcName)
 {
     // イカダをクラフトしていたらアイテム収集はナシ。
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == "イカダ")
+    if (!request.empty() && request.front().GetName() == _T("イカダ"))
     {
         m_presentMap.at(npcName).clear();
     }
@@ -214,14 +214,14 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::string& npcName
     return present;
 }
 
-bool NSStarmanLib::Help::Received(const std::string& npcName)
+bool NSStarmanLib::Help::Received(const std::wstring& npcName)
 {
     // 空だったら渡した後。
     auto received = m_presentMap.at(npcName).empty();
     return received;
 }
 
-bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
+bool NSStarmanLib::Help::CanReceive(const std::wstring& npcName)
 {
     if (!m_bLoaded)
     {
@@ -242,7 +242,7 @@ bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
     }
 
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == "イカダ")
+    if (!request.empty() && request.front().GetName() == _T("イカダ"))
     {
         m_presentMap.at(npcName).clear();
         return false;
@@ -251,7 +251,7 @@ bool NSStarmanLib::Help::CanReceive(const std::string& npcName)
     return true;
 }
 
-std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::string& npcName)
+std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::wstring& npcName)
 {
     int rnd = 0;
     int work = 0;

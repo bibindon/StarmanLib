@@ -8,12 +8,12 @@ using namespace NSStarmanLib;
 
 NpcStatusManager* NpcStatusManager::obj { nullptr };
 
-void NpcStatus::SetName(const std::string& arg)
+void NpcStatus::SetName(const std::wstring& arg)
 {
     m_name = arg;
 }
 
-std::string NpcStatus::GetName()
+std::wstring NpcStatus::GetName()
 {
     return m_name;
 }
@@ -158,12 +158,12 @@ bool NSStarmanLib::NpcStatus::GetHasTalk() const
     return m_bHasTalk;
 }
 
-void NSStarmanLib::NpcStatus::SetTalkCsv(const std::string& arg)
+void NSStarmanLib::NpcStatus::SetTalkCsv(const std::wstring& arg)
 {
     m_talkCsv = arg;
 }
 
-std::string NSStarmanLib::NpcStatus::GetTalkCsv() const
+std::wstring NSStarmanLib::NpcStatus::GetTalkCsv() const
 {
     return m_talkCsv;
 }
@@ -237,11 +237,11 @@ void NpcStatusManager::Destroy()
     NpcStatusManager::obj = nullptr;
 }
 
-void NpcStatusManager::Init(const std::string& csvfile,
+void NpcStatusManager::Init(const std::wstring& csvfile,
                             const bool decrypt)
 {
     srand((unsigned int)time(NULL));
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
@@ -269,12 +269,12 @@ void NpcStatusManager::Init(const std::string& csvfile,
         work_f = std::stof(vvs.at(i).at(6));
         npcStatus.SetWater(work_f);
 
-        if (vvs.at(i).at(7) == "y")
+        if (vvs.at(i).at(7) == _T("y"))
         {
             npcStatus.SetRynenContract();
         }
 
-        if (vvs.at(i).at(8) == "y")
+        if (vvs.at(i).at(8) == _T("y"))
         {
             npcStatus.SetDrinkWordbress(true);
         }
@@ -283,7 +283,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetDrinkWordbress(false);
         }
 
-        if (vvs.at(i).at(9) == "y")
+        if (vvs.at(i).at(9) == _T("y"))
         {
             npcStatus.SetDead();
         }
@@ -300,7 +300,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
         work_f = std::stof(vvs.at(i).at(13));
         npcStatus.SetRotY(work_f);
 
-        if (vvs.at(i).at(14) == "y")
+        if (vvs.at(i).at(14) == _T("y"))
         {
             npcStatus.SetHasTalk(true);
         }
@@ -311,7 +311,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
 
         npcStatus.SetTalkCsv(vvs.at(i).at(15));
 
-        if (vvs.at(i).at(16) == "y")
+        if (vvs.at(i).at(16) == _T("y"))
         {
             npcStatus.SetFeatureEnable(true);
         }
@@ -320,19 +320,19 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetFeatureEnable(false);
         }
 
-        if (vvs.at(i).at(17) == "CRAFTMAN")
+        if (vvs.at(i).at(17) == _T("CRAFTMAN"))
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN);
         }
-        else if (vvs.at(i).at(17) == "PATCH_TEST")
+        else if (vvs.at(i).at(17) == _T("PATCH_TEST"))
         {
             npcStatus.SetNpcFeature(eNpcFeature::PATCH_TEST);
         }
-        else if (vvs.at(i).at(17) == "CRAFTMAN_AND_PATCH_TEST")
+        else if (vvs.at(i).at(17) == _T("CRAFTMAN_AND_PATCH_TEST"))
         {
             npcStatus.SetNpcFeature(eNpcFeature::CRAFTMAN_AND_PATCH_TEST);
         }
-        else if (vvs.at(i).at(17) == "HELP")
+        else if (vvs.at(i).at(17) == _T("HELP"))
         {
             npcStatus.SetNpcFeature(eNpcFeature::HELP);
         }
@@ -341,7 +341,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetNpcFeature(eNpcFeature::NONE);
         }
 
-        if (vvs.at(i).at(18) == "y")
+        if (vvs.at(i).at(18) == _T("y"))
         {
             npcStatus.SetMenuShow(true);
         }
@@ -350,7 +350,7 @@ void NpcStatusManager::Init(const std::string& csvfile,
             npcStatus.SetMenuShow(false);
         }
 
-        if (vvs.at(i).at(19) == "y")
+        if (vvs.at(i).at(19) == _T("y"))
         {
             npcStatus.SetRedMan(true);
         }
@@ -386,158 +386,158 @@ void NpcStatusManager::Init(const std::string& csvfile,
     }
 }
 
-void NpcStatusManager::Save(const std::string& csvfile,
+void NpcStatusManager::Save(const std::wstring& csvfile,
                             const bool encrypt)
 {
-    std::vector<std::vector<std::string> > vvs;
-    std::vector<std::string> vs;
-    std::string work;
+    std::vector<std::vector<std::wstring> > vvs;
+    std::vector<std::wstring> vs;
+    std::wstring work;
 
-    vs.push_back("名前");
-    vs.push_back("糖質");
-    vs.push_back("タンパク質");
-    vs.push_back("脂質");
-    vs.push_back("ビタミン");
-    vs.push_back("ミネラル");
-    vs.push_back("水分");
-    vs.push_back("ライネンの契約をしている");
-    vs.push_back("ワードブレスを飲んでいる");
-    vs.push_back("死んでいる");
-    vs.push_back("x");
-    vs.push_back("y");
-    vs.push_back("z");
-    vs.push_back("yRot");
-    vs.push_back("会話可能");
-    vs.push_back("会話スクリプト");
-    vs.push_back("機能解禁");
-    vs.push_back("機能種別");
-    vs.push_back("メニュー表示");
-    vs.push_back("レッドマン");
-    vs.push_back("レッドマンになった年");
-    vs.push_back("レッドマンになった月");
-    vs.push_back("レッドマンになった日");
+    vs.push_back(_T("名前"));
+    vs.push_back(_T("糖質"));
+    vs.push_back(_T("タンパク質"));
+    vs.push_back(_T("脂質"));
+    vs.push_back(_T("ビタミン"));
+    vs.push_back(_T("ミネラル"));
+    vs.push_back(_T("水分"));
+    vs.push_back(_T("ライネンの契約をしている"));
+    vs.push_back(_T("ワードブレスを飲んでいる"));
+    vs.push_back(_T("死んでいる"));
+    vs.push_back(_T("x"));
+    vs.push_back(_T("y"));
+    vs.push_back(_T("z"));
+    vs.push_back(_T("yRot"));
+    vs.push_back(_T("会話可能"));
+    vs.push_back(_T("会話スクリプト"));
+    vs.push_back(_T("機能解禁"));
+    vs.push_back(_T("機能種別"));
+    vs.push_back(_T("メニュー表示"));
+    vs.push_back(_T("レッドマン"));
+    vs.push_back(_T("レッドマンになった年"));
+    vs.push_back(_T("レッドマンになった月"));
+    vs.push_back(_T("レッドマンになった日"));
     vvs.push_back(vs);
     vs.clear();
 
     for (auto it = m_NpcStatusMap.begin(); it != m_NpcStatusMap.end(); ++it)
     {
-        std::string work;
+        std::wstring work;
         vs.push_back(it->first);
 
-        work = std::to_string(it->second.GetCarbo());
+        work = std::to_wstring(it->second.GetCarbo());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetProtein());
+        work = std::to_wstring(it->second.GetProtein());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetLipid());
+        work = std::to_wstring(it->second.GetLipid());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetVitamin());
+        work = std::to_wstring(it->second.GetVitamin());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetMineral());
+        work = std::to_wstring(it->second.GetMineral());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetWater());
+        work = std::to_wstring(it->second.GetWater());
         vs.push_back(work);
 
         if (it->second.GetRynenContract())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         if (it->second.GetDrinkWordbress())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         if (it->second.GetDead())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
-        work = std::to_string(it->second.GetX());
+        work = std::to_wstring(it->second.GetX());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetY());
+        work = std::to_wstring(it->second.GetY());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetZ());
+        work = std::to_wstring(it->second.GetZ());
         vs.push_back(work);
 
-        work = std::to_string(it->second.GetRotY());
+        work = std::to_wstring(it->second.GetRotY());
         vs.push_back(work);
 
         if (it->second.GetHasTalk())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         vs.push_back(it->second.GetTalkCsv());
 
         if (it->second.GetFeatureEnable())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         if (it->second.GetNpcFeature() == eNpcFeature::CRAFTMAN)
         {
-            vs.push_back("CRAFTMAN");
+            vs.push_back(_T("CRAFTMAN"));
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::PATCH_TEST)
         {
-            vs.push_back("PATCH_TEST");
+            vs.push_back(_T("PATCH_TEST"));
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::CRAFTMAN_AND_PATCH_TEST)
         {
-            vs.push_back("CRAFTMAN_AND_PATCH_TEST");
+            vs.push_back(_T("CRAFTMAN_AND_PATCH_TEST"));
         }
         else if (it->second.GetNpcFeature() == eNpcFeature::HELP)
         {
-            vs.push_back("HELP");
+            vs.push_back(_T("HELP"));
         }
         else
         {
-            vs.push_back("");
+            vs.push_back(_T(""));
         }
 
         if (it->second.GetMenuShow())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         if (it->second.IsRedMan())
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         {
@@ -546,9 +546,9 @@ void NpcStatusManager::Save(const std::string& csvfile,
             int day = 0;
             it->second.GetRedManDay(&year, &month, &day);
 
-            vs.push_back(std::to_string(year));
-            vs.push_back(std::to_string(month));
-            vs.push_back(std::to_string(day));
+            vs.push_back(std::to_wstring(year));
+            vs.push_back(std::to_wstring(month));
+            vs.push_back(std::to_wstring(day));
         }
 
         vvs.push_back(vs);
@@ -577,7 +577,7 @@ void NSStarmanLib::NpcStatusManager::Update()
         for (auto& npc : m_NpcStatusMap)
         {
             // ビムは体力を消費しない
-            if (npc.first == "vim")
+            if (npc.first == _T("vim"))
             {
                 continue;
             }
@@ -747,19 +747,19 @@ void NSStarmanLib::NpcStatusManager::Update()
     Clamp();
 }
 
-NpcStatus NpcStatusManager::GetNpcStatus(const std::string& name)
+NpcStatus NpcStatusManager::GetNpcStatus(const std::wstring& name)
 {
     return m_NpcStatusMap.at(name);
 }
 
-void NpcStatusManager::SetNpcStatus(const std::string& key, const NpcStatus& value)
+void NpcStatusManager::SetNpcStatus(const std::wstring& key, const NpcStatus& value)
 {
     m_NpcStatusMap.at(key) = value;
 }
 
-std::vector<std::string> NSStarmanLib::NpcStatusManager::GetNameList()
+std::vector<std::wstring> NSStarmanLib::NpcStatusManager::GetNameList()
 {
-    std::vector<std::string> vs;
+    std::vector<std::wstring> vs;
     for (auto it = m_NpcStatusMap.begin(); it != m_NpcStatusMap.end(); ++it)
     {
         vs.push_back(it->first);
@@ -776,7 +776,7 @@ bool NSStarmanLib::NpcStatusManager::OneWeekAfterRedman()
     int year = 0;
     int month = 0;
     int day = 0;
-    m_NpcStatusMap.at("shikakuman").GetRedManDay(&year, &month, &day);
+    m_NpcStatusMap.at(_T("shikakuman")).GetRedManDay(&year, &month, &day);
 
     // レッドマンになってからの1週間後とは何月何日であるか。
     int limitYear = 0;
@@ -907,7 +907,7 @@ void NSStarmanLib::NpcStatusManager::Clamp()
     }
 }
 
-void NSStarmanLib::NpcStatusManager::Eat(const std::string npcKey, const ItemDef& itemDef)
+void NSStarmanLib::NpcStatusManager::Eat(const std::wstring npcKey, const ItemDef& itemDef)
 {
     auto& _status = m_NpcStatusMap.at(npcKey);
     if (itemDef.GetType() != ItemDef::ItemType::FOOD)

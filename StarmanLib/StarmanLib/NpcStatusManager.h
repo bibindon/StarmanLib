@@ -25,8 +25,8 @@ class NpcStatus
 {
 public:
 
-    void SetName(const std::string& arg);
-    std::string GetName();
+    void SetName(const std::wstring& arg);
+    std::wstring GetName();
 
     void SetCarbo(const float arg);
     float GetCarbo();
@@ -70,8 +70,8 @@ public:
     void SetHasTalk(const bool arg);
     bool GetHasTalk() const;
 
-    void SetTalkCsv(const std::string& arg);
-    std::string GetTalkCsv() const;
+    void SetTalkCsv(const std::wstring& arg);
+    std::wstring GetTalkCsv() const;
 
     void SetFeatureEnable(const bool arg);
     bool GetFeatureEnable() const;
@@ -91,7 +91,7 @@ public:
 private:
 
     // 名前
-    std::string m_name;
+    std::wstring m_name;
 
     // 糖質
     float m_carbo { 0.f };
@@ -134,7 +134,7 @@ private:
 
     // 会話すべき文言
     // m_talkCsvの内容を使って利用者に会話してもらう。
-    std::string m_talkCsv;
+    std::wstring m_talkCsv;
 
     // 荷物番や鍛冶屋の機能が解禁されているか。
     bool m_bFeatureEnable = false;
@@ -163,18 +163,18 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
     void Update();
 
-    NpcStatus GetNpcStatus(const std::string& name);
-    void SetNpcStatus(const std::string& key, const NpcStatus& value);
+    NpcStatus GetNpcStatus(const std::wstring& name);
+    void SetNpcStatus(const std::wstring& key, const NpcStatus& value);
 
-    std::vector<std::string> GetNameList();
+    std::vector<std::wstring> GetNameList();
 
     // シカクマンがレッドマンになってから1週間が経過したか。
     bool OneWeekAfterRedman();
@@ -184,11 +184,11 @@ private:
     // シングルトンオブジェクト
     static NpcStatusManager* obj;
 
-    std::unordered_map<std::string, NpcStatus> m_NpcStatusMap;
+    std::unordered_map<std::wstring, NpcStatus> m_NpcStatusMap;
 
     void Clamp();
 
-    void Eat(const std::string npcKey, const ItemDef& itemDef);
+    void Eat(const std::wstring npcKey, const ItemDef& itemDef);
 };
 }
 

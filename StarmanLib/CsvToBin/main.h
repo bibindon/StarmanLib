@@ -4,8 +4,9 @@
 #include <fstream>
 #include "../StarmanLib/MapObjManager.h"
 #include "../StarmanLib/HeaderOnlyCsv.hpp"
+#include <tchar.h>
 
-static void WriteBinary(const std::string& csvFile)
+static void WriteBinary(const std::wstring& csvFile)
 {
     auto vvs = csv::Read(csvFile);
 
@@ -33,7 +34,7 @@ static void WriteBinary(const std::string& csvFile)
 
         work.m_scale = std::stof(vvs.at(i).at(6));
 
-        if (vvs.at(i).at(7) == "y")
+        if (vvs.at(i).at(7) == _T("y"))
         {
             work.m_visible = true;
         }
@@ -44,19 +45,19 @@ static void WriteBinary(const std::string& csvFile)
         stMapObjList.emplace_back(work);
     }
 
-    std::string binFile = csvFile;
-    binFile.replace(binFile.size() - 4, 4, ".bin");
+    std::wstring binFile = csvFile;
+    binFile.replace(binFile.size() - 4, 4, _T(".bin"));
 
-    std::ofstream outFile(binFile, std::ios::binary);
+    std::wofstream outFile(binFile, std::ios::binary);
     if (outFile.is_open())
     {
         size_t size = stMapObjList.size();
 
         // ベクターサイズを書き込む
-        outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+        outFile.write(reinterpret_cast<const wchar_t*>(&size), sizeof(size));
 
         // データ本体を書き込む
-        outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
+        outFile.write(reinterpret_cast<const wchar_t*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         outFile.close();

@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include <tchar.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -27,12 +28,12 @@ namespace StarmanLibTest
         {
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
             auto que = obj->GetQueue();
             Assert::AreEqual(true, que.empty());
 
-            auto resultList = obj->GetResultList("謎の草１");
+            auto resultList = obj->GetResultList(_T("謎の草１"));
             Assert::AreEqual(true, resultList.empty());
         }
 
@@ -40,32 +41,32 @@ namespace StarmanLibTest
         {
             {
                 PowereggDateTime* obj = PowereggDateTime::GetObj();
-                obj->Init("..\\StarmanLibTest\\datetime.csv");
+                obj->Init(_T("..\\StarmanLibTest\\datetime.csv"));
             }
 
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
-            obj->QueuePatchTest("謎の草１");
+            obj->QueuePatchTest(_T("謎の草１"));
 
             auto que = obj->GetQueue();
             Assert::AreEqual(1, (int)que.size());
 
-            auto resultList = obj->GetResultList("謎の草１");
+            auto resultList = obj->GetResultList(_T("謎の草１"));
             Assert::AreEqual(true, resultList.empty());
         }
 
         TEST_METHOD(TestMethod04)
         {
             PowereggDateTime* datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
-            obj->QueuePatchTest("謎の草１");
+            obj->QueuePatchTest(_T("謎の草１"));
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 2, 0, 0);
@@ -76,22 +77,22 @@ namespace StarmanLibTest
 
             Assert::AreEqual(true, que.at(0).GetState() == PatchTest::eState::FINISHED);
 
-            auto resultList = obj->GetResultList("謎の草１");
+            auto resultList = obj->GetResultList(_T("謎の草１"));
             Assert::AreEqual(1, (int)resultList.size());
         }
 
         TEST_METHOD(TestMethod05)
         {
             PowereggDateTime* datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
-            obj->QueuePatchTest("謎の草１");
-            obj->QueuePatchTest("謎の草１");
-            obj->QueuePatchTest("謎の草２");
+            obj->QueuePatchTest(_T("謎の草１"));
+            obj->QueuePatchTest(_T("謎の草１"));
+            obj->QueuePatchTest(_T("謎の草２"));
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -100,7 +101,7 @@ namespace StarmanLibTest
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
-            obj->QueuePatchTest("謎の草３");
+            obj->QueuePatchTest(_T("謎の草３"));
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
@@ -115,13 +116,13 @@ namespace StarmanLibTest
             Assert::AreEqual(true, que.at(2).GetState() == PatchTest::eState::STARTED);
             Assert::AreEqual(true, que.at(3).GetState() == PatchTest::eState::NOT_START);
 
-            auto resultList1 = obj->GetResultList("謎の草１");
+            auto resultList1 = obj->GetResultList(_T("謎の草１"));
             Assert::AreEqual(2, (int)resultList1.size());
 
-            auto resultList2 = obj->GetResultList("謎の草２");
+            auto resultList2 = obj->GetResultList(_T("謎の草２"));
             Assert::AreEqual(0, (int)resultList2.size());
 
-            auto resultList3 = obj->GetResultList("謎の草３");
+            auto resultList3 = obj->GetResultList(_T("謎の草３"));
             Assert::AreEqual(0, (int)resultList3.size());
         }
 
@@ -130,9 +131,9 @@ namespace StarmanLibTest
         {
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv",
-                      "..\\StarmanLibTest\\patchTestInfoSave.csv",
-                      "..\\StarmanLibTest\\patchTestQueSave.csv");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"),
+                      _T("..\\StarmanLibTest\\patchTestInfoSave.csv"),
+                      _T("..\\StarmanLibTest\\patchTestQueSave.csv"));
         }
 
         // Init関数でデータが読み込まれていることを確認する
@@ -140,9 +141,9 @@ namespace StarmanLibTest
         {
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv",
-                      "..\\StarmanLibTest\\patchTestInfoSave.csv",
-                      "..\\StarmanLibTest\\patchTestQueSave.csv");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"),
+                      _T("..\\StarmanLibTest\\patchTestInfoSave.csv"),
+                      _T("..\\StarmanLibTest\\patchTestQueSave.csv"));
 
             auto que = obj->GetQueue();
             Assert::AreEqual(true, que.size() != 0);
@@ -153,24 +154,24 @@ namespace StarmanLibTest
         {
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
-            obj->Save("..\\StarmanLibTest\\patchTestInfoSave2.csv",
-                      "..\\StarmanLibTest\\patchTestQueSave2.csv");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
+            obj->Save(_T("..\\StarmanLibTest\\patchTestInfoSave2.csv"),
+                      _T("..\\StarmanLibTest\\patchTestQueSave2.csv"));
         }
 
         // パッチテストを行ってからSaveするテスト
         TEST_METHOD(TestMethod07)
         {
             PowereggDateTime* datetime = PowereggDateTime::GetObj();
-            datetime->Init("..\\StarmanLibTest\\datetime.csv");
+            datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
             PatchTestManager::Destroy();
             PatchTestManager* obj = PatchTestManager::Get();
-            obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+            obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
-            obj->QueuePatchTest("謎の草１");
-            obj->QueuePatchTest("謎の草１");
-            obj->QueuePatchTest("謎の草２");
+            obj->QueuePatchTest(_T("謎の草１"));
+            obj->QueuePatchTest(_T("謎の草１"));
+            obj->QueuePatchTest(_T("謎の草２"));
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -179,15 +180,15 @@ namespace StarmanLibTest
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
-            obj->QueuePatchTest("謎の草３");
+            obj->QueuePatchTest(_T("謎の草３"));
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
             datetime->IncreaseDateTime(0, 0, 0, 31, 0);
             obj->Update();
 
-            obj->Save("..\\StarmanLibTest\\patchTestInfoSave2.csv",
-                      "..\\StarmanLibTest\\patchTestQueSave2.csv");
+            obj->Save(_T("..\\StarmanLibTest\\patchTestInfoSave2.csv"),
+                      _T("..\\StarmanLibTest\\patchTestQueSave2.csv"));
         }
 
         // Saveしたデータを読み取るテスト
@@ -195,15 +196,15 @@ namespace StarmanLibTest
         {
             {
                 PowereggDateTime* datetime = PowereggDateTime::GetObj();
-                datetime->Init("..\\StarmanLibTest\\datetime.csv");
+                datetime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
 
                 PatchTestManager::Destroy();
                 PatchTestManager* obj = PatchTestManager::Get();
-                obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv", "", "");
+                obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"), _T(""), _T(""));
 
-                obj->QueuePatchTest("謎の草１");
-                obj->QueuePatchTest("謎の草１");
-                obj->QueuePatchTest("謎の草２");
+                obj->QueuePatchTest(_T("謎の草１"));
+                obj->QueuePatchTest(_T("謎の草１"));
+                obj->QueuePatchTest(_T("謎の草２"));
                 obj->Update();
 
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
@@ -212,22 +213,22 @@ namespace StarmanLibTest
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
                 obj->Update();
 
-                obj->QueuePatchTest("謎の草３");
+                obj->QueuePatchTest(_T("謎の草３"));
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
                 obj->Update();
 
                 datetime->IncreaseDateTime(0, 0, 0, 31, 0);
                 obj->Update();
 
-                obj->Save("..\\StarmanLibTest\\patchTestInfoSave2.csv",
-                          "..\\StarmanLibTest\\patchTestQueSave2.csv");
+                obj->Save(_T("..\\StarmanLibTest\\patchTestInfoSave2.csv"),
+                          _T("..\\StarmanLibTest\\patchTestQueSave2.csv"));
             }
 
             {
                 PatchTestManager* obj = PatchTestManager::Get();
-                obj->Init("..\\StarmanLibTest\\patchTestOrigin.csv",
-                          "..\\StarmanLibTest\\patchTestInfoSave2.csv",
-                          "..\\StarmanLibTest\\patchTestQueSave2.csv");
+                obj->Init(_T("..\\StarmanLibTest\\patchTestOrigin.csv"),
+                          _T("..\\StarmanLibTest\\patchTestInfoSave2.csv"),
+                          _T("..\\StarmanLibTest\\patchTestQueSave2.csv"));
 
                 auto que = obj->GetQueue();
                 Assert::AreEqual(4, (int)que.size());

@@ -6,33 +6,33 @@ using namespace NSStarmanLib;
 
 Guide* Guide::obj { nullptr };
 
-void GuideItem::SetCategory(const std::string& category)
+void GuideItem::SetCategory(const std::wstring& category)
 {
     m_category = category;
 }
 
-std::string GuideItem::GetCategory()
+std::wstring GuideItem::GetCategory()
 {
     return m_category;
 }
 
-void GuideItem::SetSubCategory(const std::string& subCategory)
+void GuideItem::SetSubCategory(const std::wstring& subCategory)
 {
     m_subCategory = subCategory;
 }
 
-std::string GuideItem::GetSubCategory()
+std::wstring GuideItem::GetSubCategory()
 {
     return m_subCategory;
 }
 
-void GuideItem::SetText(const std::string& text)
+void GuideItem::SetText(const std::wstring& text)
 {
     m_text = text;
     m_text.erase(std::remove(m_text.begin(), m_text.end(), '"'), m_text.end());
 }
 
-std::string GuideItem::GetText()
+std::wstring GuideItem::GetText()
 {
     return m_text;
 }
@@ -56,10 +56,10 @@ Guide* Guide::GetObj()
     return obj;
 }
 
-void Guide::Init(const std::string& csvfile,
+void Guide::Init(const std::wstring& csvfile,
                  const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
@@ -67,7 +67,7 @@ void Guide::Init(const std::string& csvfile,
         guideItem.SetCategory(vvs.at(i).at(1));
         guideItem.SetSubCategory(vvs.at(i).at(2));
         guideItem.SetText(vvs.at(i).at(3));
-        if (vvs.at(i).at(4) == "○")
+        if (vvs.at(i).at(4) == _T("○"))
         {
             guideItem.SetVisible(true);
         }
@@ -85,9 +85,9 @@ void Guide::Destroy()
     Guide::obj = nullptr;
 }
 
-std::vector<std::string> Guide::GetCategoryList()
+std::vector<std::wstring> Guide::GetCategoryList()
 {
-    std::vector<std::string> vs;
+    std::vector<std::wstring> vs;
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
         auto result = std::find(vs.begin(), vs.end(), m_guideList.at(i).GetCategory());
@@ -101,9 +101,9 @@ std::vector<std::string> Guide::GetCategoryList()
     return vs;
 }
 
-std::vector<std::string> Guide::GetSubCategoryList(const std::string& category)
+std::vector<std::wstring> Guide::GetSubCategoryList(const std::wstring& category)
 {
-    std::vector<std::string> vs;
+    std::vector<std::wstring> vs;
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
         if (m_guideList.at(i).GetCategory() == category)
@@ -114,9 +114,9 @@ std::vector<std::string> Guide::GetSubCategoryList(const std::string& category)
     return vs;
 }
 
-std::string Guide::GetText(const std::string& category, const std::string& subCategory)
+std::wstring Guide::GetText(const std::wstring& category, const std::wstring& subCategory)
 {
-    std::string result;
+    std::wstring result;
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
         if (m_guideList.at(i).GetCategory() == category)
@@ -131,7 +131,7 @@ std::string Guide::GetText(const std::string& category, const std::string& subCa
     return result;
 }
 
-bool Guide::GetVisible(const std::string& category, const std::string& subCategory)
+bool Guide::GetVisible(const std::wstring& category, const std::wstring& subCategory)
 {
     bool result = false;
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
@@ -148,7 +148,7 @@ bool Guide::GetVisible(const std::string& category, const std::string& subCatego
     return result;
 }
 
-void Guide::SetVisible(const std::string& category, const std::string& subCategory)
+void Guide::SetVisible(const std::wstring& category, const std::wstring& subCategory)
 {
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
@@ -163,36 +163,36 @@ void Guide::SetVisible(const std::string& category, const std::string& subCatego
     }
 }
 
-void Guide::Save(const std::string& csvfile,
+void Guide::Save(const std::wstring& csvfile,
                  const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("大分類");
-    vs.push_back("小分類");
-    vs.push_back("説明文");
-    vs.push_back("表示済み");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("大分類"));
+    vs.push_back(_T("小分類"));
+    vs.push_back(_T("説明文"));
+    vs.push_back(_T("表示済み"));
     vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
-        vs.push_back(std::to_string(i+1));
+        vs.push_back(std::to_wstring(i+1));
         vs.push_back(m_guideList.at(i).GetCategory());
         vs.push_back(m_guideList.at(i).GetSubCategory());
 
         // ダブルクォートを戦闘と末尾に付与する
-        std::string work;
+        std::wstring work;
         work = m_guideList.at(i).GetText();
-        work = "\"" + work + "\"";
+        work = _T("\"") + work + _T("\"");
         vs.push_back(work);
         if (m_guideList.at(i).GetVisible())
         {
-            vs.push_back("○");
+            vs.push_back(_T("○"));
         }
         else
         {
-            vs.push_back("");
+            vs.push_back(_T(""));
         }
         vvs.push_back(vs);
         vs.clear();

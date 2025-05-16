@@ -23,24 +23,24 @@ public:
     static Help* Get();
     static void Destroy();
 
-    void Init(const std::string& filepath);
+    void Init(const std::wstring& filepath);
     void Update();
-    void Save(const std::string& filepath);
+    void Save(const std::wstring& filepath);
 
     // 16時以降に話しかけたら受け取れる。
     // 受け取ったら消失。
     // 受け取らずに翌日の16時になったら新しいアイテムになり、古いものは消失
     // 10個まで
-    std::vector<ItemDef> ReceiveItems(const std::string& npcName);
+    std::vector<ItemDef> ReceiveItems(const std::wstring& npcName);
 
-    bool Received(const std::string& npcName);
-    bool CanReceive(const std::string& npcName);
+    bool Received(const std::wstring& npcName);
+    bool CanReceive(const std::wstring& npcName);
 
 private:
 
     static Help* m_obj;
 
-    std::map<std::string, std::vector<ItemDef>> m_presentMap;
+    std::map<std::wstring, std::vector<ItemDef>> m_presentMap;
 
     // 16時を超えたら翌日の日付を保存し、現在の日付とする
     int m_previousYear = 0;
@@ -49,9 +49,9 @@ private:
     int m_previousHour = 0;
 
     // アイテムを渡し済みか
-    std::map<std::string, bool> m_presented;
+    std::map<std::wstring, bool> m_presented;
 
-    std::vector<ItemDef> GetRandomItem(const std::string& npcName);
+    std::vector<ItemDef> GetRandomItem(const std::wstring& npcName);
 
     bool CrossOver16();
 

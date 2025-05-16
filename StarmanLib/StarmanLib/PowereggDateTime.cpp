@@ -21,10 +21,10 @@ void PowereggDateTime::Destroy()
     PowereggDateTime::obj = nullptr;
 }
 
-void PowereggDateTime::Init(const std::string& csvfile,
+void PowereggDateTime::Init(const std::wstring& csvfile,
                             const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     m_year = std::stoi(vvs.at(0).at(1));
     m_month = std::stoi(vvs.at(1).at(1));
@@ -34,40 +34,40 @@ void PowereggDateTime::Init(const std::string& csvfile,
     m_second = std::stoi(vvs.at(5).at(1));
 }
 
-void PowereggDateTime::Save(const std::string& csvfile,
+void PowereggDateTime::Save(const std::wstring& csvfile,
                             const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
     int work = 0;
 
-    vs.push_back("年");
-    vs.push_back(std::to_string(m_year));
+    vs.push_back(_T("年"));
+    vs.push_back(std::to_wstring(m_year));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("月");
-    vs.push_back(std::to_string(m_month));
+    vs.push_back(_T("月"));
+    vs.push_back(std::to_wstring(m_month));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("日");
-    vs.push_back(std::to_string(m_day));
+    vs.push_back(_T("日"));
+    vs.push_back(std::to_wstring(m_day));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("時");
-    vs.push_back(std::to_string(m_hour));
+    vs.push_back(_T("時"));
+    vs.push_back(std::to_wstring(m_hour));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("分");
-    vs.push_back(std::to_string(m_minute));
+    vs.push_back(_T("分"));
+    vs.push_back(std::to_wstring(m_minute));
     vvs.push_back(vs);
     vs.clear();
 
-    vs.push_back("秒");
-    vs.push_back(std::to_string(m_second));
+    vs.push_back(_T("秒"));
+    vs.push_back(std::to_wstring(m_second));
     vvs.push_back(vs);
     vs.clear();
 

@@ -18,15 +18,15 @@ class Storehouse
 {
 public:
 
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
     // 一個ずつしか増加減出来ない想定
     void AddItem(const int id, const int durability = -1);
-    void AddItem(const std::string name, const int level = -1, const int durability = -1);
+    void AddItem(const std::wstring name, const int level = -1, const int durability = -1);
 
     // SubIDを指定してアイテムを追加（インベントリから倉庫へアイテムを移動するときに使う）
     // インベントリでアイテムを削除してから追加する必要がある。
@@ -38,7 +38,7 @@ public:
     // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
     // アイテムは削除できるのでSubIDが連番になるとは限らない
     void RemoveItem(const int id, const int subId);
-    void RemoveItem(const std::string name, const int subId, const int level = -1);
+    void RemoveItem(const std::wstring name, const int subId, const int level = -1);
 
     void SetItemDurability(const int id, const int subId, const int durability);
 
@@ -48,7 +48,7 @@ public:
     std::vector<int> GetSubIdList(const int id);
 
     int CountItem(const int id);
-    int CountItem(const std::string name, const int level = -1);
+    int CountItem(const std::wstring name, const int level = -1);
 
     float GetWeight();
 
@@ -60,8 +60,8 @@ public:
     void SetIsRaft(const bool arg);
     bool GetIsRaft() const;
 
-    void SetCsvFileName(const std::string arg);
-    std::string GetCsvFileName() const;
+    void SetCsvFileName(const std::wstring arg);
+    std::wstring GetCsvFileName() const;
 
 private:
 
@@ -70,7 +70,7 @@ private:
     void Sort();
 
     // 所持品の重量（武器は含めない）
-    float m_weight;
+    float m_weight = 0.f;
 
     // 所持品リスト
     // 同じアイテムを複数所持できることに注意
@@ -84,7 +84,7 @@ private:
     bool m_bRaft = false;
 
     // ディレクトリを除いた、ファイル名。
-    std::string m_csvfilename;
+    std::wstring m_csvfilename;
 };
 
 // 倉庫管理クラス
@@ -97,11 +97,11 @@ public:
     static StorehouseManager* Get();
     static void Destroy();
 
-    void Init(const std::string& csvfile);
+    void Init(const std::wstring& csvfile);
     bool Inited();
 
-    void Save(const std::string& managerFile,
-              const std::string& csvDir);
+    void Save(const std::wstring& managerFile,
+              const std::wstring& csvDir);
 
     std::vector<int> GetStorehouseIdList();
 

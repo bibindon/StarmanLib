@@ -5,6 +5,7 @@
 #include <iterator>
 #include <string>
 #include <cassert>
+#include <tchar.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -25,33 +26,33 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            std::vector<std::string> vs = obj->GetNameList();
+            obj->Init(_T("..\\StarmanLibTest\\mapInfoOrigin.csv"));
+            std::vector<std::wstring> vs = obj->GetNameList();
             Assert::AreEqual(vs.size() != 0, true);
         }
 
         TEST_METHOD(TestMethod03)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            std::vector<std::string> vs = obj->GetNameList();
-            Assert::AreEqual(vs.at(0) == "パワーエッグ星", true);
+            obj->Init(_T("..\\StarmanLibTest\\mapInfoOrigin.csv"));
+            std::vector<std::wstring> vs = obj->GetNameList();
+            Assert::AreEqual(vs.at(0) == _T("パワーエッグ星"), true);
         }
 
         TEST_METHOD(TestMethod04)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            bool bDiscovered = obj->IsDiscovered("プロリタン島");
+            obj->Init(_T("..\\StarmanLibTest\\mapInfoOrigin.csv"));
+            bool bDiscovered = obj->IsDiscovered(_T("プロリタン島"));
             Assert::AreEqual(bDiscovered, true);
         }
 
         TEST_METHOD(TestMethod05)
         {
             MapInfoManager* obj = MapInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-            std::string result = obj->GetImagePath("プロリタン島");
-            Assert::AreEqual("res\\\\image\\\\narrowmap2.png", result.c_str());
+            obj->Init(_T("..\\StarmanLibTest\\mapInfoOrigin.csv"));
+            std::wstring result = obj->GetImagePath(_T("プロリタン島"));
+            Assert::AreEqual(_T("res\\\\image\\\\narrowmap2.png"), result.c_str());
         }
 
         // 保存したときの内容が正しいか確認
@@ -59,15 +60,15 @@ namespace StarmanLibTest
         {
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\mapInfoOrigin.csv");
-                obj->SetDiscovered("プレシジョン");
-                obj->Save("..\\StarmanLibTest\\mapInfoSave.csv");
+                obj->Init(_T("..\\StarmanLibTest\\mapInfoOrigin.csv"));
+                obj->SetDiscovered(_T("プレシジョン"));
+                obj->Save(_T("..\\StarmanLibTest\\mapInfoSave.csv"));
                 MapInfoManager::Destroy();
             }
             {
                 MapInfoManager* obj = MapInfoManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\mapInfoSave.csv");
-                bool bDiscovered = obj->IsDiscovered("プレシジョン");
+                obj->Init(_T("..\\StarmanLibTest\\mapInfoSave.csv"));
+                bool bDiscovered = obj->IsDiscovered(_T("プレシジョン"));
                 Assert::AreEqual(bDiscovered, true);
             }
         }

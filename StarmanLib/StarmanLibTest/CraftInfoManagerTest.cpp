@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include <tchar.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -22,13 +23,13 @@ namespace StarmanLibTest
         TEST_METHOD_INITIALIZE(Initialize)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             Inventory* inventory = Inventory::GetObj();
-            inventory->Init("..\\StarmanLibTest\\inventory.csv");
+            inventory->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
             StorehouseManager* storehouseManager = StorehouseManager::Get();
-            storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
+            storehouseManager->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
         }
 
         TEST_METHOD_CLEANUP(CleanUp)
@@ -49,7 +50,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftDef.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
             Assert::AreEqual(obj != nullptr, true);
             CraftInfoManager::Destroy();
         }
@@ -57,7 +58,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftDef.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
             std::vector<CraftOutput> work = obj->GetCraftItemList();
             Assert::AreEqual((int)work.size(), 57);
             CraftInfoManager::Destroy();
@@ -66,12 +67,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftDef.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
             std::vector<CraftOutput> work = obj->GetCraftItemList();
 
             {
-                std::string work_sz = work.at(0).GetName();
-                Assert::AreEqual(work_sz == "イカダ", true);
+                std::wstring work_sz = work.at(0).GetName();
+                Assert::AreEqual(work_sz == _T("イカダ"), true);
 
                 int work_i = 0;
 
@@ -82,8 +83,8 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_i == -1, true);
             }
             {
-                std::string work_sz = work.at(1).GetName();
-                Assert::AreEqual(work_sz == "イカダ", true);
+                std::wstring work_sz = work.at(1).GetName();
+                Assert::AreEqual(work_sz == _T("イカダ"), true);
 
                 int work_i = 0;
 
@@ -94,8 +95,8 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_i == 1, true);
             }
             {
-                std::string work_sz = work.at(56).GetName();
-                Assert::AreEqual(work_sz.c_str(), "アトラトルに使う槍");
+                std::wstring work_sz = work.at(56).GetName();
+                Assert::AreEqual(work_sz.c_str(), _T("アトラトルに使う槍"));
 
                 int work_i = 0;
 
@@ -111,17 +112,17 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             CraftInfoManager* obj = CraftInfoManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftDef.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
             std::vector<CraftOutput> work = obj->GetCraftItemList();
 
             {
                 CraftInfo craftInfo = obj->GetCraftInfo(work.at(0));
-                std::string work_sz;
+                std::wstring work_sz;
                 int work_i = 0;
 
                 // 素材１
                 work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
-                Assert::AreEqual(work_sz == "細い木の幹", true);
+                Assert::AreEqual(work_sz == _T("細い木の幹"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
@@ -131,7 +132,7 @@ namespace StarmanLibTest
 
                 // 素材２
                 work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
-                Assert::AreEqual(work_sz == "ツタ", true);
+                Assert::AreEqual(work_sz == _T("ツタ"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 100, true);
@@ -141,12 +142,12 @@ namespace StarmanLibTest
             }
             {
                 CraftInfo craftInfo = obj->GetCraftInfo(work.at(56));
-                std::string work_sz;
+                std::wstring work_sz;
                 int work_i = 0;
 
                 // 素材１
                 work_sz = craftInfo.GetCraftMaterialDef(0).GetName();
-                Assert::AreEqual(work_sz == "木の枝", true);
+                Assert::AreEqual(work_sz == _T("木の枝"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
@@ -156,7 +157,7 @@ namespace StarmanLibTest
 
                 // 素材２
                 work_sz = craftInfo.GetCraftMaterialDef(1).GetName();
-                Assert::AreEqual(work_sz == "いい形の石（槍）", true);
+                Assert::AreEqual(work_sz == _T("いい形の石（槍）"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
                 Assert::AreEqual(work_i == 1, true);
@@ -166,7 +167,7 @@ namespace StarmanLibTest
 
                 // 素材３
                 work_sz = craftInfo.GetCraftMaterialDef(2).GetName();
-                Assert::AreEqual(work_sz == "ツタ", true);
+                Assert::AreEqual(work_sz == _T("ツタ"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(2).GetNumber();
                 Assert::AreEqual(work_i == 2, true);

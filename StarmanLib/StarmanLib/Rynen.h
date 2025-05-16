@@ -20,9 +20,9 @@ public:
 
     static Rynen* GetObj();
     static void Destroy();
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
     void SetContracted(const bool arg);

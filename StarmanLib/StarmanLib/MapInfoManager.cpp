@@ -6,17 +6,17 @@ using namespace NSStarmanLib;
 
 MapInfoManager* MapInfoManager::obj { nullptr };
 
-void MapInfo::SetName(const std::string& name)
+void MapInfo::SetName(const std::wstring& name)
 {
     m_name = name;
 }
 
-std::string MapInfo::GetName()
+std::wstring MapInfo::GetName()
 {
     return m_name;
 }
 
-void MapInfo::SetDetail(const std::string& detail)
+void MapInfo::SetDetail(const std::wstring& detail)
 {
     m_detail = detail;
 
@@ -24,7 +24,7 @@ void MapInfo::SetDetail(const std::string& detail)
     m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
-std::string MapInfo::GetDetail()
+std::wstring MapInfo::GetDetail()
 {
     return m_detail;
 }
@@ -41,12 +41,12 @@ void MapInfo::GetPos(int* x, int* y)
     *y = m_y;
 }
 
-void NSStarmanLib::MapInfo::SetImagePath(const std::string& imagePath)
+void NSStarmanLib::MapInfo::SetImagePath(const std::wstring& imagePath)
 {
     m_imagePath = imagePath;
 }
 
-std::string NSStarmanLib::MapInfo::GetImagePath()
+std::wstring NSStarmanLib::MapInfo::GetImagePath()
 {
     return m_imagePath;
 }
@@ -70,16 +70,16 @@ MapInfoManager* MapInfoManager::GetObj()
     return obj;
 }
 
-void MapInfoManager::Init(const std::string& csvfile,
+void MapInfoManager::Init(const std::wstring& csvfile,
                           const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         MapInfo mapInfo;
         mapInfo.SetName(vvs.at(i).at(1));
-        if (vvs.at(i).at(2) == "○")
+        if (vvs.at(i).at(2) == _T("○"))
         {
             mapInfo.SetDiscovered(true);
         }
@@ -103,9 +103,9 @@ void MapInfoManager::Destroy()
     MapInfoManager::obj = nullptr;
 }
 
-std::vector<std::string> MapInfoManager::GetNameList()
+std::vector<std::wstring> MapInfoManager::GetNameList()
 {
-    std::vector<std::string> vs;
+    std::vector<std::wstring> vs;
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
     {
         vs.push_back(m_mapInfoList.at(i).GetName());
@@ -113,7 +113,7 @@ std::vector<std::string> MapInfoManager::GetNameList()
     return vs;
 }
 
-bool MapInfoManager::IsDiscovered(const std::string& name)
+bool MapInfoManager::IsDiscovered(const std::wstring& name)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
@@ -122,7 +122,7 @@ bool MapInfoManager::IsDiscovered(const std::string& name)
     return it->IsDiscovered();
 }
 
-void MapInfoManager::SetDiscovered(const std::string& name)
+void MapInfoManager::SetDiscovered(const std::wstring& name)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
@@ -131,7 +131,7 @@ void MapInfoManager::SetDiscovered(const std::string& name)
     return it->SetDiscovered(true);
 }
 
-std::string MapInfoManager::GetDetail(const std::string& name)
+std::wstring MapInfoManager::GetDetail(const std::wstring& name)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
@@ -140,7 +140,7 @@ std::string MapInfoManager::GetDetail(const std::string& name)
     return it->GetDetail();
 }
 
-void MapInfoManager::GetPos(const std::string& name, int* x, int* y)
+void MapInfoManager::GetPos(const std::wstring& name, int* x, int* y)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
@@ -149,7 +149,7 @@ void MapInfoManager::GetPos(const std::string& name, int* x, int* y)
     it->GetPos(x, y);
 }
 
-std::string NSStarmanLib::MapInfoManager::GetImagePath(const std::string& name)
+std::wstring NSStarmanLib::MapInfoManager::GetImagePath(const std::wstring& name)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
@@ -158,41 +158,41 @@ std::string NSStarmanLib::MapInfoManager::GetImagePath(const std::string& name)
     return it->GetImagePath();
 }
 
-void MapInfoManager::Save(const std::string& csvfile,
+void MapInfoManager::Save(const std::wstring& csvfile,
                           const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("地名");
-    vs.push_back("発見済み");
-    vs.push_back("説明文");
-    vs.push_back("X");
-    vs.push_back("Y");
-    vs.push_back("画像ファイル名");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("地名"));
+    vs.push_back(_T("発見済み"));
+    vs.push_back(_T("説明文"));
+    vs.push_back(_T("X"));
+    vs.push_back(_T("Y"));
+    vs.push_back(_T("画像ファイル名"));
     vvs.push_back(vs);
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
     {
-        vs.push_back(std::to_string(i+1));
+        vs.push_back(std::to_wstring(i+1));
         vs.push_back(m_mapInfoList.at(i).GetName());
         if (m_mapInfoList.at(i).IsDiscovered())
         {
-            vs.push_back("○");
+            vs.push_back(_T("○"));
         }
         else
         {
-            vs.push_back("");
+            vs.push_back(_T(""));
         }
-        std::string work = m_mapInfoList.at(i).GetDetail();
-        work = "\"" + work + "\"";
+        std::wstring work = m_mapInfoList.at(i).GetDetail();
+        work = _T("\"") + work + _T("\"");
         vs.push_back(work);
 
         int x = 0;
         int y = 0;
         m_mapInfoList.at(i).GetPos(&x, &y);
-        vs.push_back(std::to_string(x));
-        vs.push_back(std::to_string(y));
+        vs.push_back(std::to_wstring(x));
+        vs.push_back(std::to_wstring(y));
 
         vs.push_back(m_mapInfoList.at(i).GetImagePath());
 

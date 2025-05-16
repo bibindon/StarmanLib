@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iterator>
 #include <string>
+#include <tchar.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -25,33 +26,33 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
             ItemManager::Destroy();
         }
 
         TEST_METHOD(TestMethod03)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("スマホ");
-            Assert::AreEqual(itemDef.GetImagePath() == "sumaho.png", true);
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
+            ItemDef itemDef = obj->GetItemDef(_T("スマホ"));
+            Assert::AreEqual(itemDef.GetImagePath() == _T("sumaho.png"), true);
             ItemManager::Destroy();
         }
 
         TEST_METHOD(TestMethod04)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("黒い貝");
-            Assert::AreEqual(itemDef.GetImagePath() == "mussels.png", true);
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
+            ItemDef itemDef = obj->GetItemDef(_T("黒い貝"));
+            Assert::AreEqual(itemDef.GetImagePath() == _T("mussels.png"), true);
             ItemManager::Destroy();
         }
 
         TEST_METHOD(TestMethod05)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("黒い貝");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
+            ItemDef itemDef = obj->GetItemDef(_T("黒い貝"));
             Assert::AreEqual(itemDef.GetType() == ItemDef::ItemType::FOOD, true);
             ItemManager::Destroy();
         }
@@ -59,8 +60,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             ItemManager* obj = ItemManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
-            ItemDef itemDef = obj->GetItemDef("黒い貝");
+            obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
+            ItemDef itemDef = obj->GetItemDef(_T("黒い貝"));
             Assert::AreEqual(itemDef.GetWater(), 10.f);
             ItemManager::Destroy();
         }

@@ -2,18 +2,19 @@
 
 #include <string>
 #include <vector>
+#include <tchar.h>
 
 class Util
 {
 public:
-    static std::vector<std::vector<std::string>>
-        ReadFromCsv(const std::string& filename, const bool decrypt);
+    static std::vector<std::vector<std::wstring>>
+        ReadFromCsv(const std::wstring& filename, const bool decrypt);
 
-    static void WriteToCsv(const std::string& filename,
-                           const std::vector<std::vector<std::string>>& vvs,
+    static void WriteToCsv(const std::wstring& filename,
+                           const std::vector<std::vector<std::wstring>>& vvs,
                            const bool encrypt);
 
-    static std::vector<std::string> split(const std::string& s, char delim = ':');
+    static std::vector<std::wstring> split(const std::wstring& s, wchar_t delim = ':');
 
     static bool HitByBoundingBox(const float x1, const float y1, const float z1,
                                  const float x2, const float y2, const float z2,

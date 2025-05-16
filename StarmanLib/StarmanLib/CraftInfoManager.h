@@ -15,8 +15,8 @@ public:
     void SetId(const int arg);
     int GetId() const;
 
-    void SetName(const std::string& arg);
-    std::string GetName() const;
+    void SetName(const std::wstring& arg);
+    std::wstring GetName() const;
 
     void SetNumber(const int arg);
     int GetNumber() const;
@@ -29,7 +29,7 @@ private:
     int m_id = 0;
 
     // 素材の名前
-    std::string m_name;
+    std::wstring m_name;
     
     // 素材の必要数
     int m_number = 0;
@@ -44,8 +44,8 @@ class CraftOutput
 {
 public:
 
-    void SetName(const std::string& arg);
-    std::string GetName() const;
+    void SetName(const std::wstring& arg);
+    std::wstring GetName() const;
 
     void SetNumber(const int arg);
     int GetNumber() const;
@@ -56,7 +56,7 @@ public:
 private:
 
     // 完成品の名前
-    std::string m_name;
+    std::wstring m_name;
     
     // 完成品の出力数
     int m_number = 0;
@@ -105,14 +105,14 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfileDefinition,
+    void Init(const std::wstring& csvfileDefinition,
               const bool decrypt = false);
     bool Inited();
 
     std::vector<CraftOutput> GetCraftItemList();
 
     CraftInfo GetCraftInfo(const CraftOutput& output);
-    CraftInfo GetCraftInfo(const std::string& name, const int num, const int level);
+    CraftInfo GetCraftInfo(const std::wstring& name, const int num, const int level);
 
 private:
 

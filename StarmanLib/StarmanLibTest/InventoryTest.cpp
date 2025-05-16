@@ -26,10 +26,10 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             Inventory* obj = Inventory::GetObj();
-            obj->Init("..\\StarmanLibTest\\inventory.csv");
+            obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
             Inventory::Destroy();
 
             ItemManager::Destroy();
@@ -38,10 +38,10 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             Inventory* obj = Inventory::GetObj();
-            obj->Init("..\\StarmanLibTest\\inventory.csv");
+            obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
             float weight = obj->GetWeight();
             // floatは7桁しか有効桁数がない。4桁の数値同士の比較なら、小数点以下は3桁までしか正確じゃない。
             // 繰り返し掛け算と足し算を行うので7桁もない。課題
@@ -55,10 +55,10 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             Inventory* obj = Inventory::GetObj();
-            obj->Init("..\\StarmanLibTest\\inventory.csv");
+            obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
             Assert::AreEqual(obj->CountItem(1), 10);
             Assert::AreEqual(obj->CountItem(37), 10);
             obj->AddItem(1);
@@ -78,24 +78,24 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+                itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("..\\StarmanLibTest\\inventory.csv");
+                obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
                 obj->AddItem(1);
                 obj->AddItem(37);
                 Assert::AreEqual(obj->CountItem(1), 11);
                 Assert::AreEqual(obj->CountItem(37), 11);
-                obj->Save("..\\StarmanLibTest\\inventorySave.csv");
+                obj->Save(_T("..\\StarmanLibTest\\inventorySave.csv"));
                 Inventory::Destroy();
                 ItemManager::Destroy();
             }
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+                itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("..\\StarmanLibTest\\inventorySave.csv");
+                obj->Init(_T("..\\StarmanLibTest\\inventorySave.csv"));
                 Assert::AreEqual(obj->CountItem(1), 11);
                 Assert::AreEqual(obj->CountItem(37), 11);
                 Inventory::Destroy();
@@ -113,10 +113,10 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+                itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("..\\StarmanLibTest\\inventory.csv");
+                obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
                 obj->AddItem(1);
                 obj->AddItem(37);
@@ -148,10 +148,10 @@ namespace StarmanLibTest
         {
             {
                 ItemManager* itemManager = ItemManager::GetObj();
-                itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+                itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
                 Inventory* obj = Inventory::GetObj();
-                obj->Init("..\\StarmanLibTest\\inventory.csv");
+                obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
                 obj->RemoveItem(3, 1);
                 obj->RemoveItem(3, 2);

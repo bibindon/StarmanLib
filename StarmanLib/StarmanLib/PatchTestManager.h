@@ -25,8 +25,8 @@ public:
         NOT_POISON,
     };
 
-    void SetItemName(const std::string& arg);
-    std::string GetItemName() const;
+    void SetItemName(const std::wstring& arg);
+    std::wstring GetItemName() const;
 
     // 依頼日時
     void SetDateTimeReq(const int y, const int M, const int d,
@@ -54,7 +54,7 @@ public:
 
 private:
 
-    std::string m_itemName;
+    std::wstring m_itemName;
     eState m_eState = eState::NOT_START;
     eResult m_eResult = eResult::NOT_YET;
 
@@ -109,8 +109,8 @@ class PatchItemInfo
 {
 public:
 
-    void SetName(const std::string arg);
-    std::string GetName() const;
+    void SetName(const std::wstring arg);
+    std::wstring GetName() const;
 
     void SetPoison(const bool arg);
     bool GetPoison() const;
@@ -123,7 +123,7 @@ public:
 
 private:
 
-    std::string m_name;
+    std::wstring m_name;
     bool m_poison = false;
 
     // パッチテストされた回数
@@ -140,24 +140,24 @@ public:
 
     static PatchTestManager* Get();
     static void Destroy();
-    void Init(const std::string& originFile,
-              const std::string& saveFileInfo,
-              const std::string& saveFileQue);
+    void Init(const std::wstring& originFile,
+              const std::wstring& saveFileInfo,
+              const std::wstring& saveFileQue);
 
-    void Save(const std::string& csvfileInfo,
-              const std::string& csvfileQue);
+    void Save(const std::wstring& csvfileInfo,
+              const std::wstring& csvfileQue);
 
     // 現実世界で1秒に一回呼ばれる想定
     void Update();
 
-    bool QueuePatchTest(const std::string& patchTest);
+    bool QueuePatchTest(const std::wstring& patchTest);
     std::vector<PatchTest> GetQueue();
 
     // 直近の3回のテスト結果を取得できると便利かもしれない。
     // GUIで表示したい。
-    std::vector<PatchTest> GetResultList(const std::string& name);
+    std::vector<PatchTest> GetResultList(const std::wstring& name);
 
-    std::vector<std::string> GetKeyList();
+    std::vector<std::wstring> GetKeyList();
 
 private:
 
@@ -170,9 +170,9 @@ private:
     // アイテム情報リスト
     // 毒、毒じゃない、はあらかじめ決まっていない。
     // ゲーム開始時にランダムで決まる
-    std::map<std::string, PatchItemInfo> m_infoMap;
+    std::map<std::wstring, PatchItemInfo> m_infoMap;
 
-    std::vector<std::string> m_keyList;
+    std::vector<std::wstring> m_keyList;
 };
 }
 

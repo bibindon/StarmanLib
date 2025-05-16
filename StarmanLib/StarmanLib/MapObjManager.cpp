@@ -126,12 +126,12 @@ NSStarmanLib::MapObjManager* NSStarmanLib::MapObjManager::GetObj()
     return obj;
 }
 
-void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
-                                       const std::string& csvModelId,
+void NSStarmanLib::MapObjManager::Init(const std::wstring& csvfile,
+                                       const std::wstring& csvModelId,
                                        const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
@@ -157,7 +157,7 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
 
             work.m_scale = std::stof(vvs.at(i).at(6));
 
-            if (vvs.at(i).at(7) == "y")
+            if (vvs.at(i).at(7) == _T("y"))
             {
                 work.m_visible = true;
             }
@@ -170,7 +170,7 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
         }
     }
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
@@ -179,14 +179,14 @@ void NSStarmanLib::MapObjManager::Init(const std::string& csvfile,
     }
 }
 
-void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
-                                                 const std::string& csvModelId,
+void NSStarmanLib::MapObjManager::InitWithBinary(const std::wstring& binFile,
+                                                 const std::wstring& csvModelId,
                                                  const bool decrypt)
 {
     {
         std::vector<NSStarmanLib::stMapObj> stMapObjList;
 
-        std::ifstream inFile(binFile, std::ios::binary);
+        std::wifstream inFile(binFile, std::ios::binary);
         if (inFile.is_open() == false)
         {
             throw std::exception();
@@ -195,13 +195,13 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
         size_t size = 0;
 
         // ベクターサイズを読み込む
-        inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
+        inFile.read(reinterpret_cast<wchar_t*>(&size), sizeof(size));
 
         // ベクターサイズを設定
         stMapObjList.resize(size);
 
         // データ本体を読み込む
-        inFile.read(reinterpret_cast<char*>(stMapObjList.data()),
+        inFile.read(reinterpret_cast<wchar_t*>(stMapObjList.data()),
                     static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         inFile.close();
@@ -218,7 +218,7 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
     }
 
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvModelId, decrypt);
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
@@ -227,7 +227,7 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::string& binFile,
     }
 }
 
-void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
+void NSStarmanLib::MapObjManager::Save(const std::wstring& csvfile,
                                        const bool encrypt)
 {
     std::vector<stMapObj> work;
@@ -249,38 +249,38 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
                   return x1.m_id < x2.m_id;
               });
 
-    std::vector<std::vector<std::string> > vvs;
-    std::vector<std::string> vs;
-    std::string work_str;
+    std::vector<std::vector<std::wstring> > vvs;
+    std::vector<std::wstring> vs;
+    std::wstring work_str;
 
     vs.clear();
-    vs.push_back("ID");
-    vs.push_back("モデルID");
-    vs.push_back("X");
-    vs.push_back("Y");
-    vs.push_back("Z");
-    vs.push_back("RotY");
-    vs.push_back("Scale");
-    vs.push_back("表示");
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("モデルID"));
+    vs.push_back(_T("X"));
+    vs.push_back(_T("Y"));
+    vs.push_back(_T("Z"));
+    vs.push_back(_T("RotY"));
+    vs.push_back(_T("Scale"));
+    vs.push_back(_T("表示"));
     vvs.push_back(vs);
 
     for (int i = 0; i < (int)work.size(); ++i)
     {
         vs.clear();
-        vs.push_back(std::to_string(work.at(i).m_id));
-        vs.push_back(std::to_string(work.at(i).m_modelId));
-        vs.push_back(std::to_string(work.at(i).m_x));
-        vs.push_back(std::to_string(work.at(i).m_y));
-        vs.push_back(std::to_string(work.at(i).m_z));
-        vs.push_back(std::to_string(work.at(i).m_yRot));
-        vs.push_back(std::to_string(work.at(i).m_scale));
+        vs.push_back(std::to_wstring(work.at(i).m_id));
+        vs.push_back(std::to_wstring(work.at(i).m_modelId));
+        vs.push_back(std::to_wstring(work.at(i).m_x));
+        vs.push_back(std::to_wstring(work.at(i).m_y));
+        vs.push_back(std::to_wstring(work.at(i).m_z));
+        vs.push_back(std::to_wstring(work.at(i).m_yRot));
+        vs.push_back(std::to_wstring(work.at(i).m_scale));
         if (work.at(i).m_visible)
         {
-            vs.push_back("y");
+            vs.push_back(_T("y"));
         }
         else
         {
-            vs.push_back("n");
+            vs.push_back(_T("n"));
         }
 
         vvs.push_back(vs);
@@ -289,7 +289,7 @@ void NSStarmanLib::MapObjManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binFile)
+void NSStarmanLib::MapObjManager::SaveWithBinary(const std::wstring& binFile)
 {
     std::vector<stMapObj> stMapObjList;
 
@@ -310,16 +310,16 @@ void NSStarmanLib::MapObjManager::SaveWithBinary(const std::string& binFile)
                   return x1.m_id < x2.m_id;
               });
 
-    std::ofstream outFile(binFile, std::ios::binary);
+    std::wofstream outFile(binFile, std::ios::binary);
     if (outFile.is_open())
     {
         size_t size = stMapObjList.size();
 
         // ベクターサイズを書き込む
-        outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+        outFile.write(reinterpret_cast<const wchar_t*>(&size), sizeof(size));
 
         // データ本体を書き込む
-        outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
+        outFile.write(reinterpret_cast<const wchar_t*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         outFile.close();
@@ -632,17 +632,17 @@ void NSStarmanLib::MapObjManager::SetVisible(const int frame_x,
     it->m_visible = visible;
 }
 
-std::string NSStarmanLib::MapObjManager::GetModelName(const int id)
+std::wstring NSStarmanLib::MapObjManager::GetModelName(const int id)
 {
     return m_XnameMap.at(id);
 }
 
-int NSStarmanLib::MapObjManager::GetModelId(const std::string& name)
+int NSStarmanLib::MapObjManager::GetModelId(const std::wstring& name)
 {
     int id = -1;
     for (auto it = m_XnameMap.begin(); it != m_XnameMap.end(); ++it)
     {
-        if (it->second.find(name) != std::string::npos)
+        if (it->second.find(name) != std::wstring::npos)
         {
             id = it->first;
             break;

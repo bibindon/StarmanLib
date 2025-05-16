@@ -79,7 +79,7 @@ struct stMapObj
     int m_frameX = 0;
     int m_frameZ = 0;
 
-    int m_modelId;
+    int m_modelId = 0;
 
     float m_x = 0.f;
     float m_y = 0.f;
@@ -104,19 +104,19 @@ public:
 
     static MapObjManager* GetObj();
 
-    void Init(const std::string& csvfile,
-              const std::string& csvModelId,
+    void Init(const std::wstring& csvfile,
+              const std::wstring& csvModelId,
               const bool decrypt = false);
 
     // バイナリファイルで読み書きする
-    void InitWithBinary(const std::string& binfile,
-                        const std::string& csvModelId,
+    void InitWithBinary(const std::wstring& binfile,
+                        const std::wstring& csvModelId,
                         const bool decrypt = false);
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
-    void SaveWithBinary(const std::string& binfile);
+    void SaveWithBinary(const std::wstring& binfile);
 
     static void Destroy();
 
@@ -142,8 +142,8 @@ public:
 
     void SetVisible(const int frame_x, const int frame_z, const int id, const bool visible);
 
-    std::string GetModelName(const int id);
-    int GetModelId(const std::string& name);
+    std::wstring GetModelName(const int id);
+    int GetModelId(const std::wstring& name);
 
     // Show/Hideをすべてリセット
     void ResetShow();
@@ -161,7 +161,7 @@ private:
     // tree.x -> 1
     // rock.x -> 2
     // のような識別子を与えるようにする
-    std::unordered_map<int, std::string> m_XnameMap;
+    std::unordered_map<int, std::wstring> m_XnameMap;
 
     bool m_bBinData = false;
 };

@@ -21,7 +21,7 @@ void CraftInfoManager::Destroy()
     CraftInfoManager::obj = nullptr;
 }
 
-void CraftInfoManager::Init(const std::string& csvfileDefinition,
+void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
                             const bool decrypt)
 {
     ItemManager* itemManager = ItemManager::GetObj();
@@ -31,7 +31,7 @@ void CraftInfoManager::Init(const std::string& csvfileDefinition,
         throw std::exception("not inited");
     }
 
-    std::vector<std::vector<std::string> > vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
+    std::vector<std::vector<std::wstring> > vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
@@ -134,7 +134,7 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
     return m_craftInfoList.at(i);
 }
 
-CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::string& name,
+CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& name,
                                                        const int num,
                                                        const int level)
 {
@@ -165,12 +165,12 @@ int NSStarmanLib::CraftMaterial::GetId() const
     return m_id;
 }
 
-void CraftMaterial::SetName(const std::string& arg)
+void CraftMaterial::SetName(const std::wstring& arg)
 {
     m_name = arg;
 }
 
-std::string CraftMaterial::GetName() const
+std::wstring CraftMaterial::GetName() const
 {
     return m_name;
 }
@@ -195,12 +195,12 @@ int CraftMaterial::GetLevel() const
     return m_level;
 }
 
-void CraftOutput::SetName(const std::string& arg)
+void CraftOutput::SetName(const std::wstring& arg)
 {
     m_name = arg;
 }
 
-std::string CraftOutput::GetName() const
+std::wstring CraftOutput::GetName() const
 {
     return m_name;
 }

@@ -12,9 +12,9 @@ namespace CsvToBinTest
         
         TEST_METHOD(TestMethod1)
         {
-            WriteBinary("..\\CsvToBinTest\\map_obj.csv");
+            WriteBinary(_T("..\\CsvToBinTest\\map_obj.csv"));
 
-            BOOL result = PathFileExists("..\\CsvToBinTest\\map_obj.bin");
+            BOOL result = PathFileExists(_T("..\\CsvToBinTest\\map_obj.bin"));
             Assert::AreEqual(TRUE, result);
         }
     };

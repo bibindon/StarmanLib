@@ -15,14 +15,14 @@ public:
     void SetIDDef(const int arg);
     int GetIDDef() const;
 
-    void SetName(const std::string& arg);
-    std::string GetName();
+    void SetName(const std::wstring& arg);
+    std::wstring GetName();
 
-    void SetDetail(const std::string& arg);
-    std::string GetDetail();
+    void SetDetail(const std::wstring& arg);
+    std::wstring GetDetail();
 
-    void SetImagePath(const std::string& arg);
-    std::string GetImagePath();
+    void SetImagePath(const std::wstring& arg);
+    std::wstring GetImagePath();
 
     void SetVisible(const bool arg);
     bool GetVisible() const;
@@ -33,13 +33,13 @@ private:
     int m_idDef = 0;
 
     // 説明文
-    std::string m_name;
+    std::wstring m_name;
 
     // 説明文
-    std::string m_detail;
+    std::wstring m_detail;
 
     // ファイルパス
-    std::string m_imagePath;
+    std::wstring m_imagePath;
 
     // メニューでの表示・非表示
     bool m_visible;
@@ -60,8 +60,8 @@ public:
     void SetIDDef(const int arg);
     int GetIDDef() const;
 
-    void SetBreed(const std::string& breed);
-    std::string GetBreed();
+    void SetBreed(const std::wstring& breed);
+    std::wstring GetBreed();
 
     void SetX(const float arg);
     float GetX() const { return m_x; }
@@ -96,7 +96,7 @@ private:
     int m_idDef = 0;
 
     // モンスターの種族
-    std::string m_breed;
+    std::wstring m_breed;
 
     float m_x { 0.f };
     float m_y { 0.f };
@@ -120,13 +120,13 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvEnemyDef,
-              const std::string& csvEnemyInfo,
-              const std::string& csvEnemyVisible,
+    void Init(const std::wstring& csvEnemyDef,
+              const std::wstring& csvEnemyInfo,
+              const std::wstring& csvEnemyVisible,
               const bool decrypt = false);
 
-    void Save(const std::string& csvEnemyInfo,
-              const std::string& csvEnemyVisible,
+    void Save(const std::wstring& csvEnemyInfo,
+              const std::wstring& csvEnemyVisible,
               const bool encrypt = false);
 
     // 引数で示す座標と半径の内側にいる敵を取得
@@ -134,10 +134,10 @@ public:
 
     void UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo);
 
-    std::vector<std::string> GetEnemyNameList();
+    std::vector<std::wstring> GetEnemyNameList();
 
-    EnemyDef GetEnemyDef(const std::string name);
-    void SetEnemyVisible(const std::string name, const bool visible);
+    EnemyDef GetEnemyDef(const std::wstring name);
+    void SetEnemyVisible(const std::wstring name, const bool visible);
 
     EnemyInfo GetEnemyInfo(const int id);
     void SetDefeat(const int id);

@@ -19,33 +19,33 @@ NSStarmanLib::ActivityBase::ActivityBase()
 {
 }
 
-void NSStarmanLib::ActivityBase::Init(const std::string& csvfile)
+void NSStarmanLib::ActivityBase::Init(const std::wstring& csvfile)
 {
-    std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, false);
+    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, false);
 
-    if (vvs.at(0).at(1) == "Precision")
+    if (vvs.at(0).at(1) == _T("Precision"))
     {
         m_eBaseType = eBaseType::Precision;
     }
-    else if (vvs.at(0).at(1) == "DirectNex")
+    else if (vvs.at(0).at(1) == _T("DirectNex"))
     {
         m_eBaseType = eBaseType::DirectNex;
     }
 }
 
-void NSStarmanLib::ActivityBase::Save(const std::string& csvfile)
+void NSStarmanLib::ActivityBase::Save(const std::wstring& csvfile)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("現在の活動拠点");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("現在の活動拠点"));
 
     if (m_eBaseType == eBaseType::Precision)
     {
-        vs.push_back("Precision");
+        vs.push_back(_T("Precision"));
     }
     else if (m_eBaseType == eBaseType::DirectNex)
     {
-        vs.push_back("DirectNex");
+        vs.push_back(_T("DirectNex"));
     }
 
     vvs.push_back(vs);

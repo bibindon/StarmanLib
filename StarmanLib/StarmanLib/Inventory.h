@@ -24,17 +24,17 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
     bool Inited();
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
     // 一個ずつしか増加減出来ない想定
     // 新たにSubIDを割り当てる
     // 新たに割り当てたSubIDを返す
     int AddItem(const int id, const int durability = -1);
-    int AddItem(const std::string name, const int level = -1, const int durability = -1);
+    int AddItem(const std::wstring name, const int level = -1, const int durability = -1);
 
     // SubIDを指定してアイテムを追加（倉庫からインベントリへアイテムを移動するときに使う）
     // 倉庫でアイテムを削除してから追加する必要がある。
@@ -45,7 +45,7 @@ public:
     // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
     // アイテムは削除できるのでSubIDが連番になるとは限らない
     void RemoveItem(const int id, const int subId);
-    void RemoveItem(const std::string name, const int subId, const int level = -1);
+    void RemoveItem(const std::wstring name, const int subId, const int level = -1);
 
     void SetItemDurability(const int id, const int subId, const int durability);
 
@@ -56,7 +56,7 @@ public:
     std::vector<int> GetSubIdList(const int id);
 
     int CountItem(const int id);
-    int CountItem(const std::string name, const int level = -1);
+    int CountItem(const std::wstring name, const int level = -1);
 
     float GetWeight();
 

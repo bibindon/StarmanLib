@@ -25,7 +25,7 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
             Assert::AreEqual(obj != nullptr, true);
             SkillManager::Destroy();
         }
@@ -33,17 +33,17 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
 
             int level = 0;
 
-            level = obj->GetSkillLevel("炎の魔法");
+            level = obj->GetSkillLevel(_T("炎の魔法"));
             Assert::AreEqual(level, 1);
 
-            level = obj->GetSkillLevel("氷の魔法");
+            level = obj->GetSkillLevel(_T("氷の魔法"));
             Assert::AreEqual(level, 2);
 
-            level = obj->GetSkillLevel("闇の魔法");
+            level = obj->GetSkillLevel(_T("闇の魔法"));
             Assert::AreEqual(level, 3);
 
             SkillManager::Destroy();
@@ -52,12 +52,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
 
-            std::string temp;
+            std::wstring temp;
 
-            temp = obj->GetDetail("炎の魔法");
-            Assert::AreEqual(temp.find("負傷してしまう") != std::string::npos, true);
+            temp = obj->GetDetail(_T("炎の魔法"));
+            Assert::AreEqual(temp.find(_T("負傷してしまう")) != std::wstring::npos, true);
 
             SkillManager::Destroy();
         }
@@ -65,9 +65,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
 
-            float temp = obj->GetDamage("炎の魔法", 5);
+            float temp = obj->GetDamage(_T("炎の魔法"), 5);
             Assert::AreEqual(temp, 60.f);
 
             SkillManager::Destroy();
@@ -76,9 +76,9 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             SkillManager* obj = SkillManager::GetObj();
-            obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+            obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
 
-            float temp = obj->GetRange("闇の魔法", 5);
+            float temp = obj->GetRange(_T("闇の魔法"), 5);
             Assert::AreEqual(temp, 60.f);
 
             SkillManager::Destroy();
@@ -88,18 +88,18 @@ namespace StarmanLibTest
         {
             {
                 SkillManager* obj = SkillManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSub.csv");
+                obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSub.csv"));
 
-                obj->SetSkillLevel("闇の魔法", 5);
-                obj->Save("..\\StarmanLibTest\\skillSubSave.csv");
+                obj->SetSkillLevel(_T("闇の魔法"), 5);
+                obj->Save(_T("..\\StarmanLibTest\\skillSubSave.csv"));
 
                 SkillManager::Destroy();
             }
             {
                 SkillManager* obj = SkillManager::GetObj();
-                obj->Init("..\\StarmanLibTest\\skill.csv", "..\\StarmanLibTest\\skillSubSave.csv");
+                obj->Init(_T("..\\StarmanLibTest\\skill.csv"), _T("..\\StarmanLibTest\\skillSubSave.csv"));
 
-                int level = obj->GetSkillLevel("闇の魔法");
+                int level = obj->GetSkillLevel(_T("闇の魔法"));
                 Assert::AreEqual(level, 5);
 
                 SkillManager::Destroy();

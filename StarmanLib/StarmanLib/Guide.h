@@ -7,14 +7,14 @@ namespace NSStarmanLib
 class GuideItem
 {
 public:
-    void SetCategory(const std::string& category);
-    std::string GetCategory();
+    void SetCategory(const std::wstring& category);
+    std::wstring GetCategory();
 
-    void SetSubCategory(const std::string& subCategory);
-    std::string GetSubCategory();
+    void SetSubCategory(const std::wstring& subCategory);
+    std::wstring GetSubCategory();
 
-    void SetText(const std::string& text);
-    std::string GetText();
+    void SetText(const std::wstring& text);
+    std::wstring GetText();
 
     void SetVisible(const bool visible);
     bool GetVisible();
@@ -22,13 +22,13 @@ public:
 private:
 
     // 大分類
-    std::string m_category;
+    std::wstring m_category;
 
     // 小分類
-    std::string m_subCategory;
+    std::wstring m_subCategory;
 
     // 説明文
-    std::string m_text;
+    std::wstring m_text;
 
     // 表示済みか否か
     bool m_bVisible { false };
@@ -40,18 +40,18 @@ class Guide
 public:
 
     static Guide* GetObj();
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
     static void Destroy();
 
-    std::vector<std::string> GetCategoryList();
-    std::vector<std::string> GetSubCategoryList(const std::string& category);
-    std::string GetText(const std::string& category, const std::string& subCategory);
+    std::vector<std::wstring> GetCategoryList();
+    std::vector<std::wstring> GetSubCategoryList(const std::wstring& category);
+    std::wstring GetText(const std::wstring& category, const std::wstring& subCategory);
 
-    bool GetVisible(const std::string& category, const std::string& subCategory);
-    void SetVisible(const std::string& category, const std::string& subCategory);
+    bool GetVisible(const std::wstring& category, const std::wstring& subCategory);
+    void SetVisible(const std::wstring& category, const std::wstring& subCategory);
 
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
 private:

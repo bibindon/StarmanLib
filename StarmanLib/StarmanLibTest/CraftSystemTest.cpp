@@ -22,16 +22,16 @@ namespace StarmanLibTest
         TEST_METHOD_INITIALIZE(Initialize)
         {
             ItemManager* itemManager = ItemManager::GetObj();
-            itemManager->Init("..\\StarmanLibTest\\item.csv", "..\\StarmanLibTest\\item_pos.csv");
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
             StorehouseManager* storehouseManager = StorehouseManager::Get();
-            storehouseManager->Init("..\\StarmanLibTest\\storehouseListOrigin.csv");
+            storehouseManager->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
 
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-            craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
-            powereggDateTime->Init("..\\StarmanLibTest\\datetime.csv");
+            powereggDateTime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
         }
 
         TEST_METHOD_CLEANUP(CleanUp)
@@ -52,11 +52,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod02)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-            craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueue.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             Assert::AreEqual(obj != nullptr, true);
             CraftSystem::Destroy();
         }
@@ -65,16 +65,16 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod03)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-            craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueue.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             int result = false;
-            result = obj->GetCraftsmanSkill("イカダ");
+            result = obj->GetCraftsmanSkill(_T("イカダ"));
             Assert::AreEqual(result, -1);
 
-            result = obj->GetCraftsmanSkill("木の棒");
+            result = obj->GetCraftsmanSkill(_T("木の棒"));
             Assert::AreEqual(result, 1);
 
             CraftSystem::Destroy();
@@ -83,18 +83,18 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod04)
         {
             CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-            craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueue.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             int result = 0;
-            obj->SetCraftsmanSkill("イカダ", 1);
-            result = obj->GetCraftsmanSkill("イカダ");
+            obj->SetCraftsmanSkill(_T("イカダ"), 1);
+            result = obj->GetCraftsmanSkill(_T("イカダ"));
             Assert::AreEqual(result, 1);
 
-            obj->SetCraftsmanSkill("木の棒", 2);
-            result = obj->GetCraftsmanSkill("木の棒");
+            obj->SetCraftsmanSkill(_T("木の棒"), 2);
+            result = obj->GetCraftsmanSkill(_T("木の棒"));
             Assert::AreEqual(result, 2);
 
             CraftSystem::Destroy();
@@ -105,34 +105,34 @@ namespace StarmanLibTest
         {
             {
                 CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-                craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+                craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                          "..\\StarmanLibTest\\craftsmanQueue.csv");
+                obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
 
                 bool result = false;
-                obj->SetCraftsmanSkill("イカダ", 1);
-                obj->SetCraftsmanSkill("アトラトルに使う槍", 1);
-                obj->Save("..\\StarmanLibTest\\craftsmanSkillSave.csv",
-                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->SetCraftsmanSkill(_T("イカダ"), 1);
+                obj->SetCraftsmanSkill(_T("アトラトルに使う槍"), 1);
+                obj->Save(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
                 CraftSystem::Destroy();
                 CraftInfoManager::Destroy();
             }
             {
                 CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
-                craftInfoManager->Init("..\\StarmanLibTest\\craftDef.csv");
+                craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
 
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkillSave.csv",
-                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->Init(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
                 int result = false;
-                result = obj->GetCraftsmanSkill("イカダ");
+                result = obj->GetCraftsmanSkill(_T("イカダ"));
                 Assert::AreEqual(result, 1);
 
-                result = obj->GetCraftsmanSkill("アトラトルに使う槍");
+                result = obj->GetCraftsmanSkill(_T("アトラトルに使う槍"));
                 Assert::AreEqual(result, 1);
 
                 CraftSystem::Destroy();
@@ -143,10 +143,10 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueue.csv");
-            std::string work;
-            obj->QueueCraftRequest("イカダ", &work, 1);
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
+            std::wstring work;
+            obj->QueueCraftRequest(_T("イカダ"), &work, 1);
 
             CraftSystem::Destroy();
         }
@@ -155,11 +155,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod07)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            bool result = obj->QueueCraftRequest("イカダ", &work, 1);
+            std::wstring work;
+            bool result = obj->QueueCraftRequest(_T("イカダ"), &work, 1);
 
             Assert::AreEqual(result, false);
 
@@ -175,11 +175,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod08)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("アトラトル", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("アトラトル"), &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -203,15 +203,15 @@ namespace StarmanLibTest
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
             int temp = 0;
 
-            temp = storehouse->CountItem("細い木の幹");
+            temp = storehouse->CountItem(_T("細い木の幹"));
             Assert::AreEqual(temp, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -219,10 +219,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
 
-            temp = storehouse->CountItem("細い木の幹");
+            temp = storehouse->CountItem(_T("細い木の幹"));
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem("いい形の石（槍）");
+            temp = storehouse->CountItem(_T("いい形の石（槍）"));
             Assert::AreEqual(temp, 9);
 
             obj->UpdateCraftStatus();
@@ -232,10 +232,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
 
-            temp = storehouse->CountItem("細い木の幹");
+            temp = storehouse->CountItem(_T("細い木の幹"));
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem("いい形の石（槍）");
+            temp = storehouse->CountItem(_T("いい形の石（槍）"));
             Assert::AreEqual(temp, 9);
 
             CraftSystem::Destroy();
@@ -245,11 +245,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod10)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
             
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -276,16 +276,16 @@ namespace StarmanLibTest
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
 
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work2;
-            obj->QueueCraftRequest("石槍", &work2, 1);
+            std::wstring work2;
+            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -296,7 +296,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
 
             Assert::AreEqual(work, 11);
 
@@ -310,17 +310,17 @@ namespace StarmanLibTest
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
 
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work2;
-            obj->QueueCraftRequest("石槍", &work2, 1);
-            obj->QueueCraftRequest("石槍", &work2, 1);
+            std::wstring work2;
+            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -331,7 +331,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
 
             Assert::AreEqual(work, 11);
 
@@ -340,7 +340,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
 
             Assert::AreEqual(work, 12);
 
@@ -355,19 +355,19 @@ namespace StarmanLibTest
 
             int work = 0;
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
             Assert::AreEqual(work, 10);
 
-            work = storehouse->CountItem("アトラトル");
+            work = storehouse->CountItem(_T("アトラトル"));
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work2;
-            obj->QueueCraftRequest("石槍", &work2, 1);
-            obj->QueueCraftRequest("アトラトル", &work2, 1);
+            std::wstring work2;
+            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            obj->QueueCraftRequest(_T("アトラトル"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -378,10 +378,10 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem("アトラトル");
+            work = storehouse->CountItem(_T("アトラトル"));
             Assert::AreEqual(work, 10);
 
             // 1日と1時間、時を進める
@@ -389,10 +389,10 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍");
+            work = storehouse->CountItem(_T("石槍"));
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem("アトラトル");
+            work = storehouse->CountItem(_T("アトラトル"));
             Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
@@ -402,11 +402,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod14)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -429,11 +429,11 @@ namespace StarmanLibTest
         {
             {
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                          "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+                obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-                std::string work;
-                obj->QueueCraftRequest("石槍", &work, 1);
+                std::wstring work;
+                obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
                 obj->UpdateCraftStatus();
 
@@ -447,15 +447,15 @@ namespace StarmanLibTest
                 int progress = obj->GetProgress();
 
                 Assert::AreEqual(progress, 50);
-                obj->Save("..\\StarmanLibTest\\craftsmanSkillSave.csv",
-                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->Save(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
                 CraftSystem::Destroy();
             }
             {
                 CraftSystem* obj = CraftSystem::GetObj();
-                obj->Init("..\\StarmanLibTest\\craftsmanSkillSave.csv",
-                          "..\\StarmanLibTest\\craftsmanQueueSave.csv");
+                obj->Init(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
+                          _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
                 size_t work = 0;
 
@@ -484,11 +484,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod16)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -513,11 +513,11 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod16_2)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
-            obj->QueueCraftRequest("石槍", &work, 1);
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -529,16 +529,16 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem("細い木の幹");
-            auto mat2 = storehouse->CountItem("いい形の石（槍）");
+            auto mat1 = storehouse->CountItem(_T("細い木の幹"));
+            auto mat2 = storehouse->CountItem(_T("いい形の石（槍）"));
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(1);
 
-            mat1 = storehouse->CountItem("細い木の幹");
-            mat2 = storehouse->CountItem("いい形の石（槍）");
+            mat1 = storehouse->CountItem(_T("細い木の幹"));
+            mat2 = storehouse->CountItem(_T("いい形の石（槍）"));
             Assert::AreEqual(9, mat1);
             Assert::AreEqual(9, mat2);
 
@@ -550,12 +550,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod16_3)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
-            obj->QueueCraftRequest("石槍", &work, 1);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -567,16 +567,16 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem("細い木の幹");
-            auto mat2 = storehouse->CountItem("いい形の石（槍）");
+            auto mat1 = storehouse->CountItem(_T("細い木の幹"));
+            auto mat2 = storehouse->CountItem(_T("いい形の石（槍）"));
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(0);
 
-            mat1 = storehouse->CountItem("細い木の幹");
-            mat2 = storehouse->CountItem("いい形の石（槍）");
+            mat1 = storehouse->CountItem(_T("細い木の幹"));
+            mat2 = storehouse->CountItem(_T("いい形の石（槍）"));
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
@@ -587,12 +587,12 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod17)
         {
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
-            std::string work;
-            obj->QueueCraftRequest("石槍", &work, 1);
-            obj->QueueCraftRequest("石槍", &work, 1);
-            obj->QueueCraftRequest("石槍", &work, 1);
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
+            std::wstring work;
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("石槍"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -621,20 +621,20 @@ namespace StarmanLibTest
 
             int work = 0;
             bool work_b = false;
-            work = storehouse->CountItem("石槍", -1);
+            work = storehouse->CountItem(_T("石槍"), -1);
 
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            work = obj->GetCraftsmanSkill("石槍");
+            work = obj->GetCraftsmanSkill(_T("石槍"));
             Assert::AreEqual(work, -1);
 
-            std::string work2;
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
+            std::wstring work2;
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -645,11 +645,11 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍", -1);
+            work = storehouse->CountItem(_T("石槍"), -1);
 
             Assert::AreEqual(work, 11);
 
-            work = obj->GetCraftsmanSkill("石槍");
+            work = obj->GetCraftsmanSkill(_T("石槍"));
             Assert::AreEqual(work, -1);
 
             // 1日と1時間、時を進める
@@ -657,11 +657,11 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem("石槍", -1);
+            work = storehouse->CountItem(_T("石槍"), -1);
 
             Assert::AreEqual(work, 12);
 
-            work = obj->GetCraftsmanSkill("石槍");
+            work = obj->GetCraftsmanSkill(_T("石槍"));
             Assert::AreEqual(work, 1);
 
             CraftSystem::Destroy();
@@ -679,17 +679,17 @@ namespace StarmanLibTest
             bool work_b = false;
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work2;
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
+            std::wstring work2;
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             // 職人に石槍の製造を依頼すると、この時点では強化値なしの石槍を作り始める。
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
             Assert::AreEqual(work, -1);
 
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -707,7 +707,7 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             // ここで石槍を予約したら＋１の石槍が作られる
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             // ＋１の石槍が予約されているか？
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
@@ -726,11 +726,11 @@ namespace StarmanLibTest
             bool work_b = false;
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work2;
-            work_b = obj->QueueCraftRequest("石槍", &work2, 1);
+            std::wstring work2;
+            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
 
             // 武器の制作を開始
             obj->UpdateCraftStatus();
@@ -754,16 +754,16 @@ namespace StarmanLibTest
         //    bool work_b = false;
 
         //    CraftSystem* obj = CraftSystem::GetObj();
-        //    obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-        //              "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+        //    obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+        //              _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-        //    work_b = obj->QueueCraftRequest("石槍");
+        //    work_b = obj->QueueCraftRequest(_T("石槍"));
 
         //    // 職人に石槍の製造を依頼すると、この時点では強化値なしの石槍を作り始める。
         //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
         //    Assert::AreEqual(work, -1);
 
-        //    work_b = obj->QueueCraftRequest("石槍");
+        //    work_b = obj->QueueCraftRequest(_T("石槍"));
 
         //    obj->UpdateCraftStatus();
 
@@ -781,7 +781,7 @@ namespace StarmanLibTest
         //    obj->UpdateCraftStatus();
 
         //    // ここで石槍を予約したら＋１の石槍が作られる
-        //    work_b = obj->QueueCraftRequest("石槍");
+        //    work_b = obj->QueueCraftRequest(_T("石槍"));
 
         //    // ＋１の石槍が予約されているか？
         //    work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
@@ -801,16 +801,16 @@ namespace StarmanLibTest
 
             for (int i = 0; i < 200; ++i)
             {
-                storehouse->AddItem("細い木の幹");
-                storehouse->AddItem("ツタ");
+                storehouse->AddItem(_T("細い木の幹"));
+                storehouse->AddItem(_T("ツタ"));
             }
 
             CraftSystem* obj = CraftSystem::GetObj();
-            obj->Init("..\\StarmanLibTest\\craftsmanSkill.csv",
-                      "..\\StarmanLibTest\\craftsmanQueueEmpty.csv");
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            std::string work;
-            obj->QueueCraftRequest("イカダ", &work);
+            std::wstring work;
+            obj->QueueCraftRequest(_T("イカダ"), &work);
 
             obj->UpdateCraftStatus();
 
@@ -821,7 +821,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            auto raftCount = storehouse->CountItem("イカダ");
+            auto raftCount = storehouse->CountItem(_T("イカダ"));
 
             Assert::AreEqual(0, raftCount);
 

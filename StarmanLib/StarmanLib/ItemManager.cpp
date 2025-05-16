@@ -17,27 +17,27 @@ void ItemDef::SetId(int arg)
     m_id = arg;
 }
 
-std::string ItemDef::GetName() const
+std::wstring ItemDef::GetName() const
 {
     return m_name;
 }
 
-void ItemDef::SetName(std::string arg)
+void ItemDef::SetName(std::wstring arg)
 {
     m_name = arg;
 }
 
-std::string ItemDef::GetDetail() const
+std::wstring ItemDef::GetDetail() const
 {
     return m_detail;
 }
 
-void ItemDef::SetDetail(std::string arg)
+void ItemDef::SetDetail(std::wstring arg)
 {
     m_detail = arg;
 }
 
-std::string ItemDef::GetImagePath() const
+std::wstring ItemDef::GetImagePath() const
 {
     if (m_eType != ItemType::WEAPON)
     {
@@ -50,7 +50,7 @@ std::string ItemDef::GetImagePath() const
     }
 }
 
-void ItemDef::SetImagePath(std::string arg)
+void ItemDef::SetImagePath(std::wstring arg)
 {
     m_imagePath = arg;
 }
@@ -230,11 +230,11 @@ void ItemManager::Destroy()
     ItemManager::obj = nullptr;
 }
 
-void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos,
+void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfilePos,
                        const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
@@ -258,23 +258,23 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
             work_f = std::stof(vvs.at(i).at(5));
             itemDef.SetVolume(work_f);
 
-            if (vvs.at(i).at(6) == "貴重品")
+            if (vvs.at(i).at(6) == _T("貴重品"))
             {
                 itemDef.SetType(ItemDef::ItemType::VALUABLES);
             }
-            else if (vvs.at(i).at(6) == "素材")
+            else if (vvs.at(i).at(6) == _T("素材"))
             {
                 itemDef.SetType(ItemDef::ItemType::MATERIAL);
             }
-            else if (vvs.at(i).at(6) == "食材")
+            else if (vvs.at(i).at(6) == _T("食材"))
             {
                 itemDef.SetType(ItemDef::ItemType::FOOD);
             }
-            else if (vvs.at(i).at(6) == "武器")
+            else if (vvs.at(i).at(6) == _T("武器"))
             {
                 itemDef.SetType(ItemDef::ItemType::WEAPON);
             }
-            else if (vvs.at(i).at(6) == "その他")
+            else if (vvs.at(i).at(6) == _T("その他"))
             {
                 itemDef.SetType(ItemDef::ItemType::OTHERS);
             }
@@ -308,7 +308,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                 work_f = std::stof(vvs.at(i).at(15));
                 itemDef.SetMuscleDebuff(work_f);
 
-                if (vvs.at(i).at(16) == "○")
+                if (vvs.at(i).at(16) == _T("○"))
                 {
                     itemDef.SetHeadache(true);
                 }
@@ -317,7 +317,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
                     itemDef.SetHeadache(false);
                 }
 
-                if (vvs.at(i).at(17) == "○")
+                if (vvs.at(i).at(17) == _T("○"))
                 {
                     itemDef.SetStomachache(true);
                 }
@@ -354,7 +354,7 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
         }
     }
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilePos, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfilePos, decrypt);
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
@@ -377,11 +377,11 @@ void ItemManager::Init(const std::string& csvfile, const std::string& csvfilePos
             z = std::stof(vvs.at(i).at(4));
             itemPos.SetPos(x, y, z);
 
-            if (vvs.at(i).at(5) == "○")
+            if (vvs.at(i).at(5) == _T("○"))
             {
                 itemPos.SetObtained(true);
             }
-            else if (vvs.at(i).at(5) == "")
+            else if (vvs.at(i).at(5) == _T(""))
             {
                 itemPos.SetObtained(false);
             }
@@ -400,17 +400,17 @@ bool NSStarmanLib::ItemManager::Inited()
     return m_inited;
 }
 
-void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
+void NSStarmanLib::ItemManager::Save(const std::wstring& csvfilePos,
                                      const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    vs.push_back("ID");
-    vs.push_back("アイテムID");
-    vs.push_back("X");
-    vs.push_back("Y");
-    vs.push_back("Z");
-    vs.push_back("取得済み");
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("アイテムID"));
+    vs.push_back(_T("X"));
+    vs.push_back(_T("Y"));
+    vs.push_back(_T("Z"));
+    vs.push_back(_T("取得済み"));
     vvs.push_back(vs);
     vs.clear();
 
@@ -418,25 +418,25 @@ void NSStarmanLib::ItemManager::Save(const std::string& csvfilePos,
 
     for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
     {
-        vs.push_back(std::to_string(it->first));
-        vs.push_back(std::to_string(it->second.GetItemDefId()));
+        vs.push_back(std::to_wstring(it->first));
+        vs.push_back(std::to_wstring(it->second.GetItemDefId()));
 
         float x = 0.f;
         float y = 0.f;
         float z = 0.f;
         it->second.GetPos(&x, &y, &z);
 
-        vs.push_back(std::to_string(x));
-        vs.push_back(std::to_string(y));
-        vs.push_back(std::to_string(z));
+        vs.push_back(std::to_wstring(x));
+        vs.push_back(std::to_wstring(y));
+        vs.push_back(std::to_wstring(z));
 
         if (it->second.GetObtained())
         {
-            vs.push_back("○");
+            vs.push_back(_T("○"));
         }
         else
         {
-            vs.push_back("");
+            vs.push_back(_T(""));
         }
 
         vvs.push_back(vs);
@@ -458,7 +458,7 @@ std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
     return idList;
 }
 
-ItemDef ItemManager::GetItemDef(const std::string& key, const int level)
+ItemDef ItemManager::GetItemDef(const std::wstring& key, const int level)
 {
     ItemDef itemDef;
     bool exist = false;

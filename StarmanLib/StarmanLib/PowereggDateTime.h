@@ -15,9 +15,9 @@ public:
 
     static void Destroy();
 
-    void Init(const std::string& csvfile,
+    void Init(const std::wstring& csvfile,
               const bool decrypt = false);
-    void Save(const std::string& csvfile,
+    void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
     // 時を進める。パワーエッグ星の時間軸で指定する。

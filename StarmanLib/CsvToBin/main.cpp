@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 
-int main(int argc, char* argv[])
+int main(int argc, wchar_t* argv[])
 {
     if (argc != 2)
     {

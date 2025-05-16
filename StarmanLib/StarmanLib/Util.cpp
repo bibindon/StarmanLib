@@ -2,10 +2,10 @@
 #include "HeaderOnlyCsv.hpp"
 #include "CaesarCipher.h"
 
-std::vector<std::vector<std::string>> Util::ReadFromCsv(const std::string& filename,
+std::vector<std::vector<std::wstring>> Util::ReadFromCsv(const std::wstring& filename,
                                                         const bool decrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
+    std::vector<std::vector<std::wstring>> vvs;
 
     if (decrypt == false)
     {
@@ -13,15 +13,15 @@ std::vector<std::vector<std::string>> Util::ReadFromCsv(const std::string& filen
     }
     else
     {
-        std::string work = CaesarCipher::DecryptFromFile(filename);
+        std::wstring work = CaesarCipher::DecryptFromFile(filename);
         vvs = csv::ReadFromString(work);
     }
 
     return vvs;
 }
 
-void Util::WriteToCsv(const std::string& filename,
-                      const std::vector<std::vector<std::string>>& vvs,
+void Util::WriteToCsv(const std::wstring& filename,
+                      const std::vector<std::vector<std::wstring>>& vvs,
                       const bool encrypt)
 {
     if (encrypt == false)
@@ -30,7 +30,7 @@ void Util::WriteToCsv(const std::string& filename,
     }
     else
     {
-        std::stringstream ss;
+        std::wstringstream ss;
         for (std::size_t i = 0; i < vvs.size(); ++i)
         {
             for (std::size_t j = 0; j < vvs.at(i).size(); ++j)
@@ -47,11 +47,11 @@ void Util::WriteToCsv(const std::string& filename,
     }
 }
 
-std::vector<std::string> Util::split(const std::string& s, char delim)
+std::vector<std::wstring> Util::split(const std::wstring& s, wchar_t delim)
 {
-    std::vector<std::string> result;
-    std::stringstream ss(s);
-    std::string item;
+    std::vector<std::wstring> result;
+    std::wstringstream ss(s);
+    std::wstring item;
 
     while (getline(ss, item, delim))
     {

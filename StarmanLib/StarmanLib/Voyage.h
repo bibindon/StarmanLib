@@ -74,8 +74,8 @@ public:
     static Voyage* Get();
     static void Destroy();
 
-    void Init(const std::string& csvRaft);
-    void Save(const std::string& csvRaft);
+    void Init(const std::wstring& csvRaft);
+    void Save(const std::wstring& csvRaft);
 
     // 毎フレーム呼ばれる想定
     // 主人公のXYZ座標を引数として受け取る。

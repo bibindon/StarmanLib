@@ -6,23 +6,23 @@ using namespace NSStarmanLib;
 
 SkillManager* SkillManager::obj { nullptr };
 
-void SkillDefinition::SetName(const std::string& arg)
+void SkillDefinition::SetName(const std::wstring& arg)
 {
     m_name = arg;
 }
 
-std::string SkillDefinition::GetName()
+std::wstring SkillDefinition::GetName()
 {
     return m_name;
 }
 
-void SkillDefinition::SetDetail(const std::string& arg)
+void SkillDefinition::SetDetail(const std::wstring& arg)
 {
     m_detail = arg;
     m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
-std::string SkillDefinition::GetDetail()
+std::wstring SkillDefinition::GetDetail()
 {
     return m_detail;
 }
@@ -62,11 +62,11 @@ void SkillManager::Destroy()
     SkillManager::obj = nullptr;
 }
 
-void SkillManager::Init(const std::string& csvfileDefinition, const std::string& csvfilePlayer,
+void SkillManager::Init(const std::wstring& csvfileDefinition, const std::wstring& csvfilePlayer,
                         const bool decrypt)
 {
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfileDefinition, decrypt);
 
         SkillDefinition skillDefinition;
         for (std::size_t i = 1; i < vvs.size(); ++i)
@@ -100,7 +100,7 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
         }
     }
     {
-        std::vector<std::vector<std::string>> vvs = Util::ReadFromCsv(csvfilePlayer, decrypt);
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfilePlayer, decrypt);
 
         int work = 0;
 
@@ -112,22 +112,22 @@ void SkillManager::Init(const std::string& csvfileDefinition, const std::string&
     }
 }
 
-void SkillManager::Save(const std::string& csvfile,
+void SkillManager::Save(const std::wstring& csvfile,
                         const bool encrypt)
 {
-    std::vector<std::vector<std::string>> vvs;
-    std::vector<std::string> vs;
-    std::string work;
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+    std::wstring work;
 
-    vs.push_back("名称");
-    vs.push_back("レベル");
+    vs.push_back(_T("名称"));
+    vs.push_back(_T("レベル"));
     vvs.push_back(vs);
     vs.clear();
 
     for (auto it = m_playerSkillLevelMap.begin(); it != m_playerSkillLevelMap.end(); ++it)
     {
         vs.push_back(it->first);
-        vs.push_back(std::to_string(it->second));
+        vs.push_back(std::to_wstring(it->second));
         vvs.push_back(vs);
         vs.clear();
     }
@@ -135,7 +135,7 @@ void SkillManager::Save(const std::string& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-void SkillManager::SetSkillLevel(const std::string& skillName, const int skillLevel)
+void SkillManager::SetSkillLevel(const std::wstring& skillName, const int skillLevel)
 {
     if (m_playerSkillLevelMap.find(skillName) == m_playerSkillLevelMap.end())
     {
@@ -144,29 +144,29 @@ void SkillManager::SetSkillLevel(const std::string& skillName, const int skillLe
     m_playerSkillLevelMap[skillName] = skillLevel;
 }
 
-int SkillManager::GetSkillLevel(const std::string& skillName)
+int SkillManager::GetSkillLevel(const std::wstring& skillName)
 {
     return m_playerSkillLevelMap.at(skillName);
 }
 
-std::string SkillManager::GetDetail(const std::string& key)
+std::wstring SkillManager::GetDetail(const std::wstring& key)
 {
     return m_skillLevelMap.at(key).GetDetail();
 }
 
-float SkillManager::GetDamage(const std::string& key, const int level)
+float SkillManager::GetDamage(const std::wstring& key, const int level)
 {
     return m_skillLevelMap.at(key).GetDamage(level);
 }
 
-float SkillManager::GetRange(const std::string& key, const int level)
+float SkillManager::GetRange(const std::wstring& key, const int level)
 {
     return m_skillLevelMap.at(key).GetRange(level);
 }
 
-std::vector<std::string> NSStarmanLib::SkillManager::GetNameList()
+std::vector<std::wstring> NSStarmanLib::SkillManager::GetNameList()
 {
-    std::vector<std::string> nameList;
+    std::vector<std::wstring> nameList;
 
     for (auto it = m_skillLevelMap.begin(); it != m_skillLevelMap.end(); ++it)
     {
