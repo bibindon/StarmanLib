@@ -50,15 +50,15 @@ void WeaponManager::Init(const std::wstring& csvfilename,
             weaponDef.SetDetail(vvs.at(i).at(2));
             weaponDef.SetXfileName(vvs.at(i).at(3));
             weaponDef.SetImageName(vvs.at(i).at(4));
-            weaponDef.SetWeight(std::stof(vvs.at(i).at(5).c_str()));
+            weaponDef.SetWeight(std::stod(vvs.at(i).at(5).c_str()));
             weaponDef.SetVolume(std::stoi(vvs.at(i).at(6).c_str()));
             weaponDef.SetReinforceMax(std::stoi(vvs.at(i).at(7).c_str()));
-            weaponDef.SetAttackRate(std::stof(vvs.at(i).at(8).c_str()));
-            weaponDef.SetAttackRateUp(std::stof(vvs.at(i).at(9).c_str()));
+            weaponDef.SetAttackRate(std::stod(vvs.at(i).at(8).c_str()));
+            weaponDef.SetAttackRateUp(std::stod(vvs.at(i).at(9).c_str()));
 
-            weaponDef.SetFlightDistance(std::stof(vvs.at(i).at(10).c_str()));
-            weaponDef.SetFlightDistanceUp(std::stof(vvs.at(i).at(11).c_str()));
-            weaponDef.SetStaminaDown(std::stof(vvs.at(i).at(12).c_str()));
+            weaponDef.SetFlightDistance(std::stod(vvs.at(i).at(10).c_str()));
+            weaponDef.SetFlightDistanceUp(std::stod(vvs.at(i).at(11).c_str()));
+            weaponDef.SetStaminaDown(std::stod(vvs.at(i).at(12).c_str()));
             weaponDef.SetDurability(std::stoi(vvs.at(i).at(13).c_str()));
             weaponDef.SetDurabilityUp(std::stoi(vvs.at(i).at(14).c_str()));
             weaponDef.SetOwnDamage(std::stoi(vvs.at(i).at(15).c_str()));

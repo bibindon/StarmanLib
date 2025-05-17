@@ -96,10 +96,10 @@ namespace StarmanLibTest
             double work_d = 0.0;
             //------------------------------------------------
             work_d = wm->GetWeight(_T("石"));
-            Assert::AreEqual(0.5, work_d);
+            Assert::AreEqual(0.5, work_d, 1e-10);
 
             work_d = wm->GetWeight(_T("アトラトルに使う槍"));
-            Assert::AreEqual(0.6, work_d);
+            Assert::AreEqual(0.6, work_d, 1e-10);
 
             int work_i = 0;
             //------------------------------------------------
@@ -162,20 +162,20 @@ namespace StarmanLibTest
 
             //-------------------------------------------------
             work_d = wm->GetAttackRate(_T("石"), -1);
-            Assert::AreEqual(3.0, work_d);
+            Assert::AreEqual(3.0, work_d, 1e-10);
 
             work_d = wm->GetAttackRate(_T("アトラトルに使う槍"), 3);
-            Assert::AreEqual(2.0, work_d);
+            Assert::AreEqual(2.0, work_d, 1e-10);
 
             //-------------------------------------------------
             work_d = wm->GetFlightDistance(_T("石"), -1);
-            Assert::AreEqual(30.0, work_d);
+            Assert::AreEqual(30.0, work_d, 1e-10);
 
             work_d = wm->GetFlightDistance(_T("弓矢の弓"), 3);
-            Assert::AreEqual(6.0, work_d);
+            Assert::AreEqual(6.0, work_d, 1e-10);
 
             work_d = wm->GetFlightDistance(_T("アトラトルに使う槍"), 3);
-            Assert::AreEqual(40.0, work_d);
+            Assert::AreEqual(40.0, work_d, 1e-10);
 
             //-------------------------------------------------
             int work_i = 0;
