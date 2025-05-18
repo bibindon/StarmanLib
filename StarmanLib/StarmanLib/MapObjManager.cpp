@@ -186,7 +186,7 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::wstring& binFile,
     {
         std::vector<NSStarmanLib::stMapObj> stMapObjList;
 
-        std::wifstream inFile(binFile, std::ios::binary);
+        std::ifstream inFile(binFile, std::ios::binary);
         if (inFile.is_open() == false)
         {
             throw std::exception();
@@ -195,13 +195,13 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::wstring& binFile,
         size_t size = 0;
 
         // ベクターサイズを読み込む
-        inFile.read(reinterpret_cast<wchar_t*>(&size), sizeof(size));
+        inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
 
         // ベクターサイズを設定
         stMapObjList.resize(size);
 
         // データ本体を読み込む
-        inFile.read(reinterpret_cast<wchar_t*>(stMapObjList.data()),
+        inFile.read(reinterpret_cast<char*>(stMapObjList.data()),
                     static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         inFile.close();
