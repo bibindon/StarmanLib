@@ -81,3 +81,5 @@
 /StarmanLib/x64/Release/CsvToBin.exe
 /StarmanLib/x64/Release/BinToCsv.pdb
 /StarmanLib/x64/Release/BinToCsv.exe
+/StarmanLib/x64/StarmanLibTest/map_obj2.bin
+/StarmanLib/x64/StarmanLibTest/map_obj2.csv
