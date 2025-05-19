@@ -33,7 +33,7 @@ void CraftSystem::Init(const std::wstring& csvfileSkill, const std::wstring& csv
         CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
         if (craftInfoManager->Inited() == false)
         {
-            throw std::exception("CraftSystemのInit関数より先に、CraftInfoManagerのInitが呼ばれている必要がある。");
+            throw std::exception("CraftInfoManager::Init() must be called before CraftSystem::Init() called.");
         }
     }
 

@@ -310,16 +310,16 @@ void NSStarmanLib::MapObjManager::SaveWithBinary(const std::wstring& binFile)
                   return x1.m_id < x2.m_id;
               });
 
-    std::wofstream outFile(binFile, std::ios::binary);
+    std::ofstream outFile(binFile, std::ios::binary);
     if (outFile.is_open())
     {
         size_t size = stMapObjList.size();
 
         // ベクターサイズを書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(&size), sizeof(size));
+        outFile.write(reinterpret_cast<char*>(&size), sizeof(size));
 
         // データ本体を書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(stMapObjList.data()),
+        outFile.write(reinterpret_cast<char*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         outFile.close();
