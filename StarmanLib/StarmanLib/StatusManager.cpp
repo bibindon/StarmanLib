@@ -826,6 +826,17 @@ void StatusManager::Init(const std::wstring& csvfile,
                 }
             }
         }
+        else if (vvs.at(i).at(1) == _T("菅笠の装備"))
+        {
+            if (vvs.at(i).at(2) == _T("") || vvs.at(i).at(2) == _T("n"))
+            {
+                m_bEquipSugegasa = false;
+            }
+            else if (vvs.at(i).at(2) == _T("y"))
+            {
+                m_bEquipSugegasa = true;
+            }
+        }
     }
     auto inventory = Inventory::GetObj();
     inventory->UpdateVolumeMax(GetAllBag());
@@ -1113,6 +1124,20 @@ void StatusManager::Update()
 
             reduceBrainStamina1FPSInReal *= 1.5f;
             reduceBrainStaminaMaxSub1FPSInReal *= 1.5f;
+        }
+    }
+
+    //-----------------------------------------
+    // 菅笠を装備していたら体力の消費速度が10%減少
+    //-----------------------------------------
+    {
+        if (m_bEquipSugegasa)
+        {
+            reduceBodyStamina1FPSInReal *= 0.9f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 0.9f;
+
+            reduceBrainStamina1FPSInReal *= 0.9f;
+            reduceBrainStaminaMaxSub1FPSInReal *= 0.9f;
         }
     }
 
@@ -1863,6 +1888,20 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.push_back(_T("50"));
     vs.push_back(_T("右手の袋SubID"));
     work = std::to_wstring(m_BagMap.at(eBagPos::Right).GetSubId());
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("51"));
+    vs.push_back(_T("菅笠を装備"));
+    if (m_bEquipSugegasa)
+    {
+        work = _T("y");
+    }
+    else
+    {
+        work = _T("n");
+    }
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -3741,6 +3780,16 @@ void NSStarmanLib::StatusManager::ConsumeJumpCost()
     {
         ++m_remainStomachacheCure;
     }
+}
+
+void NSStarmanLib::StatusManager::SetSugegasa(bool isEquip)
+{
+    m_bEquipSugegasa = isEquip;
+}
+
+bool NSStarmanLib::StatusManager::GetSugegasa() const
+{
+    return m_bEquipSugegasa;
 }
 
 void NSStarmanLib::StatusManager::Clamp()

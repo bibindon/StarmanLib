@@ -513,6 +513,9 @@ public:
 
     void ConsumeJumpCost();
 
+    void SetSugegasa(bool isEquip);
+    bool GetSugegasa() const;
+
 private:
 
     void Clamp();
@@ -593,6 +596,8 @@ private:
     bool m_levelDownFire = false;
     bool m_levelDownIce = false;
     bool m_levelDownDark = false;
+
+    bool m_bEquipSugegasa = false;
 };
 }
 
