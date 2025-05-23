@@ -1128,16 +1128,33 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------
-    // 菅笠を装備していたら体力の消費速度が10%減少
+    // 昼に菅笠を装備していたら体力の消費速度が10%減少
+    // 夜に菅笠を装備していたら体力の消費速度が1%増加
     //-----------------------------------------
     {
         if (m_bEquipSugegasa)
         {
-            reduceBodyStamina1FPSInReal *= 0.9f;
-            reduceBodyStaminaMaxSub1FPSInReal *= 0.9f;
+            auto datetime = PowereggDateTime::GetObj();
+            auto hour = datetime->GetHour();
 
-            reduceBrainStamina1FPSInReal *= 0.9f;
-            reduceBrainStaminaMaxSub1FPSInReal *= 0.9f;
+            // 昼
+            if (6 <= hour && hour < 18)
+            {
+                reduceBodyStamina1FPSInReal *= 0.9f;
+                reduceBodyStaminaMaxSub1FPSInReal *= 0.9f;
+
+                reduceBrainStamina1FPSInReal *= 0.9f;
+                reduceBrainStaminaMaxSub1FPSInReal *= 0.9f;
+            }
+            // 夜
+            else
+            {
+                reduceBodyStamina1FPSInReal *= 1.01f;
+                reduceBodyStaminaMaxSub1FPSInReal *= 1.01f;
+
+                reduceBrainStamina1FPSInReal *= 1.01f;
+                reduceBrainStaminaMaxSub1FPSInReal *= 1.01f;
+            }
         }
     }
 
