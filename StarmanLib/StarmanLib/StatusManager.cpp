@@ -2133,9 +2133,18 @@ void StatusManager::ConsumeAttackCost()
     {
         auto inventory = Inventory::GetObj();
         auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
-        auto dura = itemInfo.GetDurabilityCurrent();
-        inventory->SetItemDurability(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId(), dura - 1);
-        m_EquipWeapon.SetDurabilityCurrent(dura - 1);
+
+        // 石だったら耐久度を消費しない。（＝石じゃなければ耐久度を消費する）
+        if (itemInfo.GetId() == 57)
+        {
+            // do nothing
+        }
+        else
+        {
+            auto dura = itemInfo.GetDurabilityCurrent();
+            inventory->SetItemDurability(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId(), dura - 1);
+            m_EquipWeapon.SetDurabilityCurrent(dura - 1);
+        }
     }
 
     // 水分
