@@ -11,6 +11,9 @@ class MapInfo
 {
 public:
 
+    void SetId(const int id);
+    int GetId() const;
+
     void SetName(const std::wstring& name);
     std::wstring GetName();
 
@@ -28,6 +31,7 @@ public:
 
 private:
 
+    int m_id = 0;
     std::wstring m_name;
     std::wstring m_imagePath;
     std::wstring m_detail;
@@ -46,6 +50,7 @@ public:
     std::vector<std::wstring> GetNameList();
     bool IsDiscovered(const std::wstring& name);
     void SetDiscovered(const std::wstring& name);
+    void SetDiscovered(const int name);
     std::wstring GetDetail(const std::wstring& name);
     void GetPos(const std::wstring& name, int* x, int* y);
     std::wstring GetImagePath(const std::wstring& name);

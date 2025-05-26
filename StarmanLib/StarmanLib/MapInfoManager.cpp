@@ -6,6 +6,16 @@ using namespace NSStarmanLib;
 
 MapInfoManager* MapInfoManager::obj { nullptr };
 
+void MapInfo::SetId(const int id)
+{
+    m_id = id;
+}
+
+int MapInfo::GetId() const
+{
+    return m_id;
+}
+
 void MapInfo::SetName(const std::wstring& name)
 {
     m_name = name;
@@ -73,11 +83,14 @@ MapInfoManager* MapInfoManager::GetObj()
 void MapInfoManager::Init(const std::wstring& csvfile,
                           const bool decrypt)
 {
+    m_mapInfoList.clear();
+
     std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         MapInfo mapInfo;
+        mapInfo.SetId(std::stoi(vvs.at(i).at(0)));
         mapInfo.SetName(vvs.at(i).at(1));
         if (vvs.at(i).at(2) == _T("○"))
         {
@@ -122,13 +135,22 @@ bool MapInfoManager::IsDiscovered(const std::wstring& name)
     return it->IsDiscovered();
 }
 
+void MapInfoManager::SetDiscovered(const int id)
+{
+    auto it = std::find_if(m_mapInfoList.begin(),
+                           m_mapInfoList.end(),
+                           [&](MapInfo mi) { return mi.GetId() == id; });
+
+    it->SetDiscovered(true);
+}
+
 void MapInfoManager::SetDiscovered(const std::wstring& name)
 {
     auto it = std::find_if(m_mapInfoList.begin(),
                            m_mapInfoList.end(),
                            [&](MapInfo mi) { return mi.GetName() == name; });
 
-    return it->SetDiscovered(true);
+    it->SetDiscovered(true);
 }
 
 std::wstring MapInfoManager::GetDetail(const std::wstring& name)
@@ -174,7 +196,7 @@ void MapInfoManager::Save(const std::wstring& csvfile,
     vs.clear();
     for (std::size_t i = 0; i < m_mapInfoList.size(); ++i)
     {
-        vs.push_back(std::to_wstring(i+1));
+        vs.push_back(std::to_wstring(m_mapInfoList.at(i).GetId()));
         vs.push_back(m_mapInfoList.at(i).GetName());
         if (m_mapInfoList.at(i).IsDiscovered())
         {
@@ -202,3 +224,4 @@ void MapInfoManager::Save(const std::wstring& csvfile,
 
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
+
