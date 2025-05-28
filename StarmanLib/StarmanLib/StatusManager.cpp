@@ -897,29 +897,27 @@ void StatusManager::Update()
 
     if (m_playerState == PlayerState::STAND)
     {
-        reduceBodyStamina1FPSInReal *= -10.f;
+        reduceBodyStamina1FPSInReal *= -1000.f;
     }
     else if (m_playerState == PlayerState::WALK)
     {
-        reduceBodyStamina1FPSInReal *= -10.f;
+        reduceBodyStamina1FPSInReal *= -1000.f;
     }
     else if (m_playerState == PlayerState::JOGGING)
     {
-        // 通常時の消費スピードの10倍の速度で消費する
-        reduceBodyStamina1FPSInReal *= 10.f;
-        reduceBodyStaminaMaxSub1FPSInReal *= 2.f;
+        reduceBodyStamina1FPSInReal *= 1000.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 100.f;
     }
     else if (m_playerState == PlayerState::SPRINTING)
     {
-        // 通常時の消費スピードの100倍の速度で消費する
-        reduceBodyStamina1FPSInReal *= 100.f;
-        reduceBodyStaminaMaxSub1FPSInReal *= 10.f;
+        reduceBodyStamina1FPSInReal *= 10000.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 1000.f;
     }
     else if (m_playerState == PlayerState::SIT)
     {
         // 通常時の消費スピードの5倍の速度で逆に回復していく
-        reduceBodyStamina1FPSInReal *= -20.f;
-        reduceBrainStamina1FPSInReal *= -5.f;
+        reduceBodyStamina1FPSInReal *= -2000.f;
+        reduceBrainStamina1FPSInReal *= -500.f;
 
         // 脳の体力が20％以下で座ると寝てしまう
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.2f)
@@ -930,8 +928,8 @@ void StatusManager::Update()
     else if (m_playerState == PlayerState::LYING_DOWN)
     {
         // 通常時の消費スピードの10倍の速度で逆に回復していく
-        reduceBodyStamina1FPSInReal *= -30.f;
-        reduceBrainStamina1FPSInReal *= -10.f;
+        reduceBodyStamina1FPSInReal *= -3000.f;
+        reduceBrainStamina1FPSInReal *= -1000.f;
 
         // 脳の体力が50％以下で横になると寝てしまう
         if (brainStaminaCurrent <= m_status.GetBrainStaminaMax() * 0.5f)
@@ -941,21 +939,19 @@ void StatusManager::Update()
     }
     else if (m_playerState == PlayerState::IDLE_WATER)
     {
-        // 体力消費3倍
-        reduceBodyStamina1FPSInReal *= 3.f;
-        reduceBodyStaminaMaxSub1FPSInReal *= 3.f;
+        reduceBodyStamina1FPSInReal *= -300.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 200.f;
 
-        reduceBrainStamina1FPSInReal *= 3.f;
-        reduceBrainStaminaMaxSub1FPSInReal *= 3.f;
+        reduceBrainStamina1FPSInReal *= -300.f;
+        reduceBrainStaminaMaxSub1FPSInReal *= 200.f;
     }
     else if (m_playerState == PlayerState::SWIM)
     {
-        // 体力消費10倍
-        reduceBodyStamina1FPSInReal *= 10.f;
-        reduceBodyStaminaMaxSub1FPSInReal *= 10.f;
+        reduceBodyStamina1FPSInReal *= 1000.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 1000.f;
 
-        reduceBrainStamina1FPSInReal *= 10.f;
-        reduceBrainStaminaMaxSub1FPSInReal *= 10.f;
+        reduceBrainStamina1FPSInReal *= 1000.f;
+        reduceBrainStaminaMaxSub1FPSInReal *= 1000.f;
     }
 
     //------------------------------------
@@ -1184,8 +1180,18 @@ void StatusManager::Update()
         bodyStaminaCurrent = work1 - reduceBodyStamina1FPSInReal;
         bodyStaminaMaxSub = work2 - reduceBodyStaminaMaxSub1FPSInReal;
 
+        if (bodyStaminaCurrent > bodyStaminaMaxSub)
+        {
+            bodyStaminaCurrent = bodyStaminaMaxSub;
+        }
+
         brainStaminaCurrent = work3 - reduceBrainStamina1FPSInReal;
         brainStaminaMaxSub = work4 - reduceBrainStaminaMaxSub1FPSInReal;
+
+        if (brainStaminaCurrent > brainStaminaMaxSub)
+        {
+            brainStaminaCurrent = brainStaminaMaxSub;
+        }
     }
 
     m_status.SetBodyStaminaCurrent(bodyStaminaCurrent);
@@ -1193,13 +1199,6 @@ void StatusManager::Update()
 
     m_status.SetBrainStaminaCurrent(brainStaminaCurrent);
     m_status.SetBrainStaminaMaxSub(brainStaminaMaxSub);
-
-    // 死亡
-    if (bodyStaminaCurrent <= 0.f)
-    {
-        m_status.SetDead(true);
-        m_eDeadReason = eDeadReason::KAROSHI;
-    }
 
     //------------------------------------------------------
     // 体内の五大栄養素と水分を減らす
@@ -1962,7 +1961,7 @@ float StatusManager::GetWalkSpeed()
     bool work_b = false;
 
     // 体のスタミナが10％以下になると移動速度が1/10になる。
-    if (m_status.GetBodyStaminaCurrent() < m_status.GetBodyStaminaMax() * 0.5f)
+    if (m_status.GetBodyStaminaCurrent() < m_status.GetBodyStaminaMax() * 0.1f)
     {
         walkSpeed *= 0.1f;
     }
@@ -2005,9 +2004,6 @@ float StatusManager::GetWalkSpeed()
             walkSpeed *= 0.75f;
         }
     }
-
-    // 微調整
-    walkSpeed *= 3.f;
 
     return walkSpeed;
 }
@@ -3791,7 +3787,7 @@ void NSStarmanLib::StatusManager::ConsumeJumpCost()
 
     // 身体のスタミナ
     work_f = m_status.GetBodyStaminaCurrent();
-    m_status.SetBodyStaminaCurrent(work_f - 0.01f);
+    m_status.SetBodyStaminaCurrent(work_f - 10.f);
 
     // 肉体の修復度
     work_f = m_status.GetMuscleCurrent();
