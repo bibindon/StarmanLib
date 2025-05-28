@@ -5,6 +5,7 @@
 #include "Voyage.h"
 #include "ActivityBase.h"
 #include "Util.h"
+#include "StatusManager.h"
 
 using namespace NSStarmanLib;
 
@@ -364,6 +365,10 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
                                                   std::wstring* errMsg,
                                                   const int storehouseId)
 {
+    // 会話したら脳のスタミナを消費
+    auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
+    StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
+
     // 予約は5件まで
     if (m_craftRequestList.size() >= 5)
     {

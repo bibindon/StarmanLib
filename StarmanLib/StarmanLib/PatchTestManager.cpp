@@ -5,6 +5,7 @@
 #include "PatchTestManager.h"
 #include "PowereggDateTime.h"
 #include "Util.h"
+#include "StatusManager.h"
 
 using namespace NSStarmanLib;
 
@@ -538,6 +539,10 @@ bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::wstring& name)
                              );
 
     m_PatchTestQue.push_back(patchTest);
+
+    // 会話したら脳のスタミナを消費
+    auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
+    StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
 
     return true;
 }
