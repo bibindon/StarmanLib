@@ -897,11 +897,11 @@ void StatusManager::Update()
 
     if (m_playerState == PlayerState::STAND)
     {
-        // Do nothing
+        reduceBodyStamina1FPSInReal *= -10.f;
     }
     else if (m_playerState == PlayerState::WALK)
     {
-        // Do nothing
+        reduceBodyStamina1FPSInReal *= -10.f;
     }
     else if (m_playerState == PlayerState::JOGGING)
     {
@@ -918,7 +918,7 @@ void StatusManager::Update()
     else if (m_playerState == PlayerState::SIT)
     {
         // 通常時の消費スピードの5倍の速度で逆に回復していく
-        reduceBodyStamina1FPSInReal *= -5.f;
+        reduceBodyStamina1FPSInReal *= -20.f;
         reduceBrainStamina1FPSInReal *= -5.f;
 
         // 脳の体力が20％以下で座ると寝てしまう
@@ -930,7 +930,7 @@ void StatusManager::Update()
     else if (m_playerState == PlayerState::LYING_DOWN)
     {
         // 通常時の消費スピードの10倍の速度で逆に回復していく
-        reduceBodyStamina1FPSInReal *= -10.f;
+        reduceBodyStamina1FPSInReal *= -30.f;
         reduceBrainStamina1FPSInReal *= -10.f;
 
         // 脳の体力が50％以下で横になると寝てしまう
@@ -3467,6 +3467,11 @@ void StatusManager::SetLackOfSleep(bool arg)
 void StatusManager::SetPlayerAction(const PlayerState arg)
 {
     m_playerState = arg;
+}
+
+StatusManager::PlayerState NSStarmanLib::StatusManager::GetPlayerAction() const
+{
+    return m_playerState;
 }
 
 bool StatusManager::GetDead() const

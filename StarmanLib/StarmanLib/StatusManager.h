@@ -463,6 +463,7 @@ public:
     void SetLackOfSleep(bool mlackOfSleep);
 
     void SetPlayerAction(const PlayerState arg);
+    PlayerState GetPlayerAction() const;
 
     bool GetDead() const;
     void SetDead(const bool arg);
