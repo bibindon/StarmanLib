@@ -903,6 +903,18 @@ void StatusManager::Update()
     {
         // Do nothing
     }
+    else if (m_playerState == PlayerState::JOGGING)
+    {
+        // 通常時の消費スピードの10倍の速度で消費する
+        reduceBodyStamina1FPSInReal *= 10.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 2.f;
+    }
+    else if (m_playerState == PlayerState::SPRINTING)
+    {
+        // 通常時の消費スピードの100倍の速度で消費する
+        reduceBodyStamina1FPSInReal *= 100.f;
+        reduceBodyStaminaMaxSub1FPSInReal *= 10.f;
+    }
     else if (m_playerState == PlayerState::SIT)
     {
         // 通常時の消費スピードの5倍の速度で逆に回復していく
