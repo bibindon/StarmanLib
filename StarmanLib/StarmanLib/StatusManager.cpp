@@ -1345,14 +1345,22 @@ void StatusManager::Update()
                 SetBodyStaminaMaxSub(work);
             }
 
-			work = GetExplosivePower();
-			work *= 1.01f;
-			SetExplosivePower(work);
+            work = GetExplosivePower();
+            work *= 1.01f;
+            SetExplosivePower(work);
         }
 
         if (!m_status.GetSleep())
         {
-            m_status.SetSleep(true);
+            // 水中だったら寝ない
+            if (m_playerState == PlayerState::IDLE_WATER || m_playerState == PlayerState::SWIM)
+            {
+                m_status.SetSleep(false);
+            }
+            else
+            {
+                m_status.SetSleep(true);
+            }
         }
 
         m_training70 = false;
@@ -2726,7 +2734,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
             work = work2;
         }
 
-		SetMuscleCurrent(work);
+        SetMuscleCurrent(work);
     }
 
     // 五大栄養素を消費
@@ -3143,8 +3151,18 @@ void StatusManager::SetBrainStaminaCurrent(float arg)
     if (arg < 0.f)
     {
         arg = 0.f;
-        m_status.SetSleep(true);
+
+        // 水中だったら寝ない。
+        if (m_playerState == PlayerState::IDLE_WATER || m_playerState == PlayerState::SWIM)
+        {
+            m_status.SetSleep(false);
+        }
+        else
+        {
+            m_status.SetSleep(true);
+        }
     }
+
     m_status.SetBrainStaminaCurrent(arg);
 }
 
