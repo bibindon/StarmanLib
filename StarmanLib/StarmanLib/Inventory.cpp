@@ -183,6 +183,10 @@ int Inventory::AddItem(const int id, const int durability)
 
     m_weight = CalcWeight();
     m_volumeCurrent = CalcVolume();
+
+    auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
+    StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
+
     return newSubId;
 }
 
@@ -208,6 +212,9 @@ void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, co
 
     m_weight = CalcWeight();
     m_volumeCurrent = CalcVolume();
+
+    auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
+    StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
 }
 
 void Inventory::RemoveItem(const int id, const int subId)
@@ -223,6 +230,9 @@ void Inventory::RemoveItem(const int id, const int subId)
 
     m_weight = CalcWeight();
     m_volumeCurrent = CalcVolume();
+
+    auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
+    StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
 }
 
 void NSStarmanLib::Inventory::RemoveItem(const std::wstring name,
