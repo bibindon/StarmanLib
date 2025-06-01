@@ -1976,6 +1976,10 @@ float StatusManager::GetWalkSpeed()
     work = m_status.GetExplosivePower();
     walkSpeed *= work / 100.f;
 
+    // 微調整
+    // あまりにも歩くのが遅い。
+    walkSpeed *= 2.f;
+
     // インベントリの重量によって歩行速度を遅くする
     // 反比例の式にしたいので
     // 10足して10を重量(kg)で割る。
