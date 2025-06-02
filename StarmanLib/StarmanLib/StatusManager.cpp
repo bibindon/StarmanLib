@@ -1203,7 +1203,7 @@ void StatusManager::Update()
     //------------------------------------------------------
     // 体内の五大栄養素と水分を減らす
     // めんどうなので一律、24時間で20％減少
-    // 水は24時間で2％減少
+    // 水は24時間で3％減少
     //------------------------------------------------------
     {
         float work1 = 0.f;
@@ -1215,6 +1215,14 @@ void StatusManager::Update()
 
         // 1秒で、ゲーム内では12秒経過する
         work2 *= 12.f;
+
+        float work3 = 0.f;
+        work3 = 3.f;
+        work3 /= 24.f;
+        work3 /= 3600.f;
+
+        // 1秒で、ゲーム内では12秒経過する
+        work3 *= 12.f;
 
         work1 = m_status.GetCarboCurrent();
         work1 -= work2;
@@ -1245,7 +1253,30 @@ void StatusManager::Update()
         m_status.SetMineralCurrent(work1);
 
         work1 = m_status.GetWaterCurrent();
-        work1 -= work2;
+
+        if (!RainModel::Get()->IsRain())
+        {
+            // 雨が降っていたら
+            // パワーエッグ星で1時間（ゲーム時間で5分）で全快(10％回復)する速度で回復する
+            float work4 = 0.f;
+            work4 = 10.f;
+            work4 /= 24.f;
+            work4 /= 3600.f;
+
+            // 1秒で、ゲーム内では12秒経過する
+            work4 *= 12.f;
+
+            work1 += work4;
+            if (work1 >= 100.f)
+            {
+                work1 = 100.f;
+            }
+        }
+        else
+        {
+            work1 -= work3;
+        }
+
         m_status.SetWaterCurrent(work1);
     }
 
