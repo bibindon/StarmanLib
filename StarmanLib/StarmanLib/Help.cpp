@@ -58,6 +58,7 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
     m_enableItemIdList.push_back(33);
     m_enableItemIdList.push_back(34);
     m_enableItemIdList.push_back(35);
+    m_enableItemIdList.push_back(37);
     m_enableItemIdList.push_back(38);
     m_enableItemIdList.push_back(39);
     m_enableItemIdList.push_back(40);
@@ -67,6 +68,7 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
     m_enableItemIdList.push_back(55);
     m_enableItemIdList.push_back(56);
     m_enableItemIdList.push_back(57);
+    m_enableItemIdList.push_back(81);
 
 	m_presentMap[_T("sankakuman")] = std::vector<ItemDef>();
 	m_presentMap[_T("shikakuman")] = std::vector<ItemDef>();
