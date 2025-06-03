@@ -36,6 +36,9 @@ public:
     // 現在の活動拠点にイカダがあるか
     bool CheckRaftExist();
 
+    bool GetHanawa() const { return m_bHanawa; }
+    void SetHanaw(const bool hanawa) { m_bHanawa = hanawa; }
+
 private:
 
     ActivityBase();
@@ -43,6 +46,8 @@ private:
     static ActivityBase* m_obj;
 
     eBaseType m_eBaseType = eBaseType::Precision;
+
+    bool m_bHanawa = false;
 
 };
 }

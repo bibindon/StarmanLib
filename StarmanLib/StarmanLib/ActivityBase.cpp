@@ -31,6 +31,17 @@ void NSStarmanLib::ActivityBase::Init(const std::wstring& csvfile)
     {
         m_eBaseType = eBaseType::DirectNex;
     }
+
+    // 墓に花輪を飾った
+    if (vvs.at(1).at(1) == _T("y"))
+    {
+        m_bHanawa = true;
+    }
+    else if (vvs.at(1).at(1) == _T("n"))
+    {
+        m_bHanawa = false;
+    }
+
 }
 
 void NSStarmanLib::ActivityBase::Save(const std::wstring& csvfile)
@@ -46,6 +57,15 @@ void NSStarmanLib::ActivityBase::Save(const std::wstring& csvfile)
     else if (m_eBaseType == eBaseType::DirectNex)
     {
         vs.push_back(_T("DirectNex"));
+    }
+
+    if (m_bHanawa)
+    {
+        vs.push_back(_T("y"));
+    }
+    else
+    {
+        vs.push_back(_T("n"));
     }
 
     vvs.push_back(vs);
