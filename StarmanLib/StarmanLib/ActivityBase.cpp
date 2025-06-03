@@ -58,6 +58,10 @@ void NSStarmanLib::ActivityBase::Save(const std::wstring& csvfile)
     {
         vs.push_back(_T("DirectNex"));
     }
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("現在の活動拠点"));
 
     if (m_bHanawa)
     {
