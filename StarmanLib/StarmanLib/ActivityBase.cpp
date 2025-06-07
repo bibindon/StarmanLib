@@ -98,15 +98,14 @@ void NSStarmanLib::ActivityBase::GetPierPos(const eBaseType baseType, float* x, 
     if (baseType == eBaseType::Precision)
     {
         *x = -4.5f;
-        *y = 457.7f;
+        *y = 458.7f;
         *z = -711.f;
     }
     else if (baseType == eBaseType::DirectNex)
     {
-        // TODO 正しい座標
-        *x = -305.f;
+        *x = 1237.f;
         *y = 11.f;
-        *z = 540.f;
+        *z = 486.7f;
     }
 }
 
