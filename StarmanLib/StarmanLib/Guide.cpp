@@ -163,6 +163,16 @@ void Guide::SetVisible(const std::wstring& category, const std::wstring& subCate
     }
 }
 
+void NSStarmanLib::Guide::SetVisible(const int id)
+{
+    auto it = std::find_if(m_guideList.begin(), m_guideList.end(),
+                           [&](GuideItem& x)
+                           {
+                               return x.GetId() == id;
+                           });
+    it->SetVisible(true);
+}
+
 void Guide::Save(const std::wstring& csvfile,
                  const bool encrypt)
 {

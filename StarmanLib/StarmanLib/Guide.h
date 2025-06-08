@@ -19,6 +19,9 @@ public:
     void SetVisible(const bool visible);
     bool GetVisible();
 
+    void SetId(const int id) { m_id = id; }
+    int GetId() const { return m_id; }
+
 private:
 
     // 大分類
@@ -32,6 +35,8 @@ private:
 
     // 表示済みか否か
     bool m_bVisible { false };
+
+    int m_id = -1;
 };
 
 // 操作説明
@@ -50,6 +55,7 @@ public:
 
     bool GetVisible(const std::wstring& category, const std::wstring& subCategory);
     void SetVisible(const std::wstring& category, const std::wstring& subCategory);
+    void SetVisible(const int id);
 
     void Save(const std::wstring& csvfile,
               const bool encrypt = false);
