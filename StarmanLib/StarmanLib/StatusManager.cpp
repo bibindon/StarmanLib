@@ -1960,7 +1960,7 @@ void StatusManager::Save(const std::wstring& csvfile,
 
     vs.clear();
     vs.push_back(_T("51"));
-    vs.push_back(_T("菅笠を装備"));
+    vs.push_back(_T("菅笠の装備"));
     if (m_bEquipSugegasa)
     {
         work = _T("y");
