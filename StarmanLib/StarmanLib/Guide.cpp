@@ -64,6 +64,7 @@ void Guide::Init(const std::wstring& csvfile,
     for (std::size_t i = 1; i < vvs.size(); ++i)
     {
         GuideItem guideItem;
+        guideItem.SetId(std::stoi(vvs.at(i).at(0)));
         guideItem.SetCategory(vvs.at(i).at(1));
         guideItem.SetSubCategory(vvs.at(i).at(2));
         guideItem.SetText(vvs.at(i).at(3));
@@ -187,7 +188,7 @@ void Guide::Save(const std::wstring& csvfile,
     vs.clear();
     for (std::size_t i = 0; i < m_guideList.size(); ++i)
     {
-        vs.push_back(std::to_wstring(i+1));
+        vs.push_back(std::to_wstring(m_guideList.at(i).GetId()));
         vs.push_back(m_guideList.at(i).GetCategory());
         vs.push_back(m_guideList.at(i).GetSubCategory());
 
