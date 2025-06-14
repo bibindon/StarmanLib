@@ -39,7 +39,10 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
         CraftOutput craftOutput;
         int work_i = 0;
 
-        craftOutput.SetName(vvs.at(i).at(1));
+        work_i = std::stoi(vvs.at(i).at(1));
+        auto itemDef = itemManager->GetItemDef(work_i);
+
+        craftOutput.SetName(itemDef.GetName());
 
         work_i = std::stoi(vvs.at(i).at(2));
         craftOutput.SetNumber(work_i);
@@ -68,7 +71,10 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
                 break;
             }
 
-            craftMaterial.SetName(vvs.at(i).at(4 + (j * 3)));
+            work_i = std::stoi(vvs.at(i).at(4 + (j * 3)));
+			auto itemDefMat = itemManager->GetItemDef(work_i);
+
+            craftMaterial.SetName(itemDefMat.GetName());
 
             work_i = std::stoi(vvs.at(i).at(5 + (j * 3)));
             craftMaterial.SetNumber(work_i);
@@ -83,10 +89,7 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
                 craftMaterial.SetLevel(-1);
             }
 
-            ItemDef itemDef = itemManager->GetItemDef(craftMaterial.GetName(),
-                                                      craftMaterial.GetLevel());
-
-            craftMaterial.SetId(itemDef.GetId());
+            craftMaterial.SetId(itemDefMat.GetId());
 
             craftInfo.SetCraftMaterialDef((int)j, craftMaterial);
         }

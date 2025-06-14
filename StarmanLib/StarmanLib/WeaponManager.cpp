@@ -5,6 +5,7 @@
 #include "Inventory.h"
 #include "Storehouse.h"
 #include "Util.h"
+#include "CraftInfoManager.h"
 
 using namespace NSStarmanLib;
 
@@ -529,6 +530,16 @@ std::wstring WeaponDefSub::GetWeaponId() const
 void WeaponDefSub::SetWeaponId(const std::wstring& id)
 {
     m_weaponId = id;
+}
+
+void NSStarmanLib::CraftOutput::SetItemId(const int id)
+{
+    m_id = id;
+}
+
+int NSStarmanLib::CraftOutput::GetItemId() const
+{
+    return m_id;
 }
 
 int WeaponDefSub::GetItemId() const

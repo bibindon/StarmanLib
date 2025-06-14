@@ -18,6 +18,7 @@ class CraftRequest
 public:
 
     std::wstring GetName() const;
+    int GetId() const;
 
     int GetLevel() const;
 
@@ -97,6 +98,9 @@ class CraftSkill
 {
 public:
 
+    void SetId(const int& arg);
+    int GetId() const;
+
     void SetName(const std::wstring& arg);
     std::wstring GetName() const;
 
@@ -113,6 +117,9 @@ public:
     int GetSuccessNum() const;
 
 private:
+
+    // クラフトアイテムID
+    int m_id;
 
     // クラフトアイテム
     std::wstring m_name;

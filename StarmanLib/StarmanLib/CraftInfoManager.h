@@ -47,6 +47,9 @@ public:
     void SetName(const std::wstring& arg);
     std::wstring GetName() const;
 
+    void SetItemId(const int id);
+    int GetItemId() const;
+
     void SetNumber(const int arg);
     int GetNumber() const;
 
@@ -63,6 +66,8 @@ private:
     
     // 完成品の強化レベル
     int m_level = 0;
+
+    int m_id = 0;
 };
 
 // クラフトの情報クラス

@@ -825,6 +825,11 @@ std::wstring CraftRequest::GetName() const
     return m_craftInfo.GetOutput().GetName();
 }
 
+int CraftRequest::GetId() const
+{
+    return m_craftInfo.GetOutput().GetItemId();
+}
+
 int NSStarmanLib::CraftRequest::GetLevel() const
 {
     return m_craftInfo.GetOutput().GetLevel();
@@ -978,6 +983,16 @@ bool NSStarmanLib::CraftRequest::GetCrafting() const
 void NSStarmanLib::CraftRequest::SetCrafting(const bool arg)
 {
     m_crafting = arg;
+}
+
+void NSStarmanLib::CraftSkill::SetId(const int& arg)
+{
+    m_id = arg;
+}
+
+int NSStarmanLib::CraftSkill::GetId() const
+{
+    return m_id;
 }
 
 void NSStarmanLib::CraftSkill::SetName(const std::wstring& arg)
