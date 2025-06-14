@@ -65,10 +65,10 @@ private:
     static SkillManager* obj;
 
     // スキルの定義
-    std::unordered_map<std::wstring, SkillDefinition> m_skillLevelMap;
+    std::unordered_map<int, SkillDefinition> m_skillLevelMap;
 
     // 現在の主人公のスキルレベルの状況
-    std::unordered_map<std::wstring, int> m_playerSkillLevelMap;
+    std::unordered_map<int, int> m_playerSkillLevelMap;
 
 };
 }
