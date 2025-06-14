@@ -59,7 +59,7 @@ private:
     // シングルトンオブジェクト
     static HumanInfoManager* obj;
 
-    std::unordered_map<std::wstring, HumanInfo> m_humanInfoMap;
+    std::unordered_map<int, HumanInfo> m_humanInfoMap;
 
 };
 }
