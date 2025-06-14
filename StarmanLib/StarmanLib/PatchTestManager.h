@@ -28,6 +28,9 @@ public:
     void SetItemName(const std::wstring& arg);
     std::wstring GetItemName() const;
 
+    void SetItemId(const int arg);
+    int GetItemId() const;
+
     // 依頼日時
     void SetDateTimeReq(const int y, const int M, const int d,
                         const int h, const int m, const int s);
@@ -55,6 +58,7 @@ public:
 private:
 
     std::wstring m_itemName;
+    int m_itemId = 0;
     eState m_eState = eState::NOT_START;
     eResult m_eResult = eResult::NOT_YET;
 
@@ -150,14 +154,14 @@ public:
     // 現実世界で1秒に一回呼ばれる想定
     void Update();
 
-    bool QueuePatchTest(const std::wstring& patchTest);
+    bool QueuePatchTest(const int patchTest);
     std::vector<PatchTest> GetQueue();
 
     // 直近の3回のテスト結果を取得できると便利かもしれない。
     // GUIで表示したい。
-    std::vector<PatchTest> GetResultList(const std::wstring& name);
+    std::vector<PatchTest> GetResultList(const int id);
 
-    std::vector<std::wstring> GetKeyList();
+    std::vector<int> GetKeyList();
 
 private:
 
@@ -170,9 +174,9 @@ private:
     // アイテム情報リスト
     // 毒、毒じゃない、はあらかじめ決まっていない。
     // ゲーム開始時にランダムで決まる
-    std::map<std::wstring, PatchItemInfo> m_infoMap;
+    std::map<int, PatchItemInfo> m_infoMap;
 
-    std::vector<std::wstring> m_keyList;
+    std::vector<int> m_keyList;
 };
 }
 

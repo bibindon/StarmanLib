@@ -39,7 +39,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(originFile, false);
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            m_keyList.push_back(vvs.at(i).at(0));
+            m_keyList.push_back(std::stoi(vvs.at(i).at(0)));
         }
     }
 
@@ -59,22 +59,22 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            m_infoMap[vvs.at(i).at(0)].SetName(vvs.at(i).at(0));
+            m_infoMap[std::stoi(vvs.at(i).at(0))].SetName(vvs.at(i).at(0));
 
             int rnd = rand();
 
             // 50%の確率で毒
             if (rnd % 100 <= 49)
             {
-                m_infoMap[vvs.at(i).at(0)].SetPoison(true);
+                m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(true);
             }
             else
             {
-                m_infoMap[vvs.at(i).at(0)].SetPoison(false);
+                m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(false);
             }
 
             // 最初は正解率60％
-            m_infoMap[vvs.at(i).at(0)].SetAccurate(0.6f);
+            m_infoMap[std::stoi(vvs.at(i).at(0))].SetAccurate(0.6f);
         }
     }
     else
@@ -86,11 +86,11 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             {
                 if (vvs.at(i).at(1) == _T("y"))
                 {
-                    m_infoMap[vvs.at(i).at(0)].SetPoison(true);
+                    m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(true);
                 }
                 else if (vvs.at(i).at(1) == _T("n"))
                 {
-                    m_infoMap[vvs.at(i).at(0)].SetPoison(false);
+                    m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(false);
                 }
                 else
                 {
@@ -98,10 +98,10 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
                 }
 
                 int tryNum = std::stoi(vvs.at(i).at(2));
-                m_infoMap[vvs.at(i).at(0)].SetTryNum(tryNum);
+                m_infoMap[std::stoi(vvs.at(i).at(0))].SetTryNum(tryNum);
 
                 float accurate = std::stof(vvs.at(i).at(3));
-                m_infoMap[vvs.at(i).at(0)].SetAccurate(accurate);
+                m_infoMap[std::stoi(vvs.at(i).at(0))].SetAccurate(accurate);
             }
         }
 
@@ -397,8 +397,8 @@ void NSStarmanLib::PatchTestManager::Update()
                                dateTime->GetMinute(),
                                dateTime->GetSecond());
 
-            auto name = it->GetItemName();
-            auto accurate = m_infoMap[name].GetAccurate();
+            auto id = it->GetItemId();
+            auto accurate = m_infoMap[id].GetAccurate();
 
             // 正解率による結果判定
 
@@ -412,7 +412,7 @@ void NSStarmanLib::PatchTestManager::Update()
             // 正解
             if (rnd < nAccurate)
             {
-                auto poison = m_infoMap[name].GetPoison();
+                auto poison = m_infoMap[id].GetPoison();
                 if (poison)
                 {
                     it->SetResult(PatchTest::eResult::POISON);
@@ -425,7 +425,7 @@ void NSStarmanLib::PatchTestManager::Update()
             // 不正解
             else
             {
-                auto poison = m_infoMap[name].GetPoison();
+                auto poison = m_infoMap[id].GetPoison();
                 if (poison)
                 {
                     it->SetResult(PatchTest::eResult::NOT_POISON);
@@ -437,9 +437,9 @@ void NSStarmanLib::PatchTestManager::Update()
             }
 
             // パッチテスト回数を更新
-            auto tryNum = m_infoMap[name].GetTryNum();
+            auto tryNum = m_infoMap[id].GetTryNum();
             ++tryNum;
-            m_infoMap[name].SetTryNum(tryNum);
+            m_infoMap[id].SetTryNum(tryNum);
 
             // 正解率を更新
             accurate += 0.1f;
@@ -448,7 +448,7 @@ void NSStarmanLib::PatchTestManager::Update()
                 accurate = 0.9f;
             }
 
-            m_infoMap[name].SetAccurate(accurate);
+            m_infoMap[id].SetAccurate(accurate);
 
             // 開始処理
             ++it;
@@ -503,9 +503,9 @@ void NSStarmanLib::PatchTestManager::Update()
     }
 }
 
-bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::wstring& name)
+bool NSStarmanLib::PatchTestManager::QueuePatchTest(const int id)
 {
-    auto it = m_infoMap.find(name);
+    auto it = m_infoMap.find(id);
     if (it == m_infoMap.end())
     {
         throw std::exception();
@@ -526,6 +526,8 @@ bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::wstring& name)
 
     PatchTest patchTest;
 
+    patchTest.SetItemId(id);
+    auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
     patchTest.SetItemName(name);
 
     auto dateTime = PowereggDateTime::GetObj();
@@ -553,13 +555,13 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()
 }
 
 // 先頭が一番新しく、末尾に向かうほど古いテスト結果
-std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::wstring& name)
+std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const int id)
 {
     std::vector<PatchTest> resultList;
 
     for (auto it = m_PatchTestQue.rbegin(); it != m_PatchTestQue.rend(); ++it)
     {
-        if (it->GetItemName() == name)
+        if (it->GetItemId() == id)
         {
             if (it->GetState() == PatchTest::eState::FINISHED)
             {
@@ -571,7 +573,7 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::
     return resultList;
 }
 
-std::vector<std::wstring> NSStarmanLib::PatchTestManager::GetKeyList()
+std::vector<int> NSStarmanLib::PatchTestManager::GetKeyList()
 {
     return m_keyList;
 }
@@ -584,6 +586,16 @@ void NSStarmanLib::PatchTest::SetItemName(const std::wstring& arg)
 std::wstring NSStarmanLib::PatchTest::GetItemName() const
 {
     return m_itemName;
+}
+
+void NSStarmanLib::PatchTest::SetItemId(const int arg)
+{
+    m_itemId = arg;
+}
+
+int NSStarmanLib::PatchTest::GetItemId() const
+{
+    return m_itemId;
 }
 
 void NSStarmanLib::PatchTest::SetDateTimeReq(const int y, const int M, const int d,
