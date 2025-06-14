@@ -2059,7 +2059,7 @@ float StatusManager::GetAttackPower()
         auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
 
         // 装備中の武器の攻撃力
-        double attackRate = weaponManager->GetAttackRate(weaponName, itemDef.GetLevel());
+        double attackRate = weaponManager->GetAttackRate2(itemDef.GetWeaponId(), itemDef.GetLevel());
         result = (float)attackRate;
 
         // 耐久度が0だったら攻撃力は1になる

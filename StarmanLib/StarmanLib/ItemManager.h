@@ -96,6 +96,9 @@ public:
     int GetDurabilityMax() const;
     void SetDurabilityMax(int arg);
 
+    std::wstring GetWeaponId() const;
+    void SetWeaponId(const std::wstring& arg);
+
 private:
     // ID
     int m_id = 0;
@@ -157,6 +160,8 @@ private:
 
     // 耐久度
     int m_durabilityMax = -1;
+
+    std::wstring m_weaponId;
 };
 
 class ItemInfo
@@ -227,8 +232,10 @@ public:
               const bool encrypt = false);
 
     std::vector<int> GetItemIdList();
+    // 名前を使うの禁止、としたいが、メニュー画面のために残す必要がある
     ItemDef GetItemDef(const std::wstring& key, const int level = -1);
     ItemDef GetItemDef(const int id);
+    ItemDef GetItemDefByWeaponId(const std::wstring& weaponId, const int level = -1);
     std::vector<int> GetItemDef(const ItemDef::ItemType type);
     
     ItemDef GetItemDefByPosID(const int posId);

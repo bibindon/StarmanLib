@@ -132,7 +132,7 @@ void WeaponManager::Init(const std::wstring& csvfilename,
             weaponDefSub.SetWeaponId(weaponDef.GetWeaponId());
 
             ItemManager* itemManager = ItemManager::GetObj();
-            ItemDef itemDef = itemManager->GetItemDef(weaponDef.GetName(), level);
+            ItemDef itemDef = itemManager->GetItemDefByWeaponId(weaponDef.GetName(), level);
 
             weaponDefSub.SetItemId(itemDef.GetId());
 
@@ -190,90 +190,89 @@ void WeaponManager::Save(const std::wstring& savefilename,
     }
 }
 
-std::wstring WeaponManager::GetDetail(const std::wstring& weaponName) const
+std::wstring WeaponManager::GetDetail2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
+
     return it->second.GetDetail();
 }
 
-std::wstring WeaponManager::GetXfilename(const std::wstring& weaponName) const
+std::wstring WeaponManager::GetXfilename2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetXfileName();
 }
 
-std::wstring WeaponManager::GetImageName(const std::wstring& weaponName) const
+std::wstring WeaponManager::GetImageName2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetImageName();
 }
 
-double WeaponManager::GetWeight(const std::wstring& weaponName) const
+double WeaponManager::GetWeight2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetWeight();
 }
 
-int WeaponManager::GetVolume(const std::wstring& weaponName) const
+int WeaponManager::GetVolume2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetVolume();
 }
 
-int WeaponManager::GetReinforceMax(const std::wstring& weaponName) const
+int WeaponManager::GetReinforceMax2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetReinforceMax();
 }
 
-int WeaponManager::GetOwnDamage(const std::wstring& weaponName) const
+int WeaponManager::GetOwnDamage2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetOwnDamage();
 }
 
-bool WeaponManager::GetIsShow(const std::wstring& weaponName) const
+bool WeaponManager::GetIsShow2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetIsShow();
 }
 
-double WeaponManager::GetAttackRate(const std::wstring& weaponName, const int level) const
+double WeaponManager::GetAttackRate2(const std::wstring& weaponId, const int level) const
 {
-    std::wstring weaponId = GetItemName(weaponName);
-
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
                            {
@@ -288,10 +287,8 @@ double WeaponManager::GetAttackRate(const std::wstring& weaponName, const int le
     return it->GetAttackRate();
 }
 
-double WeaponManager::GetFlightDistance(const std::wstring& weaponName, const int level) const
+double WeaponManager::GetFlightDistance2(const std::wstring& weaponId, const int level) const
 {
-    std::wstring weaponId = GetItemName(weaponName);
-
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
                            {
@@ -301,20 +298,18 @@ double WeaponManager::GetFlightDistance(const std::wstring& weaponName, const in
     return it->GetFlightDistance();
 }
 
-double WeaponManager::GetStaminaDown(const std::wstring& weaponName) const
+double WeaponManager::GetStaminaDown2(const std::wstring& weaponId) const
 {
     auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
                            [&](const auto x)
                            {
-                               return x.second.GetName() == weaponName;
+                               return x.second.GetWeaponId() == weaponId;
                            });
     return it->second.GetStaminaDown();
 }
 
-int WeaponManager::GetDurabilityMax(const std::wstring& weaponName, const int level) const
+int WeaponManager::GetDurabilityMax2(const std::wstring& weaponId, const int level) const
 {
-    std::wstring weaponId = GetItemName(weaponName);
-
     auto it = std::find_if(m_weaponDefSubList.begin(), m_weaponDefSubList.end(),
                            [&](const WeaponDefSub& x)
                            {
@@ -344,17 +339,17 @@ void NSStarmanLib::WeaponManager::SetTorchLit(const bool lit)
 {
     m_torchLit = lit;
 }
-
-std::wstring NSStarmanLib::WeaponManager::GetItemName(const std::wstring& weaponName) const
-{
-    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
-                           [&](const auto x)
-                           {
-                               return x.second.GetName() == weaponName;
-                           });
-
-    return it->second.GetWeaponId();
-}
+//
+//std::wstring NSStarmanLib::WeaponManager::GetItemName(const std::wstring& weaponName) const
+//{
+//    auto it = std::find_if(m_weaponDefMap.begin(), m_weaponDefMap.end(),
+//                           [&](const auto x)
+//                           {
+//                               return x.second.GetName() == weaponName;
+//                           });
+//
+//    return it->second.GetWeaponId();
+//}
 
 std::wstring WeaponDef::GetWeaponId() const
 {

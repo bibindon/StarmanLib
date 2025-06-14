@@ -45,8 +45,9 @@ std::wstring ItemDef::GetImagePath() const
     }
     else
     {
-        auto weapon = WeaponManager::GetObj();
-        return weapon->GetImageName(m_name);
+        auto weaponM = WeaponManager::GetObj();
+
+        return weaponM->GetImageName2(m_weaponId);
     }
 }
 
@@ -215,6 +216,16 @@ void NSStarmanLib::ItemDef::SetDurabilityMax(int arg)
     m_durabilityMax = arg;
 }
 
+std::wstring NSStarmanLib::ItemDef::GetWeaponId() const
+{
+    return m_weaponId;
+}
+
+void NSStarmanLib::ItemDef::SetWeaponId(const std::wstring& arg)
+{
+    m_weaponId = arg;
+}
+
 ItemManager* ItemManager::GetObj()
 {
     if (obj == nullptr)
@@ -350,6 +361,10 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
             }
 
             itemDef.SetDurabilityMax(work_i);
+
+            // 武器ID
+            itemDef.SetWeaponId(vvs.at(i).at(20));
+
             m_itemDefMap[(int)i] = itemDef;
         }
     }
@@ -458,6 +473,7 @@ std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
     return idList;
 }
 
+// 名前を使うの禁止、としたいがメニュー画面の都合で残す必要がある。
 ItemDef ItemManager::GetItemDef(const std::wstring& key, const int level)
 {
     ItemDef itemDef;
@@ -489,6 +505,30 @@ ItemDef ItemManager::GetItemDef(const int id)
         {
             itemDef = it->second;
             break;
+        }
+    }
+
+    if (itemDef.GetId() == 0)
+    {
+        // 存在しないIDを取得しようとした。
+        throw std::exception();
+    }
+
+    return itemDef;
+}
+
+ItemDef NSStarmanLib::ItemManager::GetItemDefByWeaponId(const std::wstring& weaponId, const int level)
+{
+    ItemDef itemDef;
+    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
+    {
+        if (it->second.GetWeaponId() == weaponId)
+        {
+            if (it->second.GetLevel() == level)
+            {
+                itemDef = it->second;
+                break;
+            }
         }
     }
 

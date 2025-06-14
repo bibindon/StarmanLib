@@ -138,19 +138,34 @@ public:
     void Save(const std::wstring& savefilename,
               const bool encrypt = false);
 
-    std::wstring GetDetail(const std::wstring& weaponName) const;
-    std::wstring GetXfilename(const std::wstring& weaponName) const;
-    std::wstring GetImageName(const std::wstring& weaponName) const;
-    double GetWeight(const std::wstring& weaponName) const;
-    int GetVolume(const std::wstring& weaponName) const;
-    int GetReinforceMax(const std::wstring& weaponName) const;
-    double GetStaminaDown(const std::wstring& weaponName) const;
-    int GetOwnDamage(const std::wstring& weaponName) const;
-    bool GetIsShow(const std::wstring& weaponName) const;
+    // 名前を使うの禁止
+//    std::wstring GetDetail(const std::wstring& weaponName) const;
+//    std::wstring GetXfilename(const std::wstring& weaponName) const;
+//    std::wstring GetImageName(const std::wstring& weaponName) const;
+//    double GetWeight(const std::wstring& weaponName) const;
+//    int GetVolume(const std::wstring& weaponName) const;
+//    int GetReinforceMax(const std::wstring& weaponName) const;
+//    double GetStaminaDown(const std::wstring& weaponName) const;
+//    int GetOwnDamage(const std::wstring& weaponName) const;
+//    bool GetIsShow(const std::wstring& weaponName) const;
+//
+//    double GetAttackRate(const std::wstring& weaponName, const int level) const;
+//    double GetFlightDistance(const std::wstring& weaponName, const int level) const;
+//    int GetDurabilityMax(const std::wstring& weaponName, const int level) const;
 
-    double GetAttackRate(const std::wstring& weaponName, const int level) const;
-    double GetFlightDistance(const std::wstring& weaponName, const int level) const;
-    int GetDurabilityMax(const std::wstring& weaponName, const int level) const;
+    std::wstring GetDetail2(const std::wstring& weaponId) const;
+    std::wstring GetXfilename2(const std::wstring& weaponId) const;
+    std::wstring GetImageName2(const std::wstring& weaponId) const;
+    double GetWeight2(const std::wstring& weaponId) const;
+    int GetVolume2(const std::wstring& weaponId) const;
+    int GetReinforceMax2(const std::wstring& weaponId) const;
+    double GetStaminaDown2(const std::wstring& weaponId) const;
+    int GetOwnDamage2(const std::wstring& weaponId) const;
+    bool GetIsShow2(const std::wstring& weaponId) const;
+
+    double GetAttackRate2(const std::wstring& weaponId, const int level) const;
+    double GetFlightDistance2(const std::wstring& weaponId, const int level) const;
+    int GetDurabilityMax2(const std::wstring& weaponId, const int level) const;
 
     std::vector<std::wstring> GetWeaponNameList();
 
@@ -161,7 +176,7 @@ public:
 
 private:
 
-    std::wstring GetItemName(const std::wstring& weaponName) const;
+//    std::wstring GetItemName2(const std::wstring& weaponId) const;
 
     // シングルトンオブジェクト
     static WeaponManager* obj;
