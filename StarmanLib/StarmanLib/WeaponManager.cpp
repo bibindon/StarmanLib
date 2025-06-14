@@ -132,7 +132,7 @@ void WeaponManager::Init(const std::wstring& csvfilename,
             weaponDefSub.SetWeaponId(weaponDef.GetWeaponId());
 
             ItemManager* itemManager = ItemManager::GetObj();
-            ItemDef itemDef = itemManager->GetItemDefByWeaponId(weaponDef.GetName(), level);
+            ItemDef itemDef = itemManager->GetItemDefByWeaponId(weaponDef.GetWeaponId(), level);
 
             weaponDefSub.SetItemId(itemDef.GetId());
 
