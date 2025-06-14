@@ -59,22 +59,27 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            m_infoMap[std::stoi(vvs.at(i).at(0))].SetName(vvs.at(i).at(0));
+            auto id = std::stoi(vvs.at(i).at(0));
+            m_infoMap[id].SetItemId(id);
+
+            auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
+
+            m_infoMap[id].SetName(name);
 
             int rnd = rand();
 
             // 50%の確率で毒
             if (rnd % 100 <= 49)
             {
-                m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(true);
+                m_infoMap[id].SetPoison(true);
             }
             else
             {
-                m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(false);
+                m_infoMap[id].SetPoison(false);
             }
 
             // 最初は正解率60％
-            m_infoMap[std::stoi(vvs.at(i).at(0))].SetAccurate(0.6f);
+            m_infoMap[id].SetAccurate(0.6f);
         }
     }
     else
@@ -84,13 +89,15 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
+				auto id = std::stoi(vvs.at(i).at(0));
+
                 if (vvs.at(i).at(1) == _T("y"))
                 {
-                    m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(true);
+                    m_infoMap[id].SetPoison(true);
                 }
                 else if (vvs.at(i).at(1) == _T("n"))
                 {
-                    m_infoMap[std::stoi(vvs.at(i).at(0))].SetPoison(false);
+                    m_infoMap[id].SetPoison(false);
                 }
                 else
                 {
@@ -98,10 +105,10 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
                 }
 
                 int tryNum = std::stoi(vvs.at(i).at(2));
-                m_infoMap[std::stoi(vvs.at(i).at(0))].SetTryNum(tryNum);
+                m_infoMap[id].SetTryNum(tryNum);
 
                 float accurate = std::stof(vvs.at(i).at(3));
-                m_infoMap[std::stoi(vvs.at(i).at(0))].SetAccurate(accurate);
+                m_infoMap[id].SetAccurate(accurate);
             }
         }
 
@@ -112,7 +119,12 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             {
                 PatchTest patchTest;
 
-                patchTest.SetItemName(vvs.at(i).at(0));
+				auto id = std::stoi(vvs.at(i).at(0));
+                patchTest.SetItemId(id);
+
+				auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
+
+                patchTest.SetItemName(name);
 
                 if (vvs.at(i).at(1) == _T("NOT_START"))
                 {
@@ -207,7 +219,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
 
-        vs.push_back(_T("アイテム名"));
+        vs.push_back(_T("Item ID"));
         vs.push_back(_T("毒性"));
         vs.push_back(_T("パッチテスト回数"));
         vs.push_back(_T("正解率"));
@@ -218,7 +230,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         {
             vs.clear();
 
-            vs.push_back(it->second.GetName());
+            vs.push_back(std::to_wstring(it->second.GetItemId()));
 
             if (it->second.GetPoison())
             {
@@ -693,6 +705,16 @@ void NSStarmanLib::PatchItemInfo::SetName(const std::wstring arg)
 std::wstring NSStarmanLib::PatchItemInfo::GetName() const
 {
     return m_name;
+}
+
+void NSStarmanLib::PatchItemInfo::SetItemId(const int arg)
+{
+    m_itemId = arg;
+}
+
+int NSStarmanLib::PatchItemInfo::GetItemId() const
+{
+    return m_itemId;
 }
 
 void NSStarmanLib::PatchItemInfo::SetPoison(const bool arg)

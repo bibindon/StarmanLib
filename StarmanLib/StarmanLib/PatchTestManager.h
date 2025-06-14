@@ -116,6 +116,9 @@ public:
     void SetName(const std::wstring arg);
     std::wstring GetName() const;
 
+    void SetItemId(const int arg);
+    int GetItemId() const;
+
     void SetPoison(const bool arg);
     bool GetPoison() const;
 
@@ -135,6 +138,8 @@ private:
 
     // 正解率
     float m_accurate = 0.f;
+
+    int m_itemId = 0;
 
 };
 
