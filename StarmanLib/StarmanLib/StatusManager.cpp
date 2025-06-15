@@ -3512,6 +3512,11 @@ void StatusManager::SetHeadache(bool arg)
     m_status.SetHeadache(arg);
 }
 
+int NSStarmanLib::StatusManager::GetHeadacheCureRemain() const
+{
+    return m_remainHeadacheCure;
+}
+
 bool StatusManager::GetCold() const
 {
     return m_status.GetCold();
@@ -3527,6 +3532,11 @@ void StatusManager::SetCold(bool arg)
     m_status.SetCold(arg);
 }
 
+int NSStarmanLib::StatusManager::GetColdCureRemain() const
+{
+    return m_remainColdCure;
+}
+
 bool StatusManager::GetStomachache() const
 {
     return m_status.GetStomachache();
@@ -3540,6 +3550,11 @@ void StatusManager::SetStomachache(bool arg)
         m_remainStomachacheCure = 3600 * 24 / 12;
     }
     m_status.SetStomachache(arg);
+}
+
+int NSStarmanLib::StatusManager::GetStomachacheCureRemain() const
+{
+    return m_remainStomachacheCure;
 }
 
 bool StatusManager::GetSleep() const
@@ -3565,6 +3580,11 @@ void StatusManager::SetDehydration(bool arg)
         m_remainDehydration = 3600 * 24 / 12;
     }
     m_status.SetDehydration(arg);
+}
+
+int NSStarmanLib::StatusManager::GetDehydrationCureRemain() const
+{
+    return m_remainDehydration;
 }
 
 bool StatusManager::GetLackOfSleep() const

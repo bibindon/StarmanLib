@@ -451,17 +451,25 @@ public:
     bool GetHeadache() const;
     void SetHeadache(bool mheadache);
 
+    int GetHeadacheCureRemain() const;
+
     bool GetCold() const;
     void SetCold(bool mcold);
 
+    int GetColdCureRemain() const;
+
     bool GetStomachache() const;
     void SetStomachache(bool mstomachache);
+
+    int GetStomachacheCureRemain() const;
 
     bool GetSleep() const;
     void SetSleep(bool msleep);
 
     bool GetDehydration() const;
     void SetDehydration(bool mdehydration);
+
+    int GetDehydrationCureRemain() const;
 
     bool GetLackOfSleep() const;
     void SetLackOfSleep(bool mlackOfSleep);
