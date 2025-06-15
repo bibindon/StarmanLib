@@ -361,9 +361,11 @@ int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& craftItem)
     return level;
 }
 
+// 
 bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
                                                   std::wstring* errMsg,
-                                                  const int storehouseId)
+                                                  const int storehouseId,
+                                                  const int num)
 {
     // 会話したら脳のスタミナを消費
     auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
@@ -383,7 +385,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
     int level = GetCraftsmanSkill(craftItem);
 
     // クラフト情報
-    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, 1, level);
+    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, num, level);
 
     // 素材を消費する
     // 素材が足りないときはfalseを返す

@@ -175,7 +175,8 @@ public:
     // 倉庫IDが-1なら、現在の拠点の倉庫を使う
     bool QueueCraftRequest(const std::wstring& craftItem,
                            std::wstring* errMsg,
-                           const int storehouseId = -1);
+                           const int storehouseId = -1,
+                           const int num = 1);
 
     // 依頼をキャンセル
     bool CancelCraftStart(const int index);
