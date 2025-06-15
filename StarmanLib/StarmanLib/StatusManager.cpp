@@ -3400,6 +3400,11 @@ void StatusManager::SetFractureArm(bool arg)
     m_status.SetFractureArm(arg);
 }
 
+int NSStarmanLib::StatusManager::GetFractureArmCureRemain() const
+{
+    return m_remainArmFracCure;
+}
+
 bool StatusManager::GetFractureLeg() const
 {
     return m_status.GetFractureLeg();
@@ -3413,6 +3418,11 @@ void StatusManager::SetFractureLeg(bool arg)
         m_remainLegFracCure = 3600 * 2 * 180;
     }
     m_status.SetFractureLeg(arg);
+}
+
+int NSStarmanLib::StatusManager::GetFractureLegCureRemain() const
+{
+    return m_remainLegFracCure;
 }
 
 bool StatusManager::GetHeadache() const

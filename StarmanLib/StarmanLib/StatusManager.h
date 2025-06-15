@@ -441,8 +441,12 @@ public:
     bool GetFractureArm() const;
     void SetFractureArm(bool mfractureArm);
 
+    int GetFractureArmCureRemain() const;
+
     bool GetFractureLeg() const;
     void SetFractureLeg(bool mfractureLeg);
+
+    int GetFractureLegCureRemain() const;
 
     bool GetHeadache() const;
     void SetHeadache(bool mheadache);
