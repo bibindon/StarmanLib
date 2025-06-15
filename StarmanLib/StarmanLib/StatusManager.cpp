@@ -837,6 +837,36 @@ void StatusManager::Init(const std::wstring& csvfile,
                 m_bEquipSugegasa = true;
             }
         }
+        else if (vvs.at(i).at(1) == _T("腕骨折の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainArmFracCure = value;
+        }
+        else if (vvs.at(i).at(1) == _T("足骨折の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainLegFracCure = value;
+        }
+        else if (vvs.at(i).at(1) == _T("頭痛の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainHeadacheCure = value;
+        }
+        else if (vvs.at(i).at(1) == _T("風邪の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainColdCure = value;
+        }
+        else if (vvs.at(i).at(1) == _T("腹痛の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainStomachacheCure = value;
+        }
+        else if (vvs.at(i).at(1) == _T("脱水症状の残り治療時間"))
+        {
+            int value = std::stoi(vvs.at(i).at(2));
+            m_remainDehydration = value;
+        }
     }
     auto inventory = Inventory::GetObj();
     inventory->UpdateVolumeMax(GetAllBag());
@@ -1969,6 +1999,48 @@ void StatusManager::Save(const std::wstring& csvfile,
     {
         work = _T("n");
     }
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("52"));
+    vs.push_back(_T("腕骨折の残り治療時間"));
+    work = std::to_wstring(m_remainArmFracCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("53"));
+    vs.push_back(_T("足骨折の残り治療時間"));
+    work = std::to_wstring(m_remainLegFracCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("54"));
+    vs.push_back(_T("頭痛の残り治療時間"));
+    work = std::to_wstring(m_remainHeadacheCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("55"));
+    vs.push_back(_T("風邪の残り治療時間"));
+    work = std::to_wstring(m_remainColdCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("56"));
+    vs.push_back(_T("腹痛の残り治療時間"));
+    work = std::to_wstring(m_remainStomachacheCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("57"));
+    vs.push_back(_T("脱水症状の残り治療時間"));
+    work = std::to_wstring(m_remainStomachacheCure);
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -3395,7 +3467,7 @@ void StatusManager::SetFractureArm(bool arg)
     if (arg)
     {
         // 治るのに90日(ゲーム内で180時間)かかる。
-        m_remainArmFracCure = 3600 * 2 * 180;
+        m_remainArmFracCure = 3600 * 24 * 90 / 12;
     }
     m_status.SetFractureArm(arg);
 }
@@ -3415,7 +3487,7 @@ void StatusManager::SetFractureLeg(bool arg)
     if (arg)
     {
         // 治るのに90日(ゲーム内で180時間)かかる。
-        m_remainLegFracCure = 3600 * 2 * 180;
+        m_remainLegFracCure = 3600 * 24 * 90 / 12;
     }
     m_status.SetFractureLeg(arg);
 }
@@ -3435,7 +3507,7 @@ void StatusManager::SetHeadache(bool arg)
     if (arg)
     {
         // 治るのに1日(ゲーム内で2時間)かかる。
-        m_remainHeadacheCure = 3600 * 2;
+        m_remainHeadacheCure = 3600 * 24 / 12;
     }
     m_status.SetHeadache(arg);
 }
@@ -3450,7 +3522,7 @@ void StatusManager::SetCold(bool arg)
     if (arg)
     {
         // 治るのに5日(ゲーム内で10時間)かかる。
-        m_remainColdCure = 3600 * 2 * 10;
+        m_remainColdCure = 3600 * 24 * 10 / 12;
     }
     m_status.SetCold(arg);
 }
@@ -3465,7 +3537,7 @@ void StatusManager::SetStomachache(bool arg)
     if (arg)
     {
         // 腹痛は治るのに1日(ゲーム内で2時間)かかる。
-        m_remainStomachacheCure = 3600 * 2;
+        m_remainStomachacheCure = 3600 * 24 / 12;
     }
     m_status.SetStomachache(arg);
 }
@@ -3490,7 +3562,7 @@ void StatusManager::SetDehydration(bool arg)
     if (arg)
     {
         // 治るのに1日(ゲーム内で2時間)かかる。
-        m_remainDehydration = 3600 * 2;
+        m_remainDehydration = 3600 * 24 / 12;
     }
     m_status.SetDehydration(arg);
 }
