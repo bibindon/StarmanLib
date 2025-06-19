@@ -2913,7 +2913,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         float work = 0.f;
         work = GetWaterCurrent();
 
-        work += -5.f * magni;
+        work += -0.5f * magni;
         SetWaterCurrent(work);
     }
 
@@ -3148,7 +3148,7 @@ void StatusManager::CutTree(const std::wstring& weapon, const int level)
         float work = 0.f;
         work = GetWaterCurrent();
 
-        work -= 5.f * magni;
+        work -= 1.f * magni;
         SetWaterCurrent(work);
     }
 
