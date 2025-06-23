@@ -1,11 +1,16 @@
 ﻿#include "CppUnitTest.h"
-#include "../StarmanLib/PatchTestManager.h"
-#include "../StarmanLib/PowereggDateTime.h"
+
 #include <fstream>
 #include <sstream>
 #include <iterator>
 #include <string>
 #include <tchar.h>
+#include "../StarmanLib/PatchTestManager.h"
+#include "../StarmanLib/PowereggDateTime.h"
+#include "../StarmanLib/ItemManager.h"
+#include "../StarmanLib/Inventory.h"
+#include "../StarmanLib/Storehouse.h"
+#include "../StarmanLib/CraftInfoManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -16,6 +21,29 @@ namespace StarmanLibTest
     TEST_CLASS(PatchTestManagerTest)
     {
     public:
+
+        TEST_METHOD_INITIALIZE(Initialize)
+        {
+            ItemManager* itemManager = ItemManager::GetObj();
+            itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
+
+            Inventory* inventory = Inventory::GetObj();
+            inventory->Init(_T("..\\StarmanLibTest\\inventory.csv"));
+
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            storehouseManager->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
+
+            CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
+            craftInfoManager->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
+        }
+
+        TEST_METHOD_CLEANUP(CleanUp)
+        {
+            CraftInfoManager::Destroy();
+            StorehouseManager::Destroy();
+            Inventory::Destroy();
+            ItemManager::Destroy();
+        }
 
         TEST_METHOD(TestMethod01)
         {

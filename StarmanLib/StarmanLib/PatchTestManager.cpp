@@ -253,7 +253,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
 
-        vs.push_back(_T("アイテム名"));
+        vs.push_back(_T("Item ID"));
         vs.push_back(_T("状態"));
         vs.push_back(_T("予約日時"));
         vs.push_back(_T("開始日時"));
@@ -266,7 +266,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         {
             vs.clear();
 
-            vs.push_back(it->GetItemName());
+            vs.push_back(std::to_wstring(it->GetItemId()));
 
             if (it->GetState() == PatchTest::eState::NOT_START)
             {
