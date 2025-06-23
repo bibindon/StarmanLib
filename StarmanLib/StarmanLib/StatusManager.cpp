@@ -2122,7 +2122,7 @@ float StatusManager::GetAttackPower()
 
     // -1だったら武器を装備していない
     auto inventory = Inventory::GetObj();
-    if (m_EquipWeapon.GetId().empty())
+    if (m_EquipWeapon.GetId().empty() == false)
     {
         auto itemManager = ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(m_EquipWeapon.GetId());

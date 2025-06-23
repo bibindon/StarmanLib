@@ -39,7 +39,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(originFile, false);
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            m_keyList.push_back(std::stoi(vvs.at(i).at(0)));
+            m_keyList.push_back(vvs.at(i).at(0));
         }
     }
 
@@ -60,6 +60,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
         for (size_t i = 1; i < vvs.size(); ++i)
         {
             auto id = vvs.at(i).at(0);
+
             m_infoMap[id].SetItemId(id);
 
             auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
@@ -585,7 +586,7 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::
     return resultList;
 }
 
-std::vector<int> NSStarmanLib::PatchTestManager::GetKeyList()
+std::vector<std::wstring> NSStarmanLib::PatchTestManager::GetKeyList()
 {
     return m_keyList;
 }

@@ -58,7 +58,7 @@ public:
 private:
 
     std::wstring m_itemName;
-    std::wstring m_itemId = 0;
+    std::wstring m_itemId;
     eState m_eState = eState::NOT_START;
     eResult m_eResult = eResult::NOT_YET;
 
@@ -139,7 +139,7 @@ private:
     // 正解率
     float m_accurate = 0.f;
 
-    std::wstring m_itemId = 0;
+    std::wstring m_itemId;
 
 };
 
@@ -166,7 +166,7 @@ public:
     // GUIで表示したい。
     std::vector<PatchTest> GetResultList(const std::wstring& id);
 
-    std::vector<int> GetKeyList();
+    std::vector<std::wstring> GetKeyList();
 
 private:
 
@@ -181,7 +181,7 @@ private:
     // ゲーム開始時にランダムで決まる
     std::map<std::wstring, PatchItemInfo> m_infoMap;
 
-    std::vector<int> m_keyList;
+    std::vector<std::wstring> m_keyList;
 };
 }
 
