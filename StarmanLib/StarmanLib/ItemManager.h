@@ -36,8 +36,8 @@ public:
         OTHERS,
     };
 
-    int GetId() const;
-    void SetId(int arg);
+    std::wstring GetId() const;
+    void SetId(std::wstring arg);
 
     std::wstring GetName() const;
     void SetName(std::wstring arg);
@@ -101,7 +101,7 @@ public:
 
 private:
     // ID
-    int m_id = 0;
+    std::wstring m_id;
 
     // 名称
     std::wstring m_name;
@@ -168,8 +168,8 @@ class ItemInfo
 {
 public:
 
-    void SetId(const int arg);
-    int GetId() const;
+    void SetId(const std::wstring& arg);
+    std::wstring GetId() const;
 
     void SetSubId(const int arg);
     int GetSubId() const;
@@ -181,7 +181,7 @@ public:
 
 private:
 
-    int m_id = 0;
+    std::wstring m_id;
 
     int m_subId = 0;
 
@@ -231,10 +231,10 @@ public:
     void Save(const std::wstring& csvfilePos,
               const bool encrypt = false);
 
-    std::vector<int> GetItemIdList();
-    ItemDef GetItemDef(const int id);
+    std::vector<std::wstring> GetItemIdList();
+    ItemDef GetItemDef(const std::wstring& id);
     ItemDef GetItemDefByWeaponId(const std::wstring& weaponId, const int level = -1);
-    std::vector<int> GetItemDef(const ItemDef::ItemType type);
+    std::vector<std::wstring> GetItemDef(const ItemDef::ItemType type);
     
     ItemDef GetItemDefByPosID(const int posId);
 

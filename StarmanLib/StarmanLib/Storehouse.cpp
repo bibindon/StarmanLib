@@ -30,8 +30,7 @@ void Storehouse::Init(const std::wstring& csvfile,
         int subId = 0;
         int durability = 0;
 
-        id = std::stoi(vvs.at(i).at(0));
-        itemInfo.SetId(id);
+        itemInfo.SetId(vvs.at(i).at(0));
 
         subId = std::stoi(vvs.at(i).at(2));
         itemInfo.SetSubId(subId);
@@ -73,7 +72,7 @@ void Storehouse::Save(const std::wstring& csvfile,
 
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        vs.push_back(std::to_wstring(it->GetId()));
+        vs.push_back(it->GetId());
 
         ItemDef itemDef = itemManager->GetItemDef(it->GetId());
         vs.push_back(itemDef.GetName());
@@ -87,7 +86,7 @@ void Storehouse::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-void Storehouse::AddItem(const int id, const int durability)
+void Storehouse::AddItem(const std::wstring& id, const int durability)
 {
     int subId = 0;
 
@@ -169,7 +168,7 @@ void Storehouse::AddItem(const int id, const int durability)
     m_weight = CalcWeight();
 }
 
-void NSStarmanLib::Storehouse::AddItemWithSubID(const int id, const int subId, const int durability)
+void NSStarmanLib::Storehouse::AddItemWithSubID(const std::wstring& id, const int subId, const int durability)
 {
     ItemInfo itemInfo;
     itemInfo.SetId(id);
@@ -181,7 +180,7 @@ void NSStarmanLib::Storehouse::AddItemWithSubID(const int id, const int subId, c
     m_weight = CalcWeight();
 }
 
-void Storehouse::RemoveItem(const int id, const int subId)
+void Storehouse::RemoveItem(const std::wstring& id, const int subId)
 {
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
@@ -194,9 +193,9 @@ void Storehouse::RemoveItem(const int id, const int subId)
     m_weight = CalcWeight();
 }
 
-void NSStarmanLib::Storehouse::SetItemDurability(const int id,
-                                                const int subId,
-                                                const int durability)
+void NSStarmanLib::Storehouse::SetItemDurability(const std::wstring& id,
+                                                 const int subId,
+                                                 const int durability)
 {
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
@@ -208,7 +207,7 @@ void NSStarmanLib::Storehouse::SetItemDurability(const int id,
     }
 }
 
-bool NSStarmanLib::Storehouse::ExistItem(const int id, const int subId)
+bool NSStarmanLib::Storehouse::ExistItem(const std::wstring& id, const int subId)
 {
     bool result = false;
 
@@ -223,7 +222,7 @@ bool NSStarmanLib::Storehouse::ExistItem(const int id, const int subId)
     return result;
 }
 
-ItemInfo NSStarmanLib::Storehouse::GetItemInfo(const int id, const int subId)
+ItemInfo NSStarmanLib::Storehouse::GetItemInfo(const std::wstring& id, const int subId)
 {
     if (ExistItem(id, subId) == false)
     {
@@ -245,7 +244,7 @@ ItemInfo NSStarmanLib::Storehouse::GetItemInfo(const int id, const int subId)
 
 
 // SubIDをリストで受け取る
-std::vector<int> NSStarmanLib::Storehouse::GetSubIdList(const int id)
+std::vector<int> NSStarmanLib::Storehouse::GetSubIdList(const std::wstring& id)
 {
     std::vector<int> result;
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
@@ -261,7 +260,7 @@ std::vector<int> NSStarmanLib::Storehouse::GetSubIdList(const int id)
 
 // 耐久度を無視して個数を数える
 // したがって、耐久度の下がったアイテムをクラフトの素材として使用出来て良いということにする
-int Storehouse::CountItem(const int id)
+int Storehouse::CountItem(const std::wstring& id)
 {
     int num = 0;
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
@@ -325,9 +324,9 @@ float Storehouse::CalcWeight()
     ItemManager* itemManager = ItemManager::GetObj();
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        int id = it->GetId();
+        auto id = it->GetId();
         ItemDef itemDef = itemManager->GetItemDef(id);
-        if (itemDef.GetId() == 0)
+        if (itemDef.GetId().empty())
         {
             continue;
         }
@@ -547,7 +546,7 @@ Storehouse* NSStarmanLib::StorehouseManager::GetCurrentActiveStorehouse()
     }
 }
 
-std::vector<int> NSStarmanLib::StorehouseManager::GetSubIdListFromAllStorehouse(const int id)
+std::vector<int> NSStarmanLib::StorehouseManager::GetSubIdListFromAllStorehouse(const std::wstring& id)
 {
     std::vector<int> vi;
 

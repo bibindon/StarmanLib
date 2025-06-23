@@ -635,17 +635,17 @@ void NSStarmanLib::NpcStatusManager::Update()
                     {
                         if (npc.second.GetCarbo() <= 10.f)
                         {
-                            if (item.GetId() != 3)
+                            if (item.GetId() != L"sotetsu")
                             {
                                 foodList.push_back(item);
                             }
                         }
                         else
                         {
-                            if (item.GetId() != 3 &&
-                                item.GetId() != 9 &&
-                                item.GetId() != 21 &&
-                                item.GetId() != 22)
+                            if (item.GetId() != L"sotetsu" &&
+                                item.GetId() != L"donguri3" &&
+                                item.GetId() != L"nira" &&
+                                item.GetId() != L"kinoko")
                             {
                                 foodList.push_back(item);
                             }
@@ -692,11 +692,11 @@ void NSStarmanLib::NpcStatusManager::Update()
                     auto storageManager = StorehouseManager::Get();
                     auto storage = storageManager->GetCurrentActiveStorehouse();
 
-                    auto subidlist = storage->GetSubIdList(35);
+                    auto subidlist = storage->GetSubIdList(L"wordbress");
 
                     if (!subidlist.empty())
                     {
-                        storage->RemoveItem(35, subidlist.at(0));
+                        storage->RemoveItem(L"wordbress", subidlist.at(0));
 
                         npc.second.SetRynenContract();
                         npc.second.SetDrinkWordbress(true);
@@ -920,17 +920,17 @@ void NSStarmanLib::NpcStatusManager::Eat(const std::wstring npcKey, const ItemDe
     int rnd = rand();
 
     // 赤い実
-    if (itemDef.GetId() == 3)
+    if (itemDef.GetId() == L"sotetsu")
     {
         bPoison = true;
     }
     // 大きいどんぐり
-    else if (itemDef.GetId() == 9)
+    else if (itemDef.GetId() == L"donguri3")
     {
         bPoison = true;
     }
     // ニラ or スイセン
-    else if (itemDef.GetId() == 21)
+    else if (itemDef.GetId() == L"nira")
     {
         if (rnd % 2 == 0)
         {
@@ -942,7 +942,7 @@ void NSStarmanLib::NpcStatusManager::Eat(const std::wstring npcKey, const ItemDe
         }
     }
     // キノコ
-    else if (itemDef.GetId() == 22)
+    else if (itemDef.GetId() == L"kinoko")
     {
         if (rnd % 10 == 0)
         {

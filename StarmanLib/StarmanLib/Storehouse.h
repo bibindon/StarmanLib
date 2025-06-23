@@ -25,27 +25,27 @@ public:
               const bool encrypt = false);
 
     // 一個ずつしか増加減出来ない想定
-    void AddItem(const int id, const int durability = -1);
+    void AddItem(const std::wstring& id, const int durability = -1);
 
     // SubIDを指定してアイテムを追加（インベントリから倉庫へアイテムを移動するときに使う）
     // インベントリでアイテムを削除してから追加する必要がある。
     // インベントリでアイテムを削除していないと
     // 「すでにそのSubIDは使われている」ということでエラーになる
-    void AddItemWithSubID(const int id, const int subId, const int durability = -1);
+    void AddItemWithSubID(const std::wstring& id, const int subId, const int durability = -1);
 
     // subId・・・耐久値の50の石斧と耐久値が100の石斧を所持することができる
     // そのため、アイテムにはsubIdが振られる。アイテムを削除するにはsubIdがないとできない
     // アイテムは削除できるのでSubIDが連番になるとは限らない
-    void RemoveItem(const int id, const int subId);
+    void RemoveItem(const std::wstring& id, const int subId);
 
-    void SetItemDurability(const int id, const int subId, const int durability);
+    void SetItemDurability(const std::wstring& id, const int subId, const int durability);
 
-    bool ExistItem(const int id, const int subId);
-    ItemInfo GetItemInfo(const int id, const int subId);
+    bool ExistItem(const std::wstring& id, const int subId);
+    ItemInfo GetItemInfo(const std::wstring& id, const int subId);
 
-    std::vector<int> GetSubIdList(const int id);
+    std::vector<int> GetSubIdList(const std::wstring& id);
 
-    int CountItem(const int id);
+    int CountItem(const std::wstring& id);
 
     float GetWeight();
 
@@ -112,7 +112,7 @@ public:
     Storehouse* GetCurrentActiveStorehouse();
 
     // サブIDをすべての倉庫から取得する
-    std::vector<int> GetSubIdListFromAllStorehouse(const int id);
+    std::vector<int> GetSubIdListFromAllStorehouse(const std::wstring& id);
 
     // 倉庫を増やす
     // イカダに乗せる倉庫についてのみ増やすことができる

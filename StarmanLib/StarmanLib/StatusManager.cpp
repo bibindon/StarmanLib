@@ -582,11 +582,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_EquipWeapon = itemInfo;
@@ -661,11 +661,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_BagMap[eBagPos::Back1] = itemInfo;
@@ -695,11 +695,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_BagMap[eBagPos::Back2] = itemInfo;
@@ -729,11 +729,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_BagMap[eBagPos::Front] = itemInfo;
@@ -763,11 +763,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_BagMap[eBagPos::Left] = itemInfo;
@@ -797,11 +797,11 @@ void StatusManager::Init(const std::wstring& csvfile,
             ItemInfo itemInfo;
             if (vvs.at(i).at(2) == _T(""))
             {
-                itemInfo.SetId(-1);
+                itemInfo.SetId(L"");
             }
             else
             {
-                int work = std::stoi(vvs.at(i).at(2));
+                auto work = vvs.at(i).at(2);
                 itemInfo.SetId(work);
             }
             m_BagMap[eBagPos::Right] = itemInfo;
@@ -1844,7 +1844,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("30"));
     vs.push_back(_T("装備武器ID"));
-    work = std::to_wstring(GetEquipWeapon().GetId());
+    work = GetEquipWeapon().GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -1921,7 +1921,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("41"));
     vs.push_back(_T("背中の袋1ID"));
-    work = std::to_wstring(m_BagMap.at(eBagPos::Back1).GetId());
+    work = m_BagMap.at(eBagPos::Back1).GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -1935,7 +1935,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("43"));
     vs.push_back(_T("背中の袋2ID"));
-    work = std::to_wstring(m_BagMap.at(eBagPos::Back2).GetId());
+    work = m_BagMap.at(eBagPos::Back2).GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -1949,7 +1949,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("45"));
     vs.push_back(_T("腹の袋ID"));
-    work = std::to_wstring(m_BagMap.at(eBagPos::Front).GetId());
+    work = m_BagMap.at(eBagPos::Front).GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -1963,7 +1963,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("47"));
     vs.push_back(_T("左手の袋ID"));
-    work = std::to_wstring(m_BagMap.at(eBagPos::Left).GetId());
+    work = m_BagMap.at(eBagPos::Left).GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -1977,7 +1977,7 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.clear();
     vs.push_back(_T("49"));
     vs.push_back(_T("右手の袋ID"));
-    work = std::to_wstring(m_BagMap.at(eBagPos::Right).GetId());
+    work = m_BagMap.at(eBagPos::Right).GetId();
     vs.push_back(work);
     vvs.push_back(vs);
 
@@ -2122,7 +2122,7 @@ float StatusManager::GetAttackPower()
 
     // -1だったら武器を装備していない
     auto inventory = Inventory::GetObj();
-    if (m_EquipWeapon.GetId() != -1)
+    if (m_EquipWeapon.GetId().empty())
     {
         auto itemManager = ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(m_EquipWeapon.GetId());
@@ -2217,7 +2217,7 @@ float StatusManager::GetAttackPower()
     }
 
     // 左手に袋を持っていたら攻撃力が半減する
-    if (GetBag(eBagPos::Left).GetId() != -1)
+    if (GetBag(eBagPos::Left).GetId().empty() == false)
     {
         result *= 0.5f;
     }
@@ -2252,13 +2252,13 @@ void StatusManager::ConsumeAttackCost()
     float work_f = 0;
 
     // 武器の耐久度
-    if (m_EquipWeapon.GetId() != -1)
+    if (!m_EquipWeapon.GetId().empty())
     {
         auto inventory = Inventory::GetObj();
         auto itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
 
         // 石だったら耐久度を消費しない。（＝石じゃなければ耐久度を消費する）
-        if (itemInfo.GetId() == 57)
+        if (itemInfo.GetId() == L"stone")
         {
             // do nothing
         }
@@ -2280,7 +2280,7 @@ void StatusManager::ConsumeAttackCost()
 
     // 肉体の修復度
     work_f = m_status.GetMuscleCurrent();
-    if (m_EquipWeapon.GetId() != -1)
+    if (!m_EquipWeapon.GetId().empty())
     {
         m_status.SetMuscleCurrent(work_f - 0.01f);
     }
@@ -2354,17 +2354,17 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     int rnd = rand();
 
     // 赤い実
-    if (itemDef.GetId() == 3)
+    if (itemDef.GetId() == L"sotetsu")
     {
         bPoison = true;
     }
     // 大きいどんぐり
-    else if (itemDef.GetId() == 9)
+    else if (itemDef.GetId() == L"donguri3")
     {
         bPoison = true;
     }
     // ニラ or スイセン
-    else if (itemDef.GetId() == 21)
+    else if (itemDef.GetId() == L"nira")
     {
         if (rnd % 2 == 0)
         {
@@ -2376,7 +2376,7 @@ bool StatusManager::Eat(const ItemDef& itemDef)
         }
     }
     // キノコ
-    else if (itemDef.GetId() == 22)
+    else if (itemDef.GetId() == L"kinoko")
     {
         if (rnd % 10 == 0)
         {
@@ -3750,23 +3750,23 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
 
     eBagPos result = eBagPos::None;
 
-    if (m_BagMap.at(eBagPos::Back1).GetId() == -1)
+    if (m_BagMap.at(eBagPos::Back1).GetId().empty())
     {
         result = eBagPos::Back1;
     }
-    else if (m_BagMap.at(eBagPos::Back2).GetId() == -1)
+    else if (m_BagMap.at(eBagPos::Back2).GetId().empty())
     {
         result = eBagPos::Back2;
     }
-    else if (m_BagMap.at(eBagPos::Front).GetId() == -1)
+    else if (m_BagMap.at(eBagPos::Front).GetId().empty())
     {
         result = eBagPos::Front;
     }
-    else if (m_BagMap.at(eBagPos::Left).GetId() == -1)
+    else if (m_BagMap.at(eBagPos::Left).GetId().empty())
     {
         result = eBagPos::Left;
     }
-    else if (m_BagMap.at(eBagPos::Right).GetId() == -1)
+    else if (m_BagMap.at(eBagPos::Right).GetId().empty())
     {
         result = eBagPos::Right;
     }
@@ -3785,7 +3785,7 @@ eBagPos NSStarmanLib::StatusManager::EquipBag(const ItemInfo& bag)
     return result;
 }
 
-void NSStarmanLib::StatusManager::UnequipBag(const int id, const int subId)
+void NSStarmanLib::StatusManager::UnequipBag(const std::wstring& id, const int subId)
 {
     auto bagPos = GetBag(id, subId);
     UnequipBag(bagPos);
@@ -3802,7 +3802,7 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
     // まず、袋を外す
     if (bagPos != eBagPos::None)
     {
-        m_BagMap.at(bagPos).SetId(-1);
+        m_BagMap.at(bagPos).SetId(L"");
         m_BagMap.at(bagPos).SetSubId(-1);
         m_BagMap.at(bagPos).SetDurabilityCurrent(-1);
     }
@@ -3810,42 +3810,42 @@ void NSStarmanLib::StatusManager::UnequipBag(const eBagPos bagPos)
     // 次に、袋を移動
     // 一個ずつずらす
 
-    if (m_BagMap.at(eBagPos::Back1).GetId() == -1 &&
-        m_BagMap.at(eBagPos::Back2).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Back1).GetId().empty() &&
+        m_BagMap.at(eBagPos::Back2).GetId().empty() == false)
     {
         m_BagMap.at(eBagPos::Back1) = m_BagMap.at(eBagPos::Back2);
 
-        m_BagMap.at(eBagPos::Back2).SetId(-1);
+        m_BagMap.at(eBagPos::Back2).SetId(L"");
         m_BagMap.at(eBagPos::Back2).SetSubId(-1);
         m_BagMap.at(eBagPos::Back2).SetDurabilityCurrent(-1);
     }
 
-    if (m_BagMap.at(eBagPos::Back2).GetId() == -1 &&
-        m_BagMap.at(eBagPos::Front).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Back2).GetId().empty() &&
+        m_BagMap.at(eBagPos::Front).GetId().empty() == false)
     {
         m_BagMap.at(eBagPos::Back2) = m_BagMap.at(eBagPos::Front);
 
-        m_BagMap.at(eBagPos::Front).SetId(-1);
+        m_BagMap.at(eBagPos::Front).SetId(L"");
         m_BagMap.at(eBagPos::Front).SetSubId(-1);
         m_BagMap.at(eBagPos::Front).SetDurabilityCurrent(-1);
     }
 
-    if (m_BagMap.at(eBagPos::Front).GetId() == -1 &&
-        m_BagMap.at(eBagPos::Left).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Front).GetId().empty() &&
+        m_BagMap.at(eBagPos::Left).GetId().empty() == false)
     {
         m_BagMap.at(eBagPos::Front) = m_BagMap.at(eBagPos::Left);
 
-        m_BagMap.at(eBagPos::Left).SetId(-1);
+        m_BagMap.at(eBagPos::Left).SetId(L"");
         m_BagMap.at(eBagPos::Left).SetSubId(-1);
         m_BagMap.at(eBagPos::Left).SetDurabilityCurrent(-1);
     }
 
-    if (m_BagMap.at(eBagPos::Left).GetId() == -1 &&
-        m_BagMap.at(eBagPos::Right).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Left).GetId().empty() &&
+        m_BagMap.at(eBagPos::Right).GetId().empty() == false)
     {
         m_BagMap.at(eBagPos::Left) = m_BagMap.at(eBagPos::Right);
 
-        m_BagMap.at(eBagPos::Right).SetId(-1);
+        m_BagMap.at(eBagPos::Right).SetId(L"");
         m_BagMap.at(eBagPos::Right).SetSubId(-1);
         m_BagMap.at(eBagPos::Right).SetDurabilityCurrent(-1);
     }
@@ -3859,7 +3859,7 @@ ItemInfo NSStarmanLib::StatusManager::GetBag(const eBagPos bagPos) const
     return m_BagMap.at(bagPos);
 }
 
-NSStarmanLib::eBagPos NSStarmanLib::StatusManager::GetBag(const int id, const int subId) const
+NSStarmanLib::eBagPos NSStarmanLib::StatusManager::GetBag(const std::wstring& id, const int subId) const
 {
     eBagPos result = eBagPos::None;
     for (auto it = m_BagMap.begin(); it != m_BagMap.end(); ++it)
@@ -3886,27 +3886,27 @@ std::vector<eBagPos> StatusManager::GetBagState()
 {
     std::vector<eBagPos> result;
 
-    if (m_BagMap.at(eBagPos::Back1).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Back1).GetId() != L"")
     {
         result.push_back(eBagPos::Back1);
     }
 
-    if (m_BagMap.at(eBagPos::Back2).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Back2).GetId() != L"")
     {
         result.push_back(eBagPos::Back2);
     }
 
-    if (m_BagMap.at(eBagPos::Front).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Front).GetId() != L"")
     {
         result.push_back(eBagPos::Front);
     }
 
-    if (m_BagMap.at(eBagPos::Left).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Left).GetId() != L"")
     {
         result.push_back(eBagPos::Left);
     }
 
-    if (m_BagMap.at(eBagPos::Right).GetId() != -1)
+    if (m_BagMap.at(eBagPos::Right).GetId() != L"")
     {
         result.push_back(eBagPos::Right);
     }
@@ -3920,7 +3920,7 @@ void NSStarmanLib::StatusManager::UpdateBagDurability()
 
     for (auto it = m_BagMap.begin(); it != m_BagMap.end(); ++it)
     {
-        if (it->second.GetId() == -1)
+        if (it->second.GetId().empty())
         {
             continue;
         }
@@ -4045,7 +4045,7 @@ void NSStarmanLib::StatusManager::ConsumeJumpCost()
 
     // 肉体の修復度
     work_f = m_status.GetMuscleCurrent();
-    if (m_EquipWeapon.GetId() != -1)
+    if (m_EquipWeapon.GetId() != L"")
     {
         m_status.SetMuscleCurrent(work_f - 0.01f);
     }

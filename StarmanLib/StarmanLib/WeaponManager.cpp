@@ -532,22 +532,22 @@ void WeaponDefSub::SetWeaponId(const std::wstring& id)
     m_weaponId = id;
 }
 
-void NSStarmanLib::CraftOutput::SetItemId(const int id)
+void NSStarmanLib::CraftOutput::SetItemId(const std::wstring& id)
 {
     m_id = id;
 }
 
-int NSStarmanLib::CraftOutput::GetItemId() const
+std::wstring NSStarmanLib::CraftOutput::GetItemId() const
 {
     return m_id;
 }
 
-int WeaponDefSub::GetItemId() const
+std::wstring WeaponDefSub::GetItemId() const
 {
     return m_itemId;
 }
 
-void WeaponDefSub::SetItemId(const int& id)
+void WeaponDefSub::SetItemId(const std::wstring& id)
 {
     m_itemId = id;
 }

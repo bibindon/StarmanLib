@@ -7,12 +7,12 @@ using namespace NSStarmanLib;
 
 ItemManager* ItemManager::obj { nullptr };
 
-int ItemDef::GetId() const
+std::wstring ItemDef::GetId() const
 {
     return m_id;
 }
 
-void ItemDef::SetId(int arg)
+void ItemDef::SetId(std::wstring arg)
 {
     m_id = arg;
 }
@@ -254,8 +254,7 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
 
             ItemDef itemDef;
 
-            work_i = std::stoi(vvs.at(i).at(0));
-            itemDef.SetId(work_i);
+            itemDef.SetId(vvs.at(i).at(0));
 
             itemDef.SetName(vvs.at(i).at(1));
 
@@ -461,9 +460,9 @@ void NSStarmanLib::ItemManager::Save(const std::wstring& csvfilePos,
     Util::WriteToCsv(csvfilePos, vvs, encrypt);
 }
 
-std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
+std::vector<std::wstring> NSStarmanLib::ItemManager::GetItemIdList()
 {
-    std::vector<int> idList;
+    std::vector<std::wstring> idList;
 
     for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
     {
@@ -473,7 +472,7 @@ std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
     return idList;
 }
 
-ItemDef ItemManager::GetItemDef(const int id)
+ItemDef ItemManager::GetItemDef(const std::wstring& id)
 {
     ItemDef itemDef;
     for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
@@ -485,7 +484,7 @@ ItemDef ItemManager::GetItemDef(const int id)
         }
     }
 
-    if (itemDef.GetId() == 0)
+    if (itemDef.GetId().empty())
     {
         // 存在しないIDを取得しようとした。
         throw std::exception();
@@ -509,7 +508,7 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByWeaponId(const std::wstring& weap
         }
     }
 
-    if (itemDef.GetId() == 0)
+    if (itemDef.GetId().empty())
     {
         // 存在しないIDを取得しようとした。
         throw std::exception();
@@ -518,9 +517,9 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByWeaponId(const std::wstring& weap
     return itemDef;
 }
 
-std::vector<int> NSStarmanLib::ItemManager::GetItemDef(const ItemDef::ItemType type)
+std::vector<std::wstring> NSStarmanLib::ItemManager::GetItemDef(const ItemDef::ItemType type)
 {
-    std::vector<int> idList;
+    std::vector<std::wstring> idList;
 
     for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
     {
@@ -594,12 +593,12 @@ void NSStarmanLib::ItemManager::SetItemPosObtained(const int itemPosId)
     m_itemPosMap[itemPosId].SetObtained(true);
 }
 
-void NSStarmanLib::ItemInfo::SetId(const int arg)
+void NSStarmanLib::ItemInfo::SetId(const std::wstring& arg)
 {
     m_id = arg;
 }
 
-int NSStarmanLib::ItemInfo::GetId() const
+std::wstring NSStarmanLib::ItemInfo::GetId() const
 {
     return m_id;
 }

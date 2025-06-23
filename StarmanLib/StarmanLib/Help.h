@@ -60,7 +60,7 @@ private:
 
     // 拾うことが可能なアイテムのIDのリスト
     // 拾えるはずのないアイテムを拾えないようにするため。
-    std::vector<int> m_enableItemIdList;
+    std::vector<std::wstring> m_enableItemIdList;
     bool m_bLoaded = false;
 };
 }

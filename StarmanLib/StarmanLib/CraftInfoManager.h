@@ -12,8 +12,8 @@ class CraftMaterial
 {
 public:
 
-    void SetId(const int arg);
-    int GetId() const;
+    void SetId(const std::wstring& arg);
+    std::wstring GetId() const;
 
     void SetName(const std::wstring& arg);
     std::wstring GetName() const;
@@ -26,7 +26,7 @@ public:
 
 private:
 
-    int m_id = 0;
+    std::wstring m_id;
 
     // 素材の名前
     std::wstring m_name;
@@ -47,8 +47,8 @@ public:
     void SetName(const std::wstring& arg);
     std::wstring GetName() const;
 
-    void SetItemId(const int id);
-    int GetItemId() const;
+    void SetItemId(const std::wstring& id);
+    std::wstring GetItemId() const;
 
     void SetNumber(const int arg);
     int GetNumber() const;
@@ -67,7 +67,7 @@ private:
     // 完成品の強化レベル
     int m_level = 0;
 
-    int m_id = 0;
+    std::wstring m_id;
 };
 
 // クラフトの情報クラス

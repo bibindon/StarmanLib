@@ -489,11 +489,11 @@ public:
 
     // 袋を外す。
     void UnequipBag(const eBagPos bagPos);
-    void UnequipBag(const int id, const int subId);
+    void UnequipBag(const std::wstring& id, const int subId);
 
     // 袋を取得
     ItemInfo GetBag(const eBagPos bagPos) const;
-    eBagPos GetBag(const int id, const int subId) const;
+    eBagPos GetBag(const std::wstring& id, const int subId) const;
     std::vector<ItemInfo> GetAllBag();
 
     // 袋の装着状況

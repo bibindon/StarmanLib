@@ -59,7 +59,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            auto id = std::stoi(vvs.at(i).at(0));
+            auto id = vvs.at(i).at(0);
             m_infoMap[id].SetItemId(id);
 
             auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
@@ -89,7 +89,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
-				auto id = std::stoi(vvs.at(i).at(0));
+				auto id = vvs.at(i).at(0);
 
                 if (vvs.at(i).at(1) == _T("y"))
                 {
@@ -119,7 +119,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             {
                 PatchTest patchTest;
 
-				auto id = std::stoi(vvs.at(i).at(0));
+				auto id = vvs.at(i).at(0);
                 patchTest.SetItemId(id);
 
 				auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
@@ -230,7 +230,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         {
             vs.clear();
 
-            vs.push_back(std::to_wstring(it->second.GetItemId()));
+            vs.push_back(it->second.GetItemId());
 
             if (it->second.GetPoison())
             {
@@ -266,7 +266,7 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         {
             vs.clear();
 
-            vs.push_back(std::to_wstring(it->GetItemId()));
+            vs.push_back(it->GetItemId());
 
             if (it->GetState() == PatchTest::eState::NOT_START)
             {
@@ -515,7 +515,7 @@ void NSStarmanLib::PatchTestManager::Update()
     }
 }
 
-bool NSStarmanLib::PatchTestManager::QueuePatchTest(const int id)
+bool NSStarmanLib::PatchTestManager::QueuePatchTest(const std::wstring& id)
 {
     auto it = m_infoMap.find(id);
     if (it == m_infoMap.end())
@@ -567,7 +567,7 @@ std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetQueue()
 }
 
 // 先頭が一番新しく、末尾に向かうほど古いテスト結果
-std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const int id)
+std::vector<PatchTest> NSStarmanLib::PatchTestManager::GetResultList(const std::wstring& id)
 {
     std::vector<PatchTest> resultList;
 
@@ -600,12 +600,12 @@ std::wstring NSStarmanLib::PatchTest::GetItemName() const
     return m_itemName;
 }
 
-void NSStarmanLib::PatchTest::SetItemId(const int arg)
+void NSStarmanLib::PatchTest::SetItemId(const std::wstring& arg)
 {
     m_itemId = arg;
 }
 
-int NSStarmanLib::PatchTest::GetItemId() const
+std::wstring NSStarmanLib::PatchTest::GetItemId() const
 {
     return m_itemId;
 }
@@ -707,12 +707,12 @@ std::wstring NSStarmanLib::PatchItemInfo::GetName() const
     return m_name;
 }
 
-void NSStarmanLib::PatchItemInfo::SetItemId(const int arg)
+void NSStarmanLib::PatchItemInfo::SetItemId(const std::wstring& arg)
 {
     m_itemId = arg;
 }
 
-int NSStarmanLib::PatchItemInfo::GetItemId() const
+std::wstring NSStarmanLib::PatchItemInfo::GetItemId() const
 {
     return m_itemId;
 }

@@ -429,7 +429,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
 
         materialNum = craftMaterialList.at(i).GetNumber();
 
-        int id = craftMaterialList.at(i).GetId();
+        auto id = craftMaterialList.at(i).GetId();
         item.SetId(id);
 
         // 素材の必要数分削除する
@@ -511,7 +511,7 @@ bool NSStarmanLib::CraftSystem::CancelCraftStart(const int index)
         auto craftMaterials = craftInfo.GetCraftMaterial();
         for (auto& material : craftMaterials)
         {
-            int id = material.GetId();
+            auto id = material.GetId();
             int dura = material.GetDurabilityCurrent();
             storehouse->AddItem(id, dura);
         }
@@ -819,7 +819,7 @@ std::wstring CraftRequest::GetName() const
     return m_craftInfo.GetOutput().GetName();
 }
 
-int CraftRequest::GetId() const
+std::wstring CraftRequest::GetId() const
 {
     return m_craftInfo.GetOutput().GetItemId();
 }

@@ -35,40 +35,40 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
     // 3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,25,33,34,35,38,39,40,41,42,
     // 54, 55, 56, 57
     m_enableItemIdList.clear();
-    m_enableItemIdList.push_back(3);
-    m_enableItemIdList.push_back(5);
-    m_enableItemIdList.push_back(6);
-    m_enableItemIdList.push_back(7);
-    m_enableItemIdList.push_back(8);
-    m_enableItemIdList.push_back(9);
-    m_enableItemIdList.push_back(11);
-    m_enableItemIdList.push_back(12);
-    m_enableItemIdList.push_back(13);
-    m_enableItemIdList.push_back(14);
-    m_enableItemIdList.push_back(15);
-    m_enableItemIdList.push_back(16);
-    m_enableItemIdList.push_back(17);
-    m_enableItemIdList.push_back(18);
-    m_enableItemIdList.push_back(19);
-    m_enableItemIdList.push_back(20);
-    m_enableItemIdList.push_back(21);
-    m_enableItemIdList.push_back(22);
-    m_enableItemIdList.push_back(23);
-    m_enableItemIdList.push_back(25);
-    m_enableItemIdList.push_back(33);
-    m_enableItemIdList.push_back(34);
-    m_enableItemIdList.push_back(35);
-    m_enableItemIdList.push_back(37);
-    m_enableItemIdList.push_back(38);
-    m_enableItemIdList.push_back(39);
-    m_enableItemIdList.push_back(40);
-    m_enableItemIdList.push_back(41);
-    m_enableItemIdList.push_back(42);
-    m_enableItemIdList.push_back(54);
-    m_enableItemIdList.push_back(55);
-    m_enableItemIdList.push_back(56);
-    m_enableItemIdList.push_back(57);
-    m_enableItemIdList.push_back(81);
+    m_enableItemIdList.push_back(L"sotetsu");
+    m_enableItemIdList.push_back(L"coconut");
+    m_enableItemIdList.push_back(L"coconutRipe");
+    m_enableItemIdList.push_back(L"donguri1");
+    m_enableItemIdList.push_back(L"donguri2");
+    m_enableItemIdList.push_back(L"donguri3");
+    m_enableItemIdList.push_back(L"flower");
+    m_enableItemIdList.push_back(L"kakan");
+    m_enableItemIdList.push_back(L"tsukushi");
+    m_enableItemIdList.push_back(L"unknownPlant1");
+    m_enableItemIdList.push_back(L"unknownPlant2");
+    m_enableItemIdList.push_back(L"unknownPlant3");
+    m_enableItemIdList.push_back(L"unknownPlant4");
+    m_enableItemIdList.push_back(L"unknownPlant5");
+    m_enableItemIdList.push_back(L"unknownPlant6");
+    m_enableItemIdList.push_back(L"tanpopo");
+    m_enableItemIdList.push_back(L"nira");
+    m_enableItemIdList.push_back(L"kinoko");
+    m_enableItemIdList.push_back(L"copper");
+    m_enableItemIdList.push_back(L"bui");
+    m_enableItemIdList.push_back(L"stoneForAxe");
+    m_enableItemIdList.push_back(L"stoneForSpear");
+    m_enableItemIdList.push_back(L"wordbress");
+    m_enableItemIdList.push_back(L"yakizakana");
+    m_enableItemIdList.push_back(L"papaiya");
+    m_enableItemIdList.push_back(L"mango");
+    m_enableItemIdList.push_back(L"banana");
+    m_enableItemIdList.push_back(L"longstone");
+    m_enableItemIdList.push_back(L"mu-rugai");
+    m_enableItemIdList.push_back(L"branch");
+    m_enableItemIdList.push_back(L"trunk");
+    m_enableItemIdList.push_back(L"tsuta");
+    m_enableItemIdList.push_back(L"stone");
+    m_enableItemIdList.push_back(L"ironPipe");
 
 	m_presentMap[_T("sankakuman")] = std::vector<ItemDef>();
 	m_presentMap[_T("shikakuman")] = std::vector<ItemDef>();
@@ -90,7 +90,7 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
                 break;
             }
 
-            int itemId = std::stoi(vvs.at(i).at(j));
+            auto itemId = vvs.at(i).at(j);
             auto itemDef = itemManager->GetItemDef(itemId);
             m_presentMap.at(name).push_back(itemDef);
         }
@@ -190,7 +190,7 @@ void NSStarmanLib::Help::Save(const std::wstring& filepath)
         for (auto& item : helper.second)
         {
             auto id = item.GetId();
-            vs.push_back(std::to_wstring(id));
+            vs.push_back(id);
         }
         vvs.push_back(vs);
         vs.clear();
@@ -288,7 +288,7 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::wstring& npcNa
         {
             rnd = rand();
             work = rnd % idListNum;
-            int id = m_enableItemIdList.at(work);
+            auto id = m_enableItemIdList.at(work);
             auto itemDef = ItemManager::GetObj()->GetItemDef(id);
             randomItem.push_back(itemDef);
         }

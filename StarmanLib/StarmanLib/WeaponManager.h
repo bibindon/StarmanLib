@@ -98,8 +98,8 @@ public:
     std::wstring GetWeaponId() const;
     void SetWeaponId(const std::wstring& id);
 
-    int GetItemId() const;
-    void SetItemId(const int& id);
+    std::wstring GetItemId() const;
+    void SetItemId(const std::wstring& id);
 
     int GetReinforce() const;
     void SetReinforce(int reinforce);
@@ -116,7 +116,7 @@ public:
 private:
 
     std::wstring m_weaponId; // 武器ID（weapon.csv）
-    int m_itemId = 0; // アイテムID（item.csv）
+    std::wstring m_itemId; // アイテムID（item.csv）
 
     int m_reinforce = 0;
     double m_attackRate = 0.f;

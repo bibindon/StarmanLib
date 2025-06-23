@@ -18,7 +18,7 @@ class CraftRequest
 public:
 
     std::wstring GetName() const;
-    int GetId() const;
+    std::wstring GetId() const;
 
     int GetLevel() const;
 

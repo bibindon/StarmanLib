@@ -39,8 +39,7 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
         CraftOutput craftOutput;
         int work_i = 0;
 
-        work_i = std::stoi(vvs.at(i).at(1));
-        auto itemDef = itemManager->GetItemDef(work_i);
+        auto itemDef = itemManager->GetItemDef(vvs.at(i).at(1));
 
         craftOutput.SetItemId(itemDef.GetId());
         craftOutput.SetName(itemDef.GetName());
@@ -72,8 +71,8 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
                 break;
             }
 
-            work_i = std::stoi(vvs.at(i).at(4 + (j * 3)));
-			auto itemDefMat = itemManager->GetItemDef(work_i);
+            auto work_str = vvs.at(i).at(4 + (j * 3));
+			auto itemDefMat = itemManager->GetItemDef(work_str);
 
             craftMaterial.SetId(itemDefMat.GetId());
             craftMaterial.SetName(itemDefMat.GetName());
@@ -160,12 +159,12 @@ CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& name,
     return m_craftInfoList.at(i);
 }
 
-void NSStarmanLib::CraftMaterial::SetId(const int arg)
+void NSStarmanLib::CraftMaterial::SetId(const std::wstring& arg)
 {
     m_id = arg;
 }
 
-int NSStarmanLib::CraftMaterial::GetId() const
+std::wstring NSStarmanLib::CraftMaterial::GetId() const
 {
     return m_id;
 }

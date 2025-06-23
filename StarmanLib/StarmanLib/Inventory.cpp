@@ -44,8 +44,7 @@ void Inventory::Init(const std::wstring& csvfile,
         int subId = 0;
         int durability = 0;
 
-        id = std::stoi(vvs.at(i).at(0));
-        itemInfo.SetId(id);
+        itemInfo.SetId(vvs.at(i).at(0));
 
         subId = std::stoi(vvs.at(i).at(2));
         itemInfo.SetSubId(subId);
@@ -90,7 +89,7 @@ void Inventory::Save(const std::wstring& csvfile,
 
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        vs.push_back(std::to_wstring(it->GetId()));
+        vs.push_back(it->GetId());
 
         ItemDef itemDef = itemManager->GetItemDef(it->GetId());
         vs.push_back(itemDef.GetName());
@@ -104,7 +103,7 @@ void Inventory::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-int Inventory::AddItem(const int id, const int durability)
+int Inventory::AddItem(const std::wstring& id, const int durability)
 {
     int subId = 0;
 
@@ -190,7 +189,7 @@ int Inventory::AddItem(const int id, const int durability)
     return newSubId;
 }
 
-void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, const int durability)
+void NSStarmanLib::Inventory::AddItemWithSubID(const std::wstring& id, const int subId, const int durability)
 {
     ItemInfo itemInfo;
     itemInfo.SetId(id);
@@ -207,7 +206,7 @@ void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, co
     StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
 }
 
-void Inventory::RemoveItem(const int id, const int subId)
+void Inventory::RemoveItem(const std::wstring& id, const int subId)
 {
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
@@ -225,7 +224,7 @@ void Inventory::RemoveItem(const int id, const int subId)
     StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
 }
 
-void NSStarmanLib::Inventory::SetItemDurability(const int id,
+void NSStarmanLib::Inventory::SetItemDurability(const std::wstring& id,
                                                 const int subId,
                                                 const int durability)
 {
@@ -239,7 +238,7 @@ void NSStarmanLib::Inventory::SetItemDurability(const int id,
     }
 }
 
-bool NSStarmanLib::Inventory::ExistItem(const int id, const int subId)
+bool NSStarmanLib::Inventory::ExistItem(const std::wstring& id, const int subId)
 {
     bool result = false;
 
@@ -254,7 +253,7 @@ bool NSStarmanLib::Inventory::ExistItem(const int id, const int subId)
     return result;
 }
 
-ItemInfo NSStarmanLib::Inventory::GetItemInfo(const int id, const int subId)
+ItemInfo NSStarmanLib::Inventory::GetItemInfo(const std::wstring& id, const int subId)
 {
     if (ExistItem(id, subId) == false)
     {
@@ -275,7 +274,7 @@ ItemInfo NSStarmanLib::Inventory::GetItemInfo(const int id, const int subId)
 }
 
 // SubIDをリストで受け取る
-std::vector<int> NSStarmanLib::Inventory::GetSubIdList(const int id)
+std::vector<int> NSStarmanLib::Inventory::GetSubIdList(const std::wstring& id)
 {
     std::vector<int> result;
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
@@ -292,7 +291,7 @@ std::vector<int> NSStarmanLib::Inventory::GetSubIdList(const int id)
 
 // 耐久度を無視して個数を数える
 // したがって、耐久度の下がったアイテムをクラフトの素材として使用出来て良いということにする
-int Inventory::CountItem(const int id)
+int Inventory::CountItem(const std::wstring& id)
 {
     int num = 0;
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
@@ -322,9 +321,9 @@ float NSStarmanLib::Inventory::CalcVolume()
     ItemManager* itemManager = ItemManager::GetObj();
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        int id = it->GetId();
+        auto id = it->GetId();
         ItemDef itemDef = itemManager->GetItemDef(id);
-        if (itemDef.GetId() == 0)
+        if (itemDef.GetId().empty())
         {
             continue;
         }
@@ -353,7 +352,7 @@ void NSStarmanLib::Inventory::UpdateVolumeMax(const std::vector<ItemInfo>& bagMa
 
     for (auto it = bagMap.begin(); it != bagMap.end(); ++it)
     {
-        if (it->GetId() == -1)
+        if (it->GetId().empty())
         {
             continue;
         }
@@ -426,9 +425,9 @@ float Inventory::CalcWeight()
     ItemManager* itemManager = ItemManager::GetObj();
     for (auto it = m_itemInfoList.begin(); it != m_itemInfoList.end(); ++it)
     {
-        int id = it->GetId();
+        auto id = it->GetId();
         ItemDef itemDef = itemManager->GetItemDef(id);
-        if (itemDef.GetId() == 0)
+        if (itemDef.GetId().empty())
         {
             continue;
         }
