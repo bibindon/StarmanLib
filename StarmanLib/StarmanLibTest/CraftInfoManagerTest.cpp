@@ -60,7 +60,7 @@ namespace StarmanLibTest
             CraftInfoManager* obj = CraftInfoManager::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\craftDef.csv"));
             std::vector<CraftOutput> work = obj->GetCraftItemList();
-            Assert::AreEqual((int)work.size(), 57);
+            Assert::AreEqual((int)work.size(), 76);
             CraftInfoManager::Destroy();
         }
 
