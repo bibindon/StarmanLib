@@ -361,7 +361,7 @@ int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& craftItem)
     return level;
 }
 
-// 
+// TODO 名前を使うのをやめること
 bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
                                                   std::wstring* errMsg,
                                                   const int storehouseId,
@@ -398,15 +398,11 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
     // 倉庫内に必要なだけの素材があるかのチェック
     for (std::size_t i = 0; i < craftMaterialList.size(); ++i)
     {
-        std::wstring name;
         int materialNum = 0;
-        int materialLevel = 0;
 
-        name = craftMaterialList.at(i).GetName();
         materialNum = craftMaterialList.at(i).GetNumber();
-        materialLevel = craftMaterialList.at(i).GetLevel();
 
-        int materialNumCurrent = storehouse->CountItem(name, materialLevel);
+        int materialNumCurrent = storehouse->CountItem(craftMaterialList.at(i).GetId());
 
         // 素材が足りない
         if (materialNumCurrent < materialNum)
@@ -429,13 +425,9 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
     {
         ItemInfo item;
 
-        std::wstring name;
         int materialNum = 0;
-        int materialLevel = 0;
 
-        name = craftMaterialList.at(i).GetName();
         materialNum = craftMaterialList.at(i).GetNumber();
-        materialLevel = craftMaterialList.at(i).GetLevel();
 
         int id = craftMaterialList.at(i).GetId();
         item.SetId(id);
@@ -453,7 +445,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
             item.SetDurabilityCurrent(dura);
             items.push_back(item);
 
-            storehouse->RemoveItem(name, subIdList.at(j), materialLevel);
+            storehouse->RemoveItem(craftMaterialList.at(i).GetId(), subIdList.at(j));
         }
     }
     craftInfo.SetCraftMaterial(items);
@@ -596,7 +588,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     Raft raft;
 
                     auto itemManager = ItemManager::GetObj();
-                    auto itemDef = itemManager->GetItemDef(output.GetName(), output.GetLevel());
+                    auto itemDef = itemManager->GetItemDef(output.GetItemId());
 
                     auto dura = itemDef.GetDurabilityMax();
                     raft.SetDurability(dura);
@@ -626,7 +618,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
                 else
                 {
-                    storehouse->AddItem(output.GetName(), output.GetLevel());
+                    storehouse->AddItem(output.GetItemId());
                 }
             }
 

@@ -232,8 +232,6 @@ public:
               const bool encrypt = false);
 
     std::vector<int> GetItemIdList();
-    // 名前を使うの禁止、としたいが、メニュー画面のために残す必要がある
-    ItemDef GetItemDef(const std::wstring& key, const int level = -1);
     ItemDef GetItemDef(const int id);
     ItemDef GetItemDefByWeaponId(const std::wstring& weaponId, const int level = -1);
     std::vector<int> GetItemDef(const ItemDef::ItemType type);

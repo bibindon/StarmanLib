@@ -190,16 +190,6 @@ int Inventory::AddItem(const int id, const int durability)
     return newSubId;
 }
 
-int NSStarmanLib::Inventory::AddItem(const std::wstring name,
-                                     const int level,
-                                     const int durability)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    return AddItem(materialId, durability);
-}
-
 void NSStarmanLib::Inventory::AddItemWithSubID(const int id, const int subId, const int durability)
 {
     ItemInfo itemInfo;
@@ -233,16 +223,6 @@ void Inventory::RemoveItem(const int id, const int subId)
 
     auto brainStamina = StatusManager::GetObj()->GetBrainStaminaCurrent();
     StatusManager::GetObj()->SetBrainStaminaCurrent(brainStamina - 1.f);
-}
-
-void NSStarmanLib::Inventory::RemoveItem(const std::wstring name,
-                                         const int subId,
-                                         const int level)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    RemoveItem(materialId, subId);
 }
 
 void NSStarmanLib::Inventory::SetItemDurability(const int id,
@@ -324,14 +304,6 @@ int Inventory::CountItem(const int id)
     }
 
     return num;
-}
-
-int NSStarmanLib::Inventory::CountItem(const std::wstring name, const int level)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    return CountItem(materialId);
 }
 
 float Inventory::GetWeight()

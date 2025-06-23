@@ -119,22 +119,22 @@ public:
 private:
 
     // クラフトアイテムID
-    int m_id;
+    int m_id = 0;
 
     // クラフトアイテム
     std::wstring m_name;
 
     // 強化値
-    int m_level;
+    int m_level = 0;
 
     // クラフト可能か否か
-    bool m_enable;
+    bool m_enable = false;
 
     // 次のレベルを習得するの日必要なクラフト回数
-    int m_levelUpNecessity;
+    int m_levelUpNecessity = 0;
 
     // クラフト経験回数
-    int m_successNum;
+    int m_successNum = 0;
 };
 
 // クラフトシステム用クラス

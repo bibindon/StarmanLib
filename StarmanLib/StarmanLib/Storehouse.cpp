@@ -169,16 +169,6 @@ void Storehouse::AddItem(const int id, const int durability)
     m_weight = CalcWeight();
 }
 
-void NSStarmanLib::Storehouse::AddItem(const std::wstring name,
-                                      const int level,
-                                      const int durability)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    AddItem(materialId, durability);
-}
-
 void NSStarmanLib::Storehouse::AddItemWithSubID(const int id, const int subId, const int durability)
 {
     ItemInfo itemInfo;
@@ -202,16 +192,6 @@ void Storehouse::RemoveItem(const int id, const int subId)
         }
     }
     m_weight = CalcWeight();
-}
-
-void NSStarmanLib::Storehouse::RemoveItem(const std::wstring name,
-                                         const int subId,
-                                         const int level)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    RemoveItem(materialId, subId);
 }
 
 void NSStarmanLib::Storehouse::SetItemDurability(const int id,
@@ -293,14 +273,6 @@ int Storehouse::CountItem(const int id)
     }
 
     return num;
-}
-
-int NSStarmanLib::Storehouse::CountItem(const std::wstring name, const int level)
-{
-    ItemManager* itemManager = ItemManager::GetObj();
-    ItemDef itemDef = itemManager->GetItemDef(name, level);
-    int materialId = itemDef.GetId();
-    return CountItem(materialId);
 }
 
 float Storehouse::GetWeight()

@@ -473,29 +473,6 @@ std::vector<int> NSStarmanLib::ItemManager::GetItemIdList()
     return idList;
 }
 
-// 名前を使うの禁止、としたいがメニュー画面の都合で残す必要がある。
-ItemDef ItemManager::GetItemDef(const std::wstring& key, const int level)
-{
-    ItemDef itemDef;
-    bool exist = false;
-    for (auto it = m_itemDefMap.begin(); it != m_itemDefMap.end(); ++it)
-    {
-        if (it->second.GetName() == key && it->second.GetLevel() == level)
-        {
-            itemDef = it->second;
-            exist = true;
-            break;
-        }
-    }
-
-    if (exist == false)
-    {
-        throw std::exception();
-    }
-
-    return itemDef;
-}
-
 ItemDef ItemManager::GetItemDef(const int id)
 {
     ItemDef itemDef;
