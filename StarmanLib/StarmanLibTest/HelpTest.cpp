@@ -110,9 +110,9 @@ namespace StarmanLibTest
 
             // Target
             Assert::AreEqual<size_t>(3, receiveItems.size());
-            Assert::AreEqual(3, receiveItems.at(0).GetId());
-            Assert::AreEqual(5, receiveItems.at(1).GetId());
-            Assert::AreEqual(6, receiveItems.at(2).GetId());
+            Assert::AreEqual<std::wstring>(L"sotetsu", receiveItems.at(0).GetId());
+            Assert::AreEqual<std::wstring>(L"coconut", receiveItems.at(1).GetId());
+            Assert::AreEqual<std::wstring>(L"coconutRipe", receiveItems.at(2).GetId());
 
             ItemManager::Destroy();
             PowereggDateTime::Destroy();

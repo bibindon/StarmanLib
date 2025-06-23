@@ -96,6 +96,7 @@ void HumanInfoManager::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
+// TODO 名称を使った処理を辞める
 HumanInfo HumanInfoManager::GetHumanInfo(const std::wstring& name)
 {
     HumanInfo result;

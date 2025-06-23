@@ -59,16 +59,16 @@ namespace StarmanLibTest
 
             Inventory* obj = Inventory::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
-            Assert::AreEqual(obj->CountItem(1), 10);
-            Assert::AreEqual(obj->CountItem(37), 10);
-            obj->AddItem(1);
-            obj->AddItem(37);
-            Assert::AreEqual(obj->CountItem(1), 11);
-            Assert::AreEqual(obj->CountItem(37), 11);
-            obj->RemoveItem(1, 1);
-            obj->RemoveItem(37, 1);
-            Assert::AreEqual(obj->CountItem(1), 10);
-            Assert::AreEqual(obj->CountItem(37), 10);
+            Assert::AreEqual(obj->CountItem(L"sumaho"), 10);
+            Assert::AreEqual(obj->CountItem(L"yakizakana"), 10);
+            obj->AddItem(L"sumaho");
+            obj->AddItem(L"yakizakana");
+            Assert::AreEqual(obj->CountItem(L"sumaho"), 11);
+            Assert::AreEqual(obj->CountItem(L"yakizakana"), 11);
+            obj->RemoveItem(L"sumaho", 1);
+            obj->RemoveItem(L"yakizakana", 1);
+            Assert::AreEqual(obj->CountItem(L"sumaho"), 10);
+            Assert::AreEqual(obj->CountItem(L"yakizakana"), 10);
             Inventory::Destroy();
             ItemManager::Destroy();
         }
@@ -82,10 +82,10 @@ namespace StarmanLibTest
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
-                obj->AddItem(1);
-                obj->AddItem(37);
-                Assert::AreEqual(obj->CountItem(1), 11);
-                Assert::AreEqual(obj->CountItem(37), 11);
+                obj->AddItem(L"sumaho");
+                obj->AddItem(L"yakizakana");
+                Assert::AreEqual(obj->CountItem(L"sumaho"), 11);
+                Assert::AreEqual(obj->CountItem(L"yakizakana"), 11);
                 obj->Save(_T("..\\StarmanLibTest\\inventorySave.csv"));
                 Inventory::Destroy();
                 ItemManager::Destroy();
@@ -96,8 +96,8 @@ namespace StarmanLibTest
 
                 Inventory* obj = Inventory::GetObj();
                 obj->Init(_T("..\\StarmanLibTest\\inventorySave.csv"));
-                Assert::AreEqual(obj->CountItem(1), 11);
-                Assert::AreEqual(obj->CountItem(37), 11);
+                Assert::AreEqual(obj->CountItem(L"sumaho"), 11);
+                Assert::AreEqual(obj->CountItem(L"yakizakana"), 11);
                 Inventory::Destroy();
                 ItemManager::Destroy();
             }
@@ -118,24 +118,24 @@ namespace StarmanLibTest
                 Inventory* obj = Inventory::GetObj();
                 obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
-                obj->AddItem(1);
-                obj->AddItem(37);
+                obj->AddItem(L"sumaho");
+                obj->AddItem(L"yakizakana");
 
-                Assert::AreEqual(obj->ExistItem(1, 11), true);
-                Assert::AreEqual(obj->ExistItem(37, 11), true);
+                Assert::AreEqual(obj->ExistItem(L"sumaho", 11), true);
+                Assert::AreEqual(obj->ExistItem(L"yakizakana", 11), true);
 
-                obj->RemoveItem(1, 3);
-                obj->RemoveItem(1, 4);
-                obj->AddItem(1);
+                obj->RemoveItem(L"sumaho", 3);
+                obj->RemoveItem(L"sumaho", 4);
+                obj->AddItem(L"sumaho");
 
-                obj->RemoveItem(37, 3);
-                obj->RemoveItem(37, 4);
-                obj->AddItem(37);
+                obj->RemoveItem(L"yakizakana", 3);
+                obj->RemoveItem(L"yakizakana", 4);
+                obj->AddItem(L"yakizakana");
 
-                Assert::AreEqual(obj->ExistItem(1, 3), true);
-                Assert::AreEqual(obj->ExistItem(1, 4), false);
-                Assert::AreEqual(obj->ExistItem(37, 3), true);
-                Assert::AreEqual(obj->ExistItem(37, 4), false);
+                Assert::AreEqual(obj->ExistItem(L"sumaho", 3), true);
+                Assert::AreEqual(obj->ExistItem(L"sumaho", 4), false);
+                Assert::AreEqual(obj->ExistItem(L"yakizakana", 3), true);
+                Assert::AreEqual(obj->ExistItem(L"yakizakana", 4), false);
 
                 Inventory::Destroy();
                 ItemManager::Destroy();
@@ -153,25 +153,25 @@ namespace StarmanLibTest
                 Inventory* obj = Inventory::GetObj();
                 obj->Init(_T("..\\StarmanLibTest\\inventory.csv"));
 
-                obj->RemoveItem(3, 1);
-                obj->RemoveItem(3, 2);
-                obj->RemoveItem(3, 3);
-                obj->RemoveItem(3, 4);
-                obj->RemoveItem(3, 5);
-                obj->RemoveItem(3, 6);
-                obj->RemoveItem(3, 7);
-                obj->RemoveItem(3, 8);
-                obj->RemoveItem(3, 9);
-                obj->RemoveItem(3, 10);
+                obj->RemoveItem(L"sotetsu", 1);
+                obj->RemoveItem(L"sotetsu", 2);
+                obj->RemoveItem(L"sotetsu", 3);
+                obj->RemoveItem(L"sotetsu", 4);
+                obj->RemoveItem(L"sotetsu", 5);
+                obj->RemoveItem(L"sotetsu", 6);
+                obj->RemoveItem(L"sotetsu", 7);
+                obj->RemoveItem(L"sotetsu", 8);
+                obj->RemoveItem(L"sotetsu", 9);
+                obj->RemoveItem(L"sotetsu", 10);
 
-                Assert::AreEqual(obj->CountItem(3), 0);
+                Assert::AreEqual(obj->CountItem(L"sotetsu"), 0);
 
-                obj->AddItem(3);
+                obj->AddItem(L"sotetsu");
 
-                Assert::AreEqual(obj->CountItem(3), 1);
-                Assert::AreEqual(obj->ExistItem(3, 0), false);
-                Assert::AreEqual(obj->ExistItem(3, 1), true);
-                Assert::AreEqual(obj->ExistItem(3, 2), false);
+                Assert::AreEqual(obj->CountItem(L"sotetsu"), 1);
+                Assert::AreEqual(obj->ExistItem(L"sotetsu", 0), false);
+                Assert::AreEqual(obj->ExistItem(L"sotetsu", 1), true);
+                Assert::AreEqual(obj->ExistItem(L"sotetsu", 2), false);
 
                 Inventory::Destroy();
                 ItemManager::Destroy();

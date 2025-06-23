@@ -34,7 +34,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
-            ItemDef itemDef = obj->GetItemDef(1);
+            ItemDef itemDef = obj->GetItemDef(L"sumaho");
             Assert::AreEqual(itemDef.GetImagePath() == _T("res\\\\image\\\\sumaho.png"), true);
             ItemManager::Destroy();
         }
@@ -43,7 +43,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
-            ItemDef itemDef = obj->GetItemDef(42);
+            ItemDef itemDef = obj->GetItemDef(L"mu-rugai");
             Assert::AreEqual(itemDef.GetImagePath() == _T("res\\\\image\\\\mu-rugai.png"), true);
             ItemManager::Destroy();
         }
@@ -52,7 +52,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
-            ItemDef itemDef = obj->GetItemDef(42);
+            ItemDef itemDef = obj->GetItemDef(L"mu-rugai");
             Assert::AreEqual(itemDef.GetType() == ItemDef::ItemType::FOOD, true);
             ItemManager::Destroy();
         }
@@ -61,7 +61,7 @@ namespace StarmanLibTest
         {
             ItemManager* obj = ItemManager::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
-            ItemDef itemDef = obj->GetItemDef(42);
+            ItemDef itemDef = obj->GetItemDef(L"mu-rugai");
             Assert::AreEqual(itemDef.GetWater(), 0.f);
             ItemManager::Destroy();
         }

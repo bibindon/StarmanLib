@@ -203,7 +203,7 @@ namespace StarmanLibTest
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
             int temp = 0;
 
-            temp = storehouse->CountItem(55);
+            temp = storehouse->CountItem(L"trunk");
             Assert::AreEqual(temp, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -219,10 +219,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), false);
 
-            temp = storehouse->CountItem(55);
+            temp = storehouse->CountItem(L"trunk");
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem(34);
+            temp = storehouse->CountItem(L"stoneForSpear");
             Assert::AreEqual(temp, 9);
 
             obj->UpdateCraftStatus();
@@ -232,10 +232,10 @@ namespace StarmanLibTest
             Assert::AreEqual((int)craftRequestList.size() == 1, true);
             Assert::AreEqual(craftRequestList.front().GetCrafting(), true);
 
-            temp = storehouse->CountItem(55);
+            temp = storehouse->CountItem(L"trunk");
             Assert::AreEqual(temp, 9);
 
-            temp = storehouse->CountItem(34);
+            temp = storehouse->CountItem(L"stoneForSpear");
             Assert::AreEqual(temp, 9);
 
             CraftSystem::Destroy();
@@ -276,7 +276,7 @@ namespace StarmanLibTest
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 10);
 
@@ -296,7 +296,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 11);
 
@@ -310,7 +310,7 @@ namespace StarmanLibTest
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
             int work = 0;
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 10);
 
@@ -331,7 +331,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 11);
 
@@ -340,7 +340,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 12);
 
@@ -355,10 +355,10 @@ namespace StarmanLibTest
 
             int work = 0;
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
             Assert::AreEqual(work, 10);
 
-            work = storehouse->CountItem(91);
+            work = storehouse->CountItem(L"atlatl");
             Assert::AreEqual(work, 10);
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -378,10 +378,10 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem(91);
+            work = storehouse->CountItem(L"atlatl");
             Assert::AreEqual(work, 10);
 
             // 1日と1時間、時を進める
@@ -389,10 +389,10 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem(91);
+            work = storehouse->CountItem(L"atlatl");
             Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
@@ -529,16 +529,16 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem(55);
-            auto mat2 = storehouse->CountItem(34);
+            auto mat1 = storehouse->CountItem(L"trunk");
+            auto mat2 = storehouse->CountItem(L"stoneForSpear");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(1);
 
-            mat1 = storehouse->CountItem(55);
-            mat2 = storehouse->CountItem(34);
+            mat1 = storehouse->CountItem(L"trunk");
+            mat2 = storehouse->CountItem(L"stoneForSpear");
             Assert::AreEqual(9, mat1);
             Assert::AreEqual(9, mat2);
 
@@ -567,16 +567,16 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             auto storehouse = StorehouseManager::Get()->GetCurrentActiveStorehouse();
-            auto mat1 = storehouse->CountItem(55);
-            auto mat2 = storehouse->CountItem(34);
+            auto mat1 = storehouse->CountItem(L"trunk");
+            auto mat2 = storehouse->CountItem(L"stoneForSpear");
 
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
             obj->CancelCraftStart(0);
 
-            mat1 = storehouse->CountItem(55);
-            mat2 = storehouse->CountItem(34);
+            mat1 = storehouse->CountItem(L"trunk");
+            mat2 = storehouse->CountItem(L"stoneForSpear");
             Assert::AreEqual(8, mat1);
             Assert::AreEqual(8, mat2);
 
@@ -621,7 +621,7 @@ namespace StarmanLibTest
 
             int work = 0;
             bool work_b = false;
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 10);
 
@@ -645,7 +645,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 11);
 
@@ -657,7 +657,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(64);
+            work = storehouse->CountItem(L"stoneSpear");
 
             Assert::AreEqual(work, 12);
 
@@ -801,8 +801,8 @@ namespace StarmanLibTest
 
             for (int i = 0; i < 200; ++i)
             {
-                storehouse->AddItem(55);
-                storehouse->AddItem(56);
+                storehouse->AddItem(L"trunk");
+                storehouse->AddItem(L"tsuta");
             }
 
             CraftSystem* obj = CraftSystem::GetObj();
@@ -821,7 +821,7 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            auto raftCount = storehouse->CountItem(43);
+            auto raftCount = storehouse->CountItem(L"raft");
 
             Assert::AreEqual(0, raftCount);
 
