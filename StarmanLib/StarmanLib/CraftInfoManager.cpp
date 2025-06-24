@@ -137,6 +137,10 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
     return m_craftInfoList.at(i);
 }
 
+// raft, raft1, raft2...のように強化値が変わればアイテムIDも変わる。
+// そのため、levelという引数はもはや必要ない。
+// しかし、ダブルチェックの意味で残してある。
+// 不正なIDと強化値の組み合わせが来れば落ちる。（落ちてほしい）
 CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& itemId,
                                                        const int num,
                                                        const int level)

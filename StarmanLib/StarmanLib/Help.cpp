@@ -131,14 +131,8 @@ void NSStarmanLib::Help::Update()
     if (crossOver)
     {
         // イカダをクラフトしているならアイテム収集はナシ。
-        auto request = CraftSystem::GetObj()->GetCraftRequestList();
 
-        // "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
-
-		auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
-        bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
-
-        if (request.empty() || !isRaft)
+        if (!IsCraftingRaft())
         {
             srand((unsigned int)time(NULL));
 
@@ -207,14 +201,7 @@ void NSStarmanLib::Help::Save(const std::wstring& filepath)
 
 std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::wstring& npcName)
 {
-    // イカダをクラフトしていたらアイテム収集はナシ。
-    auto request = CraftSystem::GetObj()->GetCraftRequestList();
-
-	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
-	auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
-	bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
-
-    if (!request.empty() && isRaft)
+    if (IsCraftingRaft())
     {
         m_presentMap.at(npcName).clear();
     }
@@ -254,13 +241,7 @@ bool NSStarmanLib::Help::CanReceive(const std::wstring& npcName)
         return false;
     }
 
-    auto request = CraftSystem::GetObj()->GetCraftRequestList();
-
-	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
-	auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
-	bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
-
-    if (!request.empty() && isRaft)
+    if (IsCraftingRaft())
     {
         m_presentMap.at(npcName).clear();
         return false;
@@ -382,4 +363,23 @@ bool NSStarmanLib::Help::BackTime()
     }
 
     return backtime;
+}
+
+bool NSStarmanLib::Help::IsCraftingRaft()
+{
+	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
+	bool raftCrafting = false;
+
+	auto request = CraftSystem::GetObj()->GetCraftRequestList();
+
+	if (!request.empty())
+	{
+		auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
+        if (itemDef.GetUnreinforcedId() == L"raft")
+        {
+			raftCrafting = true;
+        }
+	}
+
+    return raftCrafting;
 }

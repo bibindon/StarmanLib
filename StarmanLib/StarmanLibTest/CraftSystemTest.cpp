@@ -698,21 +698,22 @@ namespace StarmanLibTest
 
             // 1日と1時間、時を進める
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+            // ここで職人のレベルアップ。＋１の石槍を作れるようになる
 
             obj->UpdateCraftStatus();
 
             // 1日と1時間、時を進める
-            // ここで職人のレベルアップ。＋１の石槍を作れるようになる
+            // ここで職人のレベルアップ。＋２の石槍を作れるようになる
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            // ここで石槍を予約したら＋１の石槍が作られる
+            // ここで石槍を予約したら＋２の石槍が作られる
             work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
-            // ＋１の石槍が予約されているか？
+            // ＋２の石槍が予約されているか？
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(work, 2);
 
             CraftSystem::Destroy();
         }
@@ -800,8 +801,6 @@ namespace StarmanLibTest
             StorehouseManager* storehouseManager = StorehouseManager::Get();
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
-            // 25秒くらいかかる
-            //for (int i = 0; i < 200; ++i)
             for (int i = 0; i < 50; ++i)
             {
                 storehouse->AddItem(L"trunk");

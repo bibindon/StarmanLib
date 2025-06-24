@@ -389,8 +389,39 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& itemId,
     // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を取得。
     int level = GetCraftsmanSkill(itemId);
 
+    // raft, raft1, raft2...のように、強化値が変わるとアイテムIDも変わる
+    // 強化値に対応するIDを取得する。
+
+    std::wstring newItemId;
+
+    {
+		auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
+		auto unreinforcedId = itemDef.GetUnreinforcedId();
+
+        auto idList = ItemManager::GetObj()->GetItemIdList();
+
+        for (size_t i = 0; i < idList.size(); ++i)
+        {
+            auto itemDef2 = ItemManager::GetObj()->GetItemDef(idList.at(i));
+            auto unreinforcedId2 = itemDef2.GetUnreinforcedId();
+
+            if (unreinforcedId == unreinforcedId2)
+            {
+                if (level == itemDef2.GetLevel())
+                {
+                    newItemId = itemDef2.GetId();
+                }
+            }
+        }
+    }
+
+    if (newItemId.empty())
+    {
+        throw std::exception();
+    }
+
     // クラフト情報
-    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(itemId, num, level);
+    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(newItemId, num, level);
 
     // 素材を消費する
     // 素材が足りないときはfalseを返す
@@ -468,7 +499,7 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& itemId,
     //----------------------------------------------------------
 
     // イカダをクラフトする場合は倉庫に入らないので-1
-    auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
+    auto itemDef = ItemManager::GetObj()->GetItemDef(newItemId);
     if (itemDef.GetUnreinforcedId() == L"raft")
     {
         craftRequest.SetStorehouseId(-1);

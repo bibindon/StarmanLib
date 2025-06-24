@@ -125,7 +125,7 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_sz == _T("細い木の幹"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetNumber();
-                Assert::AreEqual(work_i == 100, true);
+                Assert::AreEqual(work_i == 25, true);
 
                 work_i = craftInfo.GetCraftMaterialDef(0).GetLevel();
                 Assert::AreEqual(work_i == -1, true);
@@ -135,7 +135,7 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_sz == _T("ツタ"), true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetNumber();
-                Assert::AreEqual(work_i == 100, true);
+                Assert::AreEqual(work_i == 25, true);
 
                 work_i = craftInfo.GetCraftMaterialDef(1).GetLevel();
                 Assert::AreEqual(work_i == -1, true);

@@ -62,6 +62,8 @@ private:
     // 拾えるはずのないアイテムを拾えないようにするため。
     std::vector<std::wstring> m_enableItemIdList;
     bool m_bLoaded = false;
+
+    bool IsCraftingRaft();
 };
 }
 
