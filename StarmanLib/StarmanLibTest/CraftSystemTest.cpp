@@ -799,7 +799,9 @@ namespace StarmanLibTest
             StorehouseManager* storehouseManager = StorehouseManager::Get();
             Storehouse* storehouse = storehouseManager->GetStorehouse(1);
 
-            for (int i = 0; i < 200; ++i)
+            // 25秒くらいかかる
+            //for (int i = 0; i < 200; ++i)
+            for (int i = 0; i < 50; ++i)
             {
                 storehouse->AddItem(L"trunk");
                 storehouse->AddItem(L"tsuta");
