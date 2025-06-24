@@ -42,7 +42,6 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
         auto itemDef = itemManager->GetItemDef(vvs.at(i).at(1));
 
         craftOutput.SetItemId(itemDef.GetId());
-        craftOutput.SetName(itemDef.GetName());
 
         work_i = std::stoi(vvs.at(i).at(2));
         craftOutput.SetNumber(work_i);
@@ -119,7 +118,7 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
     std::size_t i = 0;
     for (; i < m_craftInfoList.size(); ++i)
     {
-        if (m_craftInfoList.at(i).GetOutput().GetName() == output.GetName())
+        if (m_craftInfoList.at(i).GetOutput().GetItemId() == output.GetItemId())
         {
             if (m_craftInfoList.at(i).GetOutput().GetNumber() == output.GetNumber())
             {
@@ -138,14 +137,14 @@ CraftInfo CraftInfoManager::GetCraftInfo(const CraftOutput& output)
     return m_craftInfoList.at(i);
 }
 
-CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& name,
+CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& itemId,
                                                        const int num,
                                                        const int level)
 {
     std::size_t i = 0;
     for (; i < m_craftInfoList.size(); ++i)
     {
-        if (m_craftInfoList.at(i).GetOutput().GetName() == name)
+        if (m_craftInfoList.at(i).GetOutput().GetItemId() == itemId)
         {
             if (m_craftInfoList.at(i).GetOutput().GetNumber() == num)
             {
@@ -197,16 +196,6 @@ void CraftMaterial::SetLevel(const int arg)
 int CraftMaterial::GetLevel() const
 {
     return m_level;
-}
-
-void CraftOutput::SetName(const std::wstring& arg)
-{
-    m_name = arg;
-}
-
-std::wstring CraftOutput::GetName() const
-{
-    return m_name;
 }
 
 void CraftOutput::SetNumber(const int arg)

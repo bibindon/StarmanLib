@@ -17,7 +17,6 @@ class CraftRequest
 {
 public:
 
-    std::wstring GetName() const;
     std::wstring GetId() const;
 
     int GetLevel() const;
@@ -98,11 +97,8 @@ class CraftSkill
 {
 public:
 
-    void SetId(const int& arg);
-    int GetId() const;
-
-    void SetName(const std::wstring& arg);
-    std::wstring GetName() const;
+    void SetId(const std::wstring& arg);
+    std::wstring GetId() const;
 
     void SetLevel(const int arg);
     int GetLevel() const;
@@ -119,10 +115,7 @@ public:
 private:
 
     // クラフトアイテムID
-    int m_id = 0;
-
-    // クラフトアイテム
-    std::wstring m_name;
+    std::wstring m_id;
 
     // 強化値
     int m_level = 0;
@@ -173,7 +166,7 @@ public:
     // 職人が強化値＋２の石斧が作れるならそれを作る。
     // 強化値＋２の石斧が作れるのに＋１の石斧を作る方法は提供しない。
     // 倉庫IDが-1なら、現在の拠点の倉庫を使う
-    bool QueueCraftRequest(const std::wstring& craftItem,
+    bool QueueCraftRequest(const std::wstring& itemId,
                            std::wstring* errMsg,
                            const int storehouseId = -1,
                            const int num = 1);

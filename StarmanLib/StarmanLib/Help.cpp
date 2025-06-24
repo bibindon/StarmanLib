@@ -132,7 +132,13 @@ void NSStarmanLib::Help::Update()
     {
         // イカダをクラフトしているならアイテム収集はナシ。
         auto request = CraftSystem::GetObj()->GetCraftRequestList();
-        if (request.empty() || request.front().GetName() != _T("イカダ"))
+
+        // "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
+
+		auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
+        bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
+
+        if (request.empty() || !isRaft)
         {
             srand((unsigned int)time(NULL));
 
@@ -203,7 +209,12 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::wstring& npcNam
 {
     // イカダをクラフトしていたらアイテム収集はナシ。
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == _T("イカダ"))
+
+	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
+	auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
+	bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
+
+    if (!request.empty() && isRaft)
     {
         m_presentMap.at(npcName).clear();
     }
@@ -244,7 +255,12 @@ bool NSStarmanLib::Help::CanReceive(const std::wstring& npcName)
     }
 
     auto request = CraftSystem::GetObj()->GetCraftRequestList();
-    if (!request.empty() && request.front().GetName() == _T("イカダ"))
+
+	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
+	auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
+	bool isRaft = (itemDef.GetUnreinforcedId() == L"raft");
+
+    if (!request.empty() && isRaft)
     {
         m_presentMap.at(npcName).clear();
         return false;

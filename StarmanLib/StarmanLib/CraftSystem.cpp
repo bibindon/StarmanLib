@@ -51,7 +51,7 @@ void CraftSystem::Init(const std::wstring& csvfileSkill, const std::wstring& csv
             CraftSkill craftSkill;
 
             std::wstring name = vvs.at(i).at(0);
-            craftSkill.SetName(name);
+            craftSkill.SetId(name);
 
             int level = 0;
             if (vvs.at(i).at(1).empty())
@@ -187,7 +187,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
 
-        vs.push_back(_T("クラフトアイテム"));
+        vs.push_back(_T("クラフトアイテムID"));
         vs.push_back(_T("強化値"));
         vs.push_back(_T("クラフト可能"));
         vs.push_back(_T("次のレベルを習得するのに必要なクラフト回数"));
@@ -197,7 +197,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
 
         for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
         {
-            vs.push_back(it->GetName());
+            vs.push_back(it->GetId());
             if (it->GetLevel() == -1)
             {
                 vs.push_back(_T(""));
@@ -244,7 +244,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
 
-        vs.push_back(_T("クラフトアイテム"));
+        vs.push_back(_T("クラフトアイテムID"));
         vs.push_back(_T("強化値"));
         vs.push_back(_T("クラフト中"));
         vs.push_back(_T("開始年"));
@@ -265,7 +265,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
 
         for (auto it = m_craftRequestList.begin(); it != m_craftRequestList.end(); ++it)
         {
-            vs.push_back(it->GetName());
+            vs.push_back(it->GetId());
 
             int level = it->GetCraftInfo().GetOutput().GetLevel();
             if (level != -1)
@@ -329,12 +329,12 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
     }
 }
 
-void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::wstring& craftItem, const int level)
+void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::wstring& itemId, const int level)
 {
     auto it = std::find_if(m_craftSkillList.begin(), m_craftSkillList.end(),
                            [&](CraftSkill& x)
                            {
-                               return x.GetName() == craftItem && x.GetLevel() == level;
+                               return x.GetId() == itemId && x.GetLevel() == level;
                            });
 
     if (it != m_craftSkillList.end())
@@ -343,14 +343,20 @@ void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::wstring& craftItem,
     }
 }
 
-int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& craftItem)
+// アイテムのIDは強化値によってraft, raft1, raft2のように変わる。
+int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& itemId)
 {
+	auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
+    auto unreinforcedId = itemDef.GetUnreinforcedId();
+
     // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を返す。
     // （craftItemの作れるアイテムの中で最高レベルの数値を返す。）
     int level = -1;
     for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
     {
-        if (it->GetName() == craftItem && it->GetEnable())
+        auto itemDef = ItemManager::GetObj()->GetItemDef(it->GetId());
+        bool find = (itemDef.GetUnreinforcedId() == unreinforcedId);
+        if (find && it->GetEnable())
         {
             if (it->GetLevel() > level)
             {
@@ -361,8 +367,7 @@ int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& craftItem)
     return level;
 }
 
-// TODO 名前を使うのをやめること
-bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
+bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& itemId,
                                                   std::wstring* errMsg,
                                                   const int storehouseId,
                                                   const int num)
@@ -382,10 +387,10 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
 
     // 現在、職人が作れるcraftItemのレベルを取得
     // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を取得。
-    int level = GetCraftsmanSkill(craftItem);
+    int level = GetCraftsmanSkill(itemId);
 
     // クラフト情報
-    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(craftItem, num, level);
+    CraftInfo craftInfo = craftInfoManager->GetCraftInfo(itemId, num, level);
 
     // 素材を消費する
     // 素材が足りないときはfalseを返す
@@ -463,7 +468,8 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& craftItem,
     //----------------------------------------------------------
 
     // イカダをクラフトする場合は倉庫に入らないので-1
-    if (craftItem == _T("イカダ"))
+    auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
+    if (itemDef.GetUnreinforcedId() == L"raft")
     {
         craftRequest.SetStorehouseId(-1);
     }
@@ -582,7 +588,8 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             for (int i = 0; i < output.GetNumber(); ++i)
             {
                 // イカダの場合は倉庫に入れない。
-                if (output.GetName() == _T("イカダ"))
+				auto itemDef = ItemManager::GetObj()->GetItemDef(output.GetItemId());
+                if (itemDef.GetUnreinforcedId() == L"raft")
                 {
                     auto voyage = Voyage::Get();
                     Raft raft;
@@ -602,12 +609,10 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
                     if (baseType == eBaseType::Precision)
                     {
-                        // TODO イカダの場所タイプ
-                         raft.SetPosType(Raft::ePosType::Sea);
+                         raft.SetPosType(Raft::ePosType::River);
                     }
                     else if (baseType == eBaseType::DirectNex)
                     {
-                        // TODO イカダの場所タイプ
                          raft.SetPosType(Raft::ePosType::Sea);
                     }
 
@@ -623,12 +628,12 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
             }
 
             // 職人の熟練度の更新
-            // 強化値なしの袋を2回作ったら、次は強化値＋１の袋を作れるようになる。
+            // 強化値なしの袋を1回作ったら、次は強化値＋１の袋を作れるようになる。
             // そのため作った回数を記録する
             bool levelup = false;
             for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
             {
-                if (output.GetName() == m_craftSkillList.at(i).GetName() &&
+                if (output.GetItemId() == m_craftSkillList.at(i).GetId() &&
                     output.GetLevel() == m_craftSkillList.at(i).GetLevel())
                 {
                     int successNum = m_craftSkillList.at(i).GetSuccessNum();
@@ -667,11 +672,13 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
 
                 std::size_t targetSkillIndex = 0;
+				auto outputUnreinforcedId = ItemManager::GetObj()->GetItemDef(output.GetItemId()).GetUnreinforcedId();
                 for (std::size_t i = 0; i < m_craftSkillList.size(); ++i)
                 {
+                    auto craftSkillUnreinforcedId = ItemManager::GetObj()->GetItemDef(m_craftSkillList.at(i).GetId()).GetUnreinforcedId();
 
-                    if (output.GetName() == m_craftSkillList.at(i).GetName() &&
-                        targetSkill      == m_craftSkillList.at(i).GetLevel())
+                    if (outputUnreinforcedId == craftSkillUnreinforcedId &&
+                        targetSkill == m_craftSkillList.at(i).GetLevel())
                     {
                         targetSkillExist = true;
                         targetSkillIndex = i;
@@ -714,7 +721,7 @@ void NSStarmanLib::CraftSystem::StartCraft()
         auto req = m_craftRequestList.front();
         auto output = req.GetCraftInfo().GetOutput();
 
-        int level = GetCraftsmanSkill(output.GetName());
+        int level = GetCraftsmanSkill(output.GetItemId());
         if (level != output.GetLevel())
         {
             output.SetLevel(level);
@@ -812,11 +819,6 @@ int NSStarmanLib::CraftSystem::GetProgress()
 std::list<CraftRequest> NSStarmanLib::CraftSystem::GetCraftRequestList()
 {
     return m_craftRequestList;
-}
-
-std::wstring CraftRequest::GetName() const
-{
-    return m_craftInfo.GetOutput().GetName();
 }
 
 std::wstring CraftRequest::GetId() const
@@ -979,24 +981,14 @@ void NSStarmanLib::CraftRequest::SetCrafting(const bool arg)
     m_crafting = arg;
 }
 
-void NSStarmanLib::CraftSkill::SetId(const int& arg)
+void NSStarmanLib::CraftSkill::SetId(const std::wstring& arg)
 {
     m_id = arg;
 }
 
-int NSStarmanLib::CraftSkill::GetId() const
+std::wstring NSStarmanLib::CraftSkill::GetId() const
 {
     return m_id;
-}
-
-void NSStarmanLib::CraftSkill::SetName(const std::wstring& arg)
-{
-    m_name = arg;
-}
-
-std::wstring NSStarmanLib::CraftSkill::GetName() const
-{
-    return m_name;
 }
 
 void NSStarmanLib::CraftSkill::SetLevel(const int arg)

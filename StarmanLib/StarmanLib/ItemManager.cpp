@@ -226,6 +226,16 @@ void NSStarmanLib::ItemDef::SetWeaponId(const std::wstring& arg)
     m_weaponId = arg;
 }
 
+std::wstring NSStarmanLib::ItemDef::GetUnreinforcedId() const
+{
+    return m_unreinforcedId;
+}
+
+void NSStarmanLib::ItemDef::SetUnreinforcedId(const std::wstring& arg)
+{
+    m_unreinforcedId = arg;
+}
+
 ItemManager* ItemManager::GetObj()
 {
     if (obj == nullptr)
@@ -363,6 +373,9 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
 
             // 武器ID
             itemDef.SetWeaponId(vvs.at(i).at(20));
+
+            // 未強化時ID
+            itemDef.SetUnreinforcedId(vvs.at(i).at(21));
 
             m_itemDefMap[(int)i] = itemDef;
         }

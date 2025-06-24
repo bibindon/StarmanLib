@@ -71,10 +71,10 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             int result = false;
-            result = obj->GetCraftsmanSkill(_T("イカダ"));
+            result = obj->GetCraftsmanSkill(_T("raft"));
             Assert::AreEqual(result, -1);
 
-            result = obj->GetCraftsmanSkill(_T("木の棒"));
+            result = obj->GetCraftsmanSkill(_T("stick"));
             Assert::AreEqual(result, 1);
 
             CraftSystem::Destroy();
@@ -89,12 +89,12 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             int result = 0;
-            obj->SetCraftsmanSkill(_T("イカダ"), 1);
-            result = obj->GetCraftsmanSkill(_T("イカダ"));
+            obj->SetCraftsmanSkill(_T("raft1"), 1);
+            result = obj->GetCraftsmanSkill(_T("raft"));
             Assert::AreEqual(result, 1);
 
-            obj->SetCraftsmanSkill(_T("木の棒"), 2);
-            result = obj->GetCraftsmanSkill(_T("木の棒"));
+            obj->SetCraftsmanSkill(_T("stick2"), 2);
+            result = obj->GetCraftsmanSkill(_T("stick"));
             Assert::AreEqual(result, 2);
 
             CraftSystem::Destroy();
@@ -112,8 +112,8 @@ namespace StarmanLibTest
                           _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
 
                 bool result = false;
-                obj->SetCraftsmanSkill(_T("イカダ"), 1);
-                obj->SetCraftsmanSkill(_T("アトラトルに使う槍"), 1);
+                obj->SetCraftsmanSkill(_T("raft1"), 1);
+                obj->SetCraftsmanSkill(_T("spearForAtlatl1"), 1);
                 obj->Save(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
                           _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
@@ -129,10 +129,10 @@ namespace StarmanLibTest
                           _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
                 int result = false;
-                result = obj->GetCraftsmanSkill(_T("イカダ"));
+                result = obj->GetCraftsmanSkill(_T("raft"));
                 Assert::AreEqual(result, 1);
 
-                result = obj->GetCraftsmanSkill(_T("アトラトルに使う槍"));
+                result = obj->GetCraftsmanSkill(_T("spearForAtlatl"));
                 Assert::AreEqual(result, 1);
 
                 CraftSystem::Destroy();
@@ -146,7 +146,7 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             std::wstring work;
-            obj->QueueCraftRequest(_T("イカダ"), &work, 1);
+            obj->QueueCraftRequest(_T("raft"), &work, 1);
 
             CraftSystem::Destroy();
         }
@@ -159,7 +159,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            bool result = obj->QueueCraftRequest(_T("イカダ"), &work, 1);
+            bool result = obj->QueueCraftRequest(_T("raft"), &work, 1);
 
             Assert::AreEqual(result, false);
 
@@ -179,7 +179,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("アトラトル"), &work, 1);
+            obj->QueueCraftRequest(_T("atlatl"), &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -211,7 +211,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             std::list<CraftRequest> craftRequestList;
             craftRequestList = obj->GetCraftRequestList();
@@ -249,7 +249,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
             
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -285,7 +285,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work2;
-            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -319,8 +319,8 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work2;
-            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
-            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -366,8 +366,8 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work2;
-            obj->QueueCraftRequest(_T("石槍"), &work2, 1);
-            obj->QueueCraftRequest(_T("アトラトル"), &work2, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
+            obj->QueueCraftRequest(_T("atlatl"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -406,7 +406,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -433,7 +433,7 @@ namespace StarmanLibTest
                           _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
                 std::wstring work;
-                obj->QueueCraftRequest(_T("石槍"), &work, 1);
+                obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
                 obj->UpdateCraftStatus();
 
@@ -488,7 +488,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -516,8 +516,8 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -554,8 +554,8 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -590,9 +590,9 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
             std::wstring work;
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
-            obj->QueueCraftRequest(_T("石槍"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
+            obj->QueueCraftRequest(_T("stoneSpear"), &work, 1);
 
             obj->UpdateCraftStatus();
 
@@ -629,12 +629,12 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
-            work = obj->GetCraftsmanSkill(_T("石槍"));
+            work = obj->GetCraftsmanSkill(_T("stoneSpear"));
             Assert::AreEqual(work, -1);
 
             std::wstring work2;
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -649,7 +649,7 @@ namespace StarmanLibTest
 
             Assert::AreEqual(work, 11);
 
-            work = obj->GetCraftsmanSkill(_T("石槍"));
+            work = obj->GetCraftsmanSkill(_T("stoneSpear"));
             Assert::AreEqual(work, -1);
 
             // 1日と1時間、時を進める
@@ -661,7 +661,7 @@ namespace StarmanLibTest
 
             Assert::AreEqual(work, 12);
 
-            work = obj->GetCraftsmanSkill(_T("石槍"));
+            work = obj->GetCraftsmanSkill(_T("stoneSpear"));
             Assert::AreEqual(work, 1);
 
             CraftSystem::Destroy();
@@ -683,13 +683,13 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work2;
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             // 職人に石槍の製造を依頼すると、この時点では強化値なしの石槍を作り始める。
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
             Assert::AreEqual(work, -1);
 
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -707,7 +707,7 @@ namespace StarmanLibTest
             obj->UpdateCraftStatus();
 
             // ここで石槍を予約したら＋１の石槍が作られる
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             // ＋１の石槍が予約されているか？
             work = obj->GetCraftRequestList().front().GetCraftInfo().GetOutput().GetLevel();
@@ -730,7 +730,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work2;
-            work_b = obj->QueueCraftRequest(_T("石槍"), &work2, 1);
+            work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
 
             // 武器の制作を開始
             obj->UpdateCraftStatus();
@@ -810,7 +810,7 @@ namespace StarmanLibTest
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             std::wstring work;
-            obj->QueueCraftRequest(_T("イカダ"), &work);
+            obj->QueueCraftRequest(_T("raft"), &work);
 
             obj->UpdateCraftStatus();
 

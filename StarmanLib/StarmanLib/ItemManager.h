@@ -99,6 +99,9 @@ public:
     std::wstring GetWeaponId() const;
     void SetWeaponId(const std::wstring& arg);
 
+    std::wstring GetUnreinforcedId() const;
+    void SetUnreinforcedId(const std::wstring& arg);
+
 private:
     // ID
     std::wstring m_id;
@@ -161,7 +164,11 @@ private:
     // 耐久度
     int m_durabilityMax = -1;
 
+    // 武器ID
     std::wstring m_weaponId;
+
+    // 未強化時ID
+    std::wstring m_unreinforcedId;
 };
 
 class ItemInfo

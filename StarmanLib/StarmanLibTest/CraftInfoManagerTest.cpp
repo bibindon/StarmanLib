@@ -71,8 +71,8 @@ namespace StarmanLibTest
             std::vector<CraftOutput> work = obj->GetCraftItemList();
 
             {
-                std::wstring work_sz = work.at(0).GetName();
-                Assert::AreEqual(work_sz == _T("イカダ"), true);
+                std::wstring work_sz = work.at(0).GetItemId();
+                Assert::AreEqual(work_sz == _T("raft"), true);
 
                 int work_i = 0;
 
@@ -83,8 +83,8 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_i == -1, true);
             }
             {
-                std::wstring work_sz = work.at(1).GetName();
-                Assert::AreEqual(work_sz == _T("イカダ"), true);
+                std::wstring work_sz = work.at(1).GetItemId();
+                Assert::AreEqual(work_sz == _T("raft"), true);
 
                 int work_i = 0;
 
@@ -95,8 +95,8 @@ namespace StarmanLibTest
                 Assert::AreEqual(work_i == 1, true);
             }
             {
-                std::wstring work_sz = work.at(56).GetName();
-                Assert::AreEqual(work_sz.c_str(), _T("アトラトルに使う槍"));
+                std::wstring work_sz = work.at(56).GetItemId();
+                Assert::AreEqual(work_sz.c_str(), _T("spearForAtlatl"));
 
                 int work_i = 0;
 

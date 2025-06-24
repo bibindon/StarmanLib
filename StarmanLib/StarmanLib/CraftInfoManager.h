@@ -44,9 +44,6 @@ class CraftOutput
 {
 public:
 
-    void SetName(const std::wstring& arg);
-    std::wstring GetName() const;
-
     void SetItemId(const std::wstring& id);
     std::wstring GetItemId() const;
 
