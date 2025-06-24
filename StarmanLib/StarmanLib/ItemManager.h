@@ -202,8 +202,8 @@ public:
     void SetItemPosId(const int id);
     int GetItemPosId() const;
 
-    void SetItemDefId(const int id);
-    int GetItemDefId() const;
+    void SetItemDefId(const std::wstring& id);
+    std::wstring GetItemDefId() const;
 
     void SetPos(const float x, const float y, const float z);
     void GetPos(float* x, float* y, float* z);
@@ -214,7 +214,7 @@ public:
 private:
 
     int m_itemPosId = 0;
-    int m_itemDefId = 0;
+    std::wstring m_itemDefId;
     float m_x = 0.f;
     float m_y = 0.f;
     float m_z = 0.f;
@@ -254,7 +254,7 @@ private:
     // シングルトンオブジェクト
     static ItemManager* obj;
 
-    std::unordered_map<int, ItemDef> m_itemDefMap;
+    std::unordered_map<std::wstring, ItemDef> m_itemDefMap;
 
     bool m_inited = false;
 

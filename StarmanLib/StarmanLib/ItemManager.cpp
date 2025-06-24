@@ -377,7 +377,7 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
             // 未強化時ID
             itemDef.SetUnreinforcedId(vvs.at(i).at(21));
 
-            m_itemDefMap[(int)i] = itemDef;
+            m_itemDefMap[itemDef.GetId()] = itemDef;
         }
     }
     {
@@ -386,7 +386,7 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
             int posId = 0;
-            int itemDefId = 0;
+            std::wstring itemDefId;
             float x = 0.f;
             float y = 0.f;
             float z = 0.f;
@@ -396,7 +396,7 @@ void ItemManager::Init(const std::wstring& csvfile, const std::wstring& csvfileP
             posId = std::stoi(vvs.at(i).at(0));
             itemPos.SetItemPosId(posId);
 
-            itemDefId = std::stoi(vvs.at(i).at(1));
+            itemDefId = vvs.at(i).at(1);
             itemPos.SetItemDefId(itemDefId);
 
             x = std::stof(vvs.at(i).at(2));
@@ -446,7 +446,7 @@ void NSStarmanLib::ItemManager::Save(const std::wstring& csvfilePos,
     for (auto it = m_itemPosMap.begin(); it != m_itemPosMap.end(); ++it)
     {
         vs.push_back(std::to_wstring(it->first));
-        vs.push_back(std::to_wstring(it->second.GetItemDefId()));
+        vs.push_back(it->second.GetItemDefId());
 
         float x = 0.f;
         float y = 0.f;
@@ -552,7 +552,7 @@ ItemDef NSStarmanLib::ItemManager::GetItemDefByPosID(const int posId)
         throw std::exception();
     }
 
-    int itemDefId = m_itemPosMap[posId].GetItemDefId();
+    auto itemDefId = m_itemPosMap[posId].GetItemDefId();
 
     if (m_itemDefMap.find(itemDefId) == m_itemDefMap.end())
     {
@@ -651,12 +651,12 @@ int NSStarmanLib::ItemPos::GetItemPosId() const
     return m_itemPosId;
 }
 
-void NSStarmanLib::ItemPos::SetItemDefId(const int id)
+void NSStarmanLib::ItemPos::SetItemDefId(const std::wstring& id)
 {
     m_itemDefId = id;
 }
 
-int NSStarmanLib::ItemPos::GetItemDefId() const
+std::wstring NSStarmanLib::ItemPos::GetItemDefId() const
 {
     return m_itemDefId;
 }
