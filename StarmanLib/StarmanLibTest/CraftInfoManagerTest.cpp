@@ -96,7 +96,7 @@ namespace StarmanLibTest
             }
             {
                 std::wstring work_sz = work.at(56).GetItemId();
-                Assert::AreEqual(work_sz.c_str(), _T("spearForAtlatl"));
+                Assert::AreEqual(work_sz.c_str(), _T("spearForAtlatl5"));
 
                 int work_i = 0;
 

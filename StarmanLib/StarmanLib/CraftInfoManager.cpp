@@ -155,6 +155,7 @@ CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& itemI
             }
         }
     }
+
     return m_craftInfoList.at(i);
 }
 

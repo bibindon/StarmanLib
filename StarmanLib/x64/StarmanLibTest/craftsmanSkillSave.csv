@@ -1,6 +1,6 @@
 ﻿クラフトアイテムID,強化値,クラフト可能,次のレベルを習得するのに必要なクラフト回数,現在のクラフト経験回数
 raft,,○,1,0
-raft1,1,,1,0
+raft1,1,○,1,0
 raft2,2,,1,0
 raft3,3,,1,0
 raft4,4,,1,0
@@ -45,7 +45,7 @@ arrow1,1,,,0
 ironPipeEx,,○,,0
 atlatl,,○,,0
 spearForAtlatl,,○,1,0
-spearForAtlatl1,1,,1,0
+spearForAtlatl1,1,○,1,0
 spearForAtlatl2,2,,1,0
 spearForAtlatl3,3,,1,0
 spearForAtlatl4,4,,1,0

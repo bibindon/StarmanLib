@@ -580,7 +580,11 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
 
             // イカダの場合は倉庫に入れないため
             // 倉庫IDが-1にセットされている。-1の時は倉庫の取得をしない
-            if (storehouseId != -1)
+            if (storehouseId == -1)
+            {
+                // Do nothing
+            }
+            else
             {
                 storehouse = StorehouseManager::Get()->GetStorehouse(storehouseId);
             }
@@ -718,13 +722,43 @@ void NSStarmanLib::CraftSystem::StartCraft()
     // これに対応するため、クラフト開始時に熟練度を確認する
     //-----------------------------------------------
     {
-        auto req = m_craftRequestList.front();
+        auto& req = m_craftRequestList.front();
         auto output = req.GetCraftInfo().GetOutput();
 
         int level = GetCraftsmanSkill(output.GetItemId());
         if (level != output.GetLevel())
         {
             output.SetLevel(level);
+
+            // 強化値が変わるとアイテムIDも変わる。
+            // bag, bag1, bag2...
+            // そのため新しいIDを割り振る
+            {
+                std::wstring newId;
+                output.GetItemId();
+				auto unreinforcedId = ItemManager::GetObj()->GetItemDef(output.GetItemId()).GetUnreinforcedId();
+
+                auto idList = ItemManager::GetObj()->GetItemIdList();
+                for (size_t i = 0; i < idList.size(); ++i)
+                {
+                    auto itemDef = ItemManager::GetObj()->GetItemDef(idList.at(i));
+                    if (itemDef.GetUnreinforcedId() == unreinforcedId)
+                    {
+                        if (itemDef.GetLevel() == level)
+                        {
+                            newId = itemDef.GetId();
+                        }
+                    }
+                }
+
+                if (newId.empty())
+                {
+                    throw std::exception();
+                }
+
+				output.SetItemId(newId);
+            }
+
             auto craftInfo = m_craftRequestList.front().GetCraftInfo();
             craftInfo.SetOutput(output);
             m_craftRequestList.front().SetCraftInfo(craftInfo);

@@ -54,9 +54,6 @@ public:
     int GetLevel() const;
 
 private:
-
-    // 完成品の名前
-    std::wstring m_name;
     
     // 完成品の出力数
     int m_number = 0;
@@ -64,6 +61,7 @@ private:
     // 完成品の強化レベル
     int m_level = 0;
 
+    // ItemID
     std::wstring m_id;
 };
 

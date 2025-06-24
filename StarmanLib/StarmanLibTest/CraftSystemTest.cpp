@@ -340,9 +340,9 @@ namespace StarmanLibTest
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(L"stoneSpear");
+            work = storehouse->CountItem(L"stoneSpear1");
 
-            Assert::AreEqual(work, 12);
+            Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
         }
@@ -356,10 +356,10 @@ namespace StarmanLibTest
             int work = 0;
 
             work = storehouse->CountItem(L"stoneSpear");
-            Assert::AreEqual(work, 10);
+            Assert::AreEqual(10, work);
 
-            work = storehouse->CountItem(L"atlatl");
-            Assert::AreEqual(work, 10);
+            work = storehouse->CountItem(L"bow");
+            Assert::AreEqual(10, work);
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
@@ -367,7 +367,7 @@ namespace StarmanLibTest
 
             std::wstring work2;
             obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
-            obj->QueueCraftRequest(_T("atlatl"), &work2, 1);
+            obj->QueueCraftRequest(_T("bow"), &work2, 1);
 
             obj->UpdateCraftStatus();
 
@@ -381,7 +381,7 @@ namespace StarmanLibTest
             work = storehouse->CountItem(L"stoneSpear");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem(L"atlatl");
+            work = storehouse->CountItem(L"bow");
             Assert::AreEqual(work, 10);
 
             // 1日と1時間、時を進める
@@ -392,7 +392,7 @@ namespace StarmanLibTest
             work = storehouse->CountItem(L"stoneSpear");
             Assert::AreEqual(work, 11);
 
-            work = storehouse->CountItem(L"atlatl");
+            work = storehouse->CountItem(L"bow");
             Assert::AreEqual(work, 11);
 
             CraftSystem::Destroy();
@@ -614,6 +614,7 @@ namespace StarmanLibTest
         }
 
         // 規定回数、クラフトを行うと強化値の高いアイテムがクラフトされるようになる。
+        // 現在は、1回のクラフトでレベルが上がるようになっている。
         TEST_METHOD(TestMethod18)
         {
             StorehouseManager* storehouseManager = StorehouseManager::Get();
@@ -623,14 +624,14 @@ namespace StarmanLibTest
             bool work_b = false;
             work = storehouse->CountItem(L"stoneSpear");
 
-            Assert::AreEqual(work, 10);
+            Assert::AreEqual(10, work);
 
             CraftSystem* obj = CraftSystem::GetObj();
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
 
             work = obj->GetCraftsmanSkill(_T("stoneSpear"));
-            Assert::AreEqual(work, -1);
+            Assert::AreEqual(-1, work);
 
             std::wstring work2;
             work_b = obj->QueueCraftRequest(_T("stoneSpear"), &work2, 1);
@@ -647,22 +648,22 @@ namespace StarmanLibTest
 
             work = storehouse->CountItem(L"stoneSpear");
 
-            Assert::AreEqual(work, 11);
+            Assert::AreEqual(11, work);
 
             work = obj->GetCraftsmanSkill(_T("stoneSpear"));
-            Assert::AreEqual(work, -1);
+            Assert::AreEqual(1, work);
 
             // 1日と1時間、時を進める
             powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
 
             obj->UpdateCraftStatus();
 
-            work = storehouse->CountItem(L"stoneSpear");
+            work = storehouse->CountItem(L"stoneSpear1");
 
-            Assert::AreEqual(work, 12);
+            Assert::AreEqual(11, work);
 
             work = obj->GetCraftsmanSkill(_T("stoneSpear"));
-            Assert::AreEqual(work, 1);
+            Assert::AreEqual(2, work);
 
             CraftSystem::Destroy();
         }
