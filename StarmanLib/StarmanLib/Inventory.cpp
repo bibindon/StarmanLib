@@ -134,7 +134,7 @@ int Inventory::AddItem(const std::wstring& id, const int durability)
                               subIdList2.begin(), subIdList2.end(),
                               std::back_inserter(intersection));
 
-        if (intersection.empty() == false)
+        if (!intersection.empty())
         {
             throw std::exception();
         }
@@ -142,6 +142,17 @@ int Inventory::AddItem(const std::wstring& id, const int durability)
 
     subIdList.insert(subIdList.end(), subIdList2.begin(), subIdList2.end());
     std::sort(subIdList.begin(), subIdList.end());
+
+    // 被っているサブIDがあったら異常終了させる
+    {
+        for (size_t i = 1; i < subIdList.size(); ++i)
+        {
+            if (subIdList.at(i) == subIdList.at(i - 1))
+            {
+				throw std::exception();
+            }
+        }
+    }
 
     int work = 1;
     int missingSubId = -1;

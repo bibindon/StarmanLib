@@ -77,6 +77,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod05)
         {
             {
+                Inventory::Destroy();
+
                 ItemManager* itemManager = ItemManager::GetObj();
                 itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
@@ -112,6 +114,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod06)
         {
             {
+                Inventory::Destroy();
+
                 ItemManager* itemManager = ItemManager::GetObj();
                 itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 
@@ -147,6 +151,8 @@ namespace StarmanLibTest
         TEST_METHOD(TestMethod07)
         {
             {
+                Inventory::Destroy();
+
                 ItemManager* itemManager = ItemManager::GetObj();
                 itemManager->Init(_T("..\\StarmanLibTest\\item.csv"), _T("..\\StarmanLibTest\\item_pos.csv"));
 

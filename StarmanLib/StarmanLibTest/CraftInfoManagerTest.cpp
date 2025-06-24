@@ -84,7 +84,7 @@ namespace StarmanLibTest
             }
             {
                 std::wstring work_sz = work.at(1).GetItemId();
-                Assert::AreEqual(work_sz == _T("raft"), true);
+                Assert::AreEqual(work_sz == _T("raft1"), true);
 
                 int work_i = 0;
 

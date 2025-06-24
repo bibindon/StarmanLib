@@ -297,7 +297,7 @@ namespace StarmanLibTest
             StorehouseManager::Get()->Init(_T("..\\StarmanLibTest\\storehouseListOrigin.csv"));
 
             std::wstring err;
-            CraftSystem::GetObj()->QueueCraftRequest(_T("イカダ"), &err);
+            CraftSystem::GetObj()->QueueCraftRequest(_T("raft"), &err);
 
             auto receiveItems1 = help->ReceiveItems(_T("sankakuman"));
             auto receiveItems2 = help->ReceiveItems(_T("shikakuman"));
