@@ -2741,44 +2741,44 @@ bool StatusManager::Sleep()
         // 時間を7時間進める
         dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
 
-		// 状態異常の回復
-		{
-			m_remainArmFracCure -= 7 * 3600 / 12;
-			if (m_remainArmFracCure < 0)
-			{
-				m_remainArmFracCure = 0;
-			}
+        // 状態異常の回復
+        {
+            m_remainArmFracCure -= 7 * 3600 / 12;
+            if (m_remainArmFracCure < 0)
+            {
+                m_remainArmFracCure = 0;
+            }
 
-			m_remainLegFracCure -= 7 * 3600 / 12;
-			if (m_remainLegFracCure < 0)
-			{
-				m_remainLegFracCure = 0;
-			}
+            m_remainLegFracCure -= 7 * 3600 / 12;
+            if (m_remainLegFracCure < 0)
+            {
+                m_remainLegFracCure = 0;
+            }
 
-			m_remainHeadacheCure -= 7 * 3600 / 12;
-			if (m_remainHeadacheCure < 0)
-			{
-				m_remainHeadacheCure = 0;
-			}
+            m_remainHeadacheCure -= 7 * 3600 / 12;
+            if (m_remainHeadacheCure < 0)
+            {
+                m_remainHeadacheCure = 0;
+            }
 
-			m_remainColdCure -= 7 * 3600 / 12;
-			if (m_remainColdCure < 0)
-			{
-				m_remainColdCure = 0;
-			}
+            m_remainColdCure -= 7 * 3600 / 12;
+            if (m_remainColdCure < 0)
+            {
+                m_remainColdCure = 0;
+            }
 
-			m_remainStomachacheCure -= 7 * 3600 / 12;
-			if (m_remainStomachacheCure < 0)
-			{
-				m_remainStomachacheCure = 0;
-			}
+            m_remainStomachacheCure -= 7 * 3600 / 12;
+            if (m_remainStomachacheCure < 0)
+            {
+                m_remainStomachacheCure = 0;
+            }
 
-			m_remainDehydration -= 7 * 3600 / 12;
-			if (m_remainDehydration < 0)
-			{
-				m_remainDehydration = 0;
-			}
-		}
+            m_remainDehydration -= 7 * 3600 / 12;
+            if (m_remainDehydration < 0)
+            {
+                m_remainDehydration = 0;
+            }
+        }
     }
     // 仮眠
     else if (nap)
@@ -2811,44 +2811,44 @@ bool StatusManager::Sleep()
         // 時間を90分進める
         dateTime->IncreaseDateTime(0, 0, 1, 30, 0);
 
-		// 状態異常の回復
-		{
-			m_remainArmFracCure -= 2 * 3600 / 12;
-			if (m_remainArmFracCure < 0)
-			{
-				m_remainArmFracCure = 0;
-			}
+        // 状態異常の回復
+        {
+            m_remainArmFracCure -= 2 * 3600 / 12;
+            if (m_remainArmFracCure < 0)
+            {
+                m_remainArmFracCure = 0;
+            }
 
-			m_remainLegFracCure -= 2 * 3600 / 12;
-			if (m_remainLegFracCure < 0)
-			{
-				m_remainLegFracCure = 0;
-			}
+            m_remainLegFracCure -= 2 * 3600 / 12;
+            if (m_remainLegFracCure < 0)
+            {
+                m_remainLegFracCure = 0;
+            }
 
-			m_remainHeadacheCure -= 2 * 3600 / 12;
-			if (m_remainHeadacheCure < 0)
-			{
-				m_remainHeadacheCure = 0;
-			}
+            m_remainHeadacheCure -= 2 * 3600 / 12;
+            if (m_remainHeadacheCure < 0)
+            {
+                m_remainHeadacheCure = 0;
+            }
 
-			m_remainColdCure -= 2 * 3600 / 12;
-			if (m_remainColdCure < 0)
-			{
-				m_remainColdCure = 0;
-			}
+            m_remainColdCure -= 2 * 3600 / 12;
+            if (m_remainColdCure < 0)
+            {
+                m_remainColdCure = 0;
+            }
 
-			m_remainStomachacheCure -= 2 * 3600 / 12;
-			if (m_remainStomachacheCure < 0)
-			{
-				m_remainStomachacheCure = 0;
-			}
+            m_remainStomachacheCure -= 2 * 3600 / 12;
+            if (m_remainStomachacheCure < 0)
+            {
+                m_remainStomachacheCure = 0;
+            }
 
-			m_remainDehydration -= 2 * 3600 / 12;
-			if (m_remainDehydration < 0)
-			{
-				m_remainDehydration = 0;
-			}
-		}
+            m_remainDehydration -= 2 * 3600 / 12;
+            if (m_remainDehydration < 0)
+            {
+                m_remainDehydration = 0;
+            }
+        }
     }
     return true;
 }

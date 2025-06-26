@@ -90,7 +90,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
-				auto id = vvs.at(i).at(0);
+                auto id = vvs.at(i).at(0);
 
                 if (vvs.at(i).at(1) == _T("y"))
                 {
@@ -120,10 +120,10 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             {
                 PatchTest patchTest;
 
-				auto id = vvs.at(i).at(0);
+                auto id = vvs.at(i).at(0);
                 patchTest.SetItemId(id);
 
-				auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
+                auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
 
                 patchTest.SetItemName(name);
 

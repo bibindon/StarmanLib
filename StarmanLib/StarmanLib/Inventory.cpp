@@ -149,7 +149,7 @@ int Inventory::AddItem(const std::wstring& id, const int durability)
         {
             if (subIdList.at(i) == subIdList.at(i - 1))
             {
-				throw std::exception();
+                throw std::exception();
             }
         }
     }

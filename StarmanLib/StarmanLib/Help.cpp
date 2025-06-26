@@ -70,11 +70,11 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
     m_enableItemIdList.push_back(L"stone");
     m_enableItemIdList.push_back(L"ironPipe");
 
-	m_presentMap[_T("sankakuman")] = std::vector<ItemDef>();
-	m_presentMap[_T("shikakuman")] = std::vector<ItemDef>();
-	
-	m_presented[_T("sankakuman")] = false;
-	m_presented[_T("shikakuman")] = false;
+    m_presentMap[_T("sankakuman")] = std::vector<ItemDef>();
+    m_presentMap[_T("shikakuman")] = std::vector<ItemDef>();
+    
+    m_presented[_T("sankakuman")] = false;
+    m_presented[_T("shikakuman")] = false;
 
     std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(filepath, false);
 
@@ -367,19 +367,19 @@ bool NSStarmanLib::Help::BackTime()
 
 bool NSStarmanLib::Help::IsCraftingRaft()
 {
-	// "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
-	bool raftCrafting = false;
+    // "raft", "raft1"、という風に、強化値が違うとIDが異なるので注意
+    bool raftCrafting = false;
 
-	auto request = CraftSystem::GetObj()->GetCraftRequestList();
+    auto request = CraftSystem::GetObj()->GetCraftRequestList();
 
-	if (!request.empty())
-	{
-		auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
+    if (!request.empty())
+    {
+        auto itemDef = ItemManager::GetObj()->GetItemDef(request.front().GetId());
         if (itemDef.GetUnreinforcedId() == L"raft")
         {
-			raftCrafting = true;
+            raftCrafting = true;
         }
-	}
+    }
 
     return raftCrafting;
 }

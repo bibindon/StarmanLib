@@ -71,7 +71,7 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
             }
 
             auto work_str = vvs.at(i).at(4 + (j * 3));
-			auto itemDefMat = itemManager->GetItemDef(work_str);
+            auto itemDefMat = itemManager->GetItemDef(work_str);
 
             craftMaterial.SetId(itemDefMat.GetId());
             craftMaterial.SetName(itemDefMat.GetName());
