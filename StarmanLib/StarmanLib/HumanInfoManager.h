@@ -12,6 +12,9 @@ class HumanInfo
 {
 public:
 
+    void SetId(const std::wstring& arg) { m_id = arg; }
+    std::wstring GetId() const { return m_id; }
+
     void SetName(const std::wstring& arg);
     std::wstring GetName();
 
@@ -25,6 +28,7 @@ public:
     bool GetVisible();
 
 private:
+    std::wstring m_id;
 
     std::wstring m_name;
     std::wstring m_detail;
@@ -50,16 +54,16 @@ public:
     void Save(const std::wstring& csvfile,
               const bool encrypt = false);
 
-    HumanInfo GetHumanInfo(const std::wstring& name);
-    std::vector<std::wstring> GetHumanNameList();
-    void SetHumanVisible(const std::wstring& name);
+    HumanInfo GetHumanInfo(const std::wstring& id);
+    std::vector<std::wstring> GetHumanIdList();
+    void SetHumanVisible(const std::wstring& id);
 
 private:
 
     // シングルトンオブジェクト
     static HumanInfoManager* obj;
 
-    std::unordered_map<int, HumanInfo> m_humanInfoMap;
+    std::unordered_map<std::wstring, HumanInfo> m_humanInfoMap;
 
 };
 }

@@ -30,8 +30,9 @@ void HumanInfoManager::Init(const std::wstring& csvfileBase, const std::wstring&
         HumanInfo humanInfo;
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int id = std::stoi(vvs.at(i).at(0));
+            auto id = vvs.at(i).at(0);
 
+            humanInfo.SetId(id);
             humanInfo.SetName(vvs.at(i).at(1));
 
             // 「"」記号があれば削除
@@ -44,7 +45,6 @@ void HumanInfoManager::Init(const std::wstring& csvfileBase, const std::wstring&
         }
     }
     {
-        // IDを使うべし
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfileSaved, decrypt);
 
         if (vvs.size() == 0)
@@ -54,8 +54,8 @@ void HumanInfoManager::Init(const std::wstring& csvfileBase, const std::wstring&
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int id = std::stoi(vvs.at(i).at(0));
-            if (vvs.at(i).at(1) == _T("○"))
+            auto id = vvs.at(i).at(0);
+            if (vvs.at(i).at(1) == _T("y"))
             {
                 m_humanInfoMap.at(id).SetVisible(true);
             }
@@ -80,10 +80,10 @@ void HumanInfoManager::Save(const std::wstring& csvfile,
 
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
     {
-        vs.push_back(std::to_wstring(it->first));
+        vs.push_back(it->first);
         if (it->second.GetVisible())
         {
-            vs.push_back(_T("○"));
+            vs.push_back(_T("y"));
         }
         else
         {
@@ -96,36 +96,40 @@ void HumanInfoManager::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-// TODO 名称を使った処理を辞める
-HumanInfo HumanInfoManager::GetHumanInfo(const std::wstring& name)
+HumanInfo HumanInfoManager::GetHumanInfo(const std::wstring& id)
 {
     HumanInfo result;
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
     {
-        if (it->second.GetName() == name)
+        if (it->second.GetId() == id)
         {
             result = it->second;
         }
     }
 
+    if (result.GetId().empty())
+    {
+        throw std::exception("Failed to get HumanInfo");
+    }
+
     return result;
 }
 
-std::vector<std::wstring> HumanInfoManager::GetHumanNameList()
+std::vector<std::wstring> HumanInfoManager::GetHumanIdList()
 {
     std::vector<std::wstring> result;
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
     {
-        result.push_back(it->second.GetName());
+        result.push_back(it->second.GetId());
     }
     return result;
 }
 
-void HumanInfoManager::SetHumanVisible(const std::wstring& name)
+void HumanInfoManager::SetHumanVisible(const std::wstring& id)
 {
     for (auto it = m_humanInfoMap.begin(); it != m_humanInfoMap.end(); ++it)
     {
-        if (it->second.GetName() == name)
+        if (it->second.GetId() == id)
         {
             it->second.SetVisible(true);
         }
