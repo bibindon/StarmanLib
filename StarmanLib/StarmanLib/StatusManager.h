@@ -357,7 +357,7 @@ public:
                         const float playerZ);
 
     // 木の伐採
-    void CutTree(const std::wstring& weapon, const int level);
+    void CutTree(const std::wstring& itemId, const int level);
 
     // 植物採取
     void PickPlant();

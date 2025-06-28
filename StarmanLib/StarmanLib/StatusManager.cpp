@@ -3075,7 +3075,7 @@ void StatusManager::DrinkWordBress(const float playerX,
 }
 
 // TODO 英語化対応
-void StatusManager::CutTree(const std::wstring& weapon, const int level)
+void StatusManager::CutTree(const std::wstring& unreinforcedId, const int level)
 {
     //------------------------------------------------------
     // 武器の種類や強化値によってスタミナ消耗が変わるようにする
@@ -3083,11 +3083,11 @@ void StatusManager::CutTree(const std::wstring& weapon, const int level)
 
     float magni = 0.f;
 
-    if (weapon == _T("縦長の石"))
+    if (unreinforcedId == _T("longstone"))
     {
         magni = 1.f;
     }
-    else if (weapon == _T("石斧"))
+    else if (unreinforcedId == _T("stoneAxe"))
     {
         if (level == 0 || level == -1)
         {
@@ -3155,7 +3155,7 @@ void StatusManager::CutTree(const std::wstring& weapon, const int level)
     // 肉体の損傷
     {
         auto work = GetMuscleCurrent();
-        if (weapon == _T("縦長の石"))
+        if (unreinforcedId == _T("longStone"))
         {
             SetMuscleCurrent(work - (20.f * magni));
         }
@@ -3229,14 +3229,14 @@ void StatusManager::PickPlant()
         float work = 0.f;
         work = GetWaterCurrent();
 
-        work -= 1.f;
+        work -= 0.2f;
         SetWaterCurrent(work);
     }
 
     // 肉体の損傷
     {
         auto work = GetMuscleCurrent();
-        SetMuscleCurrent(work - 3.f);
+        SetMuscleCurrent(work - 1.f);
     }
 }
 
