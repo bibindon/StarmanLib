@@ -79,9 +79,6 @@ public:
     void SetNpcFeature(const eNpcFeature arg);
     eNpcFeature GetNpcFeature() const;
 
-    void SetMenuShow(const bool arg);
-    bool GetMenuShow() const;
-
     void SetRedMan(const bool arg);
     bool IsRedMan() const;
 
@@ -140,9 +137,6 @@ private:
     bool m_bFeatureEnable = false;
 
     eNpcFeature m_eNpcFeature = eNpcFeature::NONE;
-
-    // NPCをメニュー画面で表示するか
-    bool m_bMenuShow = false;
 
     // レッドマンになっているか。
     bool m_bRedman = false;

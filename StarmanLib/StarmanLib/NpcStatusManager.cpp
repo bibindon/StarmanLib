@@ -188,16 +188,6 @@ eNpcFeature NSStarmanLib::NpcStatus::GetNpcFeature() const
     return m_eNpcFeature;
 }
 
-void NSStarmanLib::NpcStatus::SetMenuShow(const bool arg)
-{
-    m_bMenuShow = arg;
-}
-
-bool NSStarmanLib::NpcStatus::GetMenuShow() const
-{
-    return m_bMenuShow;
-}
-
 void NSStarmanLib::NpcStatus::SetRedMan(const bool arg)
 {
     m_bRedman = arg;
@@ -343,15 +333,6 @@ void NpcStatusManager::Init(const std::wstring& csvfile,
 
         if (vvs.at(i).at(18) == _T("y"))
         {
-            npcStatus.SetMenuShow(true);
-        }
-        else
-        {
-            npcStatus.SetMenuShow(false);
-        }
-
-        if (vvs.at(i).at(19) == _T("y"))
-        {
             npcStatus.SetRedMan(true);
         }
         else
@@ -364,19 +345,19 @@ void NpcStatusManager::Init(const std::wstring& csvfile,
             int work2 = 0;
             int work3 = 0;
 
+            if (!vvs.at(i).at(19).empty())
+            {
+                work1 = std::stoi(vvs.at(i).at(19));
+            }
+
             if (!vvs.at(i).at(20).empty())
             {
-                work1 = std::stoi(vvs.at(i).at(20));
+                work2 = std::stoi(vvs.at(i).at(20));
             }
 
             if (!vvs.at(i).at(21).empty())
             {
-                work2 = std::stoi(vvs.at(i).at(21));
-            }
-
-            if (!vvs.at(i).at(22).empty())
-            {
-                work3 = std::stoi(vvs.at(i).at(22));
+                work3 = std::stoi(vvs.at(i).at(21));
             }
 
             npcStatus.SetRedManDay(work1, work2, work3);
@@ -411,7 +392,6 @@ void NpcStatusManager::Save(const std::wstring& csvfile,
     vs.push_back(_T("会話スクリプト"));
     vs.push_back(_T("機能解禁"));
     vs.push_back(_T("機能種別"));
-    vs.push_back(_T("メニュー表示"));
     vs.push_back(_T("レッドマン"));
     vs.push_back(_T("レッドマンになった年"));
     vs.push_back(_T("レッドマンになった月"));
@@ -520,15 +500,6 @@ void NpcStatusManager::Save(const std::wstring& csvfile,
         else
         {
             vs.push_back(_T(""));
-        }
-
-        if (it->second.GetMenuShow())
-        {
-            vs.push_back(_T("y"));
-        }
-        else
-        {
-            vs.push_back(_T("n"));
         }
 
         if (it->second.IsRedMan())
