@@ -867,6 +867,13 @@ void StatusManager::Init(const std::wstring& csvfile,
             int value = std::stoi(vvs.at(i).at(2));
             m_remainDehydration = value;
         }
+        else if (vvs.at(i).at(1) == _T("洞窟"))
+        {
+            if (vvs.at(i).at(2) == _T("y"))
+            {
+                m_bInCave = true;
+            }
+        }
     }
     auto inventory = Inventory::GetObj();
     inventory->UpdateVolumeMax(GetAllBag());
@@ -2041,6 +2048,20 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.push_back(_T("57"));
     vs.push_back(_T("脱水症状の残り治療時間"));
     work = std::to_wstring(m_remainStomachacheCure);
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("58"));
+    vs.push_back(_T("洞窟"));
+    if (m_bInCave)
+    {
+        work = _T("y");
+    }
+    else
+    {
+        work = _T("n");
+    }
     vs.push_back(work);
     vvs.push_back(vs);
 

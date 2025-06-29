@@ -529,6 +529,9 @@ public:
     void SetSugegasa(bool isEquip);
     bool GetSugegasa() const;
 
+    void SetInCave(bool arg) { m_bInCave = arg; }
+    bool GetInCave() const { return m_bInCave; }
+
 private:
 
     void Clamp();
@@ -611,6 +614,8 @@ private:
     bool m_levelDownDark = false;
 
     bool m_bEquipSugegasa = false;
+
+    bool m_bInCave = false;
 };
 }
 
