@@ -45,8 +45,11 @@ class Guide
 public:
 
     static Guide* GetObj();
-    void Init(const std::wstring& csvfile,
-              const bool decrypt = false);
+
+    void Init(const std::wstring& csvfile, const std::wstring& savefile, const bool decrypt = false);
+
+    void Save(const std::wstring& csvfile, const bool encrypt = false);
+
     static void Destroy();
 
     std::vector<std::wstring> GetCategoryList();
@@ -56,9 +59,6 @@ public:
     bool GetVisible(const std::wstring& category, const std::wstring& subCategory);
     void SetVisible(const std::wstring& category, const std::wstring& subCategory);
     void SetVisible(const int id);
-
-    void Save(const std::wstring& csvfile,
-              const bool encrypt = false);
 
 private:
 

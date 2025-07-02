@@ -57,27 +57,67 @@ Guide* Guide::GetObj()
 }
 
 void Guide::Init(const std::wstring& csvfile,
+                 const std::wstring& savefile,
                  const bool decrypt)
 {
-    std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+    m_guideList.clear();
 
-    for (std::size_t i = 1; i < vvs.size(); ++i)
     {
-        GuideItem guideItem;
-        guideItem.SetId(std::stoi(vvs.at(i).at(0)));
-        guideItem.SetCategory(vvs.at(i).at(1));
-        guideItem.SetSubCategory(vvs.at(i).at(2));
-        guideItem.SetText(vvs.at(i).at(3));
-        if (vvs.at(i).at(4) == _T("○"))
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
+
+        for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            guideItem.SetVisible(true);
+            GuideItem guideItem;
+            guideItem.SetId(std::stoi(vvs.at(i).at(0)));
+            guideItem.SetCategory(vvs.at(i).at(1));
+            guideItem.SetSubCategory(vvs.at(i).at(2));
+            guideItem.SetText(vvs.at(i).at(3));
+            m_guideList.push_back(guideItem);
+        }
+    }
+
+    {
+        std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(savefile, decrypt);
+
+        for (std::size_t i = 1; i < vvs.size(); ++i)
+        {
+            auto id = std::stoi(vvs.at(i).at(0));
+            auto visible = vvs.at(i).at(1);
+            if (visible == L"y")
+            {
+                SetVisible(id);
+            }
+        }
+    }
+}
+
+void Guide::Save(const std::wstring& csvfile, const bool encrypt)
+{
+    std::vector<std::vector<std::wstring>> vvs;
+    std::vector<std::wstring> vs;
+
+    vs.push_back(_T("ID"));
+    vs.push_back(_T("Unlocked"));
+    vvs.push_back(vs);
+    vs.clear();
+
+    for (std::size_t i = 0; i < m_guideList.size(); ++i)
+    {
+        vs.push_back(std::to_wstring(m_guideList.at(i).GetId()));
+
+        if (m_guideList.at(i).GetVisible())
+        {
+            vs.push_back(_T("y"));
         }
         else
         {
-            guideItem.SetVisible(false);
+            vs.push_back(_T(""));
         }
-        m_guideList.push_back(guideItem);
+        vvs.push_back(vs);
+        vs.clear();
     }
+
+    Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
 void Guide::Destroy()
@@ -174,40 +214,3 @@ void NSStarmanLib::Guide::SetVisible(const int id)
     it->SetVisible(true);
 }
 
-void Guide::Save(const std::wstring& csvfile,
-                 const bool encrypt)
-{
-    std::vector<std::vector<std::wstring>> vvs;
-    std::vector<std::wstring> vs;
-    vs.push_back(_T("ID"));
-    vs.push_back(_T("大分類"));
-    vs.push_back(_T("小分類"));
-    vs.push_back(_T("説明文"));
-    vs.push_back(_T("表示済み"));
-    vvs.push_back(vs);
-    vs.clear();
-    for (std::size_t i = 0; i < m_guideList.size(); ++i)
-    {
-        vs.push_back(std::to_wstring(m_guideList.at(i).GetId()));
-        vs.push_back(m_guideList.at(i).GetCategory());
-        vs.push_back(m_guideList.at(i).GetSubCategory());
-
-        // ダブルクォートを戦闘と末尾に付与する
-        std::wstring work;
-        work = m_guideList.at(i).GetText();
-        work = _T("\"") + work + _T("\"");
-        vs.push_back(work);
-        if (m_guideList.at(i).GetVisible())
-        {
-            vs.push_back(_T("○"));
-        }
-        else
-        {
-            vs.push_back(_T(""));
-        }
-        vvs.push_back(vs);
-        vs.clear();
-    }
-
-    Util::WriteToCsv(csvfile, vvs, encrypt);
-}
