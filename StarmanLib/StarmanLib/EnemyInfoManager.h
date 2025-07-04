@@ -58,7 +58,7 @@ struct stEnemyInfo
     int m_SerialNumber = 0;
 
     // 敵一種類ごとに割り振られるID
-    std::wstring m_id;
+    wchar_t m_id[64];
 
     float m_x = 0.f;
     float m_y = 0.f;
@@ -85,7 +85,8 @@ public:
     void Init(const std::wstring& csvEnemyDef,
               const std::wstring& csvEnemyInfo,
               const std::wstring& csvEnemyVisible,
-              const bool decrypt = false);
+              const bool decrypt = false,
+              const bool loadFromBinary = false);
 
     void Save(const std::wstring& csvEnemyInfo,
               const std::wstring& csvEnemyVisible,

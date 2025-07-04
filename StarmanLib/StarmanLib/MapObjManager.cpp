@@ -75,7 +75,7 @@ void NSStarmanLib::MapObjManager::InitWithBinary(const std::wstring& binFile,
         std::vector<NSStarmanLib::stMapObj> stMapObjList;
 
         std::ifstream inFile(binFile, std::ios::binary);
-        if (inFile.is_open() == false)
+        if (!inFile.is_open())
         {
             throw std::exception();
         }

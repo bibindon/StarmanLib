@@ -1,5 +1,8 @@
 ﻿#include "EnemyInfoManager.h"
+
 #include <algorithm>
+#include <fstream>
+
 #include "Util.h"
 
 using namespace NSStarmanLib;
@@ -24,7 +27,8 @@ void EnemyInfoManager::Destroy()
 void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
                             const std::wstring& csvEnemyInfo,
                             const std::wstring& csvEnemyVisible,
-                            const bool decrypt)
+                            const bool decrypt,
+                            const bool loadFromBinary)
 {
     {
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvEnemyDef, decrypt);
@@ -48,6 +52,39 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
         }
     }
 
+    // バイナリファイルから読み込む
+    if (loadFromBinary)
+    {
+        std::vector<stEnemyInfo> stEnemyInfoList;
+
+        std::wstring binFile = csvEnemyInfo;
+        binFile.replace(binFile.size() - 4, 4, _T(".bin"));
+        std::ifstream inFile(binFile, std::ios::binary);
+        if (!inFile.is_open())
+        {
+            throw std::exception();
+        }
+        
+        size_t size = 0;
+
+        inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
+        stEnemyInfoList.resize(size);
+        inFile.read(reinterpret_cast<char*>(stEnemyInfoList.data()),
+                    static_cast<std::streamsize>(size) * sizeof(stEnemyInfo));
+        inFile.close();
+
+        for (const auto& enemyInfo : stEnemyInfoList)
+        {
+            if (m_enemyDefMap.find(enemyInfo.m_id) == m_enemyDefMap.end())
+            {
+                throw std::exception();
+            }
+
+            m_enemyInfoMap[enemyInfo.m_SerialNumber] = stEnemyInfo(enemyInfo);
+        }
+    }
+    // テキストファイルから読み込む
+    else
     {
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvEnemyInfo, decrypt);
 
@@ -62,7 +99,7 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             enemyInfo.m_SerialNumber = serialNumber;
 
             std::wstring id = vvs.at(i).at(1);
-            enemyInfo.m_id = id;
+            wcsncpy_s(enemyInfo.m_id, id.c_str(), _TRUNCATE);
 
             work_f = std::stof(vvs.at(i).at(2));
             enemyInfo.m_x = work_f;
@@ -96,6 +133,7 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             m_enemyInfoMap[serialNumber] = enemyInfo;
         }
     }
+
     {
         std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvEnemyVisible, decrypt);
 

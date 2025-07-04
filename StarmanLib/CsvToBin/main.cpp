@@ -2,7 +2,7 @@
 
 // ファイル名に"enemy"をいう文字があったら敵情報として扱う。
 // ファイル名に"enemy"をいう文字がなかったらマップオブジェクト情報として扱う。
-int main(int argc, wchar_t* argv[])
+int wmain(int argc, wchar_t* argv[])
 {
     if (argc != 2)
     {
@@ -11,15 +11,15 @@ int main(int argc, wchar_t* argv[])
 
     std::wstring fileName = argv[1];
 
-    if (fileName.find(_T("enemy")) != std::wstring::npos)
+    if (fileName.find(L"enemy") != std::wstring::npos)
     {
         // 敵情報のCSVファイルをバイナリに変換
-        WriteBinaryFromEnemy(argv[1]);
+        WriteBinaryFromEnemy(fileName);
     }
     else
     {
         // マップオブジェクトのCSVファイルをバイナリに変換
-        WriteBinaryFromMapObj(argv[1]);
+        WriteBinaryFromMapObj(fileName);
     }
 
     return 0;
@@ -98,7 +98,7 @@ void WriteBinaryFromEnemy(const std::wstring& csvFile)
         float work_f = 0.f;
 
         work.m_SerialNumber = std::stoi(vvs.at(i).at(0));
-        work.m_id = vvs.at(i).at(1);
+        wcsncpy_s(work.m_id, vvs.at(i).at(1).c_str(), _TRUNCATE);
         work.m_x = std::stof(vvs.at(i).at(2));
         work.m_y = std::stof(vvs.at(i).at(3));
         work.m_z = std::stof(vvs.at(i).at(4));
@@ -123,16 +123,16 @@ void WriteBinaryFromEnemy(const std::wstring& csvFile)
     std::wstring binFile = csvFile;
     binFile.replace(binFile.size() - 4, 4, _T(".bin"));
 
-    std::wofstream outFile(binFile, std::ios::binary);
+    std::ofstream outFile(binFile, std::ios::binary);
     if (outFile.is_open())
     {
         size_t size = stEnemyList.size();
 
         // ベクターサイズを書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(&size), sizeof(size));
+        outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
 
         // データ本体を書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(stEnemyList.data()),
+        outFile.write(reinterpret_cast<const char*>(stEnemyList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stEnemyInfo));
 
         outFile.close();
