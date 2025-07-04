@@ -12,14 +12,14 @@ class EnemyDef
 {
 public:
 
-    void SetIDDef(const int arg);
-    int GetIDDef() const;
+    void SetID(const std::wstring& arg);
+    std::wstring GetID() const;
 
     void SetName(const std::wstring& arg);
-    std::wstring GetName();
+    std::wstring GetName() const;
 
     void SetDetail(const std::wstring& arg);
-    std::wstring GetDetail();
+    std::wstring GetDetail() const;
 
     void SetImagePath(const std::wstring& arg);
     std::wstring GetImagePath();
@@ -30,7 +30,7 @@ public:
 private:
 
     // 敵一種類ごとに割り振られるID
-    int m_idDef = 0;
+    std::wstring m_id;
 
     // 説明文
     std::wstring m_name;
@@ -54,14 +54,14 @@ class EnemyInfo
 {
 public:
 
-    void SetID(const int arg);
-    int GetID();
+    void SetSerialNumber(const int arg);
+    int GetSerialNumber() const;
 
-    void SetIDDef(const int arg);
-    int GetIDDef() const;
+    void SetID(const std::wstring& arg);
+    std::wstring GetID() const;
 
-    void SetBreed(const std::wstring& breed);
-    std::wstring GetBreed();
+    void SetName(const std::wstring& name);
+    std::wstring GetName() const;
 
     void SetX(const float arg);
     float GetX() const { return m_x; }
@@ -89,14 +89,14 @@ public:
 
 private:
 
-    // 敵一体ごとに割り振られるID
-    int m_id = 0;
+    // 敵一体ごとに割り振られる番号
+    int m_SerialNumber = 0;
 
     // 敵一種類ごとに割り振られるID
-    int m_idDef = 0;
+    std::wstring m_idDef;
 
-    // モンスターの種族
-    std::wstring m_breed;
+    // モンスターの名前
+    std::wstring m_name;
 
     float m_x { 0.f };
     float m_y { 0.f };
@@ -132,22 +132,25 @@ public:
     // 引数で示す座標と半径の内側にいる敵を取得
     std::vector<EnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
 
-    void UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo);
+    void UpdateEnemyInfo(const int serialNumber, const EnemyInfo& enemyInfo);
 
-    std::vector<std::wstring> GetEnemyNameList();
+    std::vector<std::wstring> GetEnemyIdList();
 
-    EnemyDef GetEnemyDef(const std::wstring name);
-    void SetEnemyVisible(const std::wstring name, const bool visible);
+    EnemyDef GetEnemyDef(const std::wstring& id);
+    void SetEnemyVisible(const std::wstring& id, const bool visible);
 
-    EnemyInfo GetEnemyInfo(const int id);
-    void SetDefeat(const int id);
+    EnemyInfo GetEnemyInfo(const int serialNumber);
+    void SetDefeat(const int serialNumber);
 
 private:
 
     // シングルトンオブジェクト
     static EnemyInfoManager* obj;
 
-    std::unordered_map<int, EnemyDef> m_enemyDefMap;
+    // キーは半角英数字のID
+    std::unordered_map<std::wstring, EnemyDef> m_enemyDefMap;
+
+    // キーはシリアルナンバー
     std::unordered_map<int, EnemyInfo> m_enemyInfoMap;
 
 };

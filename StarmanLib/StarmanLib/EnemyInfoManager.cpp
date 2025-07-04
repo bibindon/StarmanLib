@@ -31,13 +31,12 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int id = 0;
+            std::wstring id = vvs.at(i).at(0);
             float work_f = 0.f;
 
             EnemyDef enemyDef;
 
-            id = std::stoi(vvs.at(i).at(0));
-            enemyDef.SetIDDef(id);
+            enemyDef.SetID(id);
 
             enemyDef.SetName(vvs.at(i).at(1));
 
@@ -54,26 +53,18 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int idSub = 0;
+            int serialNumber = 0;
             float work_f = 0.f;
 
             EnemyInfo enemyInfo;
 
-            idSub = std::stoi(vvs.at(i).at(0));
-            enemyInfo.SetID(idSub);
+            serialNumber = std::stoi(vvs.at(i).at(0));
+            enemyInfo.SetSerialNumber(serialNumber);
 
-            enemyInfo.SetBreed(vvs.at(i).at(1));
+            std::wstring id = vvs.at(i).at(1);
+            enemyInfo.SetID(id);
 
-            std::wstring work_str = enemyInfo.GetBreed();
-            for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
-            {
-                if (it->second.GetName() == work_str)
-                {
-                    int idDef = it->second.GetIDDef();
-                    enemyInfo.SetIDDef(idDef);
-                    break;
-                }
-            }
+            enemyInfo.SetName(m_enemyDefMap.at(id).GetName());
 
             work_f = std::stof(vvs.at(i).at(2));
             enemyInfo.SetX(work_f);
@@ -96,7 +87,7 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             int hp = std::stoi(vvs.at(i).at(8));
             enemyInfo.SetHP(hp);
 
-            if (vvs.at(i).at(9) == _T("○"))
+            if (vvs.at(i).at(9) == _T("y"))
             {
                 enemyInfo.SetDefeated(true);
             }
@@ -104,7 +95,7 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             {
                 enemyInfo.SetDefeated(false);
             }
-            m_enemyInfoMap[(int)idSub] = enemyInfo;
+            m_enemyInfoMap[serialNumber] = enemyInfo;
         }
     }
     {
@@ -112,20 +103,20 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
 
         for (std::size_t i = 1; i < vvs.size(); ++i)
         {
-            int work_i = 0;
-            work_i = std::stoi(vvs.at(i).at(0));
-            if (m_enemyDefMap.find(work_i) == m_enemyDefMap.end())
+            std::wstring work_str;
+            work_str = vvs.at(i).at(0);
+            if (m_enemyDefMap.find(work_str) == m_enemyDefMap.end())
             {
                 throw std::exception();
             }
 
-            if (vvs.at(i).at(2) == _T("○"))
+            if (vvs.at(i).at(1) == _T("y"))
             {
-                m_enemyDefMap[work_i].SetVisible(true);
+                m_enemyDefMap[work_str].SetVisible(true);
             }
-            else if (vvs.at(i).at(2) == _T(""))
+            else if (vvs.at(i).at(1) == _T(""))
             {
-                m_enemyDefMap[work_i].SetVisible(false);
+                m_enemyDefMap[work_str].SetVisible(false);
             }
             else
             {
@@ -142,8 +133,8 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
     {
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
-        vs.push_back(_T("ID"));
-        vs.push_back(_T("タイプ"));
+        vs.push_back(_T("SerialNumber"));
+        vs.push_back(_T("Name"));
         vs.push_back(_T("PosX"));
         vs.push_back(_T("PosY"));
         vs.push_back(_T("PosZ"));
@@ -156,8 +147,8 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
         vs.clear();
         for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
         {
-            vs.push_back(std::to_wstring(it->first));
-            vs.push_back(it->second.GetBreed());
+            vs.push_back(std::to_wstring(it->second.GetSerialNumber()));
+            vs.push_back(it->second.GetID());
             vs.push_back(std::to_wstring(it->second.GetX()));
             vs.push_back(std::to_wstring(it->second.GetY()));
             vs.push_back(std::to_wstring(it->second.GetZ()));
@@ -167,7 +158,7 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
             vs.push_back(std::to_wstring(it->second.GetHP()));
             if (it->second.GetDefeated())
             {
-                vs.push_back(_T("○"));
+                vs.push_back(_T("y"));
             }
             else
             {
@@ -183,19 +174,17 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
         vs.push_back(_T("ID"));
-        vs.push_back(_T("タイプ"));
         vs.push_back(_T("表示・非表示"));
         vvs.push_back(vs);
         vs.clear();
 
         for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
         {
-            vs.push_back(std::to_wstring(it->first));
-            vs.push_back(it->second.GetName());
+            vs.push_back(it->first);
 
             if (it->second.GetVisible())
             {
-                vs.push_back(_T("○"));
+                vs.push_back(_T("y"));
             }
             else
             {
@@ -231,54 +220,35 @@ std::vector<EnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
     return enemyInfoList;
 }
 
-void EnemyInfoManager::UpdateEnemyInfo(const int id, const EnemyInfo& enemyInfo)
+void EnemyInfoManager::UpdateEnemyInfo(const int serialNumber, const EnemyInfo& enemyInfo)
 {
-    m_enemyInfoMap[id] = enemyInfo;
+    m_enemyInfoMap[serialNumber] = enemyInfo;
 }
 
-std::vector<std::wstring> NSStarmanLib::EnemyInfoManager::GetEnemyNameList()
+std::vector<std::wstring> NSStarmanLib::EnemyInfoManager::GetEnemyIdList()
 {
-    std::vector<std::wstring> nameList;
+    std::vector<std::wstring> idList;
     for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
     {
-        nameList.push_back(it->second.GetName());
+        idList.push_back(it->second.GetID());
     }
 
-    // IDが若い順にソート
-    std::sort(nameList.begin(), nameList.end(),
-              [&](const auto x1, const auto x2)
+    // IDを辞書順にソート
+    std::sort(idList.begin(), idList.end(),
+              [&](const std::wstring& x1, const std::wstring& x2)
               {
-                  int id1 = 0;
-                  int id2 = 0;
-                  for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
-                  {
-                      if (it->second.GetName() == x1)
-                      {
-                          id1 = it->first;
-                          break;
-                      }
-                  }
-
-                  for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
-                  {
-                      if (it->second.GetName() == x2)
-                      {
-                          id2 = it->first;
-                          break;
-                      }
-                  }
-                  return id1 < id2;
+                  return x1 < x2;
               });
 
-    return nameList;
+    return idList;
 }
 
-EnemyDef NSStarmanLib::EnemyInfoManager::GetEnemyDef(const std::wstring name)
+EnemyDef NSStarmanLib::EnemyInfoManager::GetEnemyDef(const std::wstring& id)
 {
     EnemyDef enemyDef;
     for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
     {
-        if (it->second.GetName() == name)
+        if (it->second.GetID() == id)
         {
             enemyDef = it->second;
             break;
@@ -287,11 +257,11 @@ EnemyDef NSStarmanLib::EnemyInfoManager::GetEnemyDef(const std::wstring name)
     return enemyDef;
 }
 
-void NSStarmanLib::EnemyInfoManager::SetEnemyVisible(const std::wstring name, const bool visible)
+void NSStarmanLib::EnemyInfoManager::SetEnemyVisible(const std::wstring& id, const bool visible)
 {
     for (auto it = m_enemyDefMap.begin(); it != m_enemyDefMap.end(); ++it)
     {
-        if (it->second.GetName() == name)
+        if (it->second.GetID() == id)
         {
             it->second.SetVisible(visible);
             break;
@@ -299,44 +269,44 @@ void NSStarmanLib::EnemyInfoManager::SetEnemyVisible(const std::wstring name, co
     }
 }
 
-EnemyInfo NSStarmanLib::EnemyInfoManager::GetEnemyInfo(const int id)
+EnemyInfo NSStarmanLib::EnemyInfoManager::GetEnemyInfo(const int serialNumber)
 {
-    return m_enemyInfoMap.at(id);
+    return m_enemyInfoMap.at(serialNumber);
 }
 
-void NSStarmanLib::EnemyInfoManager::SetDefeat(const int id)
+void NSStarmanLib::EnemyInfoManager::SetDefeat(const int serialNumber)
 {
-    m_enemyInfoMap.at(id).SetDefeated(true);
+    m_enemyInfoMap.at(serialNumber).SetDefeated(true);
 }
 
-void EnemyInfo::SetID(const int arg)
+void EnemyInfo::SetSerialNumber(const int arg)
 {
-    m_id = arg;
+    m_SerialNumber = arg;
 }
 
-int EnemyInfo::GetID()
+int EnemyInfo::GetSerialNumber() const
 {
-    return m_id;
+    return m_SerialNumber;
 }
 
-void NSStarmanLib::EnemyInfo::SetIDDef(const int arg)
+void NSStarmanLib::EnemyInfo::SetID(const std::wstring& arg)
 {
     m_idDef = arg;
 }
 
-int NSStarmanLib::EnemyInfo::GetIDDef() const
+std::wstring NSStarmanLib::EnemyInfo::GetID() const
 {
     return m_idDef;
 }
 
-void EnemyInfo::SetBreed(const std::wstring& breed)
+void EnemyInfo::SetName(const std::wstring& name)
 {
-    m_breed = breed;
+    m_name = name;
 }
 
-std::wstring EnemyInfo::GetBreed()
+std::wstring EnemyInfo::GetName() const
 {
-    return m_breed;
+    return m_name;
 }
 
 void EnemyInfo::SetX(const float arg)
@@ -404,14 +374,14 @@ bool EnemyInfo::GetDefeated() const
     return m_bDefeated;
 }
 
-void NSStarmanLib::EnemyDef::SetIDDef(const int arg)
+void NSStarmanLib::EnemyDef::SetID(const std::wstring& arg)
 {
-    m_idDef = arg;
+    m_id = arg;
 }
 
-int NSStarmanLib::EnemyDef::GetIDDef() const
+std::wstring NSStarmanLib::EnemyDef::GetID() const
 {
-    return m_idDef;
+    return m_id;
 }
 
 void NSStarmanLib::EnemyDef::SetName(const std::wstring& arg)
@@ -419,7 +389,7 @@ void NSStarmanLib::EnemyDef::SetName(const std::wstring& arg)
     m_name = arg;
 }
 
-std::wstring NSStarmanLib::EnemyDef::GetName()
+std::wstring NSStarmanLib::EnemyDef::GetName() const
 {
     return m_name;
 }
@@ -430,7 +400,7 @@ void NSStarmanLib::EnemyDef::SetDetail(const std::wstring& arg)
     m_detail.erase(std::remove(m_detail.begin(), m_detail.end(), '"'), m_detail.end());
 }
 
-std::wstring NSStarmanLib::EnemyDef::GetDetail()
+std::wstring NSStarmanLib::EnemyDef::GetDetail() const
 {
     return m_detail;
 }

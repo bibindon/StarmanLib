@@ -61,6 +61,7 @@ public:
     int GetOwnDamage() const;
     void SetOwnDamage(int ownDamage);
 
+    // 使われていない？
     bool GetIsShow() const;
     void SetIsShow(bool isShow);
 
@@ -82,6 +83,7 @@ private:
     int m_durabilityUp = 0; // 強化時の耐久値の上昇値
     int m_ownDamage = 0; // 使用時の肉体損傷
 
+    // 使われていない？
     bool m_isShow = false; // 表示
 };
 
