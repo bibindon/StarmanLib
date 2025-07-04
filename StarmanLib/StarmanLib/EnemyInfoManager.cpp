@@ -64,8 +64,6 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             std::wstring id = vvs.at(i).at(1);
             enemyInfo.m_id = id;
 
-            enemyInfo.m_name = m_enemyDefMap.at(id).GetName();
-
             work_f = std::stof(vvs.at(i).at(2));
             enemyInfo.m_x = work_f;
 

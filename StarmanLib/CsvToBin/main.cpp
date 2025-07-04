@@ -97,32 +97,26 @@ void WriteBinaryFromEnemy(const std::wstring& csvFile)
         NSStarmanLib::stEnemyInfo work;
         float work_f = 0.f;
 
-        work.m_id = std::stoi(vvs.at(i).at(0));
-
-        work.m_modelId = std::stoi(vvs.at(i).at(1));
-
-        work_f = std::stof(vvs.at(i).at(2));
-        work.m_x = work_f;
-        work.m_frameX = (int)work_f/100;
-
+        work.m_SerialNumber = std::stoi(vvs.at(i).at(0));
+        work.m_id = vvs.at(i).at(1);
+        work.m_x = std::stof(vvs.at(i).at(2));
         work.m_y = std::stof(vvs.at(i).at(3));
+        work.m_z = std::stof(vvs.at(i).at(4));
 
-        work_f = std::stof(vvs.at(i).at(4));
-        work.m_z = work_f;
-        work.m_frameZ = (int)work_f/100;
+        work.m_rotX = std::stof(vvs.at(i).at(5));
+        work.m_rotY = std::stof(vvs.at(i).at(6));
+        work.m_rotZ = std::stof(vvs.at(i).at(7));
 
-        work.m_yRot = std::stof(vvs.at(i).at(5));
-
-        work.m_scale = std::stof(vvs.at(i).at(6));
-
-        if (vvs.at(i).at(7) == _T("y"))
+        work.m_HP = std::stoi(vvs.at(i).at(8));
+        if (vvs.at(i).at(9) == L"y")
         {
-            work.m_visible = true;
+            work.m_bDefeated = true;
         }
         else
         {
-            work.m_visible = false;
+            work.m_bDefeated = false;
         }
+
         stEnemyList.emplace_back(work);
     }
 
@@ -148,5 +142,4 @@ void WriteBinaryFromEnemy(const std::wstring& csvFile)
         throw std::exception();
     }
 }
-
 

@@ -42,7 +42,7 @@ private:
     std::wstring m_imagePath;
 
     // メニューでの表示・非表示
-    bool m_visible;
+    bool m_visible = false;
 };
 
 // 敵管理クラス。
@@ -59,9 +59,6 @@ struct stEnemyInfo
 
     // 敵一種類ごとに割り振られるID
     std::wstring m_id;
-
-    // モンスターの名前
-    std::wstring m_name;
 
     float m_x = 0.f;
     float m_y = 0.f;
