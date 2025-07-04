@@ -50,65 +50,30 @@ private:
 // CSVファイルに記載された敵の座標やHPなどを提供するのみである。
 // 敵の行動パターンだとか衝突判定、ジャンプの軌道など詳細なことはここではやらない。
 // （ライブラリの使用者がゲーム内で独自の実装を行うべき）
-class EnemyInfo
+//
+// バイナリ形式で読み込みを行うため構造体を使用する。
+struct stEnemyInfo
 {
-public:
-
-    void SetSerialNumber(const int arg);
-    int GetSerialNumber() const;
-
-    void SetID(const std::wstring& arg);
-    std::wstring GetID() const;
-
-    void SetName(const std::wstring& name);
-    std::wstring GetName() const;
-
-    void SetX(const float arg);
-    float GetX() const { return m_x; }
-
-    void SetY(const float arg);
-    float GetY() const { return m_y; }
-
-    void SetZ(const float arg);
-    float GetZ() const { return m_z; }
-
-    void SetRotX(const float arg);
-    float GetRotX() const;
-
-    void SetRotY(const float arg);
-    float GetRotY() const;
-
-    void SetRotZ(const float arg);
-    float GetRotZ() const;
-
-    void SetHP(const int arg);
-    int GetHP() const;
-
-    void SetDefeated(const bool arg);
-    bool GetDefeated() const;
-
-private:
-
     // 敵一体ごとに割り振られる番号
     int m_SerialNumber = 0;
 
     // 敵一種類ごとに割り振られるID
-    std::wstring m_idDef;
+    std::wstring m_id;
 
     // モンスターの名前
     std::wstring m_name;
 
-    float m_x { 0.f };
-    float m_y { 0.f };
-    float m_z { 0.f };
+    float m_x = 0.f;
+    float m_y = 0.f;
+    float m_z = 0.f;
 
-    float m_rotX { 0.f };
-    float m_rotY { 0.f };
-    float m_rotZ { 0.f };
+    float m_rotX = 0.f;
+    float m_rotY = 0.f;
+    float m_rotZ = 0.f;
 
     // 残りHP
-    int m_HP { 0 };
-    bool m_bDefeated { false };
+    int m_HP = 0;
+    bool m_bDefeated = false;
 
 };
 
@@ -130,16 +95,16 @@ public:
               const bool encrypt = false);
 
     // 引数で示す座標と半径の内側にいる敵を取得
-    std::vector<EnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
+    std::vector<stEnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
 
-    void UpdateEnemyInfo(const int serialNumber, const EnemyInfo& enemyInfo);
+    void UpdateEnemyInfo(const int serialNumber, const stEnemyInfo& enemyInfo);
 
     std::vector<std::wstring> GetEnemyIdList();
 
     EnemyDef GetEnemyDef(const std::wstring& id);
     void SetEnemyVisible(const std::wstring& id, const bool visible);
 
-    EnemyInfo GetEnemyInfo(const int serialNumber);
+    stEnemyInfo GetEnemyInfo(const int serialNumber);
     void SetDefeat(const int serialNumber);
 
 private:
@@ -151,7 +116,7 @@ private:
     std::unordered_map<std::wstring, EnemyDef> m_enemyDefMap;
 
     // キーはシリアルナンバー
-    std::unordered_map<int, EnemyInfo> m_enemyInfoMap;
+    std::unordered_map<int, stEnemyInfo> m_enemyInfoMap;
 
 };
 }

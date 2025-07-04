@@ -56,44 +56,44 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
             int serialNumber = 0;
             float work_f = 0.f;
 
-            EnemyInfo enemyInfo;
+            stEnemyInfo enemyInfo;
 
             serialNumber = std::stoi(vvs.at(i).at(0));
-            enemyInfo.SetSerialNumber(serialNumber);
+            enemyInfo.m_SerialNumber = serialNumber;
 
             std::wstring id = vvs.at(i).at(1);
-            enemyInfo.SetID(id);
+            enemyInfo.m_id = id;
 
-            enemyInfo.SetName(m_enemyDefMap.at(id).GetName());
+            enemyInfo.m_name = m_enemyDefMap.at(id).GetName();
 
             work_f = std::stof(vvs.at(i).at(2));
-            enemyInfo.SetX(work_f);
+            enemyInfo.m_x = work_f;
 
             work_f = std::stof(vvs.at(i).at(3));
-            enemyInfo.SetY(work_f);
+            enemyInfo.m_y = work_f;
 
             work_f = std::stof(vvs.at(i).at(4));
-            enemyInfo.SetZ(work_f);
+            enemyInfo.m_z = work_f;
 
             work_f = std::stof(vvs.at(i).at(5));
-            enemyInfo.SetRotX(work_f);
+            enemyInfo.m_rotX = work_f;
 
             work_f = std::stof(vvs.at(i).at(6));
-            enemyInfo.SetRotY(work_f);
+            enemyInfo.m_rotY = work_f;
 
             work_f = std::stof(vvs.at(i).at(7));
-            enemyInfo.SetRotZ(work_f);
+            enemyInfo.m_rotZ = work_f;
 
             int hp = std::stoi(vvs.at(i).at(8));
-            enemyInfo.SetHP(hp);
+            enemyInfo.m_HP = hp;
 
             if (vvs.at(i).at(9) == _T("y"))
             {
-                enemyInfo.SetDefeated(true);
+                enemyInfo.m_bDefeated = true;
             }
             else
             {
-                enemyInfo.SetDefeated(false);
+                enemyInfo.m_bDefeated = false;
             }
             m_enemyInfoMap[serialNumber] = enemyInfo;
         }
@@ -145,18 +145,20 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
         vs.push_back(_T("討伐済み"));
         vvs.push_back(vs);
         vs.clear();
+
         for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
         {
-            vs.push_back(std::to_wstring(it->second.GetSerialNumber()));
-            vs.push_back(it->second.GetID());
-            vs.push_back(std::to_wstring(it->second.GetX()));
-            vs.push_back(std::to_wstring(it->second.GetY()));
-            vs.push_back(std::to_wstring(it->second.GetZ()));
-            vs.push_back(std::to_wstring(it->second.GetRotX()));
-            vs.push_back(std::to_wstring(it->second.GetRotY()));
-            vs.push_back(std::to_wstring(it->second.GetRotZ()));
-            vs.push_back(std::to_wstring(it->second.GetHP()));
-            if (it->second.GetDefeated())
+            vs.push_back(std::to_wstring(it->second.m_SerialNumber));
+            vs.push_back(it->second.m_id);
+            vs.push_back(std::to_wstring(it->second.m_x));
+            vs.push_back(std::to_wstring(it->second.m_y));
+            vs.push_back(std::to_wstring(it->second.m_z));
+            vs.push_back(std::to_wstring(it->second.m_rotX));
+            vs.push_back(std::to_wstring(it->second.m_rotY));
+            vs.push_back(std::to_wstring(it->second.m_rotZ));
+            vs.push_back(std::to_wstring(it->second.m_HP));
+
+            if (it->second.m_bDefeated)
             {
                 vs.push_back(_T("y"));
             }
@@ -164,6 +166,7 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
             {
                 vs.push_back(_T(""));
             }
+
             vvs.push_back(vs);
             vs.clear();
         }
@@ -198,19 +201,19 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
     }
 }
 
-std::vector<EnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
+std::vector<stEnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
                                                   const float y,
                                                   const float z,
                                                   const float r)
 {
     // 球で判定すると重いので立方体で判定する
-    std::vector<EnemyInfo> enemyInfoList;
+    std::vector<stEnemyInfo> enemyInfoList;
     for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
     {
-        float dx = it->second.GetX() - x;
+        float dx = it->second.m_x - x;
         if (-r <= dx && dx <= r)
         {
-            float dz = it->second.GetZ() - z;
+            float dz = it->second.m_z - z;
             if (-r <= dz && dz <= r)
             {
                 enemyInfoList.push_back(it->second);
@@ -220,7 +223,7 @@ std::vector<EnemyInfo> EnemyInfoManager::GetEnemyInfo(const float x,
     return enemyInfoList;
 }
 
-void EnemyInfoManager::UpdateEnemyInfo(const int serialNumber, const EnemyInfo& enemyInfo)
+void EnemyInfoManager::UpdateEnemyInfo(const int serialNumber, const stEnemyInfo& enemyInfo)
 {
     m_enemyInfoMap[serialNumber] = enemyInfo;
 }
@@ -269,109 +272,14 @@ void NSStarmanLib::EnemyInfoManager::SetEnemyVisible(const std::wstring& id, con
     }
 }
 
-EnemyInfo NSStarmanLib::EnemyInfoManager::GetEnemyInfo(const int serialNumber)
+stEnemyInfo NSStarmanLib::EnemyInfoManager::GetEnemyInfo(const int serialNumber)
 {
     return m_enemyInfoMap.at(serialNumber);
 }
 
 void NSStarmanLib::EnemyInfoManager::SetDefeat(const int serialNumber)
 {
-    m_enemyInfoMap.at(serialNumber).SetDefeated(true);
-}
-
-void EnemyInfo::SetSerialNumber(const int arg)
-{
-    m_SerialNumber = arg;
-}
-
-int EnemyInfo::GetSerialNumber() const
-{
-    return m_SerialNumber;
-}
-
-void NSStarmanLib::EnemyInfo::SetID(const std::wstring& arg)
-{
-    m_idDef = arg;
-}
-
-std::wstring NSStarmanLib::EnemyInfo::GetID() const
-{
-    return m_idDef;
-}
-
-void EnemyInfo::SetName(const std::wstring& name)
-{
-    m_name = name;
-}
-
-std::wstring EnemyInfo::GetName() const
-{
-    return m_name;
-}
-
-void EnemyInfo::SetX(const float arg)
-{
-    m_x = arg;
-}
-
-void EnemyInfo::SetY(const float arg)
-{
-    m_y = arg;
-}
-
-void EnemyInfo::SetZ(const float arg)
-{
-    m_z = arg;
-}
-
-void EnemyInfo::SetRotX(const float arg)
-{
-    m_rotX = arg;
-}
-
-float EnemyInfo::GetRotX() const
-{
-    return m_rotX;
-}
-
-void EnemyInfo::SetRotY(const float arg)
-{
-    m_rotY = arg;
-}
-
-float EnemyInfo::GetRotY() const
-{
-    return m_rotY;
-}
-
-void EnemyInfo::SetRotZ(const float arg)
-{
-    m_rotZ = arg;
-}
-
-float EnemyInfo::GetRotZ() const
-{
-    return m_rotZ;
-}
-
-void EnemyInfo::SetHP(const int arg)
-{
-    m_HP = arg;
-}
-
-int EnemyInfo::GetHP() const
-{
-    return m_HP;
-}
-
-void EnemyInfo::SetDefeated(const bool arg)
-{
-    m_bDefeated = arg;
-}
-
-bool EnemyInfo::GetDefeated() const
-{
-    return m_bDefeated;
+    m_enemyInfoMap.at(serialNumber).m_bDefeated = true;
 }
 
 void NSStarmanLib::EnemyDef::SetID(const std::wstring& arg)
