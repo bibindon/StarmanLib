@@ -67,16 +67,16 @@ void WriteBinaryFromMapObj(const std::wstring& csvFile)
     std::wstring binFile = csvFile;
     binFile.replace(binFile.size() - 4, 4, _T(".bin"));
 
-    std::wofstream outFile(binFile, std::ios::binary);
+    std::ofstream outFile(binFile, std::ios::binary);
     if (outFile.is_open())
     {
         size_t size = stMapObjList.size();
 
         // ベクターサイズを書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(&size), sizeof(size));
+        outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
 
         // データ本体を書き込む
-        outFile.write(reinterpret_cast<const wchar_t*>(stMapObjList.data()),
+        outFile.write(reinterpret_cast<const char*>(stMapObjList.data()),
                       static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stMapObj));
 
         outFile.close();
