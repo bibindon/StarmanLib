@@ -164,8 +164,11 @@ void EnemyInfoManager::Init(const std::wstring& csvEnemyDef,
 
 void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
                             const std::wstring& csvEvemyVisible,
-                            const bool encrypt)
+                            const bool encrypt,
+                            const bool saveWithBinary)
 {
+    // テキスト形式で保存する
+    if (!saveWithBinary)
     {
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;
@@ -209,6 +212,38 @@ void EnemyInfoManager::Save(const std::wstring& csvEnemyInfo,
 
         Util::WriteToCsv(csvEnemyInfo, vvs, encrypt);
     }
+    // バイナリ形式で保存する
+    else
+    {
+        std::vector<stEnemyInfo> stEnemyList;
+
+        for (auto it = m_enemyInfoMap.begin(); it != m_enemyInfoMap.end(); ++it)
+        {
+            stEnemyList.push_back(it->second);
+        }
+
+        std::sort(stEnemyList.begin(), stEnemyList.end(),
+                  [](const stEnemyInfo& x1, const stEnemyInfo& x2)
+                  {
+                      return x1.m_SerialNumber < x2.m_SerialNumber;
+                  });
+
+        std::ofstream outFile(csvEnemyInfo, std::ios::binary);
+        if (outFile.is_open())
+        {
+            size_t size = stEnemyList.size();
+
+            // ベクターサイズを書き込む
+            outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+
+            // データ本体を書き込む
+            outFile.write(reinterpret_cast<const char*>(stEnemyList.data()),
+                          static_cast<std::streamsize>(size) * sizeof(NSStarmanLib::stEnemyInfo));
+
+            outFile.close();
+        }
+    }
+
     {
         std::vector<std::vector<std::wstring>> vvs;
         std::vector<std::wstring> vs;

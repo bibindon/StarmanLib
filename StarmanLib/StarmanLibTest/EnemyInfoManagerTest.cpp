@@ -158,20 +158,49 @@ namespace StarmanLibTest
         // バイナリ形式で保存し再度読み込めることを確認するテスト
         TEST_METHOD(TestMethod09)
         {
-            EnemyInfoManager* obj = EnemyInfoManager::GetObj();
-            obj->Init(_T("..\\StarmanLibTest\\enemyDef.csv"),
-                      _T("..\\StarmanLibTest\\enemyOrigin.bin"),
-                      _T("..\\StarmanLibTest\\enemyVisible.csv"),
-                      false,
-                      true);
+            {
+                EnemyInfoManager* obj = EnemyInfoManager::GetObj();
+                obj->Init(_T("..\\StarmanLibTest\\enemyDef.csv"),
+                          _T("..\\StarmanLibTest\\enemyOrigin.bin"),
+                          _T("..\\StarmanLibTest\\enemyVisible.csv"),
+                          false,
+                          true);
 
-            std::vector<stEnemyInfo> enemyInfoList = obj->GetEnemyInfo(96.f, 0.f, 97.f, 2.f);
-            Assert::AreEqual((int)enemyInfoList.size() == 1, true);
-            Assert::AreEqual(enemyInfoList.at(0).m_SerialNumber == 30, true);
-            Assert::AreEqual(std::wstring(enemyInfoList.at(0).m_id) == _T("cube"), true);
-            Assert::AreEqual(enemyInfoList.at(0).m_x, 97.f);
-            Assert::AreEqual(enemyInfoList.at(0).m_bDefeated, false);
-            EnemyInfoManager::Destroy();
+                stEnemyInfo enemyInfo;
+                enemyInfo.m_SerialNumber = 20;
+                wcsncpy_s(enemyInfo.m_id, _T("enban"), _TRUNCATE);
+                enemyInfo.m_x = 111.f;
+                enemyInfo.m_y = 222.f;
+                enemyInfo.m_z = 333.f;
+                enemyInfo.m_HP = 444;
+                enemyInfo.m_bDefeated = true;
+                obj->UpdateEnemyInfo(20, enemyInfo);
+                obj->SetEnemyVisible(_T("enban"), true);
+                obj->Save(_T("..\\StarmanLibTest\\enemySave.bin"),
+                          _T("..\\StarmanLibTest\\enemyVisibleSave.csv"),
+                          false,
+                          true);
+                EnemyInfoManager::Destroy();
+            }
+
+            {
+                EnemyInfoManager* obj = EnemyInfoManager::GetObj();
+                obj->Init(_T("..\\StarmanLibTest\\enemyDef.csv"),
+                          _T("..\\StarmanLibTest\\enemySave.bin"),
+                          _T("..\\StarmanLibTest\\enemyVisibleSave.csv"),
+                          false,
+                          true);
+                std::vector<stEnemyInfo> enemyInfoList = obj->GetEnemyInfo(111.f, 222.f, 333.f, 1.f);
+                Assert::AreEqual(true, (int)enemyInfoList.size() == 1);
+                Assert::AreEqual(true, enemyInfoList.at(0).m_SerialNumber == 20);
+                Assert::AreEqual(true, std::wstring(enemyInfoList.at(0).m_id) == L"enban");
+                Assert::AreEqual(444, enemyInfoList.at(0).m_HP);
+                Assert::AreEqual(true, enemyInfoList.at(0).m_bDefeated);
+
+                bool work = obj->GetEnemyDef(_T("enban")).GetVisible();
+                Assert::AreEqual(true, work);
+                EnemyInfoManager::Destroy();
+            }
         }
     };
 }

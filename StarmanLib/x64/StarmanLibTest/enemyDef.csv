@@ -16,10 +16,10 @@ bigCube,ビッグリッポウタイ,"ビッグなリッポウタイ。HPが高�
 ",res\image\test.png
 smallCube,スモールリッポウタイ,"HPが低く、攻撃力が低い。群れで生息している。 
 ",res\image\test.png
-hanen,ハンエン,"半円状の敵。翼があり空を飛んでいる。酸をまき散らす。 
-",res\image\test.png
 hankyu,ハンキュウ,"半球上の敵。
 攻撃を避けようとしてくる。 
+",res\image\test.png
+hanen,ハンエン,"半円状の敵。翼があり空を飛んでいる。酸をまき散らす。 
 ",res\image\test.png
 orangeCube,オレンジリッポウタイ,"オレンジ色のリッポウタイ。回転攻撃をしてくる。 
 ",res\image\test.png

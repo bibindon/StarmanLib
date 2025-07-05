@@ -90,7 +90,8 @@ public:
 
     void Save(const std::wstring& csvEnemyInfo,
               const std::wstring& csvEnemyVisible,
-              const bool encrypt = false);
+              const bool encrypt = false,
+              const bool saveWithBinary = false);
 
     // 引数で示す座標と半径の内側にいる敵を取得
     std::vector<stEnemyInfo> GetEnemyInfo(const float x, const float y, const float z, const float r);
