@@ -2156,7 +2156,7 @@ float StatusManager::GetAttackPower()
         result = (float)attackRate;
 
         // 耐久度が0だったら攻撃力は1になる
-        if (itemInfo.GetDurabilityCurrent() == 0)
+        if (itemInfo.GetDurabilityCurrent() <= 0)
         {
             result = 1.f;
         }
@@ -2285,9 +2285,18 @@ void StatusManager::ConsumeAttackCost()
         }
         else
         {
+            // 耐久値を1減らす
             auto dura = itemInfo.GetDurabilityCurrent();
-            inventory->SetItemDurability(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId(), dura - 1);
-            m_EquipWeapon.SetDurabilityCurrent(dura - 1);
+            dura--;
+
+            // -1以下にはならないようにする
+            if (dura <= 0)
+            {
+                dura = 0;
+            }
+
+            inventory->SetItemDurability(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId(), dura);
+            m_EquipWeapon.SetDurabilityCurrent(dura);
         }
     }
 
