@@ -154,10 +154,10 @@ public:
               const bool encrypt = false);
 
     // 職人がクラフト可能であるか？のフラグをONにする
-    void SetCraftsmanSkill(const std::wstring& craftItem, const int level = -1);
+    void SetCraftsmanSkill(const std::wstring& unreinforcedId, const int level = -1);
 
     // 職人が現在作れるクラフトアイテムのレベル
-    int GetCraftsmanSkill(const std::wstring& craftItem);
+    int GetCraftsmanSkill(const std::wstring& unreinforcedId);
 
     // クラフトを依頼されたらアイテムが減り、24時間後に倉庫にクラフトアイテムが配置される。
     // 一度に一つしかクラフトできないのでクラフト中に次の依頼を受けたらキューイングされる

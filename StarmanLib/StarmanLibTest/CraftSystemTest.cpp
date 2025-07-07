@@ -89,13 +89,13 @@ namespace StarmanLibTest
             obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
                       _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
             int result = 0;
-            obj->SetCraftsmanSkill(_T("raft1"), 1);
+            obj->SetCraftsmanSkill(_T("raft"), 1);
             result = obj->GetCraftsmanSkill(_T("raft"));
-            Assert::AreEqual(result, 1);
+            Assert::AreEqual(1, result);
 
-            obj->SetCraftsmanSkill(_T("stick2"), 2);
+            obj->SetCraftsmanSkill(_T("stick"), 2);
             result = obj->GetCraftsmanSkill(_T("stick"));
-            Assert::AreEqual(result, 2);
+            Assert::AreEqual(2, result);
 
             CraftSystem::Destroy();
         }
@@ -112,8 +112,8 @@ namespace StarmanLibTest
                           _T("..\\StarmanLibTest\\craftsmanQueue.csv"));
 
                 bool result = false;
-                obj->SetCraftsmanSkill(_T("raft1"), 1);
-                obj->SetCraftsmanSkill(_T("spearForAtlatl1"), 1);
+                obj->SetCraftsmanSkill(_T("raft"), 1);
+                obj->SetCraftsmanSkill(_T("spearForAtlatl"), 1);
                 obj->Save(_T("..\\StarmanLibTest\\craftsmanSkillSave.csv"),
                           _T("..\\StarmanLibTest\\craftsmanQueueSave.csv"));
 
@@ -830,6 +830,141 @@ namespace StarmanLibTest
             auto raftNum2 = (int)Voyage::Get()->GetRaftList().size();
 
             Assert::AreEqual(1, raftNum2 - raftNum1);
+
+            CraftSystem::Destroy();
+        }
+
+        // イカダのクラフト
+        // 強化値1のイカダが作れることを確認するテスト
+        TEST_METHOD(TestMethod22)
+        {
+            Voyage::Destroy();
+
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                storehouse->AddItem(L"trunk");
+                storehouse->AddItem(L"tsuta");
+            }
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
+
+            // 職人のスキルを1にする
+            obj->SetCraftsmanSkill(L"raft", 1);
+
+            std::wstring work;
+            obj->QueueCraftRequest(_T("raft"), &work);
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto raftList = Voyage::Get()->GetRaftList();
+
+            Assert::AreEqual(1, (int)raftList.size());
+            Assert::AreEqual(1, raftList.at(0).GetLevel());
+            Assert::AreEqual(200, raftList.at(0).GetDurability());
+
+            CraftSystem::Destroy();
+        }
+
+        // イカダのクラフト
+        // 強化値3のイカダが作れることを確認するテスト
+        // 強化値3から素材にブイが追加される
+        TEST_METHOD(TestMethod23)
+        {
+            Voyage::Destroy();
+
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                storehouse->AddItem(L"trunk");
+                storehouse->AddItem(L"tsuta");
+                storehouse->AddItem(L"bui");
+            }
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
+
+            // 職人のスキルを1にする
+            obj->SetCraftsmanSkill(L"raft", 3);
+
+            std::wstring work;
+            obj->QueueCraftRequest(_T("raft"), &work);
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto raftList = Voyage::Get()->GetRaftList();
+
+            Assert::AreEqual(1, (int)raftList.size());
+            Assert::AreEqual(3, raftList.at(0).GetLevel());
+            Assert::AreEqual(400, raftList.at(0).GetDurability());
+
+            CraftSystem::Destroy();
+        }
+
+        // イカダのクラフト
+        // 職人のレベルが10の時、どうなるか確認するテスト
+        // 10が上限なので、レベルアップすると問題
+        TEST_METHOD(TestMethod24)
+        {
+            Voyage::Destroy();
+
+            StorehouseManager* storehouseManager = StorehouseManager::Get();
+            Storehouse* storehouse = storehouseManager->GetStorehouse(1);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                storehouse->AddItem(L"trunk");
+                storehouse->AddItem(L"tsuta");
+                storehouse->AddItem(L"bui");
+            }
+
+            CraftSystem* obj = CraftSystem::GetObj();
+            obj->Init(_T("..\\StarmanLibTest\\craftsmanSkill.csv"),
+                      _T("..\\StarmanLibTest\\craftsmanQueueEmpty.csv"));
+
+            // 職人のスキルを1にする
+            obj->SetCraftsmanSkill(L"raft", 10);
+
+            std::wstring work;
+            obj->QueueCraftRequest(_T("raft"), &work);
+
+            obj->UpdateCraftStatus();
+
+            PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
+
+            // 1日と1時間、時を進める
+            powereggDateTime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            obj->UpdateCraftStatus();
+
+            auto raftList = Voyage::Get()->GetRaftList();
+
+            Assert::AreEqual(1, (int)raftList.size());
+            Assert::AreEqual(10, raftList.at(0).GetLevel());
+
+            auto skillLevel = obj->GetCraftsmanSkill(L"raft");
+            Assert::AreEqual(10, skillLevel);
 
             CraftSystem::Destroy();
         }

@@ -329,26 +329,24 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
     }
 }
 
-void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::wstring& itemId, const int level)
+void NSStarmanLib::CraftSystem::SetCraftsmanSkill(const std::wstring& unreinforcedId, const int level)
 {
-    auto it = std::find_if(m_craftSkillList.begin(), m_craftSkillList.end(),
-                           [&](CraftSkill& x)
-                           {
-                               return x.GetId() == itemId && x.GetLevel() == level;
-                           });
-
-    if (it != m_craftSkillList.end())
+    // +3の石斧を作れるようにする場合は、+0, +1, +2の石斧も作れるようにする。
+    for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
     {
-        it->SetEnable(true);
+        auto itemDef2 = ItemManager::GetObj()->GetItemDef(it->GetId());
+        auto unreinforcedId2 = itemDef2.GetUnreinforcedId();
+        // 強化値が同じなら、職人のスキルを有効にする
+        if (unreinforcedId == unreinforcedId2 && it->GetLevel() <= level)
+        {
+            it->SetEnable(true);
+        }
     }
 }
 
 // アイテムのIDは強化値によってraft, raft1, raft2のように変わる。
-int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& itemId)
+int NSStarmanLib::CraftSystem::GetCraftsmanSkill(const std::wstring& unreinforcedId)
 {
-    auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
-    auto unreinforcedId = itemDef.GetUnreinforcedId();
-
     // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を返す。
     // （craftItemの作れるアイテムの中で最高レベルの数値を返す。）
     int level = -1;
@@ -385,9 +383,12 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& itemId,
 
     CraftInfoManager* craftInfoManager = CraftInfoManager::GetObj();
 
+    auto itemDef2 = ItemManager::GetObj()->GetItemDef(itemId);
+    auto unreinforcedId = itemDef2.GetUnreinforcedId();
+
     // 現在、職人が作れるcraftItemのレベルを取得
     // ＋１の石斧と＋２の石斧が作れて、＋３の石斧が作れないなら2を取得。
-    int level = GetCraftsmanSkill(itemId);
+    int level = GetCraftsmanSkill(unreinforcedId);
 
     // raft, raft1, raft2...のように、強化値が変わるとアイテムIDも変わる
     // 強化値に対応するIDを取得する。
@@ -395,9 +396,6 @@ bool NSStarmanLib::CraftSystem::QueueCraftRequest(const std::wstring& itemId,
     std::wstring newItemId;
 
     {
-        auto itemDef = ItemManager::GetObj()->GetItemDef(itemId);
-        auto unreinforcedId = itemDef.GetUnreinforcedId();
-
         auto idList = ItemManager::GetObj()->GetItemIdList();
 
         for (size_t i = 0; i < idList.size(); ++i)
@@ -632,6 +630,35 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                     auto itemManager = ItemManager::GetObj();
                     auto itemDef = itemManager->GetItemDef(output.GetItemId());
 
+                    // 使われていないIDを探してセットする
+                    {
+                        auto raftList = Voyage::Get()->GetRaftList();
+                        int newID = 1;
+
+                        while (true)
+                        {
+                            auto it = std::find_if(raftList.begin(), raftList.end(),
+                                                   [ & ] (const Raft& r)
+                                                   {
+                                                       return r.GetId() == newID;
+                                                   });
+
+                            if (it != raftList.end())
+                            {
+                                // すでに存在するIDならば、次のIDを探す
+                                newID++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        raft.SetId(newID);
+                    }
+
+                    raft.SetLevel(itemDef.GetLevel());
+
                     auto dura = itemDef.GetDurabilityMax();
                     raft.SetDurability(dura);
 
@@ -756,7 +783,9 @@ void NSStarmanLib::CraftSystem::StartCraft()
         auto& req = m_craftRequestList.front();
         auto output = req.GetCraftInfo().GetOutput();
 
-        int level = GetCraftsmanSkill(output.GetItemId());
+        auto unreinforcedId = ItemManager::GetObj()->GetItemDef(output.GetItemId()).GetUnreinforcedId();
+
+        int level = GetCraftsmanSkill(unreinforcedId);
         if (level != output.GetLevel())
         {
             output.SetLevel(level);
@@ -767,7 +796,6 @@ void NSStarmanLib::CraftSystem::StartCraft()
             {
                 std::wstring newId;
                 output.GetItemId();
-                auto unreinforcedId = ItemManager::GetObj()->GetItemDef(output.GetItemId()).GetUnreinforcedId();
 
                 auto idList = ItemManager::GetObj()->GetItemIdList();
                 for (size_t i = 0; i < idList.size(); ++i)
