@@ -1498,8 +1498,9 @@ void StatusManager::Update()
     if (m_status.GetCold())
     {
         --m_remainColdCure;
-        if (m_remainColdCure == 0)
+        if (m_remainColdCure <= 0)
         {
+            m_remainColdCure = 0;
             m_status.SetCold(false);
         }
     }
@@ -1516,8 +1517,9 @@ void StatusManager::Update()
             --m_remainArmFracCure;
         }
 
-        if (m_remainArmFracCure == 0)
+        if (m_remainArmFracCure <= 0)
         {
+            m_remainArmFracCure = 0;
             m_status.SetFractureArm(false);
         }
     }
@@ -1534,8 +1536,9 @@ void StatusManager::Update()
             --m_remainLegFracCure;
         }
 
-        if (m_remainLegFracCure == 0)
+        if (m_remainLegFracCure <= 0)
         {
+            m_remainLegFracCure = 0;
             m_status.SetFractureLeg(false);
         }
     }
@@ -1543,8 +1546,9 @@ void StatusManager::Update()
     if (m_status.GetHeadache())
     {
         --m_remainHeadacheCure;
-        if (m_remainHeadacheCure == 0)
+        if (m_remainHeadacheCure <= 0)
         {
+            m_remainHeadacheCure = 0;
             m_status.SetHeadache(false);
         }
     }
@@ -1552,8 +1556,9 @@ void StatusManager::Update()
     if (m_status.GetStomachache())
     {
         --m_remainStomachacheCure;
-        if (m_remainStomachacheCure== 0)
+        if (m_remainStomachacheCure <= 0)
         {
+            m_remainStomachacheCure = 0;
             m_status.SetStomachache(false);
         }
     }
@@ -1572,8 +1577,9 @@ void StatusManager::Update()
             }
         }
 
-        if (m_remainDehydration== 0)
+        if (m_remainDehydration <= 0)
         {
+            m_remainDehydration = 0;
             m_status.SetDehydration(false);
         }
     }
