@@ -1369,17 +1369,14 @@ void StatusManager::Update()
             }
         }
         // 日付が進んでいるパターン
-        else if (m_previousDay < currentDay)
+        // 9月30日から10月1日になることもありうる
+        else
         {
             // 前回が7時より前なら8時をまたいでいる
             if (m_previousHour <= 7)
             {
                 m_over8clock = true;
             }
-        }
-        else
-        {
-            throw std::exception();
         }
     }
     m_previousDay = currentDay;
