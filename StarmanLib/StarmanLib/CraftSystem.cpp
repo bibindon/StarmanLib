@@ -685,6 +685,7 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
                 else
                 {
+                    // TODO 強化値が-1になる
                     storehouse->AddItem(output.GetItemId());
                 }
             }

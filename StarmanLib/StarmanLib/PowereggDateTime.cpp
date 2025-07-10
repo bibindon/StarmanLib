@@ -74,6 +74,7 @@ void PowereggDateTime::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
+// TODO 絶対にバグがある。９０日経過させたらどうなる？
 void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute, int second)
 {
     m_month += month;
@@ -104,7 +105,9 @@ void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute
         m_day++;
     }
 
-    if (m_day >= DAY_OF_MONTH_[m_month])
+    // 9月31日だったら10月1日にする
+    // 9月32日だったら10月2日にする
+    if (m_day > DAY_OF_MONTH_[m_month])
     {
         m_day -= DAY_OF_MONTH_[m_month];
         m_month++;
