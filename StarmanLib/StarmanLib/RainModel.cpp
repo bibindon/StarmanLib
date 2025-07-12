@@ -76,19 +76,18 @@ void NSStarmanLib::RainModel::Update()
     {
         int rnd = rand() % 100;
 
-        // 雨が降っていない場合、1％の確率で雨が降る
+        // 雨が降っていない場合、5％の確率で雨が降る
         if (!m_bRain)
         {
-            // rnd == 0だったら1%の確率を引き当てた、ということ
-            if (rnd == 0)
+            if (rnd < 5)
             {
                 m_bRain = true;
             }
         }
-        // 雨が降っていた場合、10％の確率で雨がやむ
+        // 雨が降っていた場合、20％の確率で雨がやむ
         else
         {
-            if (rnd <= 9)
+            if (rnd < 20)
             {
                 m_bRain = false;
             }
