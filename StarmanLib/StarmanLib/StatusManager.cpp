@@ -2119,11 +2119,11 @@ float StatusManager::GetWalkSpeed()
     work = (weight + 10) / 10;
     walkSpeed *= work;
 
-    // 足を骨折していたら移動速度が90％ダウン（＝0.1倍になる）
+    // 足を骨折していたら移動速度が50％ダウン（＝0.5倍になる）
     work_b = m_status.GetFractureLeg();
     if (work_b)
     {
-        walkSpeed *= 0.1f;
+        walkSpeed *= 0.5f;
     }
 
     //-----------------------------------------
