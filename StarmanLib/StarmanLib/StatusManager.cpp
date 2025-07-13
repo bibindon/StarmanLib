@@ -2309,7 +2309,10 @@ void StatusManager::ConsumeAttackCost()
 
     // 身体のスタミナ
     work_f = m_status.GetBodyStaminaCurrent();
-    m_status.SetBodyStaminaCurrent(work_f - 0.01f);
+    m_status.SetBodyStaminaCurrent(work_f - 0.1f);
+
+    work_f = m_status.GetBodyStaminaMaxSub();
+    m_status.SetBodyStaminaMaxSub(work_f - 0.05f);
 
     // 肉体の修復度
     work_f = m_status.GetMuscleCurrent();
@@ -2366,9 +2369,8 @@ void StatusManager::ConsumeAttackCost()
 
 float StatusManager::GetDefensePower()
 {
-    // TODO
     // 敵の攻撃力、主人公の瞬発力など
-    return 1.0f;
+    return 1.0f * (GetExplosivePower() / 100.0f);
 }
 
 // ニラorスイセン・・・50％ではずれ
@@ -4075,6 +4077,9 @@ void NSStarmanLib::StatusManager::ConsumeJumpCost()
     // 身体のスタミナ
     work_f = m_status.GetBodyStaminaCurrent();
     m_status.SetBodyStaminaCurrent(work_f - 10.f);
+
+    work_f = m_status.GetBodyStaminaMaxSub();
+    m_status.SetBodyStaminaMaxSub(work_f - 5.f);
 
     // 肉体の修復度
     work_f = m_status.GetMuscleCurrent();
