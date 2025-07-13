@@ -64,7 +64,7 @@ void Rynen::Init(const std::wstring& csvfile,
 {
     std::vector<std::vector<std::wstring>> vvs = Util::ReadFromCsv(csvfile, decrypt);
 
-    if (vvs.at(0).at(1) == _T("○"))
+    if (vvs.at(0).at(1) == _T("y"))
     {
         m_contracted = true;
     }
@@ -73,7 +73,7 @@ void Rynen::Init(const std::wstring& csvfile,
         m_contracted = false;
     }
 
-    if (vvs.at(1).at(1) == _T("○"))
+    if (vvs.at(1).at(1) == _T("y"))
     {
         m_reviveEnable = true;
     }
@@ -110,7 +110,7 @@ void Rynen::Save(const std::wstring& csvfile,
     vs.push_back(_T("契約済みフラグ"));
     if (m_contracted)
     {
-        vs.push_back(_T("○"));
+        vs.push_back(_T("y"));
     }
     else
     {
@@ -122,7 +122,7 @@ void Rynen::Save(const std::wstring& csvfile,
     vs.push_back(_T("復活可能フラグ"));
     if (m_reviveEnable)
     {
-        vs.push_back(_T("○"));
+        vs.push_back(_T("y"));
     }
     else
     {

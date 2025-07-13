@@ -56,7 +56,7 @@ namespace StarmanLibTest
         }
 
         // 晴れているとき、1時間後に雨が降るか、を10000回確認して
-        // 雨が降る確率が1％程度であることを確認する
+        // 雨が降る確率が5％程度であることを確認する
         TEST_METHOD(TestMethod05)
         {
             auto datetime = PowereggDateTime::GetObj();
@@ -90,7 +90,7 @@ namespace StarmanLibTest
             }
 
             double rainRate = (double)rainStartCount / tryCount;
-            Assert::AreEqual(true, rainRate <= 0.05);
+            Assert::AreEqual(true, rainRate <= 0.1);
             Assert::AreEqual(true, rainRate != 0.0);
 
             obj->Destroy();
@@ -98,7 +98,7 @@ namespace StarmanLibTest
         }
 
         // 雨が降っているとき、1時間後に雨が止むか、を10000回確認して
-        // 雨がやむ確率が10％程度であることを確認する
+        // 雨がやむ確率が20％程度であることを確認する
         TEST_METHOD(TestMethod06)
         {
             auto datetime = PowereggDateTime::GetObj();
@@ -132,8 +132,8 @@ namespace StarmanLibTest
             }
 
             double stopRainRate = (double)rainStopCount / tryCount;
-            Assert::AreEqual(true, stopRainRate <= 0.15);
-            Assert::AreEqual(true, stopRainRate >= 0.05);
+            Assert::AreEqual(true, stopRainRate <= 0.25);
+            Assert::AreEqual(true, stopRainRate >= 0.15);
             Assert::AreEqual(true, stopRainRate != 0.0);
 
             obj->Destroy();
