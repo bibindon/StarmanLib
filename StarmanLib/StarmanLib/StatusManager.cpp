@@ -2503,7 +2503,7 @@ bool StatusManager::Sleep()
     // このとき、0時だったら睡眠、それより前だったら仮眠になる。
     bool nap = false;
 
-    if (7 <= dateTime->GetHour() && dateTime->GetHour() <= 23)
+    if (7 <= dateTime->GetHour() && dateTime->GetHour() <= 20)
     {
         if (m_status.GetBrainStaminaCurrent() <= m_status.GetBrainStaminaMax() * 0.5f)
         {
