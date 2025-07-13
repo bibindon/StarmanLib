@@ -366,8 +366,10 @@ bool Voyage::Set3HoursAuto()
     // 3時間分、耐久度低下
     // ゲーム時間で120秒ごとに耐久度が1減るので
     // 3600秒 * 3時間 / 120秒で90減る
+    //
+    // それだとイカダがすぐ壊れてしまうので、3時間で20減るようにする
     auto dura = it->GetDurability();
-    dura -= (3600 * 3) / 120;
+    dura -= 20;
     it->SetDurability(dura);
 
     // 3時間分、移動
