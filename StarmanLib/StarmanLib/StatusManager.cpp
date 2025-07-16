@@ -1159,6 +1159,19 @@ void StatusManager::Update()
         }
     }
 
+    //------------------------------------
+    // 瞬発力が高ければ高いほど脳のスタミナを消費しにくくなる
+    // 
+    // 泳いでクリアできるようにするための策
+    // 最大で1/16倍
+    //------------------------------------
+    {
+        auto expRate = GetExplosivePower() / 100.f;
+        expRate *= expRate;
+        reduceBrainStamina1FPSInReal /= expRate;
+        reduceBrainStaminaMaxSub1FPSInReal /= expRate;
+    }
+
     //-----------------------------------------
     // 雨が降っていたら体力の消費速度が1.5倍
     //-----------------------------------------
@@ -1410,10 +1423,16 @@ void StatusManager::Update()
         // 身体のスタミナが30％以下になったことが一日に1度でもあれば
         // 身体のスタミナの最大値が1％上がる
         // 瞬発力の最大値が1％上がる
+        // 最大で400まで上がる
         else if (m_training30)
         {
             float work = GetBodyStaminaMax();
             work *= 1.01f;
+            if (work > 400.f)
+            {
+                work = 400.f;
+            }
+
             SetBodyStaminaMax(work);
 
             // 回復可能値が最大値を超えてはならない。
@@ -1424,6 +1443,11 @@ void StatusManager::Update()
 
             work = GetExplosivePower();
             work *= 1.01f;
+            if (work > 400.f)
+            {
+                work = 400.f;
+            }
+
             SetExplosivePower(work);
         }
 
