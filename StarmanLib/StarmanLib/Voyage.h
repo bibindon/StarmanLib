@@ -148,6 +148,10 @@ public:
 
     void CollideGround();
 
+    // 風の向きと強さ、潮の向きをリセット
+    // 3時間休憩や、3時間自動運転、睡眠をした時など
+    void ResetWindAndTide();
+
 private:
 
     // GetRaftCurrentと違い、こちらはポインタを使う。

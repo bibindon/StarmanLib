@@ -5,6 +5,7 @@
 #include "Rynen.h"
 #include "WeaponManager.h"
 #include "RainModel.h"
+#include "Voyage.h"
 
 #include "Util.h"
 
@@ -2885,6 +2886,9 @@ bool StatusManager::Sleep()
             }
         }
     }
+
+    Voyage::Get()->ResetWindAndTide();
+
     return true;
 }
 
@@ -3056,6 +3060,8 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
             m_remainDehydration = 0;
         }
     }
+
+    Voyage::Get()->ResetWindAndTide();
 
     return true;
 }

@@ -380,6 +380,9 @@ bool Voyage::Set3HoursAuto()
     auto status = StatusManager::GetObj();
     status->Voyage3Hours();
 
+    // 風と潮の向きと強さをリセット
+    ResetWindAndTide();
+
     return true;
 }
 
@@ -485,6 +488,45 @@ void NSStarmanLib::Voyage::CollideGround()
 {
     auto dura = GetRaftCurrentPriv()->GetDurability();
     GetRaftCurrentPriv()->SetDurability(dura - 100);
+}
+
+void NSStarmanLib::Voyage::ResetWindAndTide()
+{
+    {
+        {
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = (float)rnd;
+            rnd_f /= 10.f;
+            m_windX = rnd_f;
+        }
+        {
+
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = (float)rnd;
+            rnd_f /= 10.f;
+            m_windZ = rnd_f;
+        }
+    }
+
+    {
+        {
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = (float)rnd;
+            rnd_f /= 10.f;
+            m_tideX = rnd_f;
+        }
+        {
+
+            int rnd = rand() % 200;
+            rnd -= 100;
+            float rnd_f = (float)rnd;
+            rnd_f /= 10.f;
+            m_tideZ = rnd_f;
+        }
+    }
 }
 
 Raft* Voyage::GetRaftCurrentPriv() const
