@@ -2976,7 +2976,7 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
         float work = 0.f;
         work = GetWaterCurrent();
 
-        work += -0.5f * magni;
+        work += -0.2f * magni;
         SetWaterCurrent(work);
     }
 
