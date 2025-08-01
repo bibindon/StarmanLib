@@ -2974,9 +2974,17 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
     // 水分
     {
         float work = 0.f;
-        work = GetWaterCurrent();
 
-        work += -0.2f * magni;
+        if (RainModel::Get()->IsRain())
+        {
+            work = 100.f;
+        }
+        else
+        {
+            work = GetWaterCurrent();
+            work += -0.2f * magni;
+        }
+
         SetWaterCurrent(work);
     }
 
