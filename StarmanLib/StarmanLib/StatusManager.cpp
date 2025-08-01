@@ -3224,7 +3224,7 @@ void StatusManager::CutTree(const std::wstring& unreinforcedId, const int level)
     // 肉体の損傷
     {
         auto work = GetMuscleCurrent();
-        if (unreinforcedId == _T("longStone"))
+        if (unreinforcedId == _T("longstone"))
         {
             SetMuscleCurrent(work - (20.f * magni));
         }
