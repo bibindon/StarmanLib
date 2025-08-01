@@ -1,6 +1,7 @@
 ﻿#include "PowereggDateTime.h"
 #include <vector>
 #include "Util.h"
+#include "NpcStatusManager.h"
 
 using namespace NSStarmanLib;
 
@@ -74,7 +75,6 @@ void PowereggDateTime::Save(const std::wstring& csvfile,
     Util::WriteToCsv(csvfile, vvs, encrypt);
 }
 
-// TODO 絶対にバグがある。９０日経過させたらどうなる？
 void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute, int second)
 {
     m_month += month;
@@ -118,6 +118,8 @@ void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute
         m_month -= 12;
         m_year++;
     }
+
+    NpcStatusManager::GetObj()->AdvanceTime(hour, minute);
 }
 
 int PowereggDateTime::GetYear()
