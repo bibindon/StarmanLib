@@ -165,6 +165,9 @@ public:
 
     void Update();
 
+    // 時間を経過させる
+    void AdvanceTime(const int hour, const int minute);
+
     NpcStatus GetNpcStatus(const std::wstring& name);
     void SetNpcStatus(const std::wstring& key, const NpcStatus& value);
 

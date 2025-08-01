@@ -589,7 +589,7 @@ void NSStarmanLib::NpcStatusManager::Update()
                 continue;
             }
 
-            if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 98.f)
+            if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 95.f)
             {
                 auto storageManager = StorehouseManager::Get();
                 auto storage = storageManager->GetCurrentActiveStorehouse();
@@ -620,6 +620,55 @@ void NSStarmanLib::NpcStatusManager::Update()
                             {
                                 foodList.push_back(item);
                             }
+                        }
+                    }
+                }
+
+                auto foodSize = foodList.size();
+
+                if (foodSize != 0)
+                {
+                    int rand_ = rand();
+                    int pickup = rand_ % foodSize;
+
+                    storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
+
+                    // 体力の回復
+                    Eat(npc.first, foodList.at(pickup).GetItemDef());
+                }
+            }
+            // ビタミンが足りないときは草を食べる
+            else if (npc.second.GetVitamin() <= 50.f)
+            {
+                auto storageManager = StorehouseManager::Get();
+                auto storage = storageManager->GetCurrentActiveStorehouse();
+                auto allItem = storage->GetAllItem();
+
+                // ランダムで一つ消費
+                // 赤い実は食べない。
+                // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
+                std::vector<ItemInfo> foodList;
+
+                for (auto& item : allItem)
+                {
+                    if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
+                    {
+                        if (
+                            item.GetId() == L"unknownPlant1" ||
+                            item.GetId() == L"unknownPlant2" ||
+                            item.GetId() == L"unknownPlant3" ||
+                            item.GetId() == L"unknownPlant4" ||
+                            item.GetId() == L"unknownPlant5" ||
+                            item.GetId() == L"unknownPlant6" ||
+                            item.GetId() == L"tsukushi" ||
+                            item.GetId() == L"tanpopo" ||
+                            item.GetId() == L"yakizakana" ||
+                            item.GetId() == L"papaiya" ||
+                            item.GetId() == L"banana" ||
+                            item.GetId() == L"mu-rugai"
+                            )
+                        {
+                            foodList.push_back(item);
                         }
                     }
                 }
@@ -716,6 +765,58 @@ void NSStarmanLib::NpcStatusManager::Update()
 
     // ステータスがマイナスや１００以上にならないように丸め処理をする
     Clamp();
+}
+
+void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minute)
+{
+    // 糖質、脂質、タンパク質、ミネラル、ビタミン、水分はどれも５日で０になることとする。
+    // １秒での消費量は100/5/24/60/60
+    // 水分は90で死亡なので、5日で10減るようにする
+    float work_f = 100.f;
+    work_f /= 5;
+    work_f /= 24;
+    work_f /= 60;
+    work_f /= 60;
+
+    int second = 0;
+    second = minute * 60;
+    second += hour * 60 * 60;
+
+    work_f *= second;
+
+    for (auto& npc : m_NpcStatusMap)
+    {
+        // ビムは体力を消費しない
+        if (npc.first == _T("vim"))
+        {
+            continue;
+        }
+
+        if (npc.second.GetDead())
+        {
+            continue;
+        }
+
+        float work_f2 = 0.f;
+        work_f2 = npc.second.GetCarbo();
+        npc.second.SetCarbo(work_f2 - work_f);
+
+        work_f2 = npc.second.GetProtein();
+        npc.second.SetProtein(work_f2 - work_f);
+
+        work_f2 = npc.second.GetLipid();
+        npc.second.SetLipid(work_f2 - (work_f));
+
+        work_f2 = npc.second.GetMineral();
+        npc.second.SetMineral(work_f2 - work_f);
+
+        work_f2 = npc.second.GetVitamin();
+        npc.second.SetVitamin(work_f2 - work_f);
+
+        // 水分は減少量を1/10にする。
+        work_f2 = npc.second.GetWater();
+        npc.second.SetWater(work_f2 - (work_f/10.f));
+    }
 }
 
 NpcStatus NpcStatusManager::GetNpcStatus(const std::wstring& name)
