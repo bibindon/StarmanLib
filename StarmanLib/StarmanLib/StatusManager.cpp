@@ -2477,10 +2477,6 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     work_f += itemDef.GetMineral();
     SetMineralCurrent(work_f);
 
-    work_f = GetMineralCurrent();
-    work_f += itemDef.GetMineral();
-    SetMineralCurrent(work_f);
-
     work_f = GetWaterCurrent();
     work_f += itemDef.GetWater();
     SetWaterCurrent(work_f);
