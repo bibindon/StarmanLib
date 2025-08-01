@@ -893,7 +893,7 @@ int NSStarmanLib::CraftSystem::GetProgress()
     // 現在時刻が0時を超えたら24を足してから引く
     else if (currentHour < finishHour)
     {
-        elapsedHour = (currentHour+24) - finishHour;
+        elapsedHour = (currentHour + 24) - finishHour;
     }
     else if (currentHour == finishHour)
     {
@@ -907,7 +907,15 @@ int NSStarmanLib::CraftSystem::GetProgress()
         }
     }
 
-    return elapsedHour * 100 / 24;
+    auto progress = elapsedHour * 100 / 24;
+
+    // 100だったら99％にしておく
+    if (progress == 100)
+    {
+        progress = 99;
+    }
+
+    return progress;
 }
 
 std::list<CraftRequest> NSStarmanLib::CraftSystem::GetCraftRequestList()
