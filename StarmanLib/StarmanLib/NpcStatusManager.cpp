@@ -533,11 +533,11 @@ void NSStarmanLib::NpcStatusManager::Update()
 {
     // １秒に１回呼ばれる想定
     {
-        // 暫定的に、糖質、脂質、タンパク質、ミネラル、ビタミン、水分はどれも５日で０になることとする。
-        // １秒での消費量は100/5/24/60/60
+        // 暫定的に、糖質、脂質、タンパク質、ミネラル、ビタミン、水分はどれも20日で0になることとする。
+        // １秒での消費量は100/20/24/60/60
         // 水分は90で死亡なので、5日で10減るようにする
         float work_f = 100.f;
-        work_f /= 5;
+        work_f /= 20;
         work_f /= 24;
         work_f /= 60;
         work_f /= 60;
@@ -573,9 +573,9 @@ void NSStarmanLib::NpcStatusManager::Update()
                 work_f2 = npc.second.GetVitamin();
                 npc.second.SetVitamin(work_f2 - work_f);
 
-                // 水分は減少量を1/10にする。
+                // 水分は減少量を0.5にする。
                 work_f2 = npc.second.GetWater();
-                npc.second.SetWater(work_f2 - (work_f / 10.f));
+                npc.second.SetWater(work_f2 - (work_f * 0.5f));
             }
         }
     }
@@ -797,11 +797,11 @@ void NSStarmanLib::NpcStatusManager::Update()
 
 void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minute)
 {
-    // 糖質、脂質、タンパク質、ミネラル、ビタミン、水分はどれも５日で０になることとする。
-    // １秒での消費量は100/5/24/60/60
+    // 糖質、脂質、タンパク質、ミネラル、ビタミンはどれも20日で0になることとする。
+    // １秒での消費量は100/20/24/60/60
     // 水分は90で死亡なので、5日で10減るようにする
     float work_f = 100.f;
-    work_f /= 5;
+    work_f /= 20;
     work_f /= 24;
     work_f /= 60;
     work_f /= 60;
@@ -838,9 +838,9 @@ void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minut
             work_f2 = npc.second.GetVitamin();
             npc.second.SetVitamin(work_f2 - work_f);
 
-            // 水分は減少量を1/10にする。
+            // 水分は減少量を0.5倍にする。
             work_f2 = npc.second.GetWater();
-            npc.second.SetWater(work_f2 - (work_f / 10.f));
+            npc.second.SetWater(work_f2 - (work_f * 0.5f));
         }
     }
 }
@@ -1075,10 +1075,6 @@ void NSStarmanLib::NpcStatusManager::Eat(const std::wstring npcKey, const ItemDe
     work_f = _status.GetVitamin();
     work_f += itemDef.GetVitamin();
     _status.SetVitamin(work_f);
-
-    work_f = _status.GetMineral();
-    work_f += itemDef.GetMineral();
-    _status.SetMineral(work_f);
 
     work_f = _status.GetMineral();
     work_f += itemDef.GetMineral();
