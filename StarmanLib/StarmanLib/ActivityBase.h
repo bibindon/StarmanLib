@@ -37,7 +37,7 @@ public:
     bool CheckRaftExist();
 
     bool GetHanawa() const { return m_bHanawa; }
-    void SetHanaw(const bool hanawa) { m_bHanawa = hanawa; }
+    void SetHanawa(const bool hanawa) { m_bHanawa = hanawa; }
 
 private:
 
