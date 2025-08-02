@@ -653,8 +653,9 @@ void NSStarmanLib::NpcStatusManager::Update()
                         Eat(npc.first, foodList.at(pickup).GetItemDef());
                     }
                 }
+
                 // ビタミンが足りないときは草を食べる
-                else if (npc.second.GetVitamin() <= 50.f)
+                if (npc.second.GetVitamin() <= 50.f)
                 {
                     auto storageManager = StorehouseManager::Get();
                     auto storage = storageManager->GetCurrentActiveStorehouse();
