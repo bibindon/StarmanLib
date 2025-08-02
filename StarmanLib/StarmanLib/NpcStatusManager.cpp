@@ -547,36 +547,36 @@ void NSStarmanLib::NpcStatusManager::Update()
 
         for (auto& npc : m_NpcStatusMap)
         {
-            // ビムは体力を消費しない
-            if (npc.first == _T("vim"))
+            // 体力を消費するのは3人だけ
+            if (npc.first == _T("daikeiman") ||
+                npc.first == _T("sankakuman") ||
+                npc.first == _T("shikakuman"))
             {
-                continue;
+                if (npc.second.GetDead())
+                {
+                    continue;
+                }
+
+                float work_f2 = 0.f;
+                work_f2 = npc.second.GetCarbo();
+                npc.second.SetCarbo(work_f2 - work_f);
+
+                work_f2 = npc.second.GetProtein();
+                npc.second.SetProtein(work_f2 - work_f);
+
+                work_f2 = npc.second.GetLipid();
+                npc.second.SetLipid(work_f2 - (work_f));
+
+                work_f2 = npc.second.GetMineral();
+                npc.second.SetMineral(work_f2 - work_f);
+
+                work_f2 = npc.second.GetVitamin();
+                npc.second.SetVitamin(work_f2 - work_f);
+
+                // 水分は減少量を1/10にする。
+                work_f2 = npc.second.GetWater();
+                npc.second.SetWater(work_f2 - (work_f / 10.f));
             }
-
-            if (npc.second.GetDead())
-            {
-                continue;
-            }
-
-            float work_f2 = 0.f;
-            work_f2 = npc.second.GetCarbo();
-            npc.second.SetCarbo(work_f2 - work_f);
-
-            work_f2 = npc.second.GetProtein();
-            npc.second.SetProtein(work_f2 - work_f);
-
-            work_f2 = npc.second.GetLipid();
-            npc.second.SetLipid(work_f2 - (work_f));
-
-            work_f2 = npc.second.GetMineral();
-            npc.second.SetMineral(work_f2 - work_f);
-
-            work_f2 = npc.second.GetVitamin();
-            npc.second.SetVitamin(work_f2 - work_f);
-
-            // 水分は減少量を1/10にする。
-            work_f2 = npc.second.GetWater();
-            npc.second.SetWater(work_f2 - (work_f/10.f));
         }
     }
 
@@ -584,106 +584,112 @@ void NSStarmanLib::NpcStatusManager::Update()
     {
         for (auto& npc : m_NpcStatusMap)
         {
-            if (npc.second.GetDead())
+            // 体力を消費するのは3人だけ
+            if (npc.first == _T("daikeiman") ||
+                npc.first == _T("sankakuman") ||
+                npc.first == _T("shikakuman"))
             {
-                continue;
-            }
-
-            if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 95.f)
-            {
-                auto storageManager = StorehouseManager::Get();
-                auto storage = storageManager->GetCurrentActiveStorehouse();
-                auto allItem = storage->GetAllItem();
-
-                // ランダムで一つ消費
-                // 赤い実は食べない。
-                // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
-                std::vector<ItemInfo> foodList;
-
-                for (auto& item : allItem)
+                if (npc.second.GetDead())
                 {
-                    if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
+                    continue;
+                }
+
+                if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 95.f)
+                {
+                    auto storageManager = StorehouseManager::Get();
+                    auto storage = storageManager->GetCurrentActiveStorehouse();
+                    auto allItem = storage->GetAllItem();
+
+                    // ランダムで一つ消費
+                    // 赤い実は食べない。
+                    // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
+                    std::vector<ItemInfo> foodList;
+
+                    for (auto& item : allItem)
                     {
-                        if (npc.second.GetCarbo() <= 10.f)
+                        if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
                         {
-                            if (item.GetId() != L"sotetsu")
+                            if (npc.second.GetCarbo() <= 10.f)
                             {
-                                foodList.push_back(item);
+                                if (item.GetId() != L"sotetsu")
+                                {
+                                    foodList.push_back(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.GetId() != L"sotetsu" &&
+                                    item.GetId() != L"donguri3" &&
+                                    item.GetId() != L"nira" &&
+                                    item.GetId() != L"kinoko")
+                                {
+                                    foodList.push_back(item);
+                                }
                             }
                         }
-                        else
+                    }
+
+                    auto foodSize = foodList.size();
+
+                    if (foodSize != 0)
+                    {
+                        int rand_ = rand();
+                        int pickup = rand_ % foodSize;
+
+                        storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
+
+                        // 体力の回復
+                        Eat(npc.first, foodList.at(pickup).GetItemDef());
+                    }
+                }
+                // ビタミンが足りないときは草を食べる
+                else if (npc.second.GetVitamin() <= 50.f)
+                {
+                    auto storageManager = StorehouseManager::Get();
+                    auto storage = storageManager->GetCurrentActiveStorehouse();
+                    auto allItem = storage->GetAllItem();
+
+                    // ランダムで一つ消費
+                    // 赤い実は食べない。
+                    // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
+                    std::vector<ItemInfo> foodList;
+
+                    for (auto& item : allItem)
+                    {
+                        if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
                         {
-                            if (item.GetId() != L"sotetsu" &&
-                                item.GetId() != L"donguri3" &&
-                                item.GetId() != L"nira" &&
-                                item.GetId() != L"kinoko")
+                            if (
+                                item.GetId() == L"unknownPlant1" ||
+                                item.GetId() == L"unknownPlant2" ||
+                                item.GetId() == L"unknownPlant3" ||
+                                item.GetId() == L"unknownPlant4" ||
+                                item.GetId() == L"unknownPlant5" ||
+                                item.GetId() == L"unknownPlant6" ||
+                                item.GetId() == L"tsukushi" ||
+                                item.GetId() == L"tanpopo" ||
+                                item.GetId() == L"yakizakana" ||
+                                item.GetId() == L"papaiya" ||
+                                item.GetId() == L"banana" ||
+                                item.GetId() == L"mu-rugai"
+                                )
                             {
                                 foodList.push_back(item);
                             }
                         }
                     }
-                }
 
-                auto foodSize = foodList.size();
+                    auto foodSize = foodList.size();
 
-                if (foodSize != 0)
-                {
-                    int rand_ = rand();
-                    int pickup = rand_ % foodSize;
-
-                    storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
-
-                    // 体力の回復
-                    Eat(npc.first, foodList.at(pickup).GetItemDef());
-                }
-            }
-            // ビタミンが足りないときは草を食べる
-            else if (npc.second.GetVitamin() <= 50.f)
-            {
-                auto storageManager = StorehouseManager::Get();
-                auto storage = storageManager->GetCurrentActiveStorehouse();
-                auto allItem = storage->GetAllItem();
-
-                // ランダムで一つ消費
-                // 赤い実は食べない。
-                // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
-                std::vector<ItemInfo> foodList;
-
-                for (auto& item : allItem)
-                {
-                    if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
+                    if (foodSize != 0)
                     {
-                        if (
-                            item.GetId() == L"unknownPlant1" ||
-                            item.GetId() == L"unknownPlant2" ||
-                            item.GetId() == L"unknownPlant3" ||
-                            item.GetId() == L"unknownPlant4" ||
-                            item.GetId() == L"unknownPlant5" ||
-                            item.GetId() == L"unknownPlant6" ||
-                            item.GetId() == L"tsukushi" ||
-                            item.GetId() == L"tanpopo" ||
-                            item.GetId() == L"yakizakana" ||
-                            item.GetId() == L"papaiya" ||
-                            item.GetId() == L"banana" ||
-                            item.GetId() == L"mu-rugai"
-                            )
-                        {
-                            foodList.push_back(item);
-                        }
+                        int rand_ = rand();
+                        int pickup = rand_ % foodSize;
+
+                        storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
+
+                        // 体力の回復
+                        Eat(npc.first, foodList.at(pickup).GetItemDef());
                     }
-                }
-
-                auto foodSize = foodList.size();
-
-                if (foodSize != 0)
-                {
-                    int rand_ = rand();
-                    int pickup = rand_ % foodSize;
-
-                    storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
-
-                    // 体力の回復
-                    Eat(npc.first, foodList.at(pickup).GetItemDef());
                 }
             }
         }
@@ -696,30 +702,35 @@ void NSStarmanLib::NpcStatusManager::Update()
         {
             for (auto& npc : m_NpcStatusMap)
             {
-                if (npc.second.GetDead())
+                if (npc.first == _T("daikeiman") ||
+                    npc.first == _T("sankakuman") ||
+                    npc.first == _T("shikakuman"))
                 {
-                    continue;
-                }
-
-                if (npc.second.GetCarbo() <= 5.f ||
-                    npc.second.GetProtein() <= 5.f ||
-                    npc.second.GetLipid() <= 5.f ||
-                    npc.second.GetVitamin() <= 5.f ||
-                    npc.second.GetMineral() <= 5.f ||
-                    npc.second.GetWater() <= 92.f)
-                {
-                    // ワードブレスがあれば消費
-                    auto storageManager = StorehouseManager::Get();
-                    auto storage = storageManager->GetCurrentActiveStorehouse();
-
-                    auto subidlist = storage->GetSubIdList(L"wordbress");
-
-                    if (!subidlist.empty())
+                    if (npc.second.GetDead())
                     {
-                        storage->RemoveItem(L"wordbress", subidlist.at(0));
+                        continue;
+                    }
 
-                        npc.second.SetRynenContract();
-                        npc.second.SetDrinkWordbress(true);
+                    if (npc.second.GetCarbo() <= 5.f ||
+                        npc.second.GetProtein() <= 5.f ||
+                        npc.second.GetLipid() <= 5.f ||
+                        npc.second.GetVitamin() <= 5.f ||
+                        npc.second.GetMineral() <= 5.f ||
+                        npc.second.GetWater() <= 92.f)
+                    {
+                        // ワードブレスがあれば消費
+                        auto storageManager = StorehouseManager::Get();
+                        auto storage = storageManager->GetCurrentActiveStorehouse();
+
+                        auto subidlist = storage->GetSubIdList(L"wordbress");
+
+                        if (!subidlist.empty())
+                        {
+                            storage->RemoveItem(L"wordbress", subidlist.at(0));
+
+                            npc.second.SetRynenContract();
+                            npc.second.SetDrinkWordbress(true);
+                        }
                     }
                 }
             }
@@ -730,34 +741,39 @@ void NSStarmanLib::NpcStatusManager::Update()
     {
         for (auto& npc : m_NpcStatusMap)
         {
-            if (npc.second.GetDead())
+            if (npc.first == _T("daikeiman") ||
+                npc.first == _T("sankakuman") ||
+                npc.first == _T("shikakuman"))
             {
-                continue;
-            }
-
-            // 水分は90％、それ以外は0％になったら死亡。
-            // 仮実装
-            if (npc.second.GetCarbo() <= 0.f ||
-                npc.second.GetProtein() <= 0.f ||
-                npc.second.GetLipid() <= 0.f ||
-                npc.second.GetVitamin() <= 0.f ||
-                npc.second.GetMineral() <= 0.f ||
-                npc.second.GetWater() <= 90.f)
-            {
-                if (npc.second.GetDrinkWordbress())
+                if (npc.second.GetDead())
                 {
-                    // 体力が全快する
-                    npc.second.SetDrinkWordbress(false);
-                    npc.second.SetCarbo(100.f);
-                    npc.second.SetProtein(100.f);
-                    npc.second.SetLipid(100.f);
-                    npc.second.SetMineral(100.f);
-                    npc.second.SetVitamin(100.f);
-                    npc.second.SetWater(100.f);
+                    continue;
                 }
-                else
+
+                // 水分は90％、それ以外は0％になったら死亡。
+                // 仮実装
+                if (npc.second.GetCarbo() <= 0.f ||
+                    npc.second.GetProtein() <= 0.f ||
+                    npc.second.GetLipid() <= 0.f ||
+                    npc.second.GetVitamin() <= 0.f ||
+                    npc.second.GetMineral() <= 0.f ||
+                    npc.second.GetWater() <= 90.f)
                 {
-                    npc.second.SetDead();
+                    if (npc.second.GetDrinkWordbress())
+                    {
+                        // 体力が全快する
+                        npc.second.SetDrinkWordbress(false);
+                        npc.second.SetCarbo(100.f);
+                        npc.second.SetProtein(100.f);
+                        npc.second.SetLipid(100.f);
+                        npc.second.SetMineral(100.f);
+                        npc.second.SetVitamin(100.f);
+                        npc.second.SetWater(100.f);
+                    }
+                    else
+                    {
+                        npc.second.SetDead();
+                    }
                 }
             }
         }
@@ -786,36 +802,34 @@ void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minut
 
     for (auto& npc : m_NpcStatusMap)
     {
-        // ビムは体力を消費しない
-        if (npc.first == _T("vim"))
+        // 体力を消費するのは3人だけ
+        if (npc.first == _T("daikeiman") || npc.first == _T("sankakuman") || npc.first == _T("shikakuman"))
         {
-            continue;
+            if (npc.second.GetDead())
+            {
+                continue;
+            }
+
+            float work_f2 = 0.f;
+            work_f2 = npc.second.GetCarbo();
+            npc.second.SetCarbo(work_f2 - work_f);
+
+            work_f2 = npc.second.GetProtein();
+            npc.second.SetProtein(work_f2 - work_f);
+
+            work_f2 = npc.second.GetLipid();
+            npc.second.SetLipid(work_f2 - (work_f));
+
+            work_f2 = npc.second.GetMineral();
+            npc.second.SetMineral(work_f2 - work_f);
+
+            work_f2 = npc.second.GetVitamin();
+            npc.second.SetVitamin(work_f2 - work_f);
+
+            // 水分は減少量を1/10にする。
+            work_f2 = npc.second.GetWater();
+            npc.second.SetWater(work_f2 - (work_f / 10.f));
         }
-
-        if (npc.second.GetDead())
-        {
-            continue;
-        }
-
-        float work_f2 = 0.f;
-        work_f2 = npc.second.GetCarbo();
-        npc.second.SetCarbo(work_f2 - work_f);
-
-        work_f2 = npc.second.GetProtein();
-        npc.second.SetProtein(work_f2 - work_f);
-
-        work_f2 = npc.second.GetLipid();
-        npc.second.SetLipid(work_f2 - (work_f));
-
-        work_f2 = npc.second.GetMineral();
-        npc.second.SetMineral(work_f2 - work_f);
-
-        work_f2 = npc.second.GetVitamin();
-        npc.second.SetVitamin(work_f2 - work_f);
-
-        // 水分は減少量を1/10にする。
-        work_f2 = npc.second.GetWater();
-        npc.second.SetWater(work_f2 - (work_f/10.f));
     }
 }
 
@@ -915,66 +929,71 @@ void NSStarmanLib::NpcStatusManager::Clamp()
 {
     for (auto& npc : m_NpcStatusMap)
     {
-        float work_f = 0.f;
+        if (npc.first == _T("daikeiman") ||
+            npc.first == _T("sankakuman") ||
+            npc.first == _T("shikakuman"))
+        {
+            float work_f = 0.f;
 
-        work_f = npc.second.GetCarbo();
-        if (work_f < 0.f)
-        {
-            npc.second.SetCarbo(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetCarbo(100.f);
-        }
+            work_f = npc.second.GetCarbo();
+            if (work_f < 0.f)
+            {
+                npc.second.SetCarbo(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetCarbo(100.f);
+            }
 
-        work_f = npc.second.GetProtein();
-        if (work_f < 0.f)
-        {
-            npc.second.SetProtein(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetProtein(100.f);
-        }
+            work_f = npc.second.GetProtein();
+            if (work_f < 0.f)
+            {
+                npc.second.SetProtein(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetProtein(100.f);
+            }
 
-        work_f = npc.second.GetLipid();
-        if (work_f < 0.f)
-        {
-            npc.second.SetLipid(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetLipid(100.f);
-        }
+            work_f = npc.second.GetLipid();
+            if (work_f < 0.f)
+            {
+                npc.second.SetLipid(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetLipid(100.f);
+            }
 
-        work_f = npc.second.GetVitamin();
-        if (work_f < 0.f)
-        {
-            npc.second.SetVitamin(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetVitamin(100.f);
-        }
+            work_f = npc.second.GetVitamin();
+            if (work_f < 0.f)
+            {
+                npc.second.SetVitamin(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetVitamin(100.f);
+            }
 
-        work_f = npc.second.GetMineral();
-        if (work_f < 0.f)
-        {
-            npc.second.SetMineral(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetMineral(100.f);
-        }
+            work_f = npc.second.GetMineral();
+            if (work_f < 0.f)
+            {
+                npc.second.SetMineral(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetMineral(100.f);
+            }
 
-        work_f = npc.second.GetWater();
-        if (work_f < 0.f)
-        {
-            npc.second.SetWater(0.f);
-        }
-        else if (work_f > 100.f)
-        {
-            npc.second.SetWater(100.f);
+            work_f = npc.second.GetWater();
+            if (work_f < 0.f)
+            {
+                npc.second.SetWater(0.f);
+            }
+            else if (work_f > 100.f)
+            {
+                npc.second.SetWater(100.f);
+            }
         }
     }
 }
