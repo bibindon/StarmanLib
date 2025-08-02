@@ -2098,13 +2098,13 @@ void StatusManager::Save(const std::wstring& csvfile,
 
 float StatusManager::GetWalkSpeed()
 {
-    // 最大積載量を超えていたら歩くことができない
+    // 最大積載量を超えていたら激遅になる
     {
         float work1 = Inventory::GetObj()->GetVolume();
         float work2 = Inventory::GetObj()->GetVolumeMax();
         if (work1 > work2)
         {
-            return 0.f;
+            return 10.f / 60;
         }
     }
 
