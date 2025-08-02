@@ -609,6 +609,7 @@ void NSStarmanLib::NpcStatusManager::Update()
                     {
                         if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
                         {
+                            // 糖質が10以下ならソテツ以外は何でも食べる
                             if (npc.second.GetCarbo() <= 10.f)
                             {
                                 if (item.GetId() != L"sotetsu")
@@ -618,10 +619,20 @@ void NSStarmanLib::NpcStatusManager::Update()
                             }
                             else
                             {
+                                // 謎の草は糖質がないので食べない
                                 if (item.GetId() != L"sotetsu" &&
                                     item.GetId() != L"donguri3" &&
                                     item.GetId() != L"nira" &&
-                                    item.GetId() != L"kinoko")
+                                    item.GetId() != L"kinoko" &&
+                                    item.GetId() != L"unknownPlant1" &&
+                                    item.GetId() != L"unknownPlant2" &&
+                                    item.GetId() != L"unknownPlant3" &&
+                                    item.GetId() != L"unknownPlant4" &&
+                                    item.GetId() != L"unknownPlant5" &&
+                                    item.GetId() != L"unknownPlant6" &&
+                                    item.GetId() != L"tanpopo" &&
+                                    item.GetId() != L"tsukushi"
+                                    )
                                 {
                                     foodList.push_back(item);
                                 }
