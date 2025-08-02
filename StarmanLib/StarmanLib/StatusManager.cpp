@@ -2636,11 +2636,12 @@ bool StatusManager::Sleep()
         float work1 = 0.f;
         float work2 = 0.f;
 
-        if (late == false)
+        if (!late)
         {
             work1 = GetBrainStaminaMax();
             SetBrainStaminaMaxSub(work1);
             SetBrainStaminaCurrent(work1);
+            m_status.SetLackOfSleep(false);
         }
         // 寝る時間が遅かったら
         else
@@ -3088,6 +3089,8 @@ bool NSStarmanLib::StatusManager::Rest3Hours()
             m_remainDehydration = 0;
         }
     }
+
+    m_status.SetLackOfSleep(false);
 
     Voyage::Get()->ResetWindAndTide();
 
