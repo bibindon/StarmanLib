@@ -875,6 +875,13 @@ void StatusManager::Init(const std::wstring& csvfile,
                 m_bInCave = true;
             }
         }
+        else if (vvs.at(i).at(1) == _T("担架モード"))
+        {
+            if (vvs.at(i).at(2) == _T("y"))
+            {
+                m_bStretcher = true;
+            }
+        }
     }
     auto inventory = Inventory::GetObj();
     inventory->UpdateVolumeMax(GetAllBag());
@@ -2083,6 +2090,20 @@ void StatusManager::Save(const std::wstring& csvfile,
     vs.push_back(_T("58"));
     vs.push_back(_T("洞窟"));
     if (m_bInCave)
+    {
+        work = _T("y");
+    }
+    else
+    {
+        work = _T("n");
+    }
+    vs.push_back(work);
+    vvs.push_back(vs);
+
+    vs.clear();
+    vs.push_back(_T("59"));
+    vs.push_back(_T("担架モード"));
+    if (m_bStretcher)
     {
         work = _T("y");
     }
@@ -4174,6 +4195,16 @@ void NSStarmanLib::StatusManager::SetSugegasa(bool isEquip)
 bool NSStarmanLib::StatusManager::GetSugegasa() const
 {
     return m_bEquipSugegasa;
+}
+
+bool NSStarmanLib::StatusManager::IsStretcherMode() const
+{
+    return m_bStretcher;
+}
+
+void NSStarmanLib::StatusManager::SetStretcherMode(const bool arg)
+{
+    m_bStretcher = arg;
 }
 
 void NSStarmanLib::StatusManager::Clamp()

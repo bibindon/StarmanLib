@@ -532,6 +532,9 @@ public:
     void SetInCave(bool arg) { m_bInCave = arg; }
     bool GetInCave() const { return m_bInCave; }
 
+    bool IsStretcherMode() const;
+    void SetStretcherMode(const bool arg);
+
 private:
 
     void Clamp();
@@ -616,6 +619,9 @@ private:
     bool m_bEquipSugegasa = false;
 
     bool m_bInCave = false;
+
+    // 担架モード
+    bool m_bStretcher = false;
 };
 }
 
