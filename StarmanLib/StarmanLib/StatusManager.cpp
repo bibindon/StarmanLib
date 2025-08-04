@@ -1195,12 +1195,21 @@ void StatusManager::Update()
 
     //-----------------------------------------
     // 担架モードだったら2倍
+    // 担架モードで水中だったら20倍
     //-----------------------------------------
     {
         if (IsStretcherMode())
         {
-            reduceBodyStamina1FPSInReal *= 2.f;
-            reduceBodyStaminaMaxSub1FPSInReal *= 2.f;
+            if (IsUnderwater())
+            {
+                reduceBodyStamina1FPSInReal *= 20.f;
+                reduceBodyStaminaMaxSub1FPSInReal *= 20.f;
+            }
+            else
+            {
+                reduceBodyStamina1FPSInReal *= 2.f;
+                reduceBodyStaminaMaxSub1FPSInReal *= 2.f;
+            }
         }
     }
 
