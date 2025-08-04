@@ -335,6 +335,8 @@ public:
     // 防御力。重量や健康度、筋力などありとあらゆるパラメーターが影響する
     float GetDefensePower();
 
+    bool IsUnderwater() const;
+
     // 食材を食べる
     bool Eat(const ItemDef& food);
 

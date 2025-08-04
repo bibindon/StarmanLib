@@ -2436,6 +2436,11 @@ float StatusManager::GetDefensePower()
     return 1.0f * (GetExplosivePower() / 100.0f);
 }
 
+bool NSStarmanLib::StatusManager::IsUnderwater() const
+{
+    return m_playerState == PlayerState::IDLE_WATER || m_playerState == PlayerState::SWIM;
+}
+
 // ニラorスイセン・・・50％ではずれ
 // 赤い実・・・100％はずれ
 // きのこ・・・90％はずれ

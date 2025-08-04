@@ -546,6 +546,13 @@ void NSStarmanLib::NpcStatusManager::Update()
         // 1秒で、ゲーム内では12秒経過する
         work_f *= 12;
 
+        // 担架モード中で水中だったら7200倍する。
+        // 20秒（ゲーム内で240秒）で死亡する計算
+        if (StatusManager::GetObj()->IsStretcherMode() && StatusManager::GetObj()->IsUnderwater())
+        {
+            work_f *= 7200;
+        }
+
         for (auto& npc : m_NpcStatusMap)
         {
             // 体力を消費するのは3人だけ
