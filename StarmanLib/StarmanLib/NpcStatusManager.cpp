@@ -3,6 +3,7 @@
 #include "Rynen.h"
 #include "Util.h"
 #include "PowereggDateTime.h"
+#include "StatusManager.h"
 
 using namespace NSStarmanLib;
 
@@ -812,6 +813,12 @@ void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minut
 
     work_f *= second;
 
+    // 担架モードの時は逆に回復する。救済処置
+    if (StatusManager::GetObj()->IsStretcherMode())
+    {
+        work_f *= -1;
+    }
+
     for (auto& npc : m_NpcStatusMap)
     {
         // 体力を消費するのは3人だけ
@@ -843,6 +850,8 @@ void NSStarmanLib::NpcStatusManager::AdvanceTime(const int hour, const int minut
             npc.second.SetWater(work_f2 - (work_f * 0.5f));
         }
     }
+
+    Clamp();
 }
 
 NpcStatus NpcStatusManager::GetNpcStatus(const std::wstring& name)
