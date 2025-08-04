@@ -1194,6 +1194,17 @@ void StatusManager::Update()
     }
 
     //-----------------------------------------
+    // 担架モードだったら2倍
+    //-----------------------------------------
+    {
+        if (IsStretcherMode())
+        {
+            reduceBodyStamina1FPSInReal *= 2.f;
+            reduceBodyStaminaMaxSub1FPSInReal *= 2.f;
+        }
+    }
+
+    //-----------------------------------------
     // 昼に菅笠を装備していたら体力の消費速度が10%減少
     // 夜に菅笠を装備していたら体力の消費速度が1%増加
     //-----------------------------------------
@@ -2180,6 +2191,12 @@ float StatusManager::GetWalkSpeed()
         {
             walkSpeed *= 0.75f;
         }
+    }
+
+    // 担架モードの場合、移動速度50%ダウン
+    if (IsStretcherMode())
+    {
+        walkSpeed *= 0.5f;
     }
 
     return walkSpeed;
