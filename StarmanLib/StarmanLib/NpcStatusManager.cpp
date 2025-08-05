@@ -538,6 +538,7 @@ void NSStarmanLib::NpcStatusManager::Update()
         // １秒での消費量は100/20/24/60/60
         // 水分は90で死亡なので、5日で10減るようにする
         float work_f = 100.f;
+        float waterCost = 0.f;
         work_f /= 20;
         work_f /= 24;
         work_f /= 60;
@@ -545,6 +546,7 @@ void NSStarmanLib::NpcStatusManager::Update()
 
         // 1秒で、ゲーム内では12秒経過する
         work_f *= 12;
+        waterCost = work_f;
 
         // 担架モード中で水中だったら7200倍する。
         // 20秒（ゲーム内で240秒）で死亡する計算
@@ -583,7 +585,7 @@ void NSStarmanLib::NpcStatusManager::Update()
 
                 // 水分は減少量を0.5にする。
                 work_f2 = npc.second.GetWater();
-                npc.second.SetWater(work_f2 - (work_f * 0.5f));
+                npc.second.SetWater(work_f2 - (waterCost * 0.5f));
             }
         }
     }
