@@ -2848,7 +2848,14 @@ bool StatusManager::Sleep()
         }
 
         // 時間を7時間進める
-        dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
+        if (!late)
+        {
+            dateTime->IncreaseDateTime(0, 0, 7, 0, 0);
+        }
+        else
+        {
+            dateTime->IncreaseDateTime(0, 0, 4, 0, 0);
+        }
 
         // 状態異常の回復
         {
