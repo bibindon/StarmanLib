@@ -3171,13 +3171,22 @@ void StatusManager::Talk()
 void StatusManager::UseMagic()
 {
     float work = 0.f;
-    work = GetBrainStaminaCurrent();
 
-    work -= 0.25f;
+    work = GetBrainStaminaCurrent();
+    work -= 10.f;
+    SetBrainStaminaCurrent(work);
+
+    work = GetBrainStaminaMaxSub();
+    work -= 5.0f;
     SetBrainStaminaMaxSub(work);
 
-    work -= 0.25f;
-    SetBrainStaminaCurrent(work);
+    work = GetBodyStaminaCurrent();
+    work -= 25.f;
+    SetBodyStaminaCurrent(work);
+
+    work = GetBodyStaminaMaxSub();
+    work -= 5.0f;
+    SetBodyStaminaMaxSub(work);
 
     if (m_eMagicType == eMagicType::Fire)
     {
