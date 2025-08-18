@@ -42,10 +42,18 @@ void NSStarmanLib::RainModel::Update()
     // そのために、前回、Update関数が呼ばれた時刻から1時間経過しているかを確認する。
     bool updateNecessary = false;
 
+    // 雨が降っているときに2時間以上経過した場合は、雨が止む確立を上げたい。
+    bool longTimePassed = false;
+
     // 現在時刻（時）が以前より増えているなら1時間経過した
     if (currentHour > m_previousHour)
     {
         updateNecessary = true;
+
+        if ((currentHour - m_previousHour) >= 2)
+        {
+            longTimePassed = true;
+        }
     }
     // 現在時刻（時）が以前より増えていなくても1時間経過している場合がある。
     // 23時→0時など。
@@ -87,9 +95,19 @@ void NSStarmanLib::RainModel::Update()
         // 雨が降っていた場合、20％の確率で雨がやむ
         else
         {
-            if (rnd < 20)
+            if (!longTimePassed)
             {
-                m_bRain = false;
+                if (rnd < 20)
+                {
+                    m_bRain = false;
+                }
+            }
+            else
+            {
+                if (rnd < 50)
+                {
+                    m_bRain = false;
+                }
             }
         }
     }
