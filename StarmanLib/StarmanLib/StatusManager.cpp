@@ -601,14 +601,17 @@ void StatusManager::Init(const std::wstring& csvfile,
             else
             {
                 int work = std::stoi(vvs.at(i).at(2));
-                m_EquipWeapon.SetSubId(work);
-
-                // 耐久値を保存
-                if (work != -1)
+                if (work != 0)
                 {
-                    Inventory* inventory = Inventory::GetObj();
-                    ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
-                    m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                    m_EquipWeapon.SetSubId(work);
+
+                    // 耐久値を保存
+                    if (work != -1)
+                    {
+                        Inventory* inventory = Inventory::GetObj();
+                        ItemInfo itemInfo = inventory->GetItemInfo(m_EquipWeapon.GetId(), m_EquipWeapon.GetSubId());
+                        m_EquipWeapon.SetDurabilityCurrent(itemInfo.GetDurabilityCurrent());
+                    }
                 }
             }
         }
