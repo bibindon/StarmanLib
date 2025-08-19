@@ -2,6 +2,7 @@
 #include <vector>
 #include "Util.h"
 #include "NpcStatusManager.h"
+#include "Rynen.h"
 
 using namespace NSStarmanLib;
 
@@ -36,7 +37,7 @@ void PowereggDateTime::Init(const std::wstring& csvfile,
 }
 
 void PowereggDateTime::Save(const std::wstring& csvfile,
-                            const bool encrypt)
+                            const bool encrypt) const
 {
     std::vector<std::vector<std::wstring>> vvs;
     std::vector<std::wstring> vs;
@@ -119,40 +120,44 @@ void PowereggDateTime::IncreaseDateTime(int month, int day, int hour, int minute
         m_year++;
     }
 
-    NpcStatusManager::GetObj()->AdvanceTime(hour, minute);
+    // ライネンの契約をするまではNPCの消費を行わない。
+    if (Rynen::GetObj()->GetContracted())
+    {
+        NpcStatusManager::GetObj()->AdvanceTime(hour, minute);
+    }
 }
 
-int PowereggDateTime::GetYear()
+int PowereggDateTime::GetYear() const
 {
     return m_year;
 }
 
-int PowereggDateTime::GetMonth()
+int PowereggDateTime::GetMonth() const
 {
     return m_month;
 }
 
-int PowereggDateTime::GetDay()
+int PowereggDateTime::GetDay() const
 {
     return m_day;
 }
 
-int PowereggDateTime::GetHour()
+int PowereggDateTime::GetHour() const
 {
     return m_hour;
 }
 
-int PowereggDateTime::GetMinute()
+int PowereggDateTime::GetMinute() const
 {
     return m_minute;
 }
 
-int PowereggDateTime::GetSecond()
+int PowereggDateTime::GetSecond() const
 {
     return m_second;
 }
 
-int NSStarmanLib::PowereggDateTime::DAY_OF_MONTH(const int arg)
+int NSStarmanLib::PowereggDateTime::DAY_OF_MONTH(const int arg) const
 {
     return DAY_OF_MONTH_[arg];
 }

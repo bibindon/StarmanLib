@@ -18,19 +18,19 @@ public:
     void Init(const std::wstring& csvfile,
               const bool decrypt = false);
     void Save(const std::wstring& csvfile,
-              const bool encrypt = false);
+              const bool encrypt = false) const;
 
     // 時を進める。パワーエッグ星の時間軸で指定する。
     // パワーエッグ星での24時間がゲーム内では2時間であるが、
     // ゲーム内時間ではなくパワーエッグ星での時間を指定する。
     void IncreaseDateTime(int month, int day, int hour, int minute, int second);
-    int GetYear();
-    int GetMonth();
-    int GetDay();
-    int GetHour();
-    int GetMinute();
-    int GetSecond();
-    int DAY_OF_MONTH(const int arg);
+    int GetYear() const;
+    int GetMonth() const;
+    int GetDay() const;
+    int GetHour() const;
+    int GetMinute() const;
+    int GetSecond() const;
+    int DAY_OF_MONTH(const int arg) const;
 
     // 二つの日時のうち最初の日にの方が古いならtrue
     static bool FromPastToFuture(int year1, int month1, int day1, int hour1, int minute1, int second1,
