@@ -207,7 +207,7 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::wstring& npcNam
         m_presentMap.at(npcName).clear();
     }
 
-    auto& present = m_presentMap.at(npcName);
+    auto present = std::vector<ItemDef>(m_presentMap.at(npcName));
 
     m_presentMap.at(npcName).clear();
     m_presented.at(npcName) = true;
