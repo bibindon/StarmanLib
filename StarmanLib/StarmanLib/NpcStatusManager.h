@@ -29,31 +29,31 @@ public:
     std::wstring GetName();
 
     void SetCarbo(const float arg);
-    float GetCarbo();
+    float GetCarbo() const;
 
     void SetProtein(const float arg);
-    float GetProtein();
+    float GetProtein() const;
 
     void SetLipid(const float arg);
-    float GetLipid();
+    float GetLipid() const;
 
     void SetVitamin(const float arg);
-    float GetVitamin();
+    float GetVitamin() const;
 
     void SetMineral(const float arg);
-    float GetMineral();
+    float GetMineral() const;
 
     void SetWater(const float arg);
-    float GetWater();
+    float GetWater() const;
 
     void SetRynenContract();
-    float GetRynenContract();
+    float GetRynenContract() const;
 
     void SetDrinkWordbress(const bool arg);
-    bool GetDrinkWordbress();
+    bool GetDrinkWordbress() const;
 
     void SetDead();
-    bool GetDead();
+    bool GetDead() const;
 
     void SetX(const float arg);
     float GetX() const;

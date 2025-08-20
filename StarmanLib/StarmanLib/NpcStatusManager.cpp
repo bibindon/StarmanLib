@@ -24,7 +24,7 @@ void NpcStatus::SetCarbo(const float arg)
     m_carbo = arg;
 }
 
-float NpcStatus::GetCarbo()
+float NpcStatus::GetCarbo() const
 {
     return m_carbo;
 }
@@ -34,7 +34,7 @@ void NpcStatus::SetProtein(const float arg)
     m_protein = arg;
 }
 
-float NpcStatus::GetProtein()
+float NpcStatus::GetProtein() const
 {
     return m_protein;
 }
@@ -44,7 +44,7 @@ void NpcStatus::SetLipid(const float arg)
     m_lipid = arg;
 }
 
-float NpcStatus::GetLipid()
+float NpcStatus::GetLipid() const
 {
     return m_lipid;
 }
@@ -54,7 +54,7 @@ void NpcStatus::SetVitamin(const float arg)
     m_vitamin = arg;
 }
 
-float NpcStatus::GetVitamin()
+float NpcStatus::GetVitamin() const
 {
     return m_vitamin;
 }
@@ -64,7 +64,7 @@ void NpcStatus::SetMineral(const float arg)
     m_mineral = arg;
 }
 
-float NpcStatus::GetMineral()
+float NpcStatus::GetMineral() const
 {
     return m_mineral;
 }
@@ -74,7 +74,7 @@ void NpcStatus::SetWater(const float arg)
     m_water = arg;
 }
 
-float NpcStatus::GetWater()
+float NpcStatus::GetWater() const
 {
     return m_water;
 }
@@ -84,7 +84,7 @@ void NpcStatus::SetRynenContract()
     m_rynenContract = true;
 }
 
-float NpcStatus::GetRynenContract()
+float NpcStatus::GetRynenContract() const
 {
     return m_rynenContract;
 }
@@ -94,7 +94,7 @@ void NpcStatus::SetDrinkWordbress(const bool arg)
     m_bDrinkWordbress = arg;
 }
 
-bool NpcStatus::GetDrinkWordbress()
+bool NpcStatus::GetDrinkWordbress() const
 {
     return m_bDrinkWordbress;
 }
@@ -104,7 +104,7 @@ void NpcStatus::SetDead()
     m_dead = true;
 }
 
-bool NpcStatus::GetDead()
+bool NpcStatus::GetDead() const
 {
     return m_dead;
 }
