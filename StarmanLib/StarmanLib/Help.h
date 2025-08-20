@@ -53,10 +53,10 @@ private:
 
     std::vector<ItemDef> GetRandomItem(const std::wstring& npcName);
 
-    bool CrossOver16();
+    bool CrossOver16() const;
 
     // 過去にさかのぼっている？
-    bool BackTime();
+    bool BackTime() const;
 
     // 拾うことが可能なアイテムのIDのリスト
     // 拾えるはずのないアイテムを拾えないようにするため。

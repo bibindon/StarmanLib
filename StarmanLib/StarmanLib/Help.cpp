@@ -82,7 +82,7 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
 
     for (int i = 1; i < vvs.size(); ++i)
     {
-        auto name = vvs.at(i).at(0);
+        auto& name = vvs.at(i).at(0);
         for (int j = 1; j < vvs.at(i).size(); ++j)
         {
             if (vvs.at(i).at(j).empty())
@@ -90,7 +90,7 @@ void NSStarmanLib::Help::Init(const std::wstring& filepath)
                 break;
             }
 
-            auto itemId = vvs.at(i).at(j);
+            auto& itemId = vvs.at(i).at(j);
             auto itemDef = itemManager->GetItemDef(itemId);
             m_presentMap.at(name).push_back(itemDef);
         }
@@ -192,6 +192,7 @@ void NSStarmanLib::Help::Save(const std::wstring& filepath)
             auto id = item.GetId();
             vs.push_back(id);
         }
+
         vvs.push_back(vs);
         vs.clear();
     }
@@ -206,7 +207,7 @@ std::vector<ItemDef> NSStarmanLib::Help::ReceiveItems(const std::wstring& npcNam
         m_presentMap.at(npcName).clear();
     }
 
-    auto present = m_presentMap.at(npcName);
+    auto& present = m_presentMap.at(npcName);
 
     m_presentMap.at(npcName).clear();
     m_presented.at(npcName) = true;
@@ -285,7 +286,7 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::wstring& npcNa
         {
             rnd = rand();
             work = rnd % idListNum;
-            auto id = m_enableItemIdList.at(work);
+            auto& id = m_enableItemIdList.at(work);
             auto itemDef = ItemManager::GetObj()->GetItemDef(id);
             randomItem.push_back(itemDef);
         }
@@ -294,7 +295,7 @@ std::vector<ItemDef> NSStarmanLib::Help::GetRandomItem(const std::wstring& npcNa
     return randomItem;
 }
 
-bool NSStarmanLib::Help::CrossOver16()
+bool NSStarmanLib::Help::CrossOver16() const
 {
     auto datetime = PowereggDateTime::GetObj();
     bool crossOver = false;
@@ -331,7 +332,7 @@ bool NSStarmanLib::Help::CrossOver16()
     return crossOver;
 }
 
-bool NSStarmanLib::Help::BackTime()
+bool NSStarmanLib::Help::BackTime() const
 {
     auto datetime = PowereggDateTime::GetObj();
     bool backtime = false;
