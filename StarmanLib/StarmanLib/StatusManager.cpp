@@ -2504,7 +2504,8 @@ bool StatusManager::Eat(const ItemDef& itemDef)
     }
 
     float work_f = 0.f;
-    work_f = itemDef.GetCarbo();
+
+    work_f = GetCarboCurrent();
 
     // 糖質が95以上だったら満腹であるとしてこれ以上食べられない。
     if (work_f >= 95.f)
