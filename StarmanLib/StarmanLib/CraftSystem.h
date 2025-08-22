@@ -19,6 +19,8 @@ public:
 
     std::wstring GetId() const;
 
+    int GetNumber() const;
+
     int GetLevel() const;
 
     int GetStartYear() const;

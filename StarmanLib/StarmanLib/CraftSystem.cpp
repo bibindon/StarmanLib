@@ -112,26 +112,29 @@ void CraftSystem::Init(const std::wstring& csvfileSkill, const std::wstring& csv
 
             std::wstring name = vvs.at(i).at(0);
 
+            int number = 0;
+            number = std::stoi(vvs.at(i).at(1));
+
             int level = 0;
 
-            if (vvs.at(i).at(1).empty())
+            if (vvs.at(i).at(2).empty())
             {
                 level = -1;
             }
             else
             {
-                level = std::stoi(vvs.at(i).at(1));
+                level = std::stoi(vvs.at(i).at(2));
             }
 
             // クラフト情報を取得
-            CraftInfo craftInfo = craftInfoManager->GetCraftInfo(name, 1, level);
+            CraftInfo craftInfo = craftInfoManager->GetCraftInfo(name, number, level);
 
             // クラフト中のアイテム情報
             CraftRequest craftRequest;
 
             craftRequest.SetCraftInfo(craftInfo);
 
-            if (vvs.at(i).at(2) == _T("○"))
+            if (vvs.at(i).at(3) == _T("○"))
             {
                 craftRequest.SetCrafting(true);
             }
@@ -142,19 +145,19 @@ void CraftSystem::Init(const std::wstring& csvfileSkill, const std::wstring& csv
 
             if (craftRequest.GetCrafting())
             {
-                craftRequest.SetStartYear(std::stoi(vvs.at(i).at(3)));
-                craftRequest.SetStartMonth(std::stoi(vvs.at(i).at(4)));
-                craftRequest.SetStartDay(std::stoi(vvs.at(i).at(5)));
-                craftRequest.SetStartHour(std::stoi(vvs.at(i).at(6)));
-                craftRequest.SetStartMinute(std::stoi(vvs.at(i).at(7)));
-                craftRequest.SetStartSecond(std::stoi(vvs.at(i).at(8)));
+                craftRequest.SetStartYear(std::stoi(vvs.at(i).at(4)));
+                craftRequest.SetStartMonth(std::stoi(vvs.at(i).at(5)));
+                craftRequest.SetStartDay(std::stoi(vvs.at(i).at(6)));
+                craftRequest.SetStartHour(std::stoi(vvs.at(i).at(7)));
+                craftRequest.SetStartMinute(std::stoi(vvs.at(i).at(8)));
+                craftRequest.SetStartSecond(std::stoi(vvs.at(i).at(9)));
 
-                craftRequest.SetFinishYear(std::stoi(vvs.at(i).at(9)));
-                craftRequest.SetFinishMonth(std::stoi(vvs.at(i).at(10)));
-                craftRequest.SetFinishDay(std::stoi(vvs.at(i).at(11)));
-                craftRequest.SetFinishHour(std::stoi(vvs.at(i).at(12)));
-                craftRequest.SetFinishMinute(std::stoi(vvs.at(i).at(13)));
-                craftRequest.SetFinishSecond(std::stoi(vvs.at(i).at(14)));
+                craftRequest.SetFinishYear(std::stoi(vvs.at(i).at(10)));
+                craftRequest.SetFinishMonth(std::stoi(vvs.at(i).at(11)));
+                craftRequest.SetFinishDay(std::stoi(vvs.at(i).at(12)));
+                craftRequest.SetFinishHour(std::stoi(vvs.at(i).at(13)));
+                craftRequest.SetFinishMinute(std::stoi(vvs.at(i).at(14)));
+                craftRequest.SetFinishSecond(std::stoi(vvs.at(i).at(15)));
             }
             else
             {
@@ -173,7 +176,7 @@ void CraftSystem::Init(const std::wstring& csvfileSkill, const std::wstring& csv
                 craftRequest.SetFinishSecond(-1);
             }
 
-            craftRequest.SetStorehouseId(std::stoi(vvs.at(i).at(15)));
+            craftRequest.SetStorehouseId(std::stoi(vvs.at(i).at(16)));
 
             m_craftRequestList.push_back(craftRequest);
         }
@@ -199,6 +202,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
         for (auto it = m_craftSkillList.begin(); it != m_craftSkillList.end(); ++it)
         {
             vs.push_back(it->GetId());
+
             if (it->GetLevel() == -1)
             {
                 vs.push_back(_T(""));
@@ -246,6 +250,7 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
         std::vector<std::wstring> vs;
 
         vs.push_back(_T("クラフトアイテムID"));
+        vs.push_back(_T("個数"));
         vs.push_back(_T("強化値"));
         vs.push_back(_T("クラフト中"));
         vs.push_back(_T("開始年"));
@@ -266,8 +271,13 @@ void NSStarmanLib::CraftSystem::Save(const std::wstring& csvfileSkill,
 
         for (auto it = m_craftRequestList.begin(); it != m_craftRequestList.end(); ++it)
         {
+            // ID
             vs.push_back(it->GetId());
 
+            // Number
+            vs.push_back(std::to_wstring(it->GetNumber()));
+
+            // Level
             int level = it->GetCraftInfo().GetOutput().GetLevel();
             if (level != -1)
             {
@@ -934,6 +944,11 @@ std::list<CraftRequest> NSStarmanLib::CraftSystem::GetCraftRequestList()
 std::wstring CraftRequest::GetId() const
 {
     return m_craftInfo.GetOutput().GetItemId();
+}
+
+int NSStarmanLib::CraftRequest::GetNumber() const
+{
+    return m_craftInfo.GetOutput().GetNumber();
 }
 
 int NSStarmanLib::CraftRequest::GetLevel() const
