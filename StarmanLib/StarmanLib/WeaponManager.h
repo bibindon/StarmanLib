@@ -140,7 +140,7 @@ public:
     void Save(const std::wstring& savefilename,
               const bool encrypt = false);
 
-    // 名前を使うの禁止
+    // 同じ名前を使うの禁止
 //    std::wstring GetDetail(const std::wstring& weaponName) const;
 //    std::wstring GetXfilename(const std::wstring& weaponName) const;
 //    std::wstring GetImageName(const std::wstring& weaponName) const;

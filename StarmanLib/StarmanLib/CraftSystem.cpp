@@ -6,6 +6,7 @@
 #include "ActivityBase.h"
 #include "Util.h"
 #include "StatusManager.h"
+#include "WeaponManager.h"
 
 using namespace NSStarmanLib;
 
@@ -685,8 +686,15 @@ void NSStarmanLib::CraftSystem::UpdateCraftStatus()
                 }
                 else
                 {
-                    // TODO 強化値が-1になる
-                    storehouse->AddItem(output.GetItemId());
+                    if (itemDef.GetType() != ItemDef::ItemType::WEAPON)
+                    {
+                        storehouse->AddItem(output.GetItemId(), itemDef.GetDurabilityMax());
+                    }
+                    else
+                    {
+                        auto dura = WeaponManager::GetObj()->GetDurabilityMax2(itemDef.GetWeaponId(), itemDef.GetLevel());
+                        storehouse->AddItem(output.GetItemId(), dura);
+                    }
                 }
             }
 
