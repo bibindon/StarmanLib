@@ -604,7 +604,8 @@ void NSStarmanLib::NpcStatusManager::Update()
                     continue;
                 }
 
-                if (npc.second.GetCarbo() <= 50.f || npc.second.GetWater() <= 95.f)
+                // 水分が足りないとき
+                if (npc.second.GetWater() <= 95.f)
                 {
                     auto storageManager = StorehouseManager::Get();
                     auto storage = storageManager->GetCurrentActiveStorehouse();
@@ -629,19 +630,84 @@ void NSStarmanLib::NpcStatusManager::Update()
                             }
                             else
                             {
-                                // 謎の草は糖質がないので食べない
-                                if (item.GetId() != L"sotetsu" &&
-                                    item.GetId() != L"donguri3" &&
-                                    item.GetId() != L"nira" &&
-                                    item.GetId() != L"kinoko" &&
-                                    item.GetId() != L"unknownPlant1" &&
-                                    item.GetId() != L"unknownPlant2" &&
-                                    item.GetId() != L"unknownPlant3" &&
-                                    item.GetId() != L"unknownPlant4" &&
-                                    item.GetId() != L"unknownPlant5" &&
-                                    item.GetId() != L"unknownPlant6" &&
-                                    item.GetId() != L"tanpopo" &&
-                                    item.GetId() != L"tsukushi"
+                                if (
+                                    item.GetId() == L"unknownPlant1" ||
+                                    item.GetId() == L"unknownPlant2" ||
+                                    item.GetId() == L"unknownPlant4" ||
+                                    item.GetId() == L"unknownPlant5" ||
+                                    item.GetId() == L"unknownPlant6" ||
+                                    item.GetId() == L"mango" ||
+                                    item.GetId() == L"papaiya" ||
+                                    item.GetId() == L"banana" ||
+                                    item.GetId() == L"coconut" ||
+                                    item.GetId() == L"coconutRipe"
+                                    )
+                                {
+                                    foodList.push_back(item);
+                                }
+                            }
+                        }
+                    }
+
+                    auto foodSize = foodList.size();
+
+                    if (foodSize != 0)
+                    {
+                        int rand_ = rand();
+                        int pickup = rand_ % foodSize;
+
+                        storage->RemoveItem(foodList.at(pickup).GetId(), foodList.at(pickup).GetSubId());
+
+                        // 体力の回復
+                        Eat(npc.first, foodList.at(pickup).GetItemDef());
+                    }
+                }
+
+                if (npc.second.GetCarbo() <= 50.f)
+                {
+                    auto storageManager = StorehouseManager::Get();
+                    auto storage = storageManager->GetCurrentActiveStorehouse();
+                    auto allItem = storage->GetAllItem();
+
+                    // ランダムで一つ消費
+                    // 赤い実は食べない。
+                    // キノコ、ニラ・スイセン、大きいどんぐり、は糖質が10のときまで候補にならない。
+                    std::vector<ItemInfo> foodList;
+
+                    for (auto& item : allItem)
+                    {
+                        if (item.GetItemDef().GetType() == ItemDef::ItemType::FOOD)
+                        {
+                            // 糖質が10以下ならソテツ以外は何でも食べる
+                            if (npc.second.GetCarbo() <= 10.f)
+                            {
+                                if (item.GetId() != L"sotetsu")
+                                {
+                                    foodList.push_back(item);
+                                }
+                            }
+                            else
+                            {
+                                if (
+                                    item.GetId() == L"sotetsuDetox" ||
+                                    item.GetId() == L"coconut" ||
+                                    item.GetId() == L"coconutRipe" ||
+                                    item.GetId() == L"donguri1" ||
+                                    item.GetId() == L"donguri2" ||
+                                    item.GetId() == L"donguriDetox" ||
+                                    item.GetId() == L"tsukushi" ||
+                                    item.GetId() == L"unknownPlant1" ||
+                                    item.GetId() == L"unknownPlant2" ||
+                                    item.GetId() == L"unknownPlant3" ||
+                                    item.GetId() == L"unknownPlant4" ||
+                                    item.GetId() == L"unknownPlant5" ||
+                                    item.GetId() == L"unknownPlant6" ||
+                                    item.GetId() == L"tanpopo" ||
+                                    item.GetId() == L"yakizakana" ||
+                                    item.GetId() == L"papaiya" ||
+                                    item.GetId() == L"mango" ||
+                                    item.GetId() == L"banana" ||
+                                    item.GetId() == L"mu-rugai"
                                     )
                                 {
                                     foodList.push_back(item);
