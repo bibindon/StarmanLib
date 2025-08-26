@@ -57,6 +57,9 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
         // 現在時刻の情報で初期化
         srand((unsigned int)time(NULL));
 
+        // UnknownPlantNだったらどれか一つだけ毒
+        // それ以外は毒ではない、とする
+
         for (size_t i = 1; i < vvs.size(); ++i)
         {
             auto& id = vvs.at(i).at(0);
@@ -66,21 +69,36 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
 
             m_infoMap[id].SetName(name);
-
-            int rnd = rand();
-
-            // 50%の確率で毒
-            if (rnd % 100 <= 49)
-            {
-                m_infoMap[id].SetPoison(true);
-            }
-            else
-            {
-                m_infoMap[id].SetPoison(false);
-            }
+            m_infoMap[id].SetPoison(false);
 
             // 最初は正解率60％
             m_infoMap[id].SetAccurate(0.6f);
+        }
+
+        auto rnd = rand() % 6;
+        if (rnd == 0)
+        {
+            m_infoMap[L"unknownPlant1"].SetPoison(true);
+        }
+        else if (rnd == 1)
+        {
+            m_infoMap[L"unknownPlant2"].SetPoison(true);
+        }
+        else if (rnd == 2)
+        {
+            m_infoMap[L"unknownPlant3"].SetPoison(true);
+        }
+        else if (rnd == 3)
+        {
+            m_infoMap[L"unknownPlant4"].SetPoison(true);
+        }
+        else if (rnd == 4)
+        {
+            m_infoMap[L"unknownPlant5"].SetPoison(true);
+        }
+        else if (rnd == 5)
+        {
+            m_infoMap[L"unknownPlant6"].SetPoison(true);
         }
     }
     else
@@ -90,7 +108,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
             for (size_t i = 1; i < vvs.size(); ++i)
             {
-                auto id = vvs.at(i).at(0);
+                auto& id = vvs.at(i).at(0);
 
                 if (vvs.at(i).at(1) == _T("y"))
                 {
@@ -120,7 +138,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             {
                 PatchTest patchTest;
 
-                auto id = vvs.at(i).at(0);
+                auto& id = vvs.at(i).at(0);
                 patchTest.SetItemId(id);
 
                 auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
