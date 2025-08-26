@@ -59,7 +59,7 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
 
         for (size_t i = 1; i < vvs.size(); ++i)
         {
-            auto id = vvs.at(i).at(0);
+            auto& id = vvs.at(i).at(0);
 
             m_infoMap[id].SetItemId(id);
 
