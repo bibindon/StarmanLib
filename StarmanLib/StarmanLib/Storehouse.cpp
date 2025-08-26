@@ -583,7 +583,7 @@ void NSStarmanLib::StorehouseManager::AddStorehouse()
 
     storehouse.SetCsvFileName(work);
 
-    size_t size_ = m_StorehouseMap.size();
+    size_t size_ = m_StorehouseMap.size() + 1;
     m_StorehouseMap[(int)size_] = storehouse;
 }
 
