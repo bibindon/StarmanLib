@@ -6,6 +6,7 @@
 #include "WeaponManager.h"
 #include "RainModel.h"
 #include "Voyage.h"
+#include "PatchTestManager.h"
 
 #include "Util.h"
 
@@ -2501,6 +2502,13 @@ bool StatusManager::Eat(const ItemDef& itemDef)
         {
             bPoison = true;
         }
+    }
+
+    auto poisonPlant = PatchTestManager::Get()->GetPoisonPlant();
+    auto id = itemDef.GetId();
+    if (id == poisonPlant)
+    {
+        bPoison = true;
     }
 
     float work_f = 0.f;

@@ -6,7 +6,6 @@
 namespace NSStarmanLib
 {
 
-// TODO 夜も寝ずにパッチテストするのか？という問題がある。
 class PatchTest
 {
 public:
@@ -167,6 +166,8 @@ public:
     std::vector<PatchTest> GetResultList(const std::wstring& id);
 
     std::vector<std::wstring> GetKeyList();
+
+    std::wstring GetPoisonPlant();
 
 private:
 

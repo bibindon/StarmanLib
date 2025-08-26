@@ -609,6 +609,21 @@ std::vector<std::wstring> NSStarmanLib::PatchTestManager::GetKeyList()
     return m_keyList;
 }
 
+std::wstring NSStarmanLib::PatchTestManager::GetPoisonPlant()
+{
+    std::wstring poisonPlant;
+    for (auto it = m_infoMap.begin(); it != m_infoMap.end(); ++it)
+    {
+        if (it->second.GetPoison())
+        {
+            poisonPlant = it->first;
+            break;
+        }
+    }
+
+    return poisonPlant;
+}
+
 void NSStarmanLib::PatchTest::SetItemName(const std::wstring& arg)
 {
     m_itemName = arg;
