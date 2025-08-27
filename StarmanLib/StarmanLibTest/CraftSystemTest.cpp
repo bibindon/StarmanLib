@@ -8,6 +8,7 @@
 #include <string>
 #include "../StarmanLib/PowereggDateTime.h"
 #include "../StarmanLib/Voyage.h"
+#include "../StarmanLib/WeaponManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace NSStarmanLib;
@@ -32,10 +33,15 @@ namespace StarmanLibTest
 
             PowereggDateTime* powereggDateTime = PowereggDateTime::GetObj();
             powereggDateTime->Init(_T("..\\StarmanLibTest\\datetime.csv"));
+
+            WeaponManager* wm = WeaponManager::GetObj();
+            wm->Init(_T("..\\StarmanLibTest\\weapon.csv"),
+                     _T("..\\StarmanLibTest\\weaponSave.csv"));
         }
 
         TEST_METHOD_CLEANUP(CleanUp)
         {
+            WeaponManager::Destroy();
             PowereggDateTime::Destroy();
             CraftInfoManager::Destroy();
             StorehouseManager::Destroy();
