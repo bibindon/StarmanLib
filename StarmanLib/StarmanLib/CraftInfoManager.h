@@ -107,7 +107,7 @@ public:
 
     void Init(const std::wstring& csvfileDefinition,
               const bool decrypt = false);
-    bool Inited();
+    bool Inited() const;
 
     std::vector<CraftOutput> GetCraftItemList();
 

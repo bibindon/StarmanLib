@@ -70,7 +70,7 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
                 break;
             }
 
-            auto work_str = vvs.at(i).at(4 + (j * 3));
+            auto& work_str = vvs.at(i).at(4 + (j * 3));
             auto itemDefMat = itemManager->GetItemDef(work_str);
 
             craftMaterial.SetId(itemDefMat.GetId());
@@ -98,7 +98,7 @@ void CraftInfoManager::Init(const std::wstring& csvfileDefinition,
     m_init = true;
 }
 
-bool NSStarmanLib::CraftInfoManager::Inited()
+bool NSStarmanLib::CraftInfoManager::Inited() const
 {
     return m_init;
 }
