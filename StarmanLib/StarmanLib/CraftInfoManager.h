@@ -112,7 +112,9 @@ public:
     std::vector<CraftOutput> GetCraftItemList();
 
     CraftInfo GetCraftInfo(const CraftOutput& output);
-    CraftInfo GetCraftInfo(const std::wstring& name, const int num, const int level);
+    CraftInfo GetCraftInfo(const std::wstring& itemId, const int num, const int level);
+
+    CraftInfo GetCraftInfoByID(const std::wstring& itemId);
 
 private:
 

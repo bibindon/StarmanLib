@@ -163,6 +163,20 @@ CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfo(const std::wstring& itemI
     return m_craftInfoList.at(i);
 }
 
+CraftInfo NSStarmanLib::CraftInfoManager::GetCraftInfoByID(const std::wstring& itemId)
+{
+    std::size_t i = 0;
+    for (; i < m_craftInfoList.size(); ++i)
+    {
+        if (m_craftInfoList.at(i).GetOutput().GetItemId() == itemId)
+        {
+            break;
+        }
+    }
+
+    return m_craftInfoList.at(i);
+}
+
 void NSStarmanLib::CraftMaterial::SetId(const std::wstring& arg)
 {
     m_id = arg;
