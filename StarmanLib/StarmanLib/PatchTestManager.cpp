@@ -110,6 +110,9 @@ void NSStarmanLib::PatchTestManager::Init(const std::wstring& originFile,
             for (size_t i = 1; i < vvs.size(); ++i)
             {
                 auto& id = vvs.at(i).at(0);
+                m_infoMap[id].SetItemId(id);
+                auto name = ItemManager::GetObj()->GetItemDef(id).GetName();
+                m_infoMap[id].SetName(name);
 
                 if (vvs.at(i).at(1) == _T("y"))
                 {
