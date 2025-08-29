@@ -247,10 +247,13 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         vs.clear();
 
         assert(m_infoMap.size() != 0);
+        assert(m_infoMap.size() != 1);
 
         for (auto it = m_infoMap.begin(); it != m_infoMap.end(); ++it)
         {
             vs.clear();
+
+            assert(!it->second.GetItemId().empty());
 
             vs.push_back(it->second.GetItemId());
 
