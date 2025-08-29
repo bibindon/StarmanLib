@@ -6,6 +6,7 @@
 #include "PowereggDateTime.h"
 #include "Util.h"
 #include "StatusManager.h"
+#include <cassert>
 
 using namespace NSStarmanLib;
 
@@ -244,6 +245,8 @@ void NSStarmanLib::PatchTestManager::Save(const std::wstring& csvfileInfo,
         vs.push_back(_T("正解率"));
         vvs.push_back(vs);
         vs.clear();
+
+        assert(m_infoMap.size() != 0);
 
         for (auto it = m_infoMap.begin(); it != m_infoMap.end(); ++it)
         {
